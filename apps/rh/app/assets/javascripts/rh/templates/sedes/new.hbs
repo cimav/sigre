@@ -1,0 +1,20 @@
+<h3>Nueva Sede</h3>
+<form class="form-horizontal" {{action 'create' this on="submit"}}>
+  <div class="form-group">
+    <label for="unknown" class="col-sm-2 control-label">Nombre</label>
+    <div class="col-sm-7">
+      {{input type="text" value=nombre classNames="form-control"}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="unknown" class="col-sm-2 control-label">Descripción</label>
+    <div class="col-sm-7">
+      {{input type="text" value=descripcion classNames="form-control"}}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-7">
+      {{save-button item=this}}
+    </div>
+  </div>
+</form>

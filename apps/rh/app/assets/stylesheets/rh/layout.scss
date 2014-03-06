@@ -1,0 +1,292 @@
+html, body, .application-view { 
+  height:100%;
+  margin: 0;
+  padding: 0;
+}
+
+.spinner {
+  display: inline-block;
+  opacity: 0;
+  max-width: 0; 
+  -webkit-transition: opacity 0.25s, max-width 0.45s; 
+  -moz-transition: opacity 0.25s, max-width 0.45s;
+  -o-transition: opacity 0.25s, max-width 0.45s;
+  transition: opacity 0.25s, max-width 0.45s; /* Duration fixed since we animate additional hidden width */
+}
+
+.spin{
+  -webkit-animation: spin 1.5s infinite linear;
+  -moz-animation: spin 1.5s infinite linear;
+  -o-animation: spin 1.5s infinite linear;
+  animation: spin 1.5s infinite linear;
+}
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.has-spinner.active {
+  cursor:progress;
+}
+
+.has-spinner.active .spinner {
+  opacity: 1;
+  max-width: 50px;
+}
+
+.app-notification {
+  position: absolute;
+  max-width: 480px;
+  right: 10px;
+  bottom: 10px;
+}
+
+#main-container {
+  /** display:table;
+  height: 100%; **/
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 0 0;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+
+  #main-row {
+    /* height: 100%; */
+    width: 100%;
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+
+    #left-panel {
+      position: fixed;
+      bottom: 0;
+      top: 0;
+      padding: 0;
+      margin: 0;
+      width: 200px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background-color: $left-panel-bg;
+      border-right: 1px solid $left-panel-line;
+      float: none;
+
+      #app-info {
+        position: absolute;
+        top: 0;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 64px;
+        border-bottom: 1px solid $left-panel-inner-line;
+        color: $white;
+        text-align: center;
+        h3 {
+          font-size: 140%;
+          margin-top: 20px;
+          font-weight: normal;
+        }
+      }
+
+      #app-nav {
+        position: absolute;
+        top: 65px;
+        width: 100%;
+      }
+
+      .nav-pills > li > a { 
+        border-radius: 0px;
+      }
+      
+      .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+        background-color: $left-panel-selected;
+        color: $white;
+      }
+
+      .nav > li > a:hover, .nav > li > a:focus {
+        background-color: $left-panel-hover;
+        color: $left-panel-nav-text;
+      }
+
+      .nav a { 
+        color: $left-panel-nav-text;
+      }
+
+    }
+    
+    #main-panel {
+      position: absolute;
+      left: 200px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background: $white;
+      padding: 0px;
+      margin: 0px;
+      float: none;
+
+      #screen-name {
+        background-color: $screen-name-bar;
+        height: 64px;
+        border: 1px solid $white;
+        border-bottom: 1px solid $grey;
+        h3 {
+          margin-left: 20px;
+          font-size: 140%;
+          margin-top: 20px;
+          font-weight: normal;
+          float: left;
+        }
+        button {
+          position: relative;
+          float: right;
+          right: 10px;
+          top: 14px;
+        }
+      }
+    }
+  }
+}
+
+#md-search-panel {
+  position: fixed;
+  padding: 0px;
+  bottom: 0;
+  top: 64px;
+  width: 300px;
+  border-right: 1px solid $line-color;
+  #md-search-tools {
+    height: 40px;
+    border-bottom: 1px solid $line-color;
+    background-color: $md-tools-bar;
+  }
+  #md-search-box {
+    height: 50px;
+    background-color: $md-search-bar;
+    border-bottom: 1px solid $line-color;
+    .input-group {
+      padding: 8px;
+    }
+  }
+  #md-items-list {
+    overflow-y: scroll;
+    position: absolute;
+    bottom: 32px;
+    top: 50px;
+    width: 100%;
+    .md-item {
+      .md-item-inner {
+        font-size: 90%;
+        padding-left: 15px;
+        cursor: pointer;
+        height: 80px;
+        .media {
+          padding-top: 10px;
+          .media-heading { font-weight: bold; white-space: pre;}
+          .media-object {
+            width: 48px; 
+            margin-right: 10px;
+            span {
+              color: $grey;
+              font-size: 48px;
+            }
+          }
+          .media-body {
+            margin-left: 58px;
+            .media-heading {
+              margin-bottom: 2px;
+            }
+            .media-extra {
+              white-space: pre;
+              overflow: hidden;
+              font-size: 85%;
+              color: $dark-grey;
+              .glyphicon {
+                color: lighten($dark-grey, 20%);
+              }
+            }
+          }
+        }
+      }
+      border-bottom: 1px solid $line-color;
+      &:hover {
+        background-color: $bg-item-hover;
+      }
+    }
+    .active .md-item-inner { 
+      border-left: 5px solid $brand-primary;
+      background-color: $item-bg;
+      padding-left: 10px;
+    }
+  }
+  #md-items-info {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid $line-color;
+    height: 32px;
+    background-color: $md-search-bar;
+    border-bottom: 1px solid $line-color;
+    padding: 8px;
+    font-size: 90%;
+    color: $dark-grey;
+    text-align: center;
+  }
+}
+
+#md-main-panel {
+  left: 500px;
+  position: fixed;
+  bottom: 0;
+  top: 64px;
+  right: 0;
+  width: -moz-calc(100% - 500px);
+  width: -webkit-calc(100% - 500px);
+  width: calc(100% - 500px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 20px 20px 20px; 
+  margin: 0;
+
+  h3 {
+    padding: 10px 0 0 0;
+    height: 48px;
+    margin: 0 0 20px 0;
+    font-weight: normal;
+  }
+}
+
+.btn-primary[disabled] {
+  background: $light-grey;
+  border-color: $grey;
+  color: $grey;
+}

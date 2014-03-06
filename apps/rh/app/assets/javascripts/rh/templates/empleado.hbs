@@ -1,0 +1,63 @@
+<h3>{{nombre}} {{apellido_paterno}} {{apellido_materno}}</h3>
+<form class="form-horizontal" {{action 'update' this on="submit"}}>
+  <div class="form-group">
+    <label for="unknown" class="col-sm-2 control-label">Nombres</label>
+    <div class="col-sm-7">
+      {{input type="text" value=nombre classNames="form-control"}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="unknown" class="col-sm-2 control-label">Apellido Paterno</label>
+    <div class="col-sm-7">
+      {{input type="text" value=apellido_paterno classNames="form-control"}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="unknown" class="col-sm-2 control-label">Apellido Materno</label>
+    <div class="col-sm-7">
+      {{input type="text" value=apellido_materno classNames="form-control"}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="unknown" class="col-sm-2 control-label">Correo</label>
+    <div class="col-sm-7">
+      {{input type="text" value=email classNames="form-control"}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="unknown" class="col-sm-2 control-label">Sede</label>
+    <div class="col-sm-7">
+      {{view App.Select2View contentBinding="App.sedeCache"  
+                             optionLabelPath="content.nombre" 
+                             optionValuePath="content.id"
+                             selectionBinding="sede"}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="unknown" class="col-sm-2 control-label">Departamento</label>
+    <div class="col-sm-7">
+      {{view App.Select2View contentBinding="App.departamentoCache"  
+                             optionLabelPath="content.nombre" 
+                             optionValuePath="content.id"
+                             selectionBinding="departamento"}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="unknown" class="col-sm-2 control-label">Reporta a</label>
+    <div class="col-sm-7">
+      {{view App.Select2View contentBinding="App.empleadoCache"  
+                             optionLabelPath="content.nombre_completo" 
+                             optionValuePath="content.id"
+                             selectionBinding="empleado"}}
+    </div>
+  </div>
+
+ 
+
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-7">
+      {{save-button item=this}}
+    </div>
+  </div>
+</form>

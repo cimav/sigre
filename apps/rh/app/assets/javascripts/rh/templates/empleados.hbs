@@ -1,0 +1,37 @@
+<div id="screen-name">
+  <h3>Empleados</h3>
+  {{#link-to 'empleados.new' tagName="button" classNames="btn btn-success"}}<span title="Agregar nuevo empleado" class="glyphicon glyphicon-plus"></span>{{/link-to}}
+</div>
+
+<div id="md-search-panel" class="col-sm-3">
+    <div id="md-search-box">
+      <div class="input-group">
+	      {{input type="text" value=searchText placeholder="Buscar empleado..." classNames="form-control"}}
+		    <div class="input-group-btn">
+		      <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+		    </div>
+	    </div>
+    </div>
+    <div id="md-items-list">
+      {{#each}}
+        {{#link-to 'empleado' this tagName="div" classNames="md-item"}}
+          <div class="md-item-inner">
+            <div class="media">
+              <img class="media-object pull-left img-responsive img-circle" src="http://cimav.edu.mx/foto/default/48" {{bind-attr alt="nombre"}} />
+              <div class="media-body">
+                <div class="media-heading">{{nombre}}<br/>{{apellido_paterno}} {{apellido_materno}}</div>
+                <div class="media-extra"><span class="glyphicon glyphicon-globe"></span> {{sede.nombre}} &nbsp;&nbsp; <span class="glyphicon glyphicon-briefcase"></span> {{departamento.nombre}}
+                </div>
+              </div>
+            </div>
+           </div>
+        {{/link-to}}
+      {{/each}}
+    </div>
+    <div id="md-items-info">
+    {{empleadosCount}} empleados
+    </div>
+  </div>
+  <div id="md-main-panel" class="col-sm-7">
+    {{outlet}}
+  </div>

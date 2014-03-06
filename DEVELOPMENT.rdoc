@@ -1,0 +1,15 @@
+= Desarrollo
+
+* Nuevo modulo
+
+rails plugin new nombremodulo --mountable -d postgresql
+rails g controller Assets
+
+* Generate migrations:
+rake railties:install:migrations
+
+* Ember en el Engine
+
+rails generate ember:install --ember
+rails generate ember:install --channel=beta --ember-data
+rails g ember:bootstrap
