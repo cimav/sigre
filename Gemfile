@@ -47,3 +47,4 @@ end
 # gem 'haml'
 
 gem 'rh', path: 'apps/rh'
+gem 'vinculacion', path: 'apps/vinculacion'
