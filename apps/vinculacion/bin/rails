@@ -4,5 +4,9 @@
 ENGINE_ROOT = File.expand_path('../..', __FILE__)
 ENGINE_PATH = File.expand_path('../../lib/vinculacion/engine', __FILE__)
 
+# HACK PARA INFLECCIONES
+require 'active_support/inflections'
+require "#{ENGINE_ROOT}/config/initializers/inflections.rb"
+
 require 'rails/all'
 require 'rails/engine/commands'
