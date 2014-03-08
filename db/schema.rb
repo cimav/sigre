@@ -25,6 +25,24 @@ ActiveRecord::Schema.define(version: 20140307233144) do
     t.datetime "updated_at"
   end
 
+  create_table "human_resources_employees", force: true do |t|
+    t.string   "first_name",       null: false
+    t.string   "last_name",        null: false
+    t.string   "email",            null: false
+    t.string   "occupation"
+    t.integer  "business_unit_id"
+    t.integer  "reports_to"
+    t.date     "birth_date"
+    t.integer  "country_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "curp"
+    t.string   "rfc"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "paises", force: true do |t|
     t.string   "nombre"
     t.string   "codigo"
