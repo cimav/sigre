@@ -10,6 +10,18 @@ PATH
       rails (~> 4.0.3)
       select2-rails (~> 3.5.4)
 
+PATH
+  remote: apps/vinculacion
+  specs:
+    vinculacion (0.0.1)
+      active_model_serializers
+      ember-rails (~> 0.14.1)
+      ember-source (~> 1.1)
+      haml
+      jquery-rails
+      rails (~> 4.0.3)
+      select2-rails (~> 3.5.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -153,3 +165,4 @@ DEPENDENCIES
   sdoc
   turbolinks
   uglifier (>= 1.3.0)
+  vinculacion!
