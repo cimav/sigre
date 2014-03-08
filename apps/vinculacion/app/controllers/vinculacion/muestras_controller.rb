@@ -23,7 +23,7 @@ module Vinculacion
     end
 
     protected
-    def Muestra
+    def muestra
       params[:muestra].permit(:solicitud_id,
                               :consecutivo,
                               :codigo,

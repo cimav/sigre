@@ -4,11 +4,17 @@ App.SolicitudesNewRoute = Ember.Route.extend({
   },
   actions: {
     create: function(solicitud) {
-      solicitud.one('didCreate', this, function(){
-        this.transitionTo('solicitud', solicitud);
-        this.controllerFor('application').notify('Se agrego nuevo solicitud');
-      });
-      solicitud.get('transaction').commit();
+      self = this
+      var onSuccess = function(solicitud) {
+        self.transitionTo('solicitud', solicitud);
+        self.controllerFor('application').notify('Se agrego nueva solicitud');
+      };
+
+      var onFail = function(solicitud) {
+        self.controllerFor('application').notify('Error al agregar solicitud', 'alert-error');
+      };
+
+      solicitud.save().then(onSuccess, onFail);
 
     }
   }

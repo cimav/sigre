@@ -23,7 +23,7 @@ module Vinculacion
     end
 
     protected
-    def Solicitud
+    def solicitud
       params[:solicitud].permit(:consecutivo,
                                 :codigo,
                                 :tipo,
