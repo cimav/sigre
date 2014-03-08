@@ -15,9 +15,30 @@
 //= require ember
 //= require ember-data
 //= require_self
-//= require vinculacion
+//= require vinculacion/vinculacion
+//= require select2
+
+inflector = Ember.Inflector.inflector;
+inflector.irregular('solicitud', 'solicitudes');
+
 
 // for more details see: http://emberjs.com/guides/application/
-Vinculacion = Ember.Application.create();
+App = Ember.Application.create({
+  Resolver: Ember.DefaultResolver.extend({
+    resolveTemplate: function(parsedName) {
+      parsedName.fullNameWithoutType = "vinculacion/" + parsedName.fullNameWithoutType;
+      return this._super(parsedName);
+    }
+  }),
+  ready: function() {
+    
+  }
+});
+
+App.ApplicationAdapter = DS.RESTAdapter();
+
+DS.RESTAdapter.reopen({
+  namespace: "vinculacion"
+});
 
 //= require_tree .

@@ -1,0 +1,16 @@
+<div id="main-container">
+  <div id="main-row">
+    <div id="left-panel">
+      <div id="app-info">
+        <h3>Vinculación</h3>
+      </div>
+      <ul id="app-nav" class="nav nav-pills nav-stacked">
+        {{#link-to 'solicitudes' tagName='li'}}<a href="#">Solicitudes</a>{{/link-to}}
+      </ul>
+    </div>
+    <div id="main-panel">
+      {{outlet}}
+    </div>
+  </div>
+</div>
+{{view App.NotificationView id="notifications" notificationBinding="notification" notification_typeBinding="notification_type"}}

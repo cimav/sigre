@@ -1,5 +1,7 @@
 // For more information see: http://emberjs.com/guides/routing/
-
-Vinculacion.Router.map(function() {
-  // this.resource('posts');
+App.Router.map(function() {
+  this.resource('solicitudes', function() {
+    this.route('new');
+    this.resource('solicitud', {path: '/:solicitud_id'});
+  });
 });

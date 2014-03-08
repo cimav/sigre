@@ -1,0 +1,9 @@
+<div id="screen-name">
+  <h3>Solicitudes</h3>
+  {{#link-to 'solicitudes.new' tagName="button" classNames="btn btn-success"}}<span title="Agregar nuevo empleado" class="glyphicon glyphicon-plus"></span>{{/link-to}}
+</div>
+{{outlet}}
+
+{{#each}}
+{{id}}<br/>
+{{/each}}
