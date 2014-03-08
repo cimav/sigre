@@ -20,6 +20,8 @@
 
 
 // for more details see: http://emberjs.com/guides/application/
+
+
 App = Ember.Application.create({
   Resolver: Ember.DefaultResolver.extend({
     resolveTemplate: function(parsedName) {
@@ -28,9 +30,10 @@ App = Ember.Application.create({
     }
   }),
   ready: function() {
-  	this.set('empleadoCache', App.Empleado.find());
-    this.set('sedeCache', App.Sede.find());
-  	this.set('departamentoCache', App.Departamento.find());
+    // FIXME: Cargar caches...
+  	//this.set('empleadoCache', App.Empleado.find());
+    //this.set('sedeCache', App.Sede.find());
+  	//this.set('departamentoCache', App.Departamento.find());
   }
 });
 
@@ -39,4 +42,5 @@ App.ApplicationAdapter = DS.RESTAdapter();
 DS.RESTAdapter.reopen({
   namespace: "rh"
 });
+
 //= require_tree .

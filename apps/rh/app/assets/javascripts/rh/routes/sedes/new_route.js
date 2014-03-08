@@ -1,17 +1,20 @@
 App.SedesNewRoute = Ember.Route.extend({
   model: function() {
-    //return this.store.createRecord('sede');
-    // FIXME: Debe ser asi ^^^, este es un hack vvvv
-    return App.Sede.createRecord();
+    return this.store.createRecord('sede');
   },
   actions: {
     create: function(sede) {
-      sede.one('didCreate', this, function(){
-        this.transitionTo('sede', sede);
-        this.controllerFor('application').notify('Se agrego nueva sede');
-      });
-      sede.get('transaction').commit();
+      self = this
+      var onSuccess = function(sede) {
+        self.transitionTo('sede', sede);
+        self.controllerFor('application').notify('Se agrego nueva sede');
+      };
 
+      var onFail = function(sede) {
+        self.controllerFor('application').notify('Error al agregar sede', 'alert-error');
+      };
+
+      sede.save().then(onSuccess, onFail);
     }
   }
 });

@@ -1,17 +1,20 @@
 App.EmpleadosNewRoute = Ember.Route.extend({
   model: function() {
-    //return this.store.createRecord('empleado');
-    // FIXME: Debe ser asi ^^^, este es un hack vvvv
-    return App.Empleado.createRecord();
+    return this.store.createRecord('empleado');
   },
   actions: {
     create: function(empleado) {
-      empleado.one('didCreate', this, function(){
-        this.transitionTo('empleado', empleado);
-        this.controllerFor('application').notify('Se agrego nuevo empleado');
-      });
-      empleado.get('transaction').commit();
+     self = this
+      var onSuccess = function(empleado) {
+        self.transitionTo('empleado', empleado);
+        self.controllerFor('application').notify('Se agrego nuevo empleado');
+      };
 
+      var onFail = function(empleado) {
+        self.controllerFor('application').notify('Error al agregar empleado', 'alert-error');
+      };
+
+      empleado.save().then(onSuccess, onFail);
     }
   }
 });
