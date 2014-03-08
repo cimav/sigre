@@ -5,5 +5,7 @@ App.Empleado = DS.Model.extend({
   apellido_materno:  DS.attr('string'),
   email:             DS.attr('string'),
   sede:              DS.belongsTo('sede'),
-  departamento:      DS.belongsTo('departamento')
+  departamento:      DS.belongsTo('departamento'),
+  empleado:          DS.belongsTo('empleado')
+
 });

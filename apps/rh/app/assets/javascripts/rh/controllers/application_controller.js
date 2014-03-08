@@ -1,4 +1,10 @@
 App.ApplicationController = Ember.Controller.extend({
+  init: function() {
+    this.set('sedesCache',this.store.find('sede'));
+    this.set('departamentosCache',this.store.find('departamento'));
+    this.set('empleadosCache',this.store.find('empleado'));
+  },
+
   closeNotification: function() {
     this.set('notification', null);
     this.set('notification_type', null);
