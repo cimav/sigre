@@ -27,7 +27,7 @@
   <div class="form-group">
     <label for="unknown" class="col-sm-2 control-label">Sede</label>
     <div class="col-sm-7">
-      {{view App.Select2View contentBinding="sedesCache"  
+      {{view App.Select2View contentBinding="controllers.application.sedesCache"  
                              optionLabelPath="content.nombre" 
                              optionValuePath="content.id"
                              selectionBinding="sede"
@@ -37,7 +37,7 @@
   <div class="form-group">
     <label for="unknown" class="col-sm-2 control-label">Departamento</label>
     <div class="col-sm-7">
-      {{view App.Select2View contentBinding="departamentosCache"  
+      {{view App.Select2View contentBinding="controllers.application.departamentosCache"  
                              optionLabelPath="content.nombre" 
                              optionValuePath="content.id"
                              selectionBinding="departamento"}}
@@ -46,7 +46,7 @@
   <div class="form-group">
     <label for="unknown" class="col-sm-2 control-label">Reporta a</label>
     <div class="col-sm-7">
-      {{view App.Select2View contentBinding="empleadosCache"  
+      {{view App.Select2View contentBinding="controllers.application.empleadosCache"  
                              optionLabelPath="content.nombre_completo" 
                              optionValuePath="content.id"
                              selectionBinding="empleado"}}
