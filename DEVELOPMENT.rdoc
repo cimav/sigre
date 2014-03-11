@@ -2,7 +2,7 @@
 
 * Nuevo modulo
 
-rails plugin new nombremodulo --mountable -d postgresql
+rails plugin new apps/nombremodulo --mountable -d postgresql
 
 rails g controller Assets
 
