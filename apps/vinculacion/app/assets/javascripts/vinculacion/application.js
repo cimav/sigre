@@ -14,6 +14,7 @@
 //= require handlebars
 //= require ember
 //= require ember-data
+//= require vinculacion/ember-grid
 //= require_self
 //= require vinculacion/vinculacion
 //= require select2

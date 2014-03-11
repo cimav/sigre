@@ -1,4 +1,4 @@
-App.SolicitudesController = Ember.ArrayController.extend({
+App.XSolicitudesController = Ember.ArrayController.extend({
   solicitudesCount: Ember.computed.alias('length'),
   searchText: null,
   firstRecord: null,
@@ -28,3 +28,13 @@ App.SolicitudesController = Ember.ArrayController.extend({
     }
   }.observes('searchText')
 });
+
+
+App.SolicitudesController = GRID.TableController.extend({
+    toolbar: [ GRID.ColumnSelector, GRID.Filter ],
+    columns: [
+        GRID.column('id', { display: 'always' }),
+        GRID.column('notas')
+    ]
+});
+

@@ -5,9 +5,13 @@ App.SolicitudesRoute = Ember.Route.extend({
       return !solicitud.get('isNew');
     })
   },
+  setupController: function (controller, model) {
+    controller.set('content', model);
+  },
   actions: {
     delete: function(solicitud) {
       solicitud.destroyRecord();
     }
   }
 });
+
