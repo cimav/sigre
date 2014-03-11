@@ -1,6 +1,5 @@
 App.ApplicationRoute = Ember.Route.extend({
-  beforeModel: function() {
-  },
-  setupController: function(controller, model){
+  model: function() {
+  	console.log('App Model');
   }
 });

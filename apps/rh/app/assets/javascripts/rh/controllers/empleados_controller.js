@@ -6,11 +6,6 @@ App.EmpleadosController = Ember.ArrayController.extend({
   	search = this.searchText;
   	firstRecord = null;
     if (!search) { 
-      f = this.get('content').get('firstObject');
-      if (f) {
-        firstRecord = f.id;
-        this.transitionToRoute('empleado', firstRecord);
-      } 
       return this.get('content'); 
     }
     return this.get('content').filter(function(item) {   
