@@ -45,6 +45,7 @@ end
 # gem 'debugger', group: [:development, :test]
 
 # gem 'haml'
+gem 'jquery-ui-rails'
 
 gem 'rh', path: 'apps/rh'
 gem 'vinculacion', path: 'apps/vinculacion'
