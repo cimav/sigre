@@ -17,11 +17,11 @@
 //= require ember-data
 //= require_self
 //= require vinculacion/vinculacion
+//= require vinculacion/ember-easyForm
 //= require select2
 
 inflector = Ember.Inflector.inflector;
 inflector.irregular('solicitud', 'solicitudes');
-
 
 // for more details see: http://emberjs.com/guides/application/
 App = Ember.Application.create({
@@ -43,4 +43,11 @@ DS.RESTAdapter.reopen({
   namespace: "vinculacion"
 });
 
+(function() {
+   Ember.TextSupport.reopen({
+    classNames: ["form-control"]
+  });
+})();
+
+ 
 //= require_tree .
