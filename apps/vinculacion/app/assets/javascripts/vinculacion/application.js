@@ -25,6 +25,7 @@ inflector.irregular('solicitud', 'solicitudes');
 
 // for more details see: http://emberjs.com/guides/application/
 App = Ember.Application.create({
+  LOG_TRANSITIONS: true,
   Resolver: Ember.DefaultResolver.extend({
     resolveTemplate: function(parsedName) {
       parsedName.fullNameWithoutType = "vinculacion/" + parsedName.fullNameWithoutType;

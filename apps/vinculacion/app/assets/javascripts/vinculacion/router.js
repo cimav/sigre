@@ -4,6 +4,7 @@ App.Router.map(function() {
   //  this.route('new');
   //  this.resource('solicitud', {path: '/:solicitud_id'});
   //});
+  //this.route('solicitud', {path: '/solicitudes/:solicitud_id'});
   //this.route('solicitudes.new', {path: '/solicitudes/nueva'});
   this.resource('solicitudes', function() {
   	this.route('new', {path: '/nueva'});

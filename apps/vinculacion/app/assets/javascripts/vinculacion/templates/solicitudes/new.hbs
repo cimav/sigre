@@ -1,5 +1,8 @@
+<div id="screen-name">
+  <h3>Nueva Solicitud</h3>
+  {{#link-to 'solicitudes' tagName="button" classNames="btn"}}<span title="Regresar a solicitudes" class="glyphicon glyphicon-chevron-left"></span>{{/link-to}}
+</div>
 <div id="wide-panel">
-  <h3>Nueva solicitud</h3>
   <form class="form-horizontal" {{action 'create' this on="submit"}}>
     <div class="form-group">
       <label for="unknown" class="col-sm-2 control-label">Notas</label>
@@ -7,6 +10,7 @@
         {{input type="text" value=notas classNames="form-control"}}
       </div>
     </div>
+
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-7">
         {{save-button item=this}}

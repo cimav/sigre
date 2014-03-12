@@ -314,8 +314,24 @@ html, body, .application-view {
         cursor: pointer;
       }
       &:hover {
-        background-color: $light-grey;
+        background-color: $bg-item-hover;
       }
     }
+  }
+}
+
+#wide-panel {
+  padding: 20px;
+  overflow: auto;
+  position: absolute;
+  left: 0;
+  top: 64px;
+  right: 0;
+  bottom: 0;
+}
+
+#solicitudes-table {
+  .td-numero {
+    text-align: center;
   }
 }

@@ -1,9 +1,8 @@
+{{outlet}}
+{{#if showSolicitudesList}}
 <div id="screen-name">
   <h3>Solicitudes</h3>
-  {{#link-to 'solicitudes.new' tagName="button" classNames="btn btn-success"}}<span title="Agregar nuevo empleado" class="glyphicon glyphicon-plus"></span>{{/link-to}}
-</div>
-<div id="action-solicitudes">
-{{outlet}}
+  {{#link-to 'solicitudes.new' tagName="button" classNames="btn btn-success"}}<span title="Agregar nueva solicitud" class="glyphicon glyphicon-plus"></span>{{/link-to}}
 </div>
 <div id="list-solicitudes">
   <div id="table-search">
@@ -24,9 +23,9 @@
       <tbody>
         {{#each}}
           {{#link-to 'solicitud' this tagName="tr" classNames="row-item"}}
-            <td class="td-numero">{{numero}}</td>
-            <td class="td-cliente">...</td>
-            <td class="td-tipo">...</td>
+            <td class="td-numero">{{codigo}}</td>
+            <td class="td-cliente">{{cliente.nombre}}</td>
+            <td class="td-tipo">{{tipo_txt}}</td>
             <td class="td-notas">{{notas}}</td>
           {{/link-to}}
         {{/each}}
@@ -34,5 +33,4 @@
     </table>
   </div>
 </div>
-
-
+{{/if}}
