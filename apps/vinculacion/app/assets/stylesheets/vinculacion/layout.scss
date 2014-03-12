@@ -290,3 +290,32 @@ html, body, .application-view {
   border-color: $grey;
   color: $grey;
 }
+
+.inner-padding {
+  padding: 8px;
+}
+
+#table-search {
+  height: 48px;
+  background-color: $md-tools-bar;
+  border-bottom: 1px solid $line-color;
+}
+
+#table-wrapper {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  top: 112px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  table {
+    tr {
+      td {
+        cursor: pointer;
+      }
+      &:hover {
+        background-color: $light-grey;
+      }
+    }
+  }
+}
