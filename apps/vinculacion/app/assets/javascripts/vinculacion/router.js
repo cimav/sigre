@@ -10,4 +10,10 @@ App.Router.map(function() {
   	this.route('new', {path: '/nueva'});
     this.resource('solicitud', {path: '/:solicitud_id'});
   });
+
+    this.resource('clientes', function() {
+        this.route('new', {path: '/nuevo'});
+        this.resource('cliente', {path: '/:cliente_id'});
+    });
+
 });
