@@ -11,7 +11,7 @@ App.SolicitudesNewController = Ember.ObjectController.extend({
       };
 
       var onFail = function(solicitud) {
-        self.get('controllers.application').notify('Error al agregar solicitud', 'alert-error');
+        self.get('controllers.application').notify('Error al agregar solicitud', 'alert-danger');
       };
 
       solicitud.save().then(onSuccess, onFail);
