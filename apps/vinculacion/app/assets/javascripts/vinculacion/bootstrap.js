@@ -1,0 +1,12 @@
+//= require vinculacion/bootstrap/affix
+//= require vinculacion/bootstrap/alert
+//= require vinculacion/bootstrap/button
+//= require vinculacion/bootstrap/carousel
+//= require vinculacion/bootstrap/collapse
+//= require vinculacion/bootstrap/dropdown
+//= require vinculacion/bootstrap/tab
+//= require vinculacion/bootstrap/transition
+//= require vinculacion/bootstrap/scrollspy
+//= require vinculacion/bootstrap/modal
+//= require vinculacion/bootstrap/tooltip
+//= require vinculacion/bootstrap/popover
