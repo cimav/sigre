@@ -18,6 +18,7 @@
 //= require_self
 //= require vinculacion/vinculacion
 //= require vinculacion/ember-easyForm
+//= require vinculacion/bootstrap
 //= require select2
 
 inflector = Ember.Inflector.inflector;

@@ -8,7 +8,11 @@ App.Router.map(function() {
   //this.route('solicitudes.new', {path: '/solicitudes/nueva'});
   this.resource('solicitudes', function() {
   	this.route('new', {path: '/nueva'});
-    this.resource('solicitud', {path: '/:solicitud_id'});
+    this.resource('solicitud', {path: '/:solicitud_id'}, function() {
+      this.resource('muestras', function() {
+        this.resource('muestra', {path: '/muestra_id'});
+      });
+    });
   });
 
     this.resource('clientes', function() {

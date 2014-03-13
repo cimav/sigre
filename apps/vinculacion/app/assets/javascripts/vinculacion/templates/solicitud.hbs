@@ -2,8 +2,18 @@
   <h3>Solicitud <strong>{{codigo}}</strong></h3>
   {{#link-to 'solicitudes' tagName="button" classNames="btn"}}<span title="Regresar a solicitudes" class="glyphicon glyphicon-chevron-left"></span>{{/link-to}}
 </div>
-<div id="wide-panel">
+<div id="op-options-panel">
+  <ul class="nav nav-pills nav-stacked">
+    <li class="active"><a href="#solicitud" data-toggle="tab"><span class="glyphicon glyphicon-ok"></span> Solicitud</a></li>
+    <li><a href="#muestras" data-toggle="tab"><span class="glyphicon glyphicon-th"></span> Muestras</a></li>
+    <li class="disabled"><a href="#servicios" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Servicios</a></li>
+    <li class="disabled"><a href="#cotizacion" data-toggle="tab"><span class="glyphicon glyphicon-usd"></span> Cotización</a></li>
+  </ul>
+</div>
+<div id="op-main-panel">
   {{#form-for controller}}
+  <div class="tab-content">
+    <div class="tab-pane active" id="solicitud">
     {{input notas}}
     {{input acuerdos as="text"}}
     <div class="form-group">
@@ -11,5 +21,20 @@
         {{save-button item=this}}
       </div>
     </div>
+    </div>
+    <div class="tab-pane" id="muestras">
+      <h1>Muestras</h1>
+      {{#each muestra}}
+        <h2>{{codigo}}</h2>
+        <h3>FOOK</h3>
+      {{/each}}
+    </div>
+    <div class="tab-pane" id="servicios">
+      <h1>SERVICIOS</h1>
+    </div>
+    <div class="tab-pane" id="cotizacion">
+      <h1>COTIZACION</h1>
+    </div>
+  </div>
   {{/form-for}}
 </div>

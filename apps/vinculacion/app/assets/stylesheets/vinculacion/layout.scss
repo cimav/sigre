@@ -328,10 +328,75 @@ html, body, .application-view {
   top: 64px;
   right: 0;
   bottom: 0;
+  .tab-content {
+    margin-top: 20px;
+  }
 }
 
 #solicitudes-table {
   .td-numero {
     text-align: center;
   }
+}
+
+#op-options-panel {
+  position: fixed;
+  padding: 0px;
+  bottom: 0;
+  top: 64px;
+  width: 200px;
+  border-right: 1px solid $line-color;
+  background: $op-options-bg;
+  .nav-pills > li > a { 
+    border-radius: 0px;
+  }
+      
+  .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: $op-option-hover;
+    color: $op-option-text-selected;
+  }
+
+  .nav > li > a:hover, .nav > li > a:focus {
+    background-color: $op-option-hover;
+    color: $op-option-text;
+  }
+
+  .nav a { 
+    color: $op-option-text;
+    span {
+      border: 2px solid $dark-grey;
+      color: $dark-grey;
+      padding: 6px;
+      border-radius: 20px;
+    }
+  }
+  .nav li.disabled {
+    color: $grey;
+    a {
+      color: $grey;
+      &:hover, &:focus {
+        background-color: $op-options-bg;
+        color: $grey;
+      }
+    }
+    span {
+      border: 2px solid $grey;
+      color: $grey;
+    }
+  }
+}
+
+#op-main-panel {
+  left: 400px;
+  position: fixed;
+  bottom: 0;
+  top: 64px;
+  right: 0;
+  width: -moz-calc(100% - 400px);
+  width: -webkit-calc(100% - 400px);
+  width: calc(100% - 400px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 20px 20px 20px; 
+  margin: 0;
 }
