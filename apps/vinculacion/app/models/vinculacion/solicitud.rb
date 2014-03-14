@@ -2,9 +2,9 @@ module Vinculacion
   class Solicitud < ActiveRecord::Base
   	has_many :muestras
 
-  	after_create :set_consecutivo
+  	after_create :set_extra
 
-  	def set_consecutivo
+  	def set_extra
   	  con = Solicitud.where("EXTRACT(YEAR FROM created_at) = :year", {:year => Date.today.year}).maximum('consecutivo')
       if con.nil?
         con = 1
