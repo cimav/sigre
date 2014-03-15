@@ -353,7 +353,7 @@ html, body, .application-view {
   }
       
   .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
-    background-color: $op-option-hover;
+    background-color: $op-option-selected;
     color: $op-option-text-selected;
   }
 
@@ -369,6 +369,7 @@ html, body, .application-view {
       color: $dark-grey;
       padding: 6px;
       border-radius: 20px;
+      margin-right: 2px;
     }
   }
   .nav li.disabled {
@@ -410,6 +411,13 @@ html, body, .application-view {
   overflow-x: hidden;
   padding: 0 20px 20px 20px; 
   margin: 0;
+  .tab-content {
+    .tab-pane {
+      h3 {
+        font-weight: normal;
+      }
+    }
+  }
 }
 
 #muestras {
