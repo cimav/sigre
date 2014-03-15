@@ -1,8 +1,12 @@
-<button type="submit" class="btn btn-primary" {{bind-attr disabled=item.isNotDirty}}>
+<button type="submit" class="btn btn-primary {{classNames}}" {{bind-attr disabled=item.isNotDirty}}>
   {{#if item.isSaving}}
     <span class="spin glyphicon glyphicon-refresh"></span>
     Guardando...
   {{else}}
-    Guardar
+    {{#if caption}}
+      {{caption}}
+    {{else}}
+      Guardar
+    {{/if}}
   {{/if}}
 </button>
