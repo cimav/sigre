@@ -144,6 +144,7 @@ html, body, .application-view {
     }
     
     #main-panel {
+      z-index: 500;
       position: absolute;
       left: 200px;
       top: 0;
@@ -363,7 +364,7 @@ html, body, .application-view {
 
   .nav a { 
     color: $op-option-text;
-    span {
+    span.glyphicon {
       border: 2px solid $dark-grey;
       color: $dark-grey;
       padding: 6px;
@@ -379,10 +380,20 @@ html, body, .application-view {
         color: $grey;
       }
     }
-    span {
+    span.glyphicon {
       border: 2px solid $grey;
       color: $grey;
     }
+  }
+
+  .badge {
+    float: right;
+    background-color: $muestra-codigo-border;
+    color: $white !important;
+    font-weight: normal;
+    border: 1px solid $muestra-codigo-border;
+    font-size: 80%;
+    margin-top: 7px;
   }
 }
 
@@ -399,4 +410,69 @@ html, body, .application-view {
   overflow-x: hidden;
   padding: 0 20px 20px 20px; 
   margin: 0;
+}
+
+#muestras {
+  .muestra-item {
+    float:left;
+    margin: 10px 5px;
+    width: 220px;
+    border: 1px solid $muestra-codigo-border;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px $grey;
+    min-height: 200px;
+    .muestra-codigo {
+      position: relative;
+      padding: 5px;
+      text-align: center;
+      font-size: 90%;
+      font-weight: bold;
+      background: $muestra-codigo-bg;
+      color: $white;
+      text-shadow: 0px 2px $muestra-codigo-border;
+      .badge {
+        background-color: $muestra-codigo-border;
+        color: $white;
+        position: absolute;
+        right: 10px;
+      }
+    }
+    .muestra-identificacion {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin: 10px;
+    }
+    .muestra-descripcion {
+      color: $dark-grey;
+      font-size: 90%;
+      margin: 10px;
+    }
+    .muestra-identificacion-input {
+      width: 300px;
+      float: left;
+    }
+    .muestra-cantidad-input {
+      width: 110px;
+      margin-left: 10px;
+      float: left;
+    }
+    .muestra-descripcion-input {
+      margin-top: 10px;
+      height: 4em;
+    }
+    .muestra-guardar {
+      text-align: right;
+      padding: 0 10px;
+      button {
+        border: 1px solid $muestra-codigo-border;
+        color: $white;
+        background-color: $muestra-codigo-bg;
+      }
+    }
+  }
+
+  #nueva-muestra {
+    width: 450px;
+  }
 }

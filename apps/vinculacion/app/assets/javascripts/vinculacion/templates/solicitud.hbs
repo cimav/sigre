@@ -5,29 +5,48 @@
 <div id="op-options-panel">
   <ul class="nav nav-pills nav-stacked">
     <li class="active"><a href="#solicitud" data-toggle="tab"><span class="glyphicon glyphicon-ok"></span> Solicitud</a></li>
-    <li><a href="#muestras" data-toggle="tab"><span class="glyphicon glyphicon-th"></span> Muestras</a></li>
+    <li><a href="#muestras" data-toggle="tab"><span class="glyphicon glyphicon-th"></span> Muestras <span class="badge">{{muestrasCount}}</span></a></li>
     <li class="disabled"><a href="#servicios" data-toggle="tab"><span class="glyphicon glyphicon-list"></span> Servicios</a></li>
     <li class="disabled"><a href="#cotizacion" data-toggle="tab"><span class="glyphicon glyphicon-usd"></span> Cotización</a></li>
   </ul>
 </div>
 <div id="op-main-panel">
-  {{#form-for controller}}
   <div class="tab-content">
     <div class="tab-pane active" id="solicitud">
-    {{input notas}}
-    {{input acuerdos as="text"}}
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-7">
-        {{save-button item=this}}
+    {{#form-for controller}}
+      <h3>Solicitud</h3>
+      {{input notas}}
+      {{input acuerdos as="text"}}
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-7">
+          {{save-button item=this}}
+        </div>
       </div>
-    </div>
+    {{/form-for}}
     </div>
     <div class="tab-pane" id="muestras">
-      <h1>Muestras</h1>
-      {{#each muestra}}
-        <h2>{{codigo}}</h2>
-        <h3>FOOK</h3>
-      {{/each}}
+      <h3>Muestras</h3> 
+      <div id="muestras">
+        {{#each muestras}}
+          <div class="muestra-item">
+            <div class="muestra-codigo">{{codigo}} <span class="badge">{{cantidad}}</span></div>
+            <div class="muestra-identificacion">{{identificacion}}</div>
+            <div class="muestra-descripcion">{{descripcion}}</div>
+          </div>
+        {{/each}}
+        <div class="muestra-item" id="nueva-muestra">
+          <form {{action 'addMuestra' this on="submit"}}>
+            <div class="muestra-codigo">Nueva Muestra</div>
+            <div class="muestra-identificacion">{{input type="text" value=newMuestra.identificacion classNames="form-control muestra-identificacion-input" placeholder="Identificación"}} {{input type="number" min="1" value=newMuestra.cantidad classNames="form-control muestra-cantidad-input" placeholder="Cantidad"}}</div>
+            <div class="clearfix"></div>
+            <div class="muestra-descripcion">{{textarea value=newMuestra.descripcion classNames="form-control muestra-descripcion-input" placeholder="Descripción"}}</div>
+            <div class="muestra-cantidad"></div>
+            <div class="muestra-guardar">{{save-button item=newMuestra caption="Agregar muestra"}}</div>
+          </form>
+        </div>
+      </div>
+
+
     </div>
     <div class="tab-pane" id="servicios">
       <h1>SERVICIOS</h1>
@@ -36,5 +55,7 @@
       <h1>COTIZACION</h1>
     </div>
   </div>
-  {{/form-for}}
 </div>
+
+
+

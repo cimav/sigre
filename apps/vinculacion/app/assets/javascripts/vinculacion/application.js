@@ -39,6 +39,7 @@ App = Ember.Application.create({
 });
 
 App.ApplicationAdapter = DS.RESTAdapter();
+App.ApplicationSerializer = DS.ActiveModelSerializer.extend({});
 
 DS.RESTAdapter.reopen({
   namespace: "vinculacion"

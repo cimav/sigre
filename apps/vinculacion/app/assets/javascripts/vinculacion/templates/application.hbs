@@ -9,9 +9,12 @@
           {{#link-to 'clientes' tagName='li' id='clientes-link'}}<a href="#">Clientes</a>{{/link-to}}
       </ul>
     </div>
+  
     <div id="main-panel">
       {{outlet}}
     </div>
+  
   </div>
 </div>
+
 {{view App.NotificationView id="notifications" notificationBinding="notification" notification_typeBinding="notification_type"}}

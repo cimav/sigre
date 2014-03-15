@@ -9,9 +9,7 @@ App.Router.map(function() {
   this.resource('solicitudes', function() {
   	this.route('new', {path: '/nueva'});
     this.resource('solicitud', {path: '/:solicitud_id'}, function() {
-      this.resource('muestras', function() {
-        this.resource('muestra', {path: '/muestra_id'});
-      });
+      this.route('muestras.new', {path: '/agregarmuestra'});
     });
   });
 
