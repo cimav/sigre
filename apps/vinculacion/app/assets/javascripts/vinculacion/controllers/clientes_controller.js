@@ -3,8 +3,10 @@
  */
 
 App.ClientesController = Ember.ArrayController.extend({
+    needs: ['cliente'],
     clientesCount: Ember.computed.alias('length'),
     searchText: null,
+    showClientesList: true,
     firstRecord: null,
     arrangedContent: function() {
         search = this.searchText;
@@ -30,5 +32,31 @@ App.ClientesController = Ember.ArrayController.extend({
         if (firstRecord) {
             this.transitionToRoute('cliente', firstRecord);
         }
-    }.observes('searchText')
+    }.observes('searchText'),
+
+    // TODO arreglar el Prev y Next
+    nextCliente: function() {
+        this.advanceCliente(1);
+    },
+    previousCliente: function() {
+        this.advanceCliente(-1);
+    },
+    firstCliente: function() {
+        if (this.get('length') >= 0) {
+            this.transitionToRoute('cliente', this.objectAt(0));
+        }
+    },
+    advanceCliente: function(delta) {
+        var clientes = this
+        if (clientes.get('length') == 0) {
+            this.transitionToRoute('cliente', clientes.objectAt(0));
+        } else {
+            console.log(clientes.indexOf(this.get('content')));
+            idx = clientes.indexOf(this.get('content')) + delta;
+            console.log(clientes.indexOf(idx));
+            if (idx >= 0 && idx <= clientes.get('length')-1) {
+                this.transitionToRoute('clientes.cliente', clientes.objectAt(idx));
+            }
+        }
+    }
 });

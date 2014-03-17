@@ -1,21 +1,34 @@
 <h3>{{rfc}}</h3>
-<form class="form-horizontal" {{action 'update' this on="submit"}}>
-    <div class="form-group">
-        <label for="unknown" class="col-sm-2 control-label">RFC</label>
-        <div class="col-sm-7">
-            {{input type="text" value=rfc classNames="form-control"}}
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#datos" data-toggle="tab">Datos</a></li>
+    <li><a href="#contactos" data-toggle="tab">Contactos</a></li>
+</ul>
+
+
+<div class="tab-content">
+    <div class="tab-pane" id="datos">
+        {{#form-for controller}}
+            {{input rfc label='RFC'}}
+            {{input nombre}}
+        {{/form-for}}
+        <div class="btn-group">
+            <button type="submit"
+                    class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "update" this target='controller'}} >
+                {{#if item.isSaving}}
+                    <span class="spin glyphicon glyphicon-refresh"></span>
+                    Guardando...
+                {{else}}
+                    Guardar
+                {{/if}}
+            </button>
+            <button class="btn btn-inverse" {{action "destroy" this target='controller'}} >Eliminar</button>
         </div>
+
     </div>
-    <div class="form-group">
-        <label for="unknown" class="col-sm-2 control-label">Nombre</label>
-        <div class="col-sm-7">
-            {{input type="text" value=nombre classNames="form-control"}}
-        </div>
+    <div class="tab-pane" id="contactos">
+        <h1>Not yet</h1>
     </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-7">
-            {{save-button item=this}}
-        </div>
-    </div>
-</form>
+</div>
 
