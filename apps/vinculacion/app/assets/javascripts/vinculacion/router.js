@@ -9,7 +9,13 @@ App.Router.map(function() {
   this.resource('solicitudes', function() {
   	this.route('new', {path: '/nueva'});
     this.resource('solicitud', {path: '/:solicitud_id'}, function() {
-      this.route('muestras.new', {path: '/agregarmuestra'});
+      this.route('edit', {path: '/detalles'})
+      this.resource('muestras', function() {
+        this.route('new', {path: '/nueva'});  
+      });
+      this.resource('servicios', function() {
+        this.route('new', {path: '/nuevo'});  
+      });
     });
   });
 

@@ -1,6 +1,7 @@
 module Vinculacion
   class Muestra < ActiveRecord::Base
   	belongs_to :solicitud
+    has_and_belongs_to_many :servicios, :join_table => :vinculacion_servicios_muestras
 
   	after_create :set_extra
 

@@ -1,0 +1,30 @@
+<h3>Muestras</h3> 
+<div id="muestras">
+  {{#each controllers.solicitud.muestras}}
+    <div class="muestra-item">
+      <div class="muestra-codigo">{{codigo}} <span class="badge badge-muestras">{{cantidad}}</span></div>
+      <div class="muestra-identificacion">{{identificacion}}</div>
+      <div class="muestra-descripcion">{{descripcion}}</div>
+    </div>
+  {{/each}}
+  <div class="muestra-item" id="nueva-muestra">
+    <form {{action 'addMuestra' this on="submit"}}>
+      <div class="muestra-codigo">Nueva Muestra</div>
+      <div class="muestra-identificacion">
+        {{input type="text" 
+                value=newMuestra.identificacion 
+                classNames="form-control muestra-identificacion-input" placeholder="Identificación"}} 
+        {{input type="number" 
+                min="1" 
+                value=newMuestra.cantidad 
+                classNames="form-control 
+                muestra-cantidad-input" 
+                placeholder="Cantidad"}}
+      </div>
+      <div class="clearfix"></div>
+      <div class="muestra-descripcion">{{textarea value=newMuestra.descripcion classNames="form-control muestra-descripcion-input" placeholder="Descripción"}}</div>
+      <div class="muestra-cantidad"></div>
+      <div class="muestra-guardar">{{save-button item=newMuestra caption="Agregar muestra"}}</div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+{{#form-for controller}}
+  <h3>Solicitud</h3>
+  {{input notas}}
+  {{input acuerdos as="text"}}
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-7">
+      {{save-button item=this}}
+    </div>
+  </div>
+{{/form-for}}

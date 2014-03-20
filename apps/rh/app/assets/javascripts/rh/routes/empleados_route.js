@@ -1,10 +1,7 @@
 App.EmpleadosRoute = Ember.Route.extend({
   model: function() {
-    this.store.find('empleado');
-    return this.store.filter(App.Empleado, function(empleado) {
-      return !empleado.get('isNew');
-    })
-  },
+    return this.store.find('empleado');
+      },
   actions: {
     delete: function(empleado) {
       empleado.destroyRecord();

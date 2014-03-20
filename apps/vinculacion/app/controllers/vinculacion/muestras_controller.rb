@@ -3,7 +3,7 @@ require_dependency "vinculacion/application_controller"
 module Vinculacion
   class MuestrasController < ApplicationController
   	def index
-      render json: Muestra.all
+      render json: Muestra.where(:solicitud_id => params[:solicitud_id])
     end
 
     def show

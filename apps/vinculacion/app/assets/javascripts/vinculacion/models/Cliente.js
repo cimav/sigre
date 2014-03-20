@@ -2,7 +2,7 @@
  * Created by calderon on 3/12/14.
  */
 
-App.Cliente = DS.Model.extend(Ember.Validations.Mixin, {
+/*App.Cliente = DS.Model.extend(Ember.Validations.Mixin, {
     rfc:         DS.attr('string'),
     nombre:      DS.attr('string'),
 
@@ -16,3 +16,4 @@ App.Cliente = DS.Model.extend(Ember.Validations.Mixin, {
     }
 
 });
+*/

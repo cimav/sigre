@@ -5,6 +5,10 @@ App.SolicitudesRoute = Ember.Route.extend({
       return !solicitud.get('isNew');
     });
   },
+  renderTemplate: function() {
+    // FIXME: Corregir bug de back
+    this.render({ into: 'application' });
+  },
   setupController: function (controller, model) {
     controller.set('content', model);
   },

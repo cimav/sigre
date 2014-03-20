@@ -1,9 +1,6 @@
 App.MuestrasRoute = Ember.Route.extend({
-  model: function() {
-    this.store.find('muestra');
-    return this.store.filter(App.Muestra, function(muestra) {
-      return !muestra.get('isNew');
-    })
+  setupController: function(controller, model) {
+    controller.set('newMuestra', this.store.createRecord('muestra'));
   },
   actions: {
     delete: function(muestra) {
