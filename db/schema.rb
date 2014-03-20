@@ -101,6 +101,23 @@ ActiveRecord::Schema.define(version: 20140319234731) do
     t.datetime "updated_at"
   end
 
+  create_table "vinculacion_servicios", force: true do |t|
+    t.integer  "solicitud_id"
+    t.string   "nombre"
+    t.text     "descripcion"
+    t.integer  "empleado_id"
+    t.string   "status",       default: "1"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vinculacion_servicios_muestras", id: false, force: true do |t|
+    t.integer  "servicio_id"
+    t.integer  "muestra_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "vinculacion_solicitudes", force: true do |t|
     t.integer  "consecutivo"
     t.string   "codigo",         limit: 20
