@@ -1,13 +1,13 @@
-App.ServiciosController = Ember.ArrayController.extend({
+App.ServiciosNewController = Ember.ObjectController.extend({
   needs: ["application", "solicitud"],
-  showServiciosList: true,
+  isNotDirty: Ember.computed.not('content.isDirty'),
   actions: {
-    addServicio: function() {
-      var servicio = this.get('newservicio');
-      var self = this
+    submit: function() {
+      servicio = this.get('model');
+      self = this
       var onSuccess = function(servicio) {
-        self.get('controllers.application').notify('Se agrego nuevo servicio');
-        self.set('newServicio', self.store.createRecord('servicio'));
+        self.transitionToRoute('servicios');
+        self.get('controllers.application').notify('Se agrego nueva servicio');
       };
 
       var onFail = function(servicio) {

@@ -490,3 +490,21 @@ html, body, .application-view {
     width: 450px;
   }
 }
+
+#servicios-list {
+  float: left;
+  width: 200px;
+  li {
+    cursor: pointer;
+  }
+}
+
+#servicios-workarea {
+  position: absolute;
+  width: -moz-calc(100% - 280px);
+  width: -webkit-calc(100% - 280px);
+  width: calc(100% - 280px);
+  margin-left: 220px;
+}
+
+

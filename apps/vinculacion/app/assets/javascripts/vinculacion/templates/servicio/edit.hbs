@@ -1,0 +1,12 @@
+<div id="servicio-editar">
+<h4>{{nombre}}</h4>
+{{#form-for controller}}
+  {{input nombre}}
+  {{input descripcion as="text"}}
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-7">
+      {{save-button item=this}}
+    </div>
+  </div>
+{{/form-for}}
+</div>

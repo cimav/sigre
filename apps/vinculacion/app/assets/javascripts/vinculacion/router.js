@@ -10,11 +10,12 @@ App.Router.map(function() {
   	this.route('new', {path: '/nueva'});
     this.resource('solicitud', {path: '/:solicitud_id'}, function() {
       this.route('edit', {path: '/detalles'})
-      this.resource('muestras', function() {
-        this.route('new', {path: '/nueva'});  
-      });
+      this.resource('muestras');
       this.resource('servicios', function() {
-        this.route('new', {path: '/nuevo'});  
+        this.route('new', {path: '/nuevo'});
+        this.resource('servicio', {path: '/:servicio_id'}, function() {
+          this.route('edit', {path: '/editar'})
+        });  
       });
     });
   });
