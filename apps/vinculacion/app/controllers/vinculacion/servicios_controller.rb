@@ -25,9 +25,10 @@ module Vinculacion
 
     protected
     def servicio
-      params[:servicio].permit(:servicio_id,
-                                :muestra_id)
+      params[:servicio].permit(:solicitud_id,
+                                :nombre,
+                                :descripcion,
+                                :empleado_id)
     end
-  end
   end
 end
