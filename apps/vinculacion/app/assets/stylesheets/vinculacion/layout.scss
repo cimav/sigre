@@ -415,7 +415,7 @@ html, body, .application-view {
   width: calc(100% - 400px);
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 0 20px 20px 20px; 
+  padding: 0;
   margin: 0;
   .tab-content {
     .tab-pane {
@@ -492,19 +492,107 @@ html, body, .application-view {
 }
 
 #servicios-list {
-  float: left;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  overflow: auto;
+  overflow-x: hidden;
   width: 200px;
+
   li {
     cursor: pointer;
+    .consecutivo {
+      background: $servicio-codigo-bg;
+      border: 1px solid $servicio-codigo-border;
+      width: 18px;
+      padding: 0;
+      height: 18px;
+      display: block;
+      float: left;
+      text-align: center;
+      font-weight: bold;
+      color: $white;
+      margin-right: 5px;
+      font-size: 80%;
+    }
+    .add {
+      background: $brand-success;
+      border: 1px solid darken($brand-success, 5%);
+      width: 18px;
+      padding: 0;
+      height: 18px;
+      display: block;
+      float: left;
+      text-align: center;
+      font-weight: bold;
+      color: $white;
+      margin-right: 5px;
+      font-size: 80%;
+    }
+  }
+  .nav-pills > li > a { 
+    border-radius: 0px;
+  }
+      
+  .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: $op-option-selected;
+    color: $op-option-text-selected;
+  }
+
+  .nav > li > a:hover, .nav > li > a:focus {
+    background-color: $op-option-hover;
+    color: $op-option-text;
+  }
+
+  .nav a { 
+    color: $op-option-text;
+    span.glyphicon {
+      border: 2px solid $dark-grey;
+      color: $dark-grey;
+      padding: 6px;
+      border-radius: 20px;
+      margin-right: 2px;
+    }
   }
 }
 
 #servicios-workarea {
   position: absolute;
-  width: -moz-calc(100% - 280px);
-  width: -webkit-calc(100% - 280px);
-  width: calc(100% - 280px);
-  margin-left: 220px;
+  border-left: 1px solid $line-color;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  width: -moz-calc(100% - 200px);
+  width: -webkit-calc(100% - 200px);
+  width: calc(100% - 200px);
+  margin-left: 200px;
+  padding: 0 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  h3 {
+    font-weight: normal;
+    .consecutivo {
+      background: $servicio-codigo-bg;
+      border: 1px solid $servicio-codigo-border;
+      width: 28px;
+      padding: 0;
+      height: 28px;
+      display: block;
+      float: left;
+      text-align: center;
+      font-weight: bold;
+      color: $white;
+      margin-right: 5px;
+    }
+  }
+  .glyphicon {
+    float: right;
+    color: $grey;
+    cursor: pointer;
+  }
+  .servicio-info {
+    margin-left: 35px;
+  }
 }
 
 

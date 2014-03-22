@@ -1,23 +1,24 @@
-<h3>Servicios</h3>
-<ul id="servicios-list" class="nav nav-pills nav-stacked">
-  {{#link-to 'servicios' tagName="li"}}<a href="#">Resumen</a>{{/link-to}}
-  {{#each controllers.solicitud.servicios}}
-    {{#link-to 'servicio.edit' this tagName="li"}}<a>{{nombre}}</a>{{/link-to}}
-  {{/each}}
-  {{#link-to 'servicios.new' tagName="li"}}<a href="#">Agregar servicio</a>{{/link-to}}
-</ul>
-
-<div id="servicios-workarea" class="tab-content">
+<div id="servicios-list">
+  <ol class="nav nav-pills nav-stacked affix-top">
+    {{#each controllers.solicitud.servicios}}
+      <li><a {{bind-attr data-target=servicio_seccion_hash}}><span class="consecutivo">{{consecutivo}}</span> {{nombre}}</a></li>
+    {{/each}}
+    {{#link-to 'servicios.new' tagName="li"}}<a href="#"><span class="add">+</span> Agregar servicio</a>{{/link-to}}
+  </ol>
+</div>
+<div id="servicios-workarea" data-spy="scroll" data-target="#servicios-list">
 
   {{outlet}}
 
   {{#if showServiciosList}}
     <div id="servicios">
-      <h4>Resumen</h4>
       {{#each controllers.solicitud.servicios}}
       <div {{bind-attr id=servicio_seccion}}>
-        <h4>{{nombre}}</h4>
-        <p>{{descripcion}}</p>
+        <h3>
+          <span class="consecutivo">{{consecutivo}}</span> {{nombre}}
+          {{#link-to 'servicio.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}
+        </h3>
+        <div class="servicio-info">{{descripcion}}</div>
       </div>
       {{/each}}
     </div>

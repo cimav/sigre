@@ -3,7 +3,7 @@ require_dependency "vinculacion/application_controller"
 module Vinculacion
   class ServiciosController < ApplicationController
   	def index
-      results = Servicio.order(:id)
+      results = Servicio.order(:consecutivo)
       render json: results
     end
 
