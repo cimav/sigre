@@ -426,6 +426,16 @@ html, body, .application-view {
   }
 }
 
+#solicitud-edit {
+  padding: 20px;
+  top: 0;
+  overflow: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 #muestras {
   padding: 20px;
   .muestra-item {
