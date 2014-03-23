@@ -606,4 +606,19 @@ html, body, .application-view {
   }
 }
 
+table.servicio-muestras {
+  font-size: 90%;
+  border: 1px solid $muestra-codigo-border;
+  tr {
+    th {
+      background: $muestra-codigo-bg;
+      color: $white;
+      border-bottom: 2px solid $muestra-codigo-border;
+    }
+    td.numero {
+      white-space: pre;
+    }
+  }
+}
+
 

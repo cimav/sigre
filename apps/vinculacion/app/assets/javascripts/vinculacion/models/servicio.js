@@ -4,6 +4,7 @@ App.Servicio = DS.Model.extend({
   solicitud:         DS.belongsTo('solicitud'),
   consecutivo:       DS.attr('string'),
   codigo:            DS.attr('string'),
+  muestras:          DS.hasMany('muestra'),
   servicio_seccion:  function() {
     return 'servicio_' + this.get('id');
   }.property('id'),
