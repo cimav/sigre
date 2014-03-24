@@ -12,11 +12,18 @@ module Vinculacion
     end
 
     def create
-      render json: Servicio.create(servicio)
+      render json: Servicio.create(servicio_params)
     end
 
     def update
-      render json: Servicio.find(params[:id]).tap { |b| b.update_attributes(servicio) }
+      
+      # Hack para guardar en servicios_muestras
+      ServiciosMuestras.delete_all(:servicio_id => params[:id])
+      params[:servicio][:muestras_string].split(",").map(&:to_i).each do |m|
+        ServiciosMuestras.create(:servicio_id => params[:id], :muestra_id => m)
+      end
+
+      render json: Servicio.find(params[:id]).tap { |b| b.update_attributes(servicio_params) }
     end
 
     def destroy
@@ -24,7 +31,7 @@ module Vinculacion
     end
 
     protected
-    def servicio
+    def servicio_params
       params[:servicio].permit(:solicitud_id,
                                 :nombre,
                                 :descripcion,
