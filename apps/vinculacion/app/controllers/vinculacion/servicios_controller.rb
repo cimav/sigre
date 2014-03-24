@@ -15,8 +15,10 @@ module Vinculacion
       servicio = Servicio.create(servicio_params)
 
       # Hack para guardar en servicios_muestras
-      params[:servicio][:muestras_string].split(",").map(&:to_i).each do |m|
-        ServiciosMuestras.create(:servicio_id => servicio.id, :muestra_id => m)
+      if params[:servicio][:muestras_string]
+        params[:servicio][:muestras_string].split(",").map(&:to_i).each do |m|
+          ServiciosMuestras.create(:servicio_id => servicio.id, :muestra_id => m)
+        end
       end
 
       render json: servicio
@@ -25,9 +27,11 @@ module Vinculacion
     def update
       
       # Hack para guardar en servicios_muestras
-      ServiciosMuestras.delete_all(:servicio_id => params[:id])
-      params[:servicio][:muestras_string].split(",").map(&:to_i).each do |m|
-        ServiciosMuestras.create(:servicio_id => params[:id], :muestra_id => m)
+      if params[:servicio][:muestras_string]
+        ServiciosMuestras.delete_all(:servicio_id => params[:id])
+        params[:servicio][:muestras_string].split(",").map(&:to_i).each do |m|
+          ServiciosMuestras.create(:servicio_id => params[:id], :muestra_id => m)
+        end
       end
 
       render json: Servicio.find(params[:id]).tap { |b| b.update_attributes(servicio_params) }
