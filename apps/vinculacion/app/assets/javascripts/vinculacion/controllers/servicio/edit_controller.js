@@ -3,7 +3,9 @@ App.ServicioEditController = Ember.ObjectController.extend({
   isNotDirty: Ember.computed.not('content.isDirty'),
   actions: {
     submit: function() {
-      this.get('model').save();
+      servicio = this.get('model');
+      servicio.set('solicitud', this.get('controllers.solicitud').get('model'));
+      servicio.save();
       this.get('controllers.application').notify('Servicio actualizado');
     }
   }
