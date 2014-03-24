@@ -6,6 +6,7 @@ App.ServicioEditController = Ember.ObjectController.extend({
       servicio = this.get('model');
       servicio.set('solicitud', this.get('controllers.solicitud').get('model'));
       servicio.save();
+      this.transitionToRoute('servicio', servicio);
       this.get('controllers.application').notify('Servicio actualizado');
     }
   }

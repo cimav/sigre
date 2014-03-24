@@ -1,0 +1,12 @@
+<div id="servicio">
+<h3><span class="consecutivo">{{consecutivo}}</span> {{nombre}} {{#link-to 'servicio.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}</h3>
+{{#if showServicio}}
+  <p>{{descripcion}}</p>
+  <ul>
+    {{#each muestras}}
+      <li>{{codigo}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
+
+{{outlet}}

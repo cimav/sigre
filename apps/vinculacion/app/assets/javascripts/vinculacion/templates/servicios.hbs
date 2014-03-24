@@ -1,27 +1,11 @@
 <div id="servicios-list">
-  <ol class="nav nav-pills nav-stacked affix-top">
+   <ul class="nav nav-pills nav-stacked affix-top">
     {{#each controllers.solicitud.servicios}}
-      <li><a {{bind-attr data-target=servicio_seccion_hash}}><span class="consecutivo">{{consecutivo}}</span> {{nombre}}</a></li>
+      {{#link-to 'servicio' this tagName="li"}}<a href="#"><span class="consecutivo">{{consecutivo}}</span> {{nombre}}</a>{{/link-to}}
     {{/each}}
     {{#link-to 'servicios.new' tagName="li"}}<a href="#"><span class="add">+</span> Agregar servicio</a>{{/link-to}}
-  </ol>
+  </ul>
 </div>
 <div id="servicios-workarea" data-spy="scroll" data-target="#servicios-list">
-
   {{outlet}}
-
-  {{#if showServiciosList}}
-    <div id="servicios">
-      {{#each controllers.solicitud.servicios}}
-      <div {{bind-attr id=servicio_seccion}}>
-        <h3>
-          <span class="consecutivo">{{consecutivo}}</span> {{nombre}}
-          {{#link-to 'servicio.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}
-        </h3>
-        <div class="servicio-info">{{descripcion}}</div>
-      </div>
-      {{/each}}
-    </div>
-  {{/if}}
-
 </div>
