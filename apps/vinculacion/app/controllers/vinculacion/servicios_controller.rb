@@ -12,7 +12,14 @@ module Vinculacion
     end
 
     def create
-      render json: Servicio.create(servicio_params)
+      servicio = Servicio.create(servicio_params)
+
+      # Hack para guardar en servicios_muestras
+      params[:servicio][:muestras_string].split(",").map(&:to_i).each do |m|
+        ServiciosMuestras.create(:servicio_id => servicio.id, :muestra_id => m)
+      end
+
+      render json: servicio
     end
 
     def update

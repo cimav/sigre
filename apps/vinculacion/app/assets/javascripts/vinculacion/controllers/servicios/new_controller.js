@@ -20,20 +20,21 @@ App.ServiciosNewController = Ember.ObjectController.extend({
 });
 
 App.NewChildController = Ember.ObjectController.extend({    
-    selected: function() {
-        var servicio = this.get('content');
-        var muestras = this.get('parentController.muestras');
-        console.log('selected');
-        return muestras.contains(servicio);
-    }.property(),
-    selectedChanged: function() {
-        console.log('selected changed');
-        var servicio = this.get('content');
-        var muestras = this.get('parentController.muestras');
-        if (this.get('selected')) {                                    
-            muestras.pushObject(servicio);            
-        } else {                                    
-            muestras.removeObject(servicio);                                                    
-        }        
-    }.observes('selected')
+  selected: function() {
+    var muestra = this.get('content');
+    var muestras = this.get('parentController.muestras');
+    return muestras.contains(muestra);
+  }.property(),
+  selectedChanged: function() {
+    var muestra = this.get('content');
+    var servicio = this.get('parentController').get('model');
+    var muestras = this.get('parentController.muestras');
+    if (this.get('selected')) {                                    
+      muestras.pushObject(muestra);          
+    } else {                                    
+      muestras.removeObject(muestra);
+    }        
+    var selected_muestras = muestras.map(function(el) { return el.id}).toArray().join();
+    servicio.set('muestras_string', selected_muestras);
+  }.observes('selected') 
 });
