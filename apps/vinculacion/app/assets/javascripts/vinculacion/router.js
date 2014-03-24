@@ -6,6 +6,7 @@ App.Router.map(function () {
       this.route('edit', {path: '/detalles'})
       this.resource('muestras');
       this.resource('servicios', function () {
+        this.route('resumen', {path: '/resumen'});
         this.route('new', {path: '/nuevo'});
         this.resource('servicio', {path: '/:servicio_id'}, function () {
           this.route('edit', {path: '/editar'})

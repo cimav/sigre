@@ -592,7 +592,7 @@ html, body, .application-view {
     }
     .add {
       background: $brand-success;
-      border: 1px solid darken($brand-success, 5%);
+      border: 1px solid darken($brand-success, 10%);
       width: 18px;
       padding: 0;
       height: 18px;
@@ -603,6 +603,20 @@ html, body, .application-view {
       color: $white;
       margin-right: 5px;
       font-size: 80%;
+    }
+    .resumen {
+      background: $brand-primary;
+      border: 1px solid darken($brand-primary, 10%);
+      width: 18px;
+      padding: 2px 0 0 0;
+      height: 18px;
+      display: block;
+      float: left;
+      text-align: center;
+      font-weight: bold;
+      color: $white;
+      margin-right: 5px;
+      font-size: 75%;
     }
   }
   .nav-pills > li > a { 
@@ -621,13 +635,7 @@ html, body, .application-view {
 
   .nav a { 
     color: $op-option-text;
-    span.glyphicon {
-      border: 2px solid $dark-grey;
-      color: $dark-grey;
-      padding: 6px;
-      border-radius: 20px;
-      margin-right: 2px;
-    }
+    
   }
 }
 
@@ -699,4 +707,25 @@ table.servicio-muestras {
     color:#666; line-height:11px; font-size:11px;
   }
   button { font-size:11px; }
+}
+
+table.resumen {
+  tbody {
+    tr {
+      &:hover {
+        cursor: pointer;
+        td {
+          background-color: $bg-item-hover;
+        }
+      }
+    }
+  }
+  tr.total {
+    td {
+      font-weight: bold;
+      font-size: 110%;
+      border-top: 2px solid $dark-grey;
+      text-align: right;
+    }
+  }
 }

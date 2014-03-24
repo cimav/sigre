@@ -1,5 +1,6 @@
 <div id="servicios-list">
    <ul class="nav nav-pills nav-stacked affix-top">
+    {{#link-to 'servicios.resumen' tagName="li"}}<a href="#"><span class="resumen glyphicon glyphicon-list"></span> Resumen</a>{{/link-to}}
     {{#each controllers.solicitud.servicios}}
       {{#link-to 'servicio' this tagName="li"}}<a href="#"><span class="consecutivo">{{consecutivo}}</span> {{nombre}}</a>{{/link-to}}
     {{/each}}

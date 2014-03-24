@@ -1,0 +1,11 @@
+<h3>Resumen</h3>
+<table class="table resumen">
+  <tbody>
+    {{#each controllers.solicitud.servicios}}
+      {{#link-to 'servicio' this tagName="tr"}}<td>{{nombre}}</td><td>{{status}}</td>{{/link-to}}
+    {{/each}}
+  </tbody>
+  <tfoot>
+    <tr class="total"><td>Total: </td><td>{{costototal}}</td></tr>
+  </tfoot>
+</table>
