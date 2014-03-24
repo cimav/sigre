@@ -23,6 +23,8 @@
 
 inflector = Ember.Inflector.inflector;
 inflector.irregular('solicitud', 'solicitudes');
+inflector.irregular('cliente', 'clientes');
+inflector.irregular('contacto', 'contactos');
 
 // for more details see: http://emberjs.com/guides/application/
 App = Ember.Application.create({

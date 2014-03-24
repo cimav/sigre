@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140321233510) do
+ActiveRecord::Schema.define(version: 20140323004431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,32 @@ ActiveRecord::Schema.define(version: 20140321233510) do
     t.datetime "updated_at"
   end
 
+  create_table "vinculacion_clientes", force: true do |t|
+    t.string   "rfc"
+    t.string   "razon_social"
+    t.integer  "num_empleados"
+    t.string   "calle_num"
+    t.string   "colonia"
+    t.string   "cp"
+    t.string   "telefono"
+    t.string   "fax"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vinculacion_contactos", force: true do |t|
+    t.string   "nombre"
+    t.string   "telefono"
+    t.string   "email"
+    t.string   "departamento"
+    t.string   "puesto"
+    t.string   "notas"
+    t.integer  "cliente_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "vinculacion_muestras", force: true do |t|
     t.integer  "solicitud_id"
     t.integer  "consecutivo"
@@ -83,6 +109,13 @@ ActiveRecord::Schema.define(version: 20140321233510) do
     t.integer  "cantidad"
     t.integer  "usuario_id"
     t.string   "status",                    default: "1"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vinculacion_sectores_industrial", force: true do |t|
+    t.string   "codigo",      limit: 20
+    t.text     "descripcion"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -120,6 +153,13 @@ ActiveRecord::Schema.define(version: 20140321233510) do
     t.text     "acuerdos"
     t.integer  "usuario_id"
     t.string   "status",                    default: "1"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vinculacion_tamanos_empresa", force: true do |t|
+    t.string   "codigo",      limit: 20
+    t.text     "descripcion"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
