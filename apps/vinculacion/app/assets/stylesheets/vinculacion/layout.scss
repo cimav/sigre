@@ -703,6 +703,9 @@ html, body, .application-view {
         width: 32px;
         height: 32px;
       }
+      .empleado-datos {
+        font-size: 80%;
+      }
     }
   }
 
@@ -746,6 +749,12 @@ table.resumen {
         cursor: pointer;
         td {
           background-color: $bg-item-hover;
+        }
+      }
+      td {
+        img {
+          width: 32px;
+          height: 32px;
         }
       }
     }

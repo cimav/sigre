@@ -1,5 +1,5 @@
 App.ServiciosView = Ember.View.extend({
-  didInsertElement: function() {
-    $('#servicios-workarea').scrollspy({ target: '#servicios-list' });
-  }
+  //didInsertElement: function() {
+    // js para modificar cosas del dom
+  //}
 });

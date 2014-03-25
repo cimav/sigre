@@ -8,6 +8,10 @@
       </span>
       <div class="media-body">
         <h4 class="media-heading">{{empleado.nombre_completo}}</h4>
+        <div class="empleado-datos">
+          <a {{bind-attr href=empleado.mailto}}>{{empleado.email}}</a><br/>
+          {{empleado.telefono}}
+        </div>
       </div>
     </div>
     <p>{{descripcion}}</p>
