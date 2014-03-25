@@ -6,6 +6,8 @@ Vinculacion::Engine.routes.draw do
   resources :clientes
   resources :contactos
 
+  resources :empleados
+
   root :to => 'assets#index'
   get "assets/index"
 end

@@ -1,6 +1,17 @@
 <div id="servicio-editar">
 {{#form-for controller}}
   {{input nombre}}
+
+  <div class="form-group">
+    <label for="unknown" class="col-sm-2 control-label">Responsable</label>
+    <div class="col-sm-7">
+      {{view App.Select2View contentBinding="controllers.application.empleadosCache"  
+                             optionLabelPath="content.nombre_completo" 
+                             optionValuePath="content.id"
+                             selectionBinding="empleado"}}
+    </div>
+  </div>
+  
   {{input descripcion as="text"}}
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-7">

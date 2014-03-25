@@ -568,6 +568,7 @@ html, body, .application-view {
 
 #servicios-list {
   position: absolute;
+  font-size: 95%;
   bottom: 0;
   top: 0;
   overflow: auto;
@@ -658,14 +659,15 @@ html, body, .application-view {
       background: $servicio-codigo-bg;
       border: 1px solid $servicio-codigo-border;
       width: 28px;
-      padding: 0;
+      padding: 3px 0 0 0;
       height: 28px;
       display: block;
       float: left;
       text-align: center;
       font-weight: bold;
       color: $white;
-      margin-right: 5px;
+      margin-right: 10px;
+      font-size: 80%;
     }
   }
   .glyphicon {
@@ -673,9 +675,22 @@ html, body, .application-view {
     color: $grey;
     cursor: pointer;
   }
+  .glyphicon.active {
+    color: $dark-grey;
+    cursor: normal;
+  }
   .servicio-info {
     margin-left: 35px;
   }
+
+  #servicio-editar {
+    margin-top: 20px;
+  }
+
+  #servicio-detalles {
+    margin-left: 40px;
+  }
+
 }
 
 table.servicio-muestras {

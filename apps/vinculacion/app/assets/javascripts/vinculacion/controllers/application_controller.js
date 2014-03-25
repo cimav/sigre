@@ -1,4 +1,14 @@
 App.ApplicationController = Ember.Controller.extend({
+  init: function() {
+    self = this;
+    Promise.all([
+      this.store.find('empleado')
+    ]).then(function(values){
+       self.set('empleadosCache', values[0]);
+       return values;
+    });
+    console.log('App Init');
+  },
   closeNotification: function() {
     this.set('notification', null);
     this.set('notification_type', null);

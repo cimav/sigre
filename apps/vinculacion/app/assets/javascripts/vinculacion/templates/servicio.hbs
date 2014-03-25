@@ -1,12 +1,30 @@
 <div id="servicio">
 <h3><span class="consecutivo">{{consecutivo}}</span> {{nombre}} {{#link-to 'servicio.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}</h3>
 {{#if showServicio}}
-  <p>{{descripcion}}</p>
-  <ul>
-    {{#each muestras}}
-      <li>{{codigo}}</li>
-    {{/each}}
-  </ul>
+  <div id="servicio-detalles">
+    <div class="servicio-empleado">
+      {{empleado.nombre_completo}}
+    </div>
+    <p>{{descripcion}}</p>
+    <table class="table table-striped servicio-muestras">
+        <thead>
+          <tr>
+            <th>Número</th>
+            <th>Identificación</th>
+            <th>Cantidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each muestras}}
+            <tr>
+              <td class="numero">{{codigo}}</td>
+              <td>{{identificacion}}</td>
+              <td>{{cantidad}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+  </div>
 {{/if}}
 
 {{outlet}}
