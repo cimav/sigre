@@ -4,6 +4,6 @@ module Vinculacion
     attributes :id, :nombre, :apellido_paterno, :apellido_materno, :email
     #has_one :departamento
     #has_one :sede
-    attributes :nombre_completo
+    attributes :nombre_completo, :avatar_url
   end
 end

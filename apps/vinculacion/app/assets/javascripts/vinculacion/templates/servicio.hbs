@@ -2,8 +2,13 @@
 <h3><span class="consecutivo">{{consecutivo}}</span> {{nombre}} {{#link-to 'servicio.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}</h3>
 {{#if showServicio}}
   <div id="servicio-detalles">
-    <div class="servicio-empleado">
-      {{empleado.nombre_completo}}
+    <div class="servicio-empleado media">
+      <span class="pull-left">
+        <img class="media-object img-circle" {{bind-attr src=empleado.avatar_url}} />
+      </span>
+      <div class="media-body">
+        <h4 class="media-heading">{{empleado.nombre_completo}}</h4>
+      </div>
     </div>
     <p>{{descripcion}}</p>
     <table class="table table-striped servicio-muestras">
