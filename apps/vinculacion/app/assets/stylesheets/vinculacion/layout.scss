@@ -590,6 +590,10 @@ html, body, .application-view {
       color: $white;
       margin-right: 5px;
       font-size: 80%;
+      display: table-cell;
+    }
+    .servicio-nombre {
+      display: table-cell;
     }
     .add {
       background: $brand-success;
