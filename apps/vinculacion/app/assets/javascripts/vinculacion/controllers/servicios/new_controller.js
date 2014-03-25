@@ -6,7 +6,7 @@ App.ServiciosNewController = Ember.ObjectController.extend({
       servicio = this.get('model');
       self = this
       var onSuccess = function(servicio) {
-        self.transitionToRoute('servicios');
+        self.transitionToRoute('servicio', servicio);
         self.get('controllers.application').notify('Se agrego nueva servicio');
       };
 
