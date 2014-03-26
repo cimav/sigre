@@ -34,6 +34,15 @@
         </tbody>
       </table>
   </div>
+  <div class="servicio-acciones">
+    {{#if isInicial}}
+      <button {{action 'solicitaCosteo'}} class="btn btn-primary">Solicitar costeo</button>
+    {{/if}}
+    {{#if isEsperandoCosteo}}
+      <button disabled="disabled" class="btn btn-primary">Esperando costeo...</button>
+    {{/if}}
+  </div>
 {{/if}}
+
 
 {{outlet}}

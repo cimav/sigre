@@ -6,6 +6,8 @@ Vinculacion::Engine.routes.draw do
   resources :clientes
   resources :contactos
 
+  post '/servicios/:id/solicitar_costeo', to: 'servicios#solicitar_costeo'
+
   resources :empleados
 
   root :to => 'assets#index'

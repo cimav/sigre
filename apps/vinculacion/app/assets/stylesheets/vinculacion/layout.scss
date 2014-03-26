@@ -711,6 +711,11 @@ html, body, .application-view {
 
 }
 
+.servicio-acciones {
+  margin-top: 48px;
+  text-align: center;
+}
+
 table.servicio-muestras {
   font-size: 90%;
   border: 1px solid $muestra-codigo-border;
@@ -755,6 +760,14 @@ table.resumen {
         img {
           width: 32px;
           height: 32px;
+        }
+        &.status-text {
+          text-align: right;
+          font-size: 80%;
+          text-color: $grey;
+        }
+        &.avatar {
+          text-align: right;
         }
       }
     }

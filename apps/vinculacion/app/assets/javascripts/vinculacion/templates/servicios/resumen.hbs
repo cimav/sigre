@@ -4,12 +4,14 @@
     {{#each controllers.solicitud.servicios}}
       {{#link-to 'servicio' this tagName="tr"}}
         <td>{{nombre}}</td>
-        <td><img class="empleado-avatar img-circle" {{bind-attr src=empleado.avatar_url}} {{bind-attr title=empleado.nombre_completo}} /></td>
-        <td>{{status}}</td>
+        <td class="avatar"><img class="empleado-avatar img-circle" {{bind-attr src=empleado.avatar_url}} {{bind-attr title=empleado.nombre_completo}} /></td>
+        <td class="status-text">
+          {{status_text}}
+        </td>
       {{/link-to}}
     {{/each}}
   </tbody>
   <tfoot>
-    <tr class="total"><td>Total: </td><td>{{costototal}}</td></tr>
+    <tr class="total"><td colspan="3">{{costototal}}</td></tr>
   </tfoot>
 </table>

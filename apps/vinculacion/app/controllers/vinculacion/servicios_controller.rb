@@ -11,6 +11,14 @@ module Vinculacion
       render json: Servicio.find(params[:id])
     end
 
+    def solicitar_costeo
+      servicio = Servicio.find(params[:id])
+      servicio.status = 2 # STATUS DE COSTEO, TODO: Crear constantes
+      servicio.save
+      puts "SOLICITAR COSTEO"
+      render json: servicio
+    end
+
     def create
       servicio = Servicio.create(servicio_params)
 
