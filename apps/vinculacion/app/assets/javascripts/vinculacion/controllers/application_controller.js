@@ -1,4 +1,5 @@
 App.ApplicationController = Ember.Controller.extend({
+  prioridadesCache: [{descripcion: "Baja", id: 1},{descripcion: "Media", id: 2},{descripcion: "Alta", id: 3}],
   closeNotification: function() {
     this.set('notification', null);
     this.set('notification_type', null);

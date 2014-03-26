@@ -57,12 +57,10 @@
     <div class="form-group">
       <label for="unknown" class="col-sm-2 control-label">Prioridad</label>
       <div class="col-sm-7">
-        {{view Ember.Select contentBinding="App.prioridadCache"
-                            optionLabelPath="content.nombre"
-                            optionValuePath="content.id"
-                            selectionBinding="prioridad"
-                            class="form-control"
-                            }}
+        {{view App.Select2View contentBinding="controllers.application.prioridadesCache"
+                               optionLabelPath="content.descripcion"
+                               optionValuePath="content.id"
+                               selectionBinding="prioridad"}}
       </div>
     </div>
     {{input notas}}
@@ -70,12 +68,10 @@
     <div class="form-group">
       <label for="unknown" class="col-sm-2 control-label">Estatus</label>
       <div class="col-sm-7">
-        {{view Ember.Select contentBinding="App.statusCache"
-                            optionLabelPath="content.nombre"
-                            optionValuePath="content.id"
-                            selectionBinding="status"
-                            class="form-control"
-                            }}
+        {{view App.Select2View contentBinding="controllers.application.estatusCache"
+                               optionLabelPath="content.descripcion"
+                               optionValuePath="content.id"
+                               selectionBinding="estatus"}}
       </div>
     </div>
     <div class="form-group">
