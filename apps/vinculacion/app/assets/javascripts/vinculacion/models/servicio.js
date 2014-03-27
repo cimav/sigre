@@ -9,19 +9,6 @@ App.Servicio = DS.Model.extend({
   muestras:          DS.hasMany('muestra'),
 
 
-  muestras_string:   DS.attr('string'),
-
-  isInicial: Ember.computed.equal('status', 1),
-  isEsperandoCosteo: Ember.computed.equal('status', 2),
-  
-  status_text: function() {
-    var status_text = 'Desconocido';
-    if (this.get('status') == 1) {
-      status_text = 'Inicial';
-    } else if (this.get('status') == 2) {
-      status_text = 'Esperando Costeo'
-    } 
-    return status_text;
-  }.property('status')
-
+  status_text:       DS.attr('string'),
+  muestras_string:   DS.attr('string')
 });

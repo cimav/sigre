@@ -1,8 +1,16 @@
 App.ServicioController = Ember.ObjectController.extend({
-  needs: ["application", "solicitud"],
+  needs: ["application", "solicitud", "servicios"],
   showServicio: true,
-  //isInicial: Ember.computed.equal('content.status', 1),
-  //isEsperandoCosteo: Ember.computed.equal('content.status', 2),
+
+  isInicial: function() {
+    return this.get('model.status') == this.get('controllers.servicios.Status.inicial');
+  }.property('model.status'),
+
+  isEsperandoCosteo: function() {
+    return this.get('model.status') == this.get('controllers.servicios.Status.esperando_costeo');
+  }.property('model.status'),
+
+
   actions: {
     solicitaCosteo: function() {
       servicio = this.get('model');
