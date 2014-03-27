@@ -26,5 +26,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
   s.add_dependency 'jquery-ui-rails'
   s.add_dependency 'haml'
+  s.add_dependency 'resque-bus'
   s.add_development_dependency "pg"
 end
