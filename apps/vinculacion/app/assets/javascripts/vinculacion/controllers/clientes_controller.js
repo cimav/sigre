@@ -1,13 +1,10 @@
-/**
- * Created by calderon on 3/12/14.
- */
-
 App.ClientesController = Ember.ArrayController.extend({
     needs: ['cliente'],
     clientesCount: Ember.computed.alias('length'),
     searchText: null,
     showClientesList: true,
     firstRecord: null,
+
     arrangedContent: function() {
         search = this.searchText;
         firstRecord = null;
@@ -20,7 +17,7 @@ App.ClientesController = Ember.ArrayController.extend({
             return this.get('content');
         }
         return this.get('content').filter(function(item) {
-            data_string = item.get('rfc') + item.get('nombre');
+            data_string = item.get('rfc') + item.get('razon_social');
             data_string = data_string.toLowerCase();
             search = search.toLowerCase();
             found = data_string.indexOf(search) != -1;

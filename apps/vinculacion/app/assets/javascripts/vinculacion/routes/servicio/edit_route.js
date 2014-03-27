@@ -1,9 +1,9 @@
 App.ServicioEditRoute = Ember.Route.extend({
   activate: function() {
-    this.controllerFor('servicios').set('showServiciosList', false);
+    this.controllerFor('servicio').set('showServicio', false);
   },
   deactivate: function() {
-    this.controllerFor('servicios').set('showServiciosList', true);
+    this.controllerFor('servicio').set('showServicio', true);
   },
   model: function() {
     return this.modelFor('servicio');

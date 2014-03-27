@@ -3,7 +3,7 @@ require_dependency "vinculacion/application_controller"
 module Vinculacion
   class ServiciosController < ApplicationController
   	def index
-      results = Servicio.order(:id)
+      results = Servicio.order(:consecutivo)
       render json: results
     end
 
@@ -11,12 +11,38 @@ module Vinculacion
       render json: Servicio.find(params[:id])
     end
 
+    def solicitar_costeo
+      servicio = Servicio.find(params[:id])
+      servicio.status = 2 # STATUS DE COSTEO, TODO: Crear constantes
+      servicio.save
+      puts "SOLICITAR COSTEO"
+      render json: servicio
+    end
+
     def create
-      render json: Servicio.create(servicio)
+      servicio = Servicio.create(servicio_params)
+
+      # Hack para guardar en servicios_muestras
+      if params[:servicio][:muestras_string]
+        params[:servicio][:muestras_string].split(",").map(&:to_i).each do |m|
+          ServiciosMuestras.create(:servicio_id => servicio.id, :muestra_id => m)
+        end
+      end
+
+      render json: servicio
     end
 
     def update
-      render json: Servicio.find(params[:id]).tap { |b| b.update_attributes(servicio) }
+      
+      # Hack para guardar en servicios_muestras
+      if params[:servicio][:muestras_string]
+        ServiciosMuestras.delete_all(:servicio_id => params[:id])
+        params[:servicio][:muestras_string].split(",").map(&:to_i).each do |m|
+          ServiciosMuestras.create(:servicio_id => params[:id], :muestra_id => m)
+        end
+      end
+
+      render json: Servicio.find(params[:id]).tap { |b| b.update_attributes(servicio_params) }
     end
 
     def destroy
@@ -24,7 +50,7 @@ module Vinculacion
     end
 
     protected
-    def servicio
+    def servicio_params
       params[:servicio].permit(:solicitud_id,
                                 :nombre,
                                 :descripcion,

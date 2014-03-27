@@ -6,7 +6,7 @@ App.ServiciosNewController = Ember.ObjectController.extend({
       servicio = this.get('model');
       self = this
       var onSuccess = function(servicio) {
-        self.transitionToRoute('servicios');
+        self.transitionToRoute('servicio', servicio);
         self.get('controllers.application').notify('Se agrego nueva servicio');
       };
 
@@ -17,4 +17,24 @@ App.ServiciosNewController = Ember.ObjectController.extend({
       servicio.save().then(onSuccess, onFail);
     }
   }
+});
+
+App.NewChildController = Ember.ObjectController.extend({    
+  selected: function() {
+    var muestra = this.get('content');
+    var muestras = this.get('parentController.muestras');
+    return muestras.contains(muestra);
+  }.property(),
+  selectedChanged: function() {
+    var muestra = this.get('content');
+    var servicio = this.get('parentController').get('model');
+    var muestras = this.get('parentController.muestras');
+    if (this.get('selected')) {                                    
+      muestras.pushObject(muestra);          
+    } else {                                    
+      muestras.removeObject(muestra);
+    }        
+    var selected_muestras = muestras.map(function(el) { return el.id}).toArray().join();
+    servicio.set('muestras_string', selected_muestras);
+  }.observes('selected') 
 });

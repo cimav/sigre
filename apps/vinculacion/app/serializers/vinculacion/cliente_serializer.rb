@@ -1,5 +1,7 @@
 module Vinculacion
   class ClienteSerializer < ActiveModel::Serializer
-    attributes :id, :rfc, :nombre
+    embed :ids, :include => true
+    attributes :id, :rfc, :razon_social
+    has_many :contactos
   end
 end

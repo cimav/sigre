@@ -4,5 +4,6 @@ App.Muestra = DS.Model.extend({
   descripcion:       DS.attr('string'),
   cantidad:          DS.attr('number'),
   solicitud_id:      DS.attr('number'),
-  solicitud:         DS.belongsTo('solicitud')
+  solicitud:         DS.belongsTo('solicitud'),
+  servicio:          DS.belongsTo('servicio')
 });

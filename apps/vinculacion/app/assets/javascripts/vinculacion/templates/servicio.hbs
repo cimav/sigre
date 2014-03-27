@@ -1,0 +1,48 @@
+<div id="servicio">
+<h3><span class="consecutivo">{{consecutivo}}</span> {{nombre}} {{#link-to 'servicio.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}</h3>
+{{#if showServicio}}
+  <div id="servicio-detalles">
+    <div class="servicio-empleado media">
+      <span class="pull-left">
+        <img class="media-object img-circle" {{bind-attr src=empleado.avatar_url}} />
+      </span>
+      <div class="media-body">
+        <h4 class="media-heading">{{empleado.nombre_completo}}</h4>
+        <div class="empleado-datos">
+          <a {{bind-attr href=empleado.mailto}}>{{empleado.email}}</a><br/>
+          {{empleado.telefono}}
+        </div>
+      </div>
+    </div>
+    <p>{{descripcion}}</p>
+    <table class="table table-striped servicio-muestras">
+        <thead>
+          <tr>
+            <th>Número</th>
+            <th>Identificación</th>
+            <th>Cantidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each muestras}}
+            <tr>
+              <td class="numero">{{codigo}}</td>
+              <td>{{identificacion}}</td>
+              <td>{{cantidad}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+  </div>
+  <div class="servicio-acciones">
+    {{#if isInicial}}
+      <button {{action 'solicitaCosteo'}} class="btn btn-primary">Solicitar costeo</button>
+    {{/if}}
+    {{#if isEsperandoCosteo}}
+      <button disabled="disabled" class="btn btn-primary">Esperando costeo...</button>
+    {{/if}}
+  </div>
+{{/if}}
+
+
+{{outlet}}

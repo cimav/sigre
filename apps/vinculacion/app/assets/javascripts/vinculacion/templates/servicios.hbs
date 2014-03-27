@@ -1,26 +1,12 @@
-<h3>Servicios</h3>
-<ul id="servicios-list" class="nav nav-pills nav-stacked">
-  {{#link-to 'servicios' tagName="li"}}<a href="#">Resumen</a>{{/link-to}}
-  {{#each controllers.solicitud.servicios}}
-    {{#link-to 'servicio.edit' this tagName="li"}}<a>{{nombre}}</a>{{/link-to}}
-  {{/each}}
-  {{#link-to 'servicios.new' tagName="li"}}<a href="#">Agregar servicio</a>{{/link-to}}
-</ul>
-
-<div id="servicios-workarea" class="tab-content">
-
+<div id="servicios-list">
+   <ul class="nav nav-pills nav-stacked affix-top">
+    {{#link-to 'servicios.resumen' tagName="li"}}<a href="#"><span class="resumen glyphicon glyphicon-list"></span> Resumen</a>{{/link-to}}
+    {{#each controllers.solicitud.servicios}}
+      {{#link-to 'servicio' this tagName="li"}}<a href="#"><span class="consecutivo">{{consecutivo}}</span> <span class="servicio-nombre">{{nombre}}</span></a>{{/link-to}}
+    {{/each}}
+    {{#link-to 'servicios.new' tagName="li"}}<a href="#"><span class="add">+</span> Agregar servicio</a>{{/link-to}}
+  </ul>
+</div>
+<div id="servicios-workarea" data-spy="scroll" data-target="#servicios-list">
   {{outlet}}
-
-  {{#if showServiciosList}}
-    <div id="servicios">
-      <h4>Resumen</h4>
-      {{#each controllers.solicitud.servicios}}
-      <div {{bind-attr id=servicio_seccion}}>
-        <h4>{{nombre}}</h4>
-        <p>{{descripcion}}</p>
-      </div>
-      {{/each}}
-    </div>
-  {{/if}}
-
 </div>

@@ -1,38 +1,38 @@
-
 <div id="md-main-panel" class="col-sm-7">
-    {{outlet}}
+  {{outlet}}
 </div>
 
 
 <div id="screen-name">
-    <h3>Clientes</h3>
-        {{#link-to 'clientes.new' tagName="button" classNames="btn btn-success"}}<span title="Agregar nuevo cliente" class="glyphicon glyphicon-plus"></span>{{/link-to}}
+  <h3>Clientes</h3>
+    {{#link-to 'clientes.new' tagName="button" classNames="btn btn-success"}}<span title="Agregar nuevo cliente" class="glyphicon glyphicon-plus"></span>{{/link-to}}
 </div>
 
 <div id="md-search-panel" class="col-sm-3">
-    <div id="md-search-box">
-        <div class="input-group">
-            {{input type="text" value=searchText placeholder="Buscar cliente..." classNames="form-control"}}
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+  <div id="md-search-box">
+    <div class="input-group">
+      {{input type="text" value=searchText placeholder="Buscar cliente..." classNames="form-control"}}
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+      </div>
+    </div>
+  </div>
+  <div id="md-items-list">
+    {{#each}}
+      {{#link-to 'cliente' this tagName="div" classNames="md-item"}}
+        <div class="md-item-inner">
+          <div class="media">
+            <div class="media-object pull-left"><span class="glyphicon glyphicon-globe"></span></div>
+            <div class="media-body">
+              <div class="media-heading">{{rfc}}</div>
+              <div class="media-heading">{{razon_social}}</div>
             </div>
+          </div>
         </div>
-    </div>
-    <div id="md-items-list">
-        {{#each}}
-            {{#link-to 'cliente' this tagName="div" classNames="md-item"}}
-                <div class="md-item-inner">
-                    <div class="media">
-                        <div class="media-object pull-left"><span class="glyphicon glyphicon-globe"></span></div>
-                        <div class="media-body">
-                            <div class="media-heading">{{rfc}}</div>
-                        </div>
-                    </div>
-                </div>
-            {{/link-to}}
-        {{/each}}
-    </div>
-    <div id="md-items-info">
-        {{clientesCount}} cliente(s)
-    </div>
+      {{/link-to}}
+    {{/each}}
+  </div>
+  <div id="md-items-info">
+    {{clientesCount}} cliente(s)
+  </div>
 </div>

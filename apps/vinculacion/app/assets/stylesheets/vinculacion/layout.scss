@@ -415,7 +415,7 @@ html, body, .application-view {
   width: calc(100% - 400px);
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 0 20px 20px 20px; 
+  padding: 0;
   margin: 0;
   .tab-content {
     .tab-pane {
@@ -426,7 +426,18 @@ html, body, .application-view {
   }
 }
 
+#solicitud-edit {
+  padding: 20px;
+  top: 0;
+  overflow: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 #muestras {
+  padding: 20px;
   .muestra-item {
     float:left;
     margin: 10px 5px;
@@ -491,20 +502,282 @@ html, body, .application-view {
   }
 }
 
+#contactos {
+  .contacto-item {
+    float:left;
+    margin: 10px 5px;
+    width: 320px;
+    border: 1px solid $contacto-border;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px $grey;
+    min-height: 100px;
+    .contacto-nombre {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 5px;
+    }
+    .contacto-telefono {
+      font-size: 14px;
+      margin: 5px;
+    }
+    .contacto-email {
+      font-size: 14px;
+      margin: 5px;
+    }
+    .contacto-nombre-input {
+      margin: 5px;
+    }
+    .contacto-telefono-input {
+      margin: 5px;
+    }
+    .contacto-email-input {
+      margin: 5px;
+    }
+    .contacto-guardar {
+      text-align: right;
+      padding: 10px;
+      button {
+        border: 1px solid $contacto-border;
+        color: $white;
+        background-color: $contacto-bg;
+      }
+    }
+  }
+
+  #nuevo-contacto {
+    width: 440px;
+    .nuevo-contacto-titulo {
+      position: relative;
+      padding: 5px;
+      text-align: center;
+      font-size: 90%;
+      font-weight: bold;
+      background: $contacto-bg;
+      color: $white;
+      text-shadow: 0px 2px $contacto-border;
+      .badge {
+        color: $white;
+        position: absolute;
+        right: 10px;
+        background-color: $contacto-border;
+      }
+    }
+
+  }
+}
+
 #servicios-list {
-  float: left;
+  position: absolute;
+  font-size: 95%;
+  bottom: 0;
+  top: 0;
+  overflow: auto;
+  overflow-x: hidden;
   width: 200px;
+
   li {
     cursor: pointer;
+    .consecutivo {
+      background: $servicio-codigo-bg;
+      border: 1px solid $servicio-codigo-border;
+      width: 18px;
+      padding: 0;
+      height: 18px;
+      display: block;
+      float: left;
+      text-align: center;
+      font-weight: bold;
+      color: $white;
+      margin-right: 5px;
+      font-size: 80%;
+      display: table-cell;
+    }
+    .servicio-nombre {
+      display: table-cell;
+    }
+    .add {
+      background: $brand-success;
+      border: 1px solid darken($brand-success, 10%);
+      width: 18px;
+      padding: 0;
+      height: 18px;
+      display: block;
+      float: left;
+      text-align: center;
+      font-weight: bold;
+      color: $white;
+      margin-right: 5px;
+      font-size: 80%;
+    }
+    .resumen {
+      background: $brand-primary;
+      border: 1px solid darken($brand-primary, 10%);
+      width: 18px;
+      padding: 2px 0 0 0;
+      height: 18px;
+      display: block;
+      float: left;
+      text-align: center;
+      font-weight: bold;
+      color: $white;
+      margin-right: 5px;
+      font-size: 75%;
+    }
+  }
+  .nav-pills > li > a { 
+    border-radius: 0px;
+  }
+      
+  .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: $op-option-selected;
+    color: $op-option-text-selected;
+  }
+
+  .nav > li > a:hover, .nav > li > a:focus {
+    background-color: $op-option-hover;
+    color: $op-option-text;
+  }
+
+  .nav a { 
+    color: $op-option-text;
+    
   }
 }
 
 #servicios-workarea {
   position: absolute;
-  width: -moz-calc(100% - 280px);
-  width: -webkit-calc(100% - 280px);
-  width: calc(100% - 280px);
-  margin-left: 220px;
+  border-left: 1px solid $line-color;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  width: -moz-calc(100% - 200px);
+  width: -webkit-calc(100% - 200px);
+  width: calc(100% - 200px);
+  margin-left: 200px;
+  padding: 0 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  h3 {
+    font-weight: normal;
+    .consecutivo {
+      background: $servicio-codigo-bg;
+      border: 1px solid $servicio-codigo-border;
+      width: 28px;
+      padding: 3px 0 0 0;
+      height: 28px;
+      display: block;
+      float: left;
+      text-align: center;
+      font-weight: bold;
+      color: $white;
+      margin-right: 10px;
+      font-size: 80%;
+    }
+  }
+  .glyphicon {
+    float: right;
+    color: $grey;
+    cursor: pointer;
+  }
+  .glyphicon.active {
+    color: $dark-grey;
+    cursor: normal;
+  }
+  .servicio-info {
+    margin-left: 35px;
+  }
+
+  #servicio-editar {
+    margin-top: 20px;
+  }
+
+  #servicio-detalles {
+    margin-left: 40px;
+    .servicio-empleado {
+      margin-bottom: 10px;
+      h4 {
+        padding-top: 5px;
+        font-weight: normal;
+      }
+      img {
+        width: 32px;
+        height: 32px;
+      }
+      .empleado-datos {
+        font-size: 80%;
+      }
+    }
+  }
+
 }
 
+.servicio-acciones {
+  margin-top: 48px;
+  text-align: center;
+}
 
+table.servicio-muestras {
+  font-size: 90%;
+  border: 1px solid $muestra-codigo-border;
+  tr {
+    th {
+      background: $muestra-codigo-bg;
+      color: $white;
+      border-bottom: 2px solid $muestra-codigo-border;
+    }
+    td.numero {
+      white-space: pre;
+    }
+  }
+}
+
+.confirm-box {
+  @include box-sizing(border-box);
+  padding:7px;
+  position:absolute; top:0px; left:50%; margin-left:-63px;
+  background:white;
+  border-radius:3px;
+  border:1px solid #ddd;
+
+  h4 {
+    display:inline-block;
+    margin:0 2px 0 0;
+    color:#666; line-height:11px; font-size:11px;
+  }
+  button { font-size:11px; }
+}
+
+table.resumen {
+  tbody {
+    tr {
+      &:hover {
+        cursor: pointer;
+        td {
+          background-color: $bg-item-hover;
+        }
+      }
+      td {
+        img {
+          width: 32px;
+          height: 32px;
+        }
+        &.status-text {
+          text-align: right;
+          font-size: 80%;
+          text-color: $grey;
+        }
+        &.avatar {
+          text-align: right;
+        }
+      }
+    }
+  }
+  tr.total {
+    td {
+      font-weight: bold;
+      font-size: 110%;
+      border-top: 2px solid $dark-grey;
+      text-align: right;
+    }
+  }
+}
