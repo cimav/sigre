@@ -16,12 +16,13 @@
       <label for="unknown" class="col-sm-2 control-label">Proyecto</label>
       <div class="col-sm-7">
         {{view App.Select2View contentBinding="controllers.application.proyectosCache"
-                               optionLabelPath="content.titulo"
+                               optionLabelPath="content.nombre"
                                optionValuePath="content.id"
                                selectionBinding="proyecto"}}
+
       </div>
     </div>
-    <div class="form-group">
+      <div class="form-group">
       <label for="unknown" class="col-sm-2 control-label">Sede</label>
       <div class="col-sm-7">
         {{view Ember.Select contentBinding="App.sedeCache"

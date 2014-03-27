@@ -3,6 +3,8 @@ module Vinculacion
   	has_many :muestras
     has_many :servicios
 
+    belongs_to  :proyecto
+
   	after_create :set_extra
 
   	def set_extra

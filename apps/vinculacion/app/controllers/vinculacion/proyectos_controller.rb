@@ -27,13 +27,15 @@ module Vinculacion
     def proyecto
       params[:proyecto].permit(
                     :codigo,
+                    :nombre,
                     :descripcion,
                     :obj_proyecto,
                     :impacto,
                     :resultado_esperado,
                     :obj_estrategico,
-                    :duracion_meses,
                     :anio,
+                    :fecha_inicio,
+                    :fecha_termino,
                     :status)
       end
   end

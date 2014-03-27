@@ -5,5 +5,6 @@ App.Solicitud = DS.Model.extend({
   contacto_email:  DS.attr('string'),
   prioridad:       DS.attr('string'),
   muestras:        DS.hasMany('muestra'),
-  servicios:       DS.hasMany('servicio')
+  servicios:       DS.hasMany('servicio'),
+  proyecto:        DS.belongsTo('proyecto')
 });

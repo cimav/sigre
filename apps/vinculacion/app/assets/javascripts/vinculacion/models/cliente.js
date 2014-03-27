@@ -5,10 +5,11 @@ App.Cliente = DS.Model.extend(Ember.Validations.Mixin, {
 
   validations: {
     rfc: {
-      format: { with: /^[A-Za-z]{4}\-\d{6}(?:\-[A-Za-z\d]{3})?$/, allowBlank: false, message: 'debe cumplir con el estandar del RFC'  }
+      format: { with: /^[A-Za-z]{4}\-\d{6}(?:\-[A-Za-z\d]{3})?$/, allowBlank: false, message: 'debe cumplir con el estándar del RFC'  }
     },
     razon_social: {
-      length: { minimum: 5, message: 'Al menos 5 caracteres' }
+      presence: {message: 'requerido'},
+      length: {minimum: 10, message: 'al menos 10 caracteres'}
     }
   }
 

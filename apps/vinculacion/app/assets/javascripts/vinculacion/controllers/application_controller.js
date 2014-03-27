@@ -3,9 +3,11 @@ App.ApplicationController = Ember.Controller.extend({
   init: function() {
     self = this;
     Promise.all([
-      this.store.find('empleado')
+      this.store.find('empleado'),
+      this.store.find('proyecto')
     ]).then(function(values){
        self.set('empleadosCache', values[0]);
+       self.set('proyectosCache', values[1]);
        return values;
     });
     console.log('App Init');

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140327165152) do
+ActiveRecord::Schema.define(version: 20140327224122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,11 +120,13 @@ ActiveRecord::Schema.define(version: 20140327165152) do
     t.text     "impacto"
     t.text     "resultado_esperado"
     t.text     "obj_estrategico"
-    t.string   "duracion_meses",     limit: 2
     t.string   "anio",               limit: 4
     t.string   "status",                        default: "0"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "nombre"
+    t.date     "fecha_inicio"
+    t.date     "fecha_termino"
   end
 
   create_table "vinculacion_sectores_industrial", force: true do |t|
