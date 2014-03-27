@@ -1,17 +1,17 @@
 <h3>Nuevo</h3>
 
 {{#form-for controller}}
-    {{input rfc label='RFC'}}
-    {{input razon_social label='Razón social'}}
+  {{input rfc label='RFC'}}
+  {{input razon_social label='Razón social'}}
 {{/form-for}}
 <div class="btn-group">
     <button type="submit"
             class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "create" this target='controller'}} >
-        {{#if item.isSaving}}
-            <span class="spin glyphicon glyphicon-refresh"></span>
-            Guardando...
-        {{else}}
-            Guardar
-        {{/if}}
+      {{#if item.isSaving}}
+          <span class="spin glyphicon glyphicon-refresh"></span>
+          Guardando...
+      {{else}}
+          Guardar
+      {{/if}}
     </button>
 </div>

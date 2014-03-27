@@ -1,32 +1,32 @@
 App.ClientesNewController = Ember.ObjectController.extend({
-    needs: ["application"],
+  needs: ["application"],
 
-    // TODO Donde ponerlo para que NO se repita con clientes_controller
-    isNotReadyForSave: function() {
-        var result = this.get('content.isDirty') == true && this.get('content.isValid') == true;
-        return !result;
-    }.property('content.isDirty','content.isValid'),
+  // TODO Donde ponerlo para que NO se repita con clientes_controller
+  isNotReadyForSave: function () {
+    var result = this.get('content.isDirty') == true && this.get('content.isValid') == true;
+    return !result;
+  }.property('content.isDirty', 'content.isValid'),
 
-    actions: {
-        create: function (cliente) {
-            self = this
-            var onSuccess = function (cliente) {
-                self.transitionToRoute('cliente', cliente);
-                self.get('controllers.application').notify('Se agrego nuevo cliente');
-            };
+  actions: {
+    create: function (cliente) {
+      self = this
+      var onSuccess = function (cliente) {
+        self.transitionToRoute('cliente', cliente);
+        self.get('controllers.application').notify('Se agrego nuevo cliente');
+      };
 
-            var onFail = function (cliente) {
-                self.get('controllers.application').notify('Error al agregar cliente', 'alert-error');
-            };
+      var onFail = function (cliente) {
+        self.get('controllers.application').notify('Error al agregar cliente', 'alert-error');
+      };
 
-            if (cliente.get('isValid')) {
+      if (cliente.get('isValid')) {
 
-                cliente.set('rfc', cliente.get('rfc').toUpperCase());
-                cliente.set('razon_social', cliente.get('razon_social').toUpperCase());
+        cliente.set('rfc', cliente.get('rfc').toUpperCase());
+        cliente.set('razon_social', cliente.get('razon_social').toUpperCase());
 
-                cliente.save().then(onSuccess, onFail);
-            }
-        }
+        cliente.save().then(onSuccess, onFail);
+      }
     }
+  }
 
 });

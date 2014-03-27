@@ -1,5 +1,5 @@
 App.ContactosNewController = Ember.ObjectController.extend({
-  needs: ["application",'cliente'],
+  needs: ["application", 'cliente'],
 
   isNotReadyForSave: function () {
     var result = this.get('content.isDirty') == true && this.get('content.isValid') == true;

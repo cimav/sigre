@@ -1,8 +1,8 @@
 App.ContactosNewRoute = Ember.Route.extend({
-  model: function() {
+  model: function () {
     return this.store.createRecord('contacto');
   },
-  deactivate: function(){
+  deactivate: function () {
     this.transitionTo('contactos.index');
   }
 

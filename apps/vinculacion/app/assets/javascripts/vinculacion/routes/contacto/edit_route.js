@@ -1,9 +1,8 @@
 App.ContactoEditRoute = Ember.Route.extend({
-
-  model: function(){
+  model: function () {
     return this.modelFor('contacto');
   },
-  deactivate: function(){
+  deactivate: function () {
     this.transitionTo('contactos.index');
   }
 

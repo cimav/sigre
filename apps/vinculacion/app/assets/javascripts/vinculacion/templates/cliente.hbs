@@ -2,36 +2,36 @@
 
 <!-- Nav tabs -->
 <ul class="nav nav-tabs">
-  <li class="active"><a href="#datos" data-toggle="tab">Datos</a></li>
-  <li><a href="#contactos" data-toggle="tab">Contactos <span class="badge badge-muestras">{{contactosCount}}</span></a></li>
+    <li class="active"><a href="#datos" data-toggle="tab">Datos</a></li>
+    <li><a href="#contactos" data-toggle="tab">Contactos <span class="badge badge-muestras">{{contactosCount}}</span></a></li>
 </ul>
 
 <div class="tab-content">
-  <div class="tab-pane active" id="datos">
-    {{#form-for controller}}
-      {{input rfc label='RFC'}}
-      {{input razon_social label='Razón social'}}
-    {{/form-for}}
-    <div class="btn-group">
-      <button type="submit"
-              class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "update" this target='controller'}} >
-        {{#if item.isSaving}}
-          <span class="spin glyphicon glyphicon-refresh"></span>
-          Guardando...
-        {{else}}
-          Guardar
-        {{/if}}
-      </button>
-      <button class="btn btn-inverse" {{action "destroy" this target='controller'}} >Eliminar</button>
+    <div class="tab-pane active" id="datos">
+      {{#form-for controller}}
+        {{input rfc label='RFC'}}
+        {{input razon_social label='Razón social'}}
+      {{/form-for}}
+        <div class="btn-group">
+            <button type="submit"
+                    class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "update" this target='controller'}} >
+              {{#if item.isSaving}}
+                  <span class="spin glyphicon glyphicon-refresh"></span>
+                  Guardando...
+              {{else}}
+                  Guardar
+              {{/if}}
+            </button>
+            <button {{action "destroy" this target='controller'}}><span title="Eliminar cliente" class="glyphicon glyphicon-trash"></span></button>
+        </div>
     </div>
-  </div>
 
 
-  <div class="tab-pane" id="contactos">
+    <div class="tab-pane" id="contactos">
 
-    {{outlet}}
+      {{outlet}}
 
-  </div>
+    </div>
 
 </div>
 
