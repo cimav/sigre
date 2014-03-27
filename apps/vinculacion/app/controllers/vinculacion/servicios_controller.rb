@@ -1,4 +1,5 @@
 require_dependency "vinculacion/application_controller"
+require 'resque-bus'
 
 module Vinculacion
   class ServiciosController < ApplicationController
@@ -13,6 +14,12 @@ module Vinculacion
 
     def solicitar_costeo
       servicio = Servicio.find(params[:id])
+      ResqueBus.redis = '127.0.0.1:6379' # TODO: Mover a config
+      ResqueBus.publish('solicitar_costeo', 'id'          => servicio.id, 
+                                            'nombre'      => servicio.nombre,
+                                            'empleado_id' => servicio.empleado_id,
+                                            'descripcion' => servicio.descripcion,
+                                            'muestras'    => servicio.muestras)
       servicio.status = 2 # STATUS DE COSTEO, TODO: Crear constantes
       servicio.save
       puts "SOLICITAR COSTEO"
