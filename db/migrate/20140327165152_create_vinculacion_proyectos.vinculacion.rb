@@ -10,7 +10,7 @@ class CreateVinculacionProyectos < ActiveRecord::Migration
       t.text :obj_estrategico
       t.string :duracion_meses, :limit => 2
       t.string :anio, :limit => 4
-      t.string :status, :default => 1
+      t.string :status, :default => 0
 
       t.timestamps
     end
