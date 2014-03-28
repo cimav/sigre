@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140327224122) do
+ActiveRecord::Schema.define(version: 20140328175835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,28 @@ ActiveRecord::Schema.define(version: 20140327224122) do
     t.string   "puesto"
     t.string   "notas"
     t.integer  "cliente_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vinculacion_costeos", force: true do |t|
+    t.integer  "consecutivo"
+    t.string   "codigo",      limit: 20
+    t.integer  "servicio_id"
+    t.integer  "usuario_id"
+    t.integer  "status",                 default: 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vinculacion_costeos_detalle", force: true do |t|
+    t.integer  "costeo_id"
+    t.integer  "muestra_id"
+    t.integer  "tipo"
+    t.string   "descripcion"
+    t.integer  "cantidad"
+    t.decimal  "precio_unitario", precision: 10, scale: 2
+    t.integer  "status",                                   default: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
