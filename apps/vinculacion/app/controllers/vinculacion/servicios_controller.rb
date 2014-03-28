@@ -14,15 +14,24 @@ module Vinculacion
 
     def solicitar_costeo
       servicio = Servicio.find(params[:id])
+
+      costeo = Costeo.new
+      costeo.servicio_id = servicio.id
+      costeo.save
+
       ResqueBus.redis = '127.0.0.1:6379' # TODO: Mover a config
-      ResqueBus.publish('solicitar_costeo', 'id'          => servicio.id, 
-                                            'nombre'      => servicio.nombre,
-                                            'empleado_id' => servicio.empleado_id,
-                                            'descripcion' => servicio.descripcion,
-                                            'muestras'    => servicio.muestras)
-      servicio.status = 2 # STATUS DE COSTEO, TODO: Crear constantes
+      ResqueBus.publish('solicitar_costeo', 'id'             => servicio.id, 
+                                            'codigo'         => servicio.codigo,
+                                            'nombre'         => servicio.nombre,
+                                            'empleado_id'    => servicio.empleado_id,
+                                            'empleado_email' => servicio.empleado.email,
+                                            'agente_id'      => 1,                            #  TODO: Estos datos se deben de obtener
+                                            'agente_email'   => 'karen.valles@cimav.edu.mx',  #  del usuario que da de alta el servicio.
+                                            'descripcion'    => servicio.descripcion,
+                                            'costeo_id'      => costeo.id,
+                                            'muestras'       => servicio.muestras)
+      servicio.status = Servicio::ESPERANDO_COSTEO
       servicio.save
-      puts "SOLICITAR COSTEO"
       render json: servicio
     end
 

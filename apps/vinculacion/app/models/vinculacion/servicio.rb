@@ -1,8 +1,9 @@
 # coding: utf-8
 module Vinculacion
   class Servicio < ActiveRecord::Base
-  	belongs_to :solicitud
-  	has_and_belongs_to_many :muestras, :join_table => :vinculacion_servicios_muestras
+    belongs_to :solicitud
+    belongs_to :empleado
+    has_and_belongs_to_many :muestras, :join_table => :vinculacion_servicios_muestras
 
     after_create :set_extra
 
