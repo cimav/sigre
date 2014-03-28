@@ -1,9 +1,31 @@
 <div id="muestras">
   {{#each controllers.solicitud.muestras}}
-    <div class="muestra-item">
+    <div class="muestra-item" {{bind-attr id=div_id}}>
       <div class="muestra-codigo">{{codigo}} <span class="badge badge-muestras">{{cantidad}}</span></div>
-      <div class="muestra-identificacion">{{identificacion}}</div>
-      <div class="muestra-descripcion">{{descripcion}}</div>
+      <div class="muestra-info">
+        <span {{action 'editMuestra' id}} class="glyphicon glyphicon-edit muestra-edit"></span>
+        <div class="muestra-identificacion">{{identificacion}}</div>
+        <div class="muestra-descripcion">{{descripcion}}</div>
+      </div>
+      <div class="muestra-edit-form">
+        <form {{action 'updateMuestra' this on="submit"}}>
+          <div class="muestra-identificacion">
+            {{input type="text"
+                    value=identificacion
+                    classNames="form-control muestra-identificacion-input" placeholder="Identificación"}}
+            {{input type="number"
+                    min="1"
+                    value=cantidad
+                    classNames="form-control
+                    muestra-cantidad-input"
+                    placeholder="Cantidad"}}
+          </div>
+          <div class="clearfix"></div>
+          <div class="muestra-descripcion">{{textarea value=descripcion classNames="form-control muestra-descripcion-input" placeholder="Descripción"}}</div>
+          <div class="muestra-guardar">{{save-button item=newMuestra caption="Actualizar"}}</div>
+          <div class="muestra-eliminar"><button {{action 'deleteMuestra' this}} class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button></div>
+        </form>
+      </div>
     </div>
   {{/each}}
   <div class="muestra-item" id="nueva-muestra">

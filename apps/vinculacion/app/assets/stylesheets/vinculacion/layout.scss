@@ -446,6 +446,12 @@ html, body, .application-view {
     border-radius: 5px;
     box-shadow: 0px 2px 4px $grey;
     min-height: 200px;
+    position: relative;
+
+    .muestra-edit-form {
+      display: none;
+    }
+
     .muestra-codigo {
       position: relative;
       padding: 5px;
@@ -462,6 +468,14 @@ html, body, .application-view {
         background-color: $muestra-codigo-border;
       }
     }
+    .muestra-edit {
+      position: absolute;
+      right: 10px;
+      top: 170px;
+      color: $grey;
+      cursor: pointer;
+      display: block;
+    }
     .muestra-identificacion {
       font-size: 18px;
       font-weight: bold;
@@ -473,12 +487,13 @@ html, body, .application-view {
       font-size: 90%;
       margin: 10px;
     }
+
     .muestra-identificacion-input {
       width: 300px;
       float: left;
     }
     .muestra-cantidad-input {
-      width: 110px;
+      width: 115px;
       margin-left: 10px;
       float: left;
     }
@@ -486,18 +501,31 @@ html, body, .application-view {
       margin-top: 10px;
       height: 4em;
     }
+
     .muestra-guardar {
-      text-align: right;
       padding: 0 10px;
+      float: left;
       button {
         border: 1px solid $muestra-codigo-border;
         color: $white;
         background-color: $muestra-codigo-bg;
       }
     }
+
+    .muestra-eliminar {
+      float: right;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+
+
   }
 
   #nueva-muestra {
+    width: 450px;
+  }
+  .muestra-edit-form {
     width: 450px;
   }
 }

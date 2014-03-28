@@ -3,15 +3,23 @@ App.Router.map(function () {
   this.resource('solicitudes', function () {
     this.route('new', {path: '/nueva'});
     this.resource('solicitud', {path: '/:solicitud_id'}, function () {
+      
       this.route('edit', {path: '/detalles'})
-      this.resource('muestras');
+      
+      this.resource('muestras', function() {
+        this.resource('muestra', {path: '/:muestra_id'}, function () {
+          this.route('edit', {path: '/editar'});
+        });
+      });
+      
       this.resource('servicios', function () {
         this.route('resumen', {path: '/resumen'});
         this.route('new', {path: '/nuevo'});
         this.resource('servicio', {path: '/:servicio_id'}, function () {
-          this.route('edit', {path: '/editar'})
+          this.route('edit', {path: '/editar'});
         });
       });
+
     });
   });
 
