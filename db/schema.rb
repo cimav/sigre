@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328175835) do
+ActiveRecord::Schema.define(version: 20140328220058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,36 @@ ActiveRecord::Schema.define(version: 20140328175835) do
     t.integer  "cantidad"
     t.decimal  "precio_unitario", precision: 10, scale: 2
     t.integer  "status",                                   default: 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vinculacion_cotizaciones", force: true do |t|
+    t.string   "consecutivo"
+    t.date     "fecha_notificacion"
+    t.integer  "condicion_pago_id"
+    t.integer  "idioma_id"
+    t.integer  "divisa_id"
+    t.text     "comentarios"
+    t.text     "observaciones"
+    t.text     "notas"
+    t.decimal  "subtotal",             precision: 10, scale: 2, default: 0.0
+    t.decimal  "precio_venta",         precision: 10, scale: 2, default: 0.0
+    t.decimal  "precio_unitario",      precision: 10, scale: 2, default: 0.0
+    t.decimal  "descuento_porcentaje", precision: 5,  scale: 2, default: 0.0
+    t.integer  "descuento_status",                              default: 0
+    t.integer  "status",                                        default: 0
+    t.integer  "solicitud_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vinculacion_cotizaciones_detalle", force: true do |t|
+    t.integer  "cantidad",                                 default: 1
+    t.string   "concepto"
+    t.decimal  "precio_unitario", precision: 10, scale: 2, default: 0.0
+    t.integer  "status",                                   default: 0
+    t.integer  "cotizacion_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

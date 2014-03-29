@@ -16,7 +16,7 @@
         <tr>
           <th class="th-numero">Número</th>
           <th class="th-cliente">Cliente</th>
-          <th class="th-tipo">Tipo</th>
+          <th class="th-proyecto">Proyecto</th>
           <th class="th-notas">Notas</th>
         </tr>
       </thead>
@@ -25,7 +25,7 @@
           {{#link-to 'solicitud' this tagName="tr" classNames="row-item"}}
             <td class="td-numero">{{codigo}}</td>
             <td class="td-cliente">{{cliente.nombre}}</td>
-            <td class="td-tipo">{{tipo_txt}}</td>
+            <td class="td-proyecto">{{proyecto.nombre}}</td>
             <td class="td-notas">{{notas}}</td>
           {{/link-to}}
         {{/each}}

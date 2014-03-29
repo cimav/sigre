@@ -6,6 +6,7 @@ module Vinculacion
     attributes :consecutivo, :codigo, :tipo, :prioridad, :contacto_email, :notas, :acuerdos, :status
     has_many :servicios
     has_many :muestras
+    has_many :cotizaciones
     has_one :proyecto
   end
 end

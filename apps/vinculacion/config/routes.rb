@@ -6,6 +6,8 @@ Vinculacion::Engine.routes.draw do
   resources :clientes
   resources :contactos
   resources :proyectos
+  resources :cotizaciones
+  resources :cotizaciones_detalle
 
   post '/servicios/:id/solicitar_costeo', to: 'servicios#solicitar_costeo'
 
