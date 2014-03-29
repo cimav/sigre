@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328220058) do
+ActiveRecord::Schema.define(version: 20140329213817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,17 +102,19 @@ ActiveRecord::Schema.define(version: 20140328220058) do
 
   create_table "vinculacion_costeos", force: true do |t|
     t.integer  "consecutivo"
-    t.string   "codigo",      limit: 20
+    t.string   "codigo",          limit: 20
     t.integer  "servicio_id"
     t.integer  "usuario_id"
-    t.integer  "status",                 default: 1
+    t.integer  "status",                     default: 1
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "bitacora_id"
+    t.string   "nombre_servicio"
+    t.integer  "muestra_id"
   end
 
   create_table "vinculacion_costeos_detalle", force: true do |t|
     t.integer  "costeo_id"
-    t.integer  "muestra_id"
     t.integer  "tipo"
     t.string   "descripcion"
     t.integer  "cantidad"
