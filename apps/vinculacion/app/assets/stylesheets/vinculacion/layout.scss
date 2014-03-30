@@ -735,8 +735,48 @@ html, body, .application-view {
         font-size: 80%;
       }
     }
-  }
 
+    .muestra-item {
+      float: left;
+      margin: 10px 5px;
+      width: 120px;
+      border: 1px solid $muestra-codigo-border;
+      border-radius: 5px;
+      box-shadow: 0px 2px 4px $grey;
+      min-height: 100px;
+      position: relative;
+      font-size: 90%;
+
+      .muestra-codigo {
+        position: relative;
+        padding: 5px;
+        text-align: left;
+        font-size: 90%;
+        font-weight: bold;
+        background: $muestra-codigo-bg;
+        color: $white;
+        text-shadow: 0px 2px $muestra-codigo-border;
+        .badge {
+          color: $white;
+          position: absolute;
+          right: 10px;
+          background-color: $muestra-codigo-border;
+        }
+      }
+    
+      .muestra-identificacion {
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        margin: 10px;
+      }
+    }
+    .muestra-servicios-detalles {
+      float: left;
+      margin-left: 20px;
+      max-width: 300px;
+    }
+  }
 }
 
 .servicio-acciones {

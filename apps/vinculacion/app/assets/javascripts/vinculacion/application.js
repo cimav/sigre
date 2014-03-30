@@ -25,6 +25,7 @@ inflector = Ember.Inflector.inflector;
 inflector.irregular('solicitud', 'solicitudes');
 inflector.irregular('cotizacion', 'cotizaciones');
 inflector.irregular('cotizacion_detalle', 'cotizaciones_detalle');
+inflector.irregular('costeo_detalle', 'costeo_detalle');
 
 // for more details see: http://emberjs.com/guides/application/
 App = Ember.Application.create({
@@ -53,5 +54,4 @@ DS.RESTAdapter.reopen({
   });
 })();
 
- 
 //= require_tree .

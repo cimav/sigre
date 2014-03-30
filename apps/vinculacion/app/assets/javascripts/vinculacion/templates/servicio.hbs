@@ -15,25 +15,35 @@
       </div>
     </div>
     <p>{{descripcion}}</p>
-    <table class="table table-striped servicio-muestras">
-        <thead>
-          <tr>
-            <th>Número</th>
-            <th>Identificación</th>
-            <th>Cantidad</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each muestras}}
-            <tr>
-              <td class="numero">{{codigo}}</td>
-              <td>{{identificacion}}</td>
-              <td>{{cantidad}}</td>
-            </tr>
+
+    {{#each servicio_datos.muestras}}
+      <div class="muestra-servicios">
+        <div class="muestra-item">
+          <div class="muestra-codigo">{{codigo}} <span class="badge badge-muestras">{{cantidad}}</span></div>
+          <div class="muestra-info">
+            <div class="muestra-identificacion">{{identificacion}}</div>
+          </div>
+        </div>
+        <div class="muestra-servicios-detalles">
+          {{#each costeos}}
+            <h4>{{nombre_servicio}} {{total}}</h4>
+            <table class="table">
+              {{#each costeo_detalle}}
+                <tr>
+                  <td>{{descripcion}}</td>
+                  <td>{{cantidad}}</td>
+                  <td>{{precio_unitario}}</td>
+                </tr>
+              {{/each}}
+            </table>
           {{/each}}
-        </tbody>
-      </table>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    {{/each}}
+
   </div>
+
   <div class="servicio-acciones">
     {{#if isInicial}}
       <button {{action 'solicitaCosteo'}} class="btn btn-primary">Solicitar costeo</button>
@@ -42,6 +52,7 @@
       <button disabled="disabled" class="btn btn-primary">Esperando costeo...</button>
     {{/if}}
   </div>
+
 {{/if}}
 
 

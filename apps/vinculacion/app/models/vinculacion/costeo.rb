@@ -1,6 +1,7 @@
 module Vinculacion
   class Costeo < ActiveRecord::Base
     belongs_to :servicio 
+    #belongs_to :muestra
     has_many :costeo_detalle
 
     after_create :set_extra

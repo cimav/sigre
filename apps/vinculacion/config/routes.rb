@@ -13,6 +13,8 @@ Vinculacion::Engine.routes.draw do
 
   resources :empleados
 
+  resources :costeos
+
   root :to => 'assets#index'
   get "assets/index"
 end

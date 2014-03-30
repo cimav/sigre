@@ -5,5 +5,6 @@ module Vinculacion
     attributes :nombre, :descripcion, :empleado_id, :consecutivo, :codigo, :status
     attributes :status_text
     has_many :muestras
+    has_many :costeos
   end
 end
