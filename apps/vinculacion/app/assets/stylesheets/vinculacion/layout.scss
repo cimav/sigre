@@ -523,7 +523,23 @@ html, body, .application-view {
   }
 
   #nueva-muestra {
-    width: 450px;
+    #nueva-muestra-link {
+      text-align: center;
+      span {
+        margin-top: 20px;
+        font-size: 80px;
+        color: $grey;
+        cursor: pointer;
+      }
+      div {
+        margin-top: 10px;
+        color: $dark-grey;
+      }
+    }
+    form {
+      display: none;
+      width: 450px;
+    }
   }
   .muestra-edit-form {
     width: 450px;

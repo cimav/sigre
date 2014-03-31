@@ -29,8 +29,12 @@
     </div>
   {{/each}}
   <div class="muestra-item" id="nueva-muestra">
+    <div class="muestra-codigo">Nueva Muestra</div>
+    <div id="nueva-muestra-link">
+      <span {{action 'showAddMuestraForm'}} class="glyphicon glyphicon-plus"></span>
+      <div>Agregar muestra</div>
+    </div>
     <form {{action 'addMuestra' this on="submit"}}>
-      <div class="muestra-codigo">Nueva Muestra</div>
       <div class="muestra-identificacion">
         {{input type="text" 
                 value=newMuestra.identificacion 

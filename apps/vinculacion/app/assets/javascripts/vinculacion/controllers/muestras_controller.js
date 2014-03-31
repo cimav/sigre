@@ -28,6 +28,10 @@ App.MuestrasController = Ember.ArrayController.extend({
       var onSuccess = function(muestra) {
         self.get('controllers.application').notify('Se agrego nueva muestra');
         self.set('newMuestra', self.store.createRecord('muestra'));
+        $('#nueva-muestra form').fadeOut(100);
+        $('#nueva-muestra').animate({width: "200px"}, 200, function() {
+          $('#nueva-muestra #nueva-muestra-link').fadeIn(100);
+        });
       };
 
       var onFail = function(muestra) {
@@ -35,6 +39,12 @@ App.MuestrasController = Ember.ArrayController.extend({
       };
       self.get('controllers.solicitud').get('model').get('muestras').pushObject(muestra);
       muestra.save().then(onSuccess, onFail);
+    },
+    showAddMuestraForm: function() {
+      $('#nueva-muestra #nueva-muestra-link').fadeOut(100);
+      $('#nueva-muestra').animate({width: "450px"}, 200, function() {
+        $('#nueva-muestra form').fadeIn(100);
+      });
     },
     deleteMuestra: function(muestra) {
       var self=this
