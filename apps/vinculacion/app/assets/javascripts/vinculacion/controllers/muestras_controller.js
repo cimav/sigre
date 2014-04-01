@@ -1,7 +1,25 @@
 App.MuestrasController = Ember.ArrayController.extend({
   needs: ["application", "solicitud"],
   itemController: 'muestra',
+  prev_muestra: null,
+  closeEdit: function() {
+    muestra = this.get('prev_muestra');
+    if (!muestra) return true;
 
+    if (muestra.get('isDirty') && !confirm("¿Desea descartar los cambios en la muestra " + muestra.get('codigo') + "?")) {
+      return false;
+    } else {
+      muestra.rollback();
+    }
+    el = $('#' + muestra.get('div_id'));
+    el.find('.muestra-edit-form').fadeOut(100);
+    el.animate({width: "200px"}, 200, function() {
+      el.find('.muestra-info').fadeIn(100);
+      el.removeClass('muestra-editing');
+    });
+
+    return true;
+  },
   closeNewMuestra: function() {
     $('#nueva-muestra form').fadeOut(100);
       $('#nueva-muestra').animate({width: "200px"}, 200, function() {

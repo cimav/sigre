@@ -1,7 +1,7 @@
 <div id="muestras">
   {{#each}}
-    <div class="muestra-item" {{bind-attr id=div_id}} {{bind-attr class=isDirty}}>
-      <div class="muestra-codigo" {{bind-attr data-codigo=codigo}}>{{codigo}} <span class="badge badge-muestras">{{cantidad}}</span></div>
+    <div class="muestra-item" {{bind-attr id=div_id}}>
+      <div class="muestra-codigo">{{codigo}} <span class="badge badge-muestras">{{cantidad}}</span></div>
       <div class="muestra-info">
         <span {{action 'editMuestra' this}} class="glyphicon glyphicon-edit muestra-edit"></span>
         <div class="muestra-identificacion">{{identificacion}}</div>
