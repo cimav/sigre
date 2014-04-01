@@ -7,5 +7,6 @@ App.ServiciosController = Ember.ArrayController.extend({
     en_proceso:       4,
     finalizado:       5,
     cancelado:       99
-  }
+  },
+  hola: "HOLA"
 });

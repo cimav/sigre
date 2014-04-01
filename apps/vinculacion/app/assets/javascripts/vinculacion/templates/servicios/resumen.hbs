@@ -1,7 +1,7 @@
 <h3>Resumen</h3>
 <table class="table resumen">
   <tbody>
-    {{#each controllers.solicitud.servicios}}
+    {{#each}}
       {{#link-to 'servicio' this tagName="tr"}}
         <td>{{nombre}}</td>
         <td class="avatar"><img class="empleado-avatar img-circle" {{bind-attr src=empleado.avatar_url}} {{bind-attr title=empleado.nombre_completo}} /></td>

@@ -1,4 +1,4 @@
-App.ServiciosResumenController = Ember.ObjectController.extend({
+App.ServiciosResumenController = Ember.ArrayController.extend({
   needs: ["application", "solicitud", "servicios"],
   costototal: function() {
     // TODO: Calcular
