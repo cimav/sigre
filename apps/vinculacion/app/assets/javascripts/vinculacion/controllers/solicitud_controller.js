@@ -8,4 +8,5 @@ App.SolicitudController = Ember.ObjectController.extend({
       this.get('model').save();
       this.get('controllers.application').notify('Solicitud actualizada');
     }
+  }
 });
