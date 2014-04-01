@@ -5,8 +5,10 @@ App.MuestraController = Ember.ObjectController.extend({
     editMuestra: function(muestra) {
       muestrasController = this.get('controllers.muestras');
       if(!muestrasController.closeEdit()) { return false; }
+      if(!muestrasController.closeNewMuestra()) { return false; }
       muestrasController.set('prev_muestra', muestra);
       muestra_id = muestra.get('id');
+      console.log(muestra_id);
 
       $('#muestra_' + muestra_id + ' .muestra-info').fadeOut(100);
       $('#muestra_' + muestra_id).animate({width: "450px"}, 200, function() {
