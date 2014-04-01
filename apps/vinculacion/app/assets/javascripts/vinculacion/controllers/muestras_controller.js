@@ -8,23 +8,6 @@ App.MuestrasController = Ember.ArrayController.extend({
       $('#nueva-muestra #nueva-muestra-link').fadeIn(100);
     });
   },
-  closeEdit: function() {
-    var result = true;
-    $('.muestra-editing').each(function() {
-      el = $('#' + this.id);
-      codigo = el.find('.muestra-codigo').first().data('codigo');
-      if (el.hasClass('is-dirty') && (!confirm("¿Desea descartar los cambios en la muestra " + codigo + "?"))) {
-        result = false;
-        return false;
-      }
-      el.find('.muestra-edit-form').fadeOut(100);
-      el.animate({width: "200px"}, 200, function() {
-        el.find('.muestra-info').fadeIn(100);
-        el.removeClass('muestra-editing');
-      });
-    }); 
-    return result;
-  },
   actions: {
     addMuestra: function() {
       var muestra = this.get('newMuestra');
