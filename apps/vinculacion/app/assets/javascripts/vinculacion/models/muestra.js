@@ -6,6 +6,8 @@ App.Muestra = DS.Model.extend({
   solicitud_id:      DS.attr('number'),
   solicitud:         DS.belongsTo('solicitud'),
   servicio:          DS.belongsTo('servicio'),
+
+  isNotDirty: Ember.computed.not('isDirty'),
   
   div_id: function() {
     return 'muestra_' + this.get('id');

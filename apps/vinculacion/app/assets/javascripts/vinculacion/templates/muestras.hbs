@@ -1,7 +1,7 @@
 <div id="muestras">
   {{#each controllers.solicitud.muestras}}
-    <div class="muestra-item" {{bind-attr id=div_id}}>
-      <div class="muestra-codigo">{{codigo}} <span class="badge badge-muestras">{{cantidad}}</span></div>
+    <div class="muestra-item" {{bind-attr id=div_id}} {{bind-attr class=isDirty}}>
+      <div class="muestra-codigo" {{bind-attr data-codigo=codigo}}>{{codigo}} <span class="badge badge-muestras">{{cantidad}}</span></div>
       <div class="muestra-info">
         <span {{action 'editMuestra' id}} class="glyphicon glyphicon-edit muestra-edit"></span>
         <div class="muestra-identificacion">{{identificacion}}</div>
@@ -22,7 +22,7 @@
           </div>
           <div class="clearfix"></div>
           <div class="muestra-descripcion">{{textarea value=descripcion classNames="form-control muestra-descripcion-input" placeholder="Descripción"}}</div>
-          <div class="muestra-guardar">{{save-button item=newMuestra caption="Actualizar"}}</div>
+          <div class="muestra-guardar">{{save-button item=this caption="Actualizar"}}</div>
           <div class="muestra-eliminar"><button {{action 'deleteMuestra' this}} class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button></div>
         </form>
       </div>
