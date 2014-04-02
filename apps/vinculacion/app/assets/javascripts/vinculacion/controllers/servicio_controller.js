@@ -29,7 +29,7 @@ App.ServicioController = Ember.ObjectController.extend({
 
     return res;
 
-  }.property('model.id'),
+  }.property('model.muestras_string'),
 
   showServicio: true,
 
