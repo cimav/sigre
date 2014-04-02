@@ -791,12 +791,18 @@ html, body, .application-view {
       float: left;
       margin-left: 20px;
       max-width: 300px;
+      .no-costeos {
+        font-size: 120%;
+        text-align: center;
+        color: $grey;
+        margin: 20px;
+      }
     }
   }
 }
 
 .servicio-acciones {
-  margin-top: 48px;
+  margin: 48px 0;
   text-align: center;
 }
 
