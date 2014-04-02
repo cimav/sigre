@@ -1,7 +1,11 @@
 <div id="muestras">
   {{#each}}
     <div class="muestra-item" {{bind-attr id=div_id}}>
-      <div class="muestra-codigo">{{codigo}} <span class="badge badge-muestras">{{cantidad}}</span></div>
+      <div class="muestra-codigo">
+        <button type="button" class="close" {{action 'closeEdit'}}>&times;</button>
+        {{codigo}} 
+        <span class="badge badge-muestras">{{cantidad}}</span>
+      </div>
       <div class="muestra-info">
         <span {{action 'editMuestra' this}} class="glyphicon glyphicon-edit muestra-edit"></span>
         <div class="muestra-identificacion">{{identificacion}}</div>
@@ -29,7 +33,7 @@
     </div>
   {{/each}}
   <div class="muestra-item" id="nueva-muestra">
-    <div class="muestra-codigo">Nueva Muestra</div>
+    <div class="muestra-codigo"><button type="button" class="close" {{action 'closeNewMuestra'}}>&times;</button> Nueva Muestra</div>
     <div id="nueva-muestra-link">
       <span {{action 'showAddMuestraForm'}} class="glyphicon glyphicon-plus"></span>
       <div>Agregar muestra</div>

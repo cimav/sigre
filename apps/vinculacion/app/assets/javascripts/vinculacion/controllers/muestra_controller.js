@@ -4,12 +4,13 @@ App.MuestraController = Ember.ObjectController.extend({
   actions: {
     editMuestra: function(muestra) {
       muestrasController = this.get('controllers.muestras');
-      if(!muestrasController.closeEdit()) { return false; }
-      if(!muestrasController.closeNewMuestra()) { return false; }
-      muestrasController.set('prev_muestra', muestra);
       muestra_id = muestra.get('id');
-      console.log(muestra_id);
+      if ((muestrasController.get('prev_muestra.id') != muestra_id) &&  (!muestrasController.closeEdit())) { return false; }
+      if (!muestrasController.closeNewMuestra()) { return false; }
+      muestrasController.set('prev_muestra', muestra);
+      
 
+      $('#muestra_' + muestra_id + ' .close').show();
       $('#muestra_' + muestra_id + ' .muestra-info').fadeOut(100);
       $('#muestra_' + muestra_id).animate({width: "450px"}, 200, function() {
         $('#muestra_' + muestra_id).addClass('muestra-editing');
@@ -21,6 +22,7 @@ App.MuestraController = Ember.ObjectController.extend({
       var appController = this.get('controllers.application');
       var onSuccess = function(muestra) {
         appController.notify('Muestra actualizada');
+        $('#muestra_' + muestra.get('id') + ' .close').hide();
         $('#muestra_' + muestra.get('id') + ' .muestra-edit-form').fadeOut(100);
         $('#muestra_' + muestra.get('id')).animate({width: "200px"}, 200, function() {
           $('#muestra_' + muestra_id).removeClass('muestra-editing');
@@ -32,6 +34,9 @@ App.MuestraController = Ember.ObjectController.extend({
         appController.notify('Error al actualizar muestra', 'alert-danger');
       };
       muestra.save().then(onSuccess, onFail);
+    },
+    closeEdit: function() {
+      this.get('controllers.muestras').closeEdit();
     },
     deleteMuestra: function(muestra) {
       var appController = this.get('controllers.application');
