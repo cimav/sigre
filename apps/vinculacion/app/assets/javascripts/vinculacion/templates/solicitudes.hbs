@@ -18,15 +18,17 @@
           <th class="th-cliente">Cliente</th>
           <th class="th-proyecto">Proyecto</th>
           <th class="th-notas">Notas</th>
+          <th class="th-prioridad">Prioridad</th>
         </tr>
       </thead>
       <tbody>
-        {{#each}}
+        {{#each itemController="solicitud"}}
           {{#link-to 'solicitud' this tagName="tr" classNames="row-item"}}
             <td class="td-numero">{{codigo}}</td>
             <td class="td-cliente">{{cliente.nombre}}</td>
             <td class="td-proyecto">{{proyecto.nombre}}</td>
             <td class="td-notas">{{notas}}</td>
+            <td class="td-prioridad">{{prioridad_string}}</td>
           {{/link-to}}
         {{/each}}
       </tbody>
