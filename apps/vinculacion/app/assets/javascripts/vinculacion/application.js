@@ -49,9 +49,12 @@ DS.RESTAdapter.reopen({
 });
 
 (function() {
-   Ember.TextSupport.reopen({
-    classNames: ["form-control"]
+  Ember.TextSupport.reopen({
+    classNames: ['form-control']
   });
+  Ember.Select.reopen({
+    classNames: ['form-control']
+  }); 
 })();
 
 //= require_tree .
