@@ -8,7 +8,6 @@
                             optionLabelPath="content.nombre"
                             optionValuePath="content.id"
                             selectionBinding="tipo"
-                            class="form-control"
                             }}
       </div>
     </div>
@@ -29,7 +28,6 @@
                             optionLabelPath="content.nombre"
                             optionValuePath="content.id"
                             selectionBinding="sede"
-                            class="form-control"
                             }}
       </div>
     </div>
@@ -55,12 +53,10 @@
     <div class="form-group">
       <label for="unknown" class="col-sm-2 control-label">Prioridad</label>
       <div class="col-sm-7">
-        {{view Ember.Select contentBinding="App.prioridadCache"
-                            optionLabelPath="content.nombre"
+        {{view Ember.Select content=controllers.application.prioridades
+                            value=prioridad
                             optionValuePath="content.id"
-                            selectionBinding="prioridad"
-                            class="form-control"
-                            }}
+                            optionLabelPath="content.descripcion"}}
       </div>
     </div>
     {{input notas}}
@@ -72,7 +68,6 @@
                             optionLabelPath="content.nombre"
                             optionValuePath="content.id"
                             selectionBinding="status"
-                            class="form-control"
                             }}
       </div>
     </div>

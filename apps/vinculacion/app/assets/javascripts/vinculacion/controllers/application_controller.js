@@ -1,5 +1,9 @@
 App.ApplicationController = Ember.Controller.extend({
-  prioridadesCache: [{descripcion: "Baja", id: 1},{descripcion: "Media", id: 2},{descripcion: "Alta", id: 3}],
+  prioridades: [
+    {id: 1, descripcion: "Baja"},
+    {id: 2, descripcion: "Media"},
+    {id: 3, descripcion: "Alta"}
+  ],
   condicionesPagoCache: [{id:'1', codigo:'Contado', descripcion:''}, [{id:'2', codigo:'Parcial', descripcion:''}], [{id:'3', codigo:'8 días', descripcion:''}], [{id:'4', codigo:'15 días', descripcion:''}]],
   idiomasCache: [{id:'1', codigo:'ES', descripcion:'Español'}, [{id:'2', codigo:'IN', descripcion:'Inglés'}]],
   divisasCache: [{id:'1', codigo:'MXN', descripcion:'Pesos mexicanos'}, {id:'2', codigo:'USD', descripcion:'Dolares americanos'}, {id:'3', codigo:'EUR', descripcion:'Euros'}],
