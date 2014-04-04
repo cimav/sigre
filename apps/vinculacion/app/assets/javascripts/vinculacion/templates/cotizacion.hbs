@@ -1,0 +1,81 @@
+<h3>Cotización {{consecutivo}} {{#link-to 'cotizacion.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}</h3>
+
+{{#if showCotizacion}}
+    <table class="table cotizacion">
+        <tbody>
+        <tr>
+            <td>Fecha</td>
+            <td>{{fecha_notificacion}}</td>
+        </tr>
+        <tr>
+            <td>Condición pago</td>
+            <td>
+              {{#view App.EnumView  items=controllers.application.condiciones index=condicion}}
+                {{view.item.codigo}}
+              {{/view}}
+            </td>
+        </tr>
+        <tr>
+            <td>Idioma</td>
+            <td>
+              {{#view App.EnumView  items=controllers.application.idiomas index=idioma}}
+                {{view.item.codigo}} - {{view.item.descripcion}}
+              {{/view}}
+            </td>
+        </tr>
+        <tr>
+            <td>Divisa</td>
+            <td>
+              {{#view App.EnumView  items=controllers.application.divisas index=divisa}}
+                {{view.item.codigo}} - {{view.item.descripcion}}
+              {{/view}}
+            </td>
+        </tr>
+        <tr>
+            <td>Comentarios</td>
+            <td>{{comentarios}}</td>
+        </tr>
+        <tr>
+            <td>Observaciones</td>
+            <td>{{observaciones}}</td>
+        </tr>
+        <tr>
+            <td>Notas</td>
+            <td>{{notas}}</td>
+        </tr>
+        <tr>
+            <td>SubTotal</td>
+            <td>{{formatCurrency subtotal}}</td>
+        </tr>
+        <tr>
+            <td>Precio Venta</td>
+            <td>{{formatCurrency precio_venta}}</td>
+        </tr>
+        <tr>
+            <td>Precio Unitario</td>
+            <td>{{formatCurrency precio_unitario}}</td>
+        </tr>
+        <tr>
+            <td>Procentaje descuento</td>
+            <td>{{formatPercentage descuento_porcentaje}}</td>
+        </tr>
+        <tr>
+            <td>Status Descuento</td>
+            <td>{{descuento_status}}</td>
+        </tr>
+        <tr>
+            <td>Status Cotizacion</td>
+            <td>{{status}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr class="total"><td colspan="3">Total</td></tr>
+        </tfoot>
+    </table>
+
+    <h5>TODO: layout, formato %%, entero y fecha, campos calculados</h5>
+    <h5>TODO: manejo de los status</h5>
+
+{{/if}}
+
+{{outlet}}

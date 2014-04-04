@@ -1,0 +1,72 @@
+{{#form-for controller}}
+
+    <div class="form-group">
+        <div class="col-sm-3">
+            <label for="unknown" class="col-sm-2 control-label">Condición</label>
+          {{view Ember.Select content=controllers.application.condiciones
+          value=condicion
+          optionValuePath="content.id"
+          optionLabelPath="content.codigo"}}
+        </div>
+
+        <div class="col-sm-3">
+            <label for="unknown" class="col-sm-2 control-label">Idioma</label>
+          {{view Ember.Select content=controllers.application.idiomas
+          value=idioma
+          optionValuePath="content.id"
+          optionLabelPath="content.codigo"}}
+        </div>
+
+        <div class="col-sm-3">
+            <label for="unknown" class="col-sm-2 control-label">Divisa</label>
+          {{view Ember.Select content=controllers.application.divisas
+          value=divisa
+          optionValuePath="content.id"
+          optionLabelPath="content.codigo"}}
+        </div>
+
+    </div>
+
+    {{input comentarios as="text"}}
+    {{input observaciones as="text"}}
+    {{input notas as="text"}}
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-7">
+            <table class="table table-striped servicio-muestras">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Cantidad</th>
+                    <th>Concepto</th>
+                    <th>Precio</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {{input subtotal}}
+    {{input precio_venta}}
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-7">
+            <button type="submit"
+                    class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "update" this target='controller'}} >
+              {{#if item.isSaving}}
+                  <span class="spin glyphicon glyphicon-refresh"></span>
+                  Guardando...
+              {{else}}
+                {{#if caption}}
+                  {{caption}}
+                {{else}}
+                    Guardar
+                {{/if}}
+              {{/if}}
+            </button>
+        </div>
+    </div>
+{{/form-for}}

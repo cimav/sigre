@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140329213817) do
+ActiveRecord::Schema.define(version: 20140403172658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,9 +127,9 @@ ActiveRecord::Schema.define(version: 20140329213817) do
   create_table "vinculacion_cotizaciones", force: true do |t|
     t.string   "consecutivo"
     t.date     "fecha_notificacion"
-    t.integer  "condicion_pago_id"
-    t.integer  "idioma_id"
-    t.integer  "divisa_id"
+    t.integer  "condicion"
+    t.integer  "idioma"
+    t.integer  "divisa"
     t.text     "comentarios"
     t.text     "observaciones"
     t.text     "notas"

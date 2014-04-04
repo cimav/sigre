@@ -1,8 +1,8 @@
 App.Contacto = DS.Model.extend(Ember.Validations.Mixin, {
-  nombre: DS.attr('string'),
+  nombre:   DS.attr('string'),
   telefono: DS.attr('string'),
-  email: DS.attr('string'),
-  cliente: DS.belongsTo('cliente'),
+  email:    DS.attr('string'),
+  cliente:  DS.belongsTo('cliente'),
 
   validations: {
     nombre: {

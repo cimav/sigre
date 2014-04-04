@@ -1,0 +1,10 @@
+<div id="cotizaciones-list">
+    <ul class="nav nav-pills">
+      {{#each }}
+        {{#link-to 'cotizacion' this tagName="li"}}<a href="#"><span class="consecutivo">{{consecutivo}}</span> </a>{{/link-to}}
+      {{/each}}
+    </ul>
+</div>
+<div id="cotizaciones-workarea" data-spy="scroll" data-target="#cotizaciones-list">
+  {{outlet}}
+</div>

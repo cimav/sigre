@@ -6,5 +6,6 @@ App.Solicitud = DS.Model.extend({
   prioridad:       DS.attr('number'),
   muestras:        DS.hasMany('muestra'),
   servicios:       DS.hasMany('servicio'),
-  proyecto:        DS.belongsTo('proyecto')
+  proyecto:        DS.belongsTo('proyecto'),
+  cotizaciones:    DS.hasMany('cotizacion')
 });

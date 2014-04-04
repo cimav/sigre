@@ -1,1 +1,1 @@
-1|A|'NON COMMENTS'
+1|1|A|Cotización del Seed
