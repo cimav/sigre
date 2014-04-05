@@ -12,7 +12,20 @@ module Vinculacion
     end
 
     def create
-      render json: Cotizacion.create(cotizacion)
+
+      letra = Cotizacion.where(:solicitud_id => params[:solicitud_id]).maximum('consecutivo')
+      if letra.nil?
+        letra = 'A'
+      else
+        letra = letra.next
+      end
+
+      @cotiza = Cotizacion.new(cotizacion)
+      @cotiza.consecutivo = letra
+      @cotiza.save
+
+      render json: @cotiza
+#      render json: Cotizacion.create(cotizacion)
     end
 
     def update
@@ -44,3 +57,4 @@ module Vinculacion
     end
   end
 end
+

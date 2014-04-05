@@ -2,18 +2,19 @@ App.CotizacionesController = Ember.ArrayController.extend({
 
   nextConsecutivo: function () {
     var cotizaciones = this.get('model');
-    console.log('cotizas: ' + cotizaciones);
-    console.log('cotizas.length: ' + cotizaciones.length);
-    if (cotizaciones.length === 0) {
+    var len = 'cotizas.length: ' + cotizaciones.get('length');
+    if (len == 0) {
       return 'A';
     } else {
-      return cotizaciones.get('lastObject').get('consecutivo').next;
+      var letra =  cotizaciones.get('lastObject').get('consecutivo');
+      console.log('next ' + letra.next);
+      return letra.next;
     }
   },
 
   createCotizacion: function () {
     var cotizacion = self.store.createRecord('cotizacion', {
-      consecutivo: this.nextConsecutivo(),
+      consecutivo: null, //this.nextConsecutivo(), TODO Se va sin consecutivo; es el rails quien se lo asigna.
       fecha_notificacion: new Date(),
       condicion: 1,
       idioma: 1,

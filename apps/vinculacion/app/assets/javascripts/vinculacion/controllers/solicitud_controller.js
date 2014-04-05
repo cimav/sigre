@@ -14,5 +14,11 @@ App.SolicitudController = Ember.ObjectController.extend({
       this.get('model').save();
       this.get('controllers.application').notify('Solicitud actualizada');
     }
+  },
+
+  addCotizacion: function(cotizacion){
+    this.get('model').get('cotizaciones').pushObject(cotizacion);
+    cotizacion.save();
   }
+
 });

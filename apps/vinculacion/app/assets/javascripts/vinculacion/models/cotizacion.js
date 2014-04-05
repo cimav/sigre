@@ -1,77 +1,58 @@
 App.Cotizacion = DS.Model.extend({
-  consecutivo:          DS.attr('string'),
-  fecha_notificacion:   DS.attr('date'),
-  condicion:            DS.attr('number'),
-  idioma:               DS.attr('number'),
-  divisa:               DS.attr('number'),
-  comentarios:          DS.attr('string'),
-  observaciones:        DS.attr('string'),
-  notas:                DS.attr('string'),
-  subtotal:             DS.attr('number'),
-  precio_venta:         DS.attr('number'),
-  precio_unitario:      DS.attr('number'),
+  consecutivo: DS.attr('string'),
+  fecha_notificacion: DS.attr('date'),
+  condicion: DS.attr('number'),
+  idioma: DS.attr('number'),
+  divisa: DS.attr('number'),
+  comentarios: DS.attr('string'),
+  observaciones: DS.attr('string'),
+  notas: DS.attr('string'),
+  subtotal: DS.attr('number'),
+  precio_venta: DS.attr('number'),
+  precio_unitario: DS.attr('number'),
   descuento_porcentaje: DS.attr('number'),
-  descuento_status:     DS.attr('number'),
-  status:               DS.attr('number'),
+  descuento_status: DS.attr('number'),
+  status: DS.attr('number'),
 
-  solicitud:            DS.belongsTo('solicitud'),
+  solicitud: DS.belongsTo('solicitud'),
 
-
-  sumaTest: function() {
+  sumaTest: function () {
     subtotal = this.get('subtotal');
     precio_venta = this.get('precio_venta');
     result = subtotal + precio_venta;
     return result;
-  }.property('subtotal','precio_venta'),
+  }.property('subtotal', 'precio_venta'),
 
 
+  statusChanged: null,
   oldStatus: null,
   newStatus: null,
 
-  statusBefore: function(obj, keyName) {
-    oldStatus = obj.get('status');
+  statusBefore: function (obj, keyName) {
+    oldStatus = this.get('status');
   }.observesBefore('status'),
 
-  statusAfter: function(obj, keyName) {
+  statusAfter: function (obj, keyName) {
 
-//    //Desactivo observers
-//    this.removeObserver('status', this, this.get('statusAfter'));
-//    this.removeObserver('status', this, this.get('statusBefore'));
-
-    newStatus = obj.get('status');
+    newStatus = this.get('status');
 
     if (newStatus == oldStatus) {
       return;
     }
 
-    console.log("Aft " + obj + " : " + keyName + " : " + oldStatus + " : " + newStatus);
+    // Permite Nueva solo si anterior es Rechazada
+    if (newStatus == 5 && oldStatus != 3) {
+      this.rollback();
+      //TODO Notificar
+      //this.get('controllers.application').notify('Debe Rechazar cotización antes de generar Nueva');
+      // TODO Si es Nuava, tiene que regresarse a Rechazada. O a estado Historica. Las anteriores no deben ser editables.
+    }
+    // Reglas restantes....
 
-//    // confirmar: Aceptada, Rechazada, Cancelada
-//    if (newStatus == 2 || newStatus == 3 || newStatus == 4) {
-//      var statusText = newStatus; //this.get('controller').get('status_array')[newStatus]["text"];
-//      if (!confirm("¿Cambiar Status a: " + statusText + "?")) {
-//        this.set('status',oldStatus); // deshago el cambio
-//        return;
-//      }
-//    }
-
-//    // reglas
-//    if (oldStatus === 2) {
-//      // cambio invalido
-//      alert('No se realizo el cambio');
-//      this.set('status',oldStatus); // deshago el cambio
-//    } else {
-//      // cambio valido. Aqui va el codigo.
-//
-//      // Guarda el cambio de estatus
-////      this.save();
-//    }
-
-    this.save();
-
-//    //Reactivo observers
-//    this.addBeforeObserver('status', this, this.get('statusBefore'));
-//    this.addObserver('status', this, this.get('statusAfter'));
+    if (this.get('isDirty')) {
+      this.save();
+      this.set('statusChanged', newStatus);
+    }
 
   }.observesImmediately('status')
 
