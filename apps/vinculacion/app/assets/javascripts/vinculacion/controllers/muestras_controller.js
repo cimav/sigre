@@ -12,8 +12,8 @@ App.MuestrasController = Ember.ArrayController.extend({
     } else {
       muestra.rollback();
     }
-    el = $('#' + muestra.get('div_id'));
-    $('#' + muestra.get('div_id') + ' .close').hide();
+    el = $('#muestra_' + muestra.get('id'));
+    $('#muestra_' + muestra.get('id') + ' .close').hide();
     el.find('.muestra-edit-form').fadeOut(100);
     el.animate({width: "220px"}, 200, function() {
       el.find('.muestra-info').fadeIn(100);
@@ -21,13 +21,13 @@ App.MuestrasController = Ember.ArrayController.extend({
 
     return true;
   },
-  closeNewMuestra: function() {
+  closeNewMuestra: function(fromSaveNew) {
     
     if (!$('#nueva-muestra').hasClass('new-muestra-open')) {
       return true;
     }
-
-    if (!confirm("¿Desea abandonar la creación de una nueva muestra?")) {
+    
+    if (!fromSaveNew && !confirm("¿Desea abandonar la creación de una nueva muestra?")) {
       return false;
     } 
     
@@ -49,7 +49,7 @@ App.MuestrasController = Ember.ArrayController.extend({
       var onSuccess = function(muestra) {
         self.get('controllers.application').notify('Se agrego nueva muestra');
         self.set('newMuestra', self.store.createRecord('muestra'));
-        self.closeNewMuestra();
+        self.closeNewMuestra(true);
       };
 
       var onFail = function(muestra) {

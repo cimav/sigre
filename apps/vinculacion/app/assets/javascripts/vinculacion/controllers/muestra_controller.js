@@ -1,6 +1,9 @@
 App.MuestraController = Ember.ObjectController.extend({
   needs: ["application", "muestras", "muestra"],
   isNotDirty: Ember.computed.not('content.isDirty'),
+  div_id: function() {
+    return 'muestra_' + this.get('id');
+  }.property('id'),
   actions: {
     editMuestra: function(muestra) {
       muestrasController = this.get('controllers.muestras');

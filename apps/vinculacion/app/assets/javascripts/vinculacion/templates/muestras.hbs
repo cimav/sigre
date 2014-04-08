@@ -1,9 +1,9 @@
 <div id="muestras">
-  {{#each}}
+  {{#each itemController="muestra"}}
     <div class="muestra-item" {{bind-attr id=div_id}}>
       <div class="muestra-codigo">
         <button type="button" class="close" {{action 'closeEdit'}}>&times;</button>
-        {{codigo}} 
+        {{codigo}}
         <span class="badge badge-muestras">{{cantidad}}</span>
       </div>
       <div class="muestra-info">
