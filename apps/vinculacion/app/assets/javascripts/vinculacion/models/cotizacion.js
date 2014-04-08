@@ -21,41 +21,7 @@ App.Cotizacion = DS.Model.extend({
     precio_venta = this.get('precio_venta');
     result = subtotal + precio_venta;
     return result;
-  }.property('subtotal', 'precio_venta'),
-
-
-  statusChanged: null,
-  oldStatus: null,
-  newStatus: null,
-
-  statusBefore: function (obj, keyName) {
-    oldStatus = this.get('status');
-  }.observesBefore('status'),
-
-  statusAfter: function (obj, keyName) {
-
-    newStatus = this.get('status');
-
-    if (newStatus == oldStatus) {
-      return;
-    }
-
-    // Permite Nueva solo si anterior es Rechazada
-    if (newStatus == 5 && oldStatus != 3) {
-      this.rollback();
-      //TODO Notificar
-      //this.get('controllers.application').notify('Debe Rechazar cotización antes de generar Nueva');
-      // TODO Si es Nuava, tiene que regresarse a Rechazada. O a estado Historica. Las anteriores no deben ser editables.
-    }
-    // Reglas restantes....
-
-    if (this.get('isDirty')) {
-      this.save();
-      this.set('statusChanged', newStatus);
-    }
-
-  }.observesImmediately('status')
-
+  }.property('subtotal', 'precio_venta')
 
 });
 
