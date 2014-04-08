@@ -9,7 +9,7 @@
       <div class="media-body">
         <h4 class="media-heading">{{empleado.nombre_completo}}</h4>
         <div class="empleado-datos">
-          <a {{bind-attr href=empleado.mailto}}>{{empleado.email}}</a><br/>
+          {{mailTo empleado.email}}
           {{empleado.telefono}}
         </div>
       </div>
