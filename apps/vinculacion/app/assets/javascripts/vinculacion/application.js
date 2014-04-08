@@ -21,13 +21,14 @@
 //= require vinculacion/bootstrap
 //= require select2
 
-inflector = Ember.Inflector.inflector;
+var inflector = Ember.Inflector.inflector;
 inflector.irregular('solicitud', 'solicitudes');
+inflector.irregular('prioridad', 'prioridades');
 inflector.irregular('cotizacion', 'cotizaciones');
 inflector.irregular('cotizacion_detalle', 'cotizaciones_detalle');
 inflector.irregular('costeo_detalle', 'costeo_detalle');
 
-// for more details see: http://emberjs.com/guides/application/
+// Create App
 App = Ember.Application.create({
   LOG_TRANSITIONS: true,
   Resolver: Ember.DefaultResolver.extend({
@@ -48,6 +49,8 @@ DS.RESTAdapter.reopen({
   namespace: "vinculacion"
 });
 
+
+// Add default classes to Ember form views:
 (function() {
   Ember.TextSupport.reopen({
     classNames: ['form-control']
@@ -57,4 +60,16 @@ DS.RESTAdapter.reopen({
   }); 
 })();
 
-//= require_tree .
+
+// Computed properties
+// TODO: Mover a algún archivo
+App.computed = {}
+App.computed.list_item = function(property) {
+  return function() {
+    p = this.get(property);
+    list = this.get('controllers.application.' + inflector.pluralize(property));
+    return $.grep(list, function (item) {
+      return item.id == p;
+    })[0];
+  }.property(property);
+};
