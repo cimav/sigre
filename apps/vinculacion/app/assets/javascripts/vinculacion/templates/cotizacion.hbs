@@ -1,5 +1,18 @@
 <div id='cotizacion-header'>
     <h3>Cotización{{consecutivo}}{{#link-to 'cotizacion.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}</h3>
+
+    <div class="btn-group">
+        <button
+                class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "cloneCotizacion" this target='controllers.cotizaciones'}} >
+          {{#if item.isSaving}}
+              <span class="spin glyphicon glyphicon-refresh"></span>
+              clonando...
+          {{else}}
+              clonar
+          {{/if}}
+        </button>
+    </div>
+
 </div>
 
 

@@ -7,10 +7,7 @@ App.SolicitudesNewController = Ember.ObjectController.extend({
       self = this
       var onSuccess = function(solicitud) {
 
-        // si se crea la Solicitud correctamente, crear y agregar 1era cotizacion por default
-        var primeraCotizacion = self.get('controllers.cotizaciones').createCotizacion(); //crea el obj localmente (no en rails)
-        self.get('model').get('cotizaciones').pushObject(primeraCotizacion); // el Push inyecta el Solicitud_id
-        primeraCotizacion.save(); // el save es quien llama al rails.create
+        self.get('controllers.cotizaciones').createCotizacion();
 
         self.transitionToRoute('solicitud', solicitud);
         self.get('controllers.application').notify('Se agrego nueva solicitud');
