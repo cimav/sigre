@@ -13,19 +13,33 @@ module Vinculacion
 
     def create
 
+      #el create es llamado por el ember.save; no por el store.createRecord
+
+      @cotiza = cotizacion # llega con Solicitud_Id
+      # get next consecutivo
       letra = Cotizacion.where(:solicitud_id => params[:solicitud_id]).maximum('consecutivo')
       if letra.nil?
-        letra = 'A'
+         letra = 'A'
       else
-        letra = letra.next
-      end
+         letra = letra.next
+       end
+      @cotiza[:consecutivo] = letra
+      @cotiza[:condicion] = 0
+      @cotiza[:idioma] = 0
+      @cotiza[:divisa] = 0
+      @cotiza[:comentarios] = 'Los comentarios default de la cotización'
+      @cotiza[:observaciones] = 'Las observaciones default'
+      @cotiza[:notas] = 'La o las notas por omisión'
+      @cotiza[:subtotal] = 0.00
+      @cotiza[:precio_venta] = 0.00
+      @cotiza[:precio_unitario] = 0.00
+      @cotiza[:descuento_porcentaje] = 0.00
+      @cotiza[:descuento_status] = 0
+      @cotiza[:status] = 0
 
-      @cotiza = Cotizacion.new(cotizacion)
-      @cotiza.consecutivo = letra
-      @cotiza.save
+      @cotiza = Cotizacion.create(@cotiza) #este create Crea y Guarda
 
       render json: @cotiza
-#      render json: Cotizacion.create(cotizacion)
     end
 
     def update

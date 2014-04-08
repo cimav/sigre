@@ -1,16 +1,5 @@
 <div id='cotizacion-header'>
     <h3>Cotización{{consecutivo}}{{#link-to 'cotizacion.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}</h3>
-
-  {{#if showCotizacion}}
-      <div class="col-sm-3">
-        {{view Ember.Select
-        content=status_array
-        optionValuePath="content.id"
-        optionLabelPath="content.text"
-        value=status}}
-      </div>
-  {{/if}}
-
 </div>
 
 
