@@ -34,7 +34,7 @@ module Vinculacion
          letra = letra.next
        end
       @cotiza[:consecutivo] = letra
-      @cotiza[:status] = 0
+      @cotiza[:status] = 1 #edicion #ember.CotizacionController.Status
 
       @cotiza = Cotizacion.create(@cotiza)
 

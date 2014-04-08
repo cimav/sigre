@@ -36,8 +36,7 @@ App.CotizacionesController = Ember.ArrayController.extend({
       clone.set('descuento_status', cotizacion.get('descuento_status'));
       clone.save();
 
-      console.log('Ir Clonado: ' + this.get('model').get('lastObject').get('consecutivo'));
-      self.transitionToRoute('cotizacion', this.get('model').get('lastObject'));
+      self.transitionToRoute('cotizacion', this.get('model').sortBy('consecutivo').get('lastObject'));
 
       return clone;
     }
