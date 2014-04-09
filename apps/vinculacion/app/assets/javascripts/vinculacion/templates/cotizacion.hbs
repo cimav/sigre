@@ -84,7 +84,18 @@
         </tr>
         <tr>
             <td>Status Cotizacion</td>
-            <td>{{status}}</td>
+            <td>
+              {{#view App.EnumView  items=status_text index=status}}
+                {{view.item.texto}}
+              {{/view}}
+
+              {{#if isNotificado}}
+                  <h6>({{msg_notificacion}})</h6>
+              {{/if}}
+              {{#unless isNotificado}}
+                  <h6>({{motivo_status}})</h6>
+              {{/unless}}
+            </td>
         </tr>
         </tbody>
         <tfoot>

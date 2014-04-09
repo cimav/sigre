@@ -11,6 +11,14 @@ App.CotizacionController = Ember.ObjectController.extend({
     cancelado: 5
   },
 
+  status_text: [
+    {id: 1, texto: 'Edición'},
+    {id: 2, texto: 'Notificado'},
+    {id: 3, texto: 'Aceptado'},
+    {id: 4, texto: 'Rechazado'},
+    {id: 5, texto: 'Cancelado'}
+  ],
+
   isEdicion: function () {
     return this.get('model.status') == this.get('Status.edicion');
   }.property('model.status'),

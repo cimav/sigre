@@ -5,19 +5,19 @@ App.ApplicationController = Ember.Controller.extend({
     {id: 3, descripcion: "Alta"}
   ],
   condiciones: [
-    {id: 0, codigo:'Contado'},
-    {id: 1, codigo:'Parcial'},
-    {id: 2, codigo:'8 días'},
-    {id: 3, codigo:'15 días'}
+    {id: 1, codigo:'Contado'},
+    {id: 2, codigo:'Parcial'},
+    {id: 3, codigo:'8 días'},
+    {id: 4, codigo:'15 días'}
   ],
   idiomas: [
-    {id: 0, codigo:'ES', descripcion:'Español'},
-    {id: 1, codigo:'IN', descripcion:'Inglés'}
+    {id: 1, codigo:'ES', descripcion:'Español'},
+    {id: 2, codigo:'IN', descripcion:'Inglés'}
   ],
   divisas: [
-    {id: 0, codigo:'MXN', descripcion:'Pesos mexicanos'},
-    {id: 1, codigo:'USD', descripcion:'Dólares americanos'},
-    {id: 2, codigo:'EUR', descripcion:'Euros'}
+    {id: 1, codigo:'MXN', descripcion:'Pesos mexicanos'},
+    {id: 2, codigo:'USD', descripcion:'Dólares americanos'},
+    {id: 3, codigo:'EUR', descripcion:'Euros'}
   ],
   init: function() {
     self = this;
