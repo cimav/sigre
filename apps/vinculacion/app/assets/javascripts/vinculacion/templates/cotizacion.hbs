@@ -1,19 +1,19 @@
 <div id='cotizacion-header'>
-    <h3>Cotización{{consecutivo}}{{#link-to 'cotizacion.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}</h3>
+    <h3>Cotización {{consecutivo}}
+      {{#if showToolBar}}
+        {{#if isEdicion}}
+          {{#link-to 'cotizacion.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}
+          {{#link-to 'cotizacion.notificar' this tagName="span" classNames="glyphicon glyphicon-send"}}{{/link-to}}
+        {{/if}}
+        {{#if isNotificado}}
+          {{#link-to 'cotizacion.rechazar' this tagName="span" classNames="glyphicon glyphicon-remove"}}{{/link-to}}
+          {{#link-to 'cotizacion.aceptar' this tagName="span" classNames="glyphicon glyphicon-ok"}}{{/link-to}}
+        {{/if}}
+      {{/if}}
+    </h3>
 
 </div>
 
-
-{{#if showCotizacion}}
-    <div class="btn-group">
-      {{#if showRechazado}}
-          <button
-                  class="btn btn-primary" {{action "cloneCotizacion" this target='controllers.cotizaciones'}} >
-                Rechazar
-          </button>
-      {{/if}}
-    </div>
-{{/if}}
 
 {{#if showCotizacion}}
     <table class="table cotizacion">
@@ -93,10 +93,6 @@
         </tr>
         </tfoot>
     </table>
-
-    <h5>TODO: layout, formato fecha, campos calculados</h5>
-    <h5>TODO: Mostrar tabla de Detalles</h5>
-    <h5>TODO: manejo de los status</h5>
 
 {{/if}}
 

@@ -13,6 +13,8 @@ App.Cotizacion = DS.Model.extend({
   descuento_porcentaje: DS.attr('number'),
   descuento_status: DS.attr('number'),
   status: DS.attr('number'),
+  msg_notificacion: DS.attr('string'),
+  motivo_status: DS.attr('string'),
 
   solicitud: DS.belongsTo('solicitud'),
 

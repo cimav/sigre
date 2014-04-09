@@ -1,0 +1,16 @@
+{{#form-for controller}}
+
+  <h5>Cotización aceptada por el cliente</h5>
+
+  {{input motivo_status as="text" label='Motivo'}}
+
+  <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-7">
+          <button type="submit"
+                  class="btn btn-success glyphicon glyphicon-ok" {{bind-attr disabled=this.isNotDirty}} {{action "aceptar" this target='controller'}} >
+              Aceptar
+          </button>
+      </div>
+  </div>
+
+{{/form-for}}

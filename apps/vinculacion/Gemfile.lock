@@ -9,7 +9,6 @@ PATH
       jquery-rails
       jquery-ui-rails
       rails (~> 4.0.3)
-      resque
       resque-bus
       select2-rails (~> 3.5.4)
 

@@ -29,6 +29,7 @@ module Vinculacion
          @cotiza[:precio_unitario] = 0.00
          @cotiza[:descuento_porcentaje] = 0.00
          @cotiza[:descuento_status] = 0
+         @cotiza[:msg_notificacion] = ''
       else
         # clonar la cotizacion anterior y agrega el consecutivo
          letra = letra.next
@@ -67,7 +68,10 @@ module Vinculacion
           :precio_unitario,
           :descuento_porcentaje,
           :descuento_status,
-          :status)
+          :status,
+          :msg_notificacion,
+          :motivo_status
+      )
     end
   end
 end
