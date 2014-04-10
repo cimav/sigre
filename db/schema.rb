@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140409180410) do
+ActiveRecord::Schema.define(version: 20140410191455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,8 @@ ActiveRecord::Schema.define(version: 20140409180410) do
     t.datetime "updated_at"
     t.text     "msg_notificacion"
     t.text     "motivo_status"
+    t.integer  "duracion"
+    t.decimal  "iva",                  precision: 10, scale: 2, default: 15.0
   end
 
   create_table "vinculacion_cotizaciones_detalle", force: true do |t|

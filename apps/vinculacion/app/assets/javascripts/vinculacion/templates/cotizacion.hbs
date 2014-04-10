@@ -19,8 +19,23 @@
     <table class="table cotizacion">
         <tbody>
         <tr>
-            <td>Fecha</td>
-            <td>{{fecha_notificacion}}</td>
+            <td>Status</td>
+            <td>
+              {{#view App.EnumView  items=status_text index=status}}
+                {{view.item.texto}}
+              {{/view}}
+
+              {{#if isNotificado}}
+                  <h6>({{msg_notificacion}})</h6>
+              {{/if}}
+              {{#unless isNotificado}}
+                  <h6>{{motivo_status}}</h6>
+              {{/unless}}
+            </td>
+        </tr>
+        <tr>
+            <td>Duración</td>
+            <td>{{duracion}}</td>
         </tr>
         <tr>
             <td>Condición pago</td>
@@ -59,50 +74,73 @@
             <td>{{notas}}</td>
         </tr>
         <tr>
-            <td>SubTotal</td>
-            <td>{{formatCurrency subtotal}}</td>
+            <td>+++++++++++++++++++++++++++</td>
         </tr>
         <tr>
             <td>Precio Venta</td>
             <td>{{formatCurrency precio_venta}}</td>
+            <td>Heuristico</td>
         </tr>
         <tr>
-            <td>Precio Unitario</td>
-            <td>{{formatCurrency precio_unitario}}</td>
+            <td>Costos variables</td>
+            <td>{{formatCurrency costos_variables}}</td>
+            <td>Suma Costeos: HrsHombre, Mats, Viaticos, etc.</td>
         </tr>
         <tr>
-            <td>SUMA</td>
-            <td>{{formatCurrency sumaTest}}</td>
+            <td>Importe indirectos</td>
+            <td>{{formatCurrency importe_indirectos}}</td>
+            <td>17.26% del Costo Variable</td>
         </tr>
         <tr>
-            <td>Procentaje descuento</td>
+            <td>Costo CIMAV</td>
+            <td>{{formatCurrency costo_cimav}}</td>
+            <td>CostoVariable + Importe indirectos</td>
+        </tr>
+        <tr>
+            <td>Margen PV</td>
+            <td>{{formatCurrency margen_precio_venta}}</td>
+            <td>Diferencia  PrecioVenta - CostoCimav</td>
+        </tr>
+        <tr>
+            <td>Remanente topado</td>
+            <td>{{formatCurrency remanente_topado}}</td>
+            <td>70% del MargenPV</td>
+        </tr>
+        <tr>
+            <td>Remanente distribuible</td>
+            <td>{{formatCurrency remanente_distribuible}}</td>
+            <td>35% del topado</td>
+        </tr>
+        <tr>
+            <td>+++++++++++++++++++++++++++</td>
+        </tr>
+        <tr>
+            <td>SubTotal</td>
+            <td>{{formatCurrency precio_venta}}</td>
+            <td>Normalmente es el PrecioVenta</td>
+        </tr>
+        <tr>
+            <td>Descuento</td>
+            <td>{{formatCurrency descuento_calculado}}</td>
             <td>{{formatPercentage descuento_porcentaje}}</td>
         </tr>
         <tr>
-            <td>Status Descuento</td>
-            <td>{{descuento_status}}</td>
+            <td>Descuento aplicado</td>
+            <td>{{formatCurrency descuento_aplicado}}</td>
+            <td>SubTotal - Descuento </td>
         </tr>
         <tr>
-            <td>Status Cotizacion</td>
-            <td>
-              {{#view App.EnumView  items=status_text index=status}}
-                {{view.item.texto}}
-              {{/view}}
+            <td>IVA</td>
+            <td>{{formatCurrency iva_calculado}}</td>
+            <td>{{formatPercentage iva}}</td>
+        </tr>
+        <tr>
+            <td>TOTAL</td>
+            <td>{{formatCurrency total}}</td>
+            <td>DescuentoAplicado + IVA </td>
+        </tr>
 
-              {{#if isNotificado}}
-                  <h6>({{msg_notificacion}})</h6>
-              {{/if}}
-              {{#unless isNotificado}}
-                  <h6>({{motivo_status}})</h6>
-              {{/unless}}
-            </td>
-        </tr>
         </tbody>
-        <tfoot>
-        <tr class="total">
-            <td colspan="3">Total</td>
-        </tr>
-        </tfoot>
     </table>
 
 {{/if}}

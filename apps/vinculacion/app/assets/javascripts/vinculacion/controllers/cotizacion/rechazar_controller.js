@@ -21,22 +21,22 @@ App.CotizacionRechazarController = Ember.ObjectController.extend({
       cotizacion.set('status', self.get('controllers.cotizacion.Status.rechazado'));
 
       cotizacion.save().then(onSuccess, onFail);
-    },
-
-    reeditar: function (cotizacion) {
-      self = this;
-      var onSuccess = function (cotizacion) {
-        self.transitionToRoute('cotizacion', cotizacion);
-        self.get('controllers.application').notify('Se re-editó cotización');
-      };
-      var onFail = function (cotizacion) {
-        self.get('controllers.application').notify('Error al re-editar cotización', 'alert-danger');
-      };
-
-      cotizacion.set('status', self.get('controllers.cotizacion.Status.edicion'));
-
-      cotizacion.save().then(onSuccess, onFail);
     }
+
+//    reeditar: function (cotizacion) {
+//      self = this;
+//      var onSuccess = function (cotizacion) {
+//        self.transitionToRoute('cotizacion', cotizacion);
+//        self.get('controllers.application').notify('Se re-editó cotización');
+//      };
+//      var onFail = function (cotizacion) {
+//        self.get('controllers.application').notify('Error al re-editar cotización', 'alert-danger');
+//      };
+//
+//      cotizacion.set('status', self.get('controllers.cotizacion.Status.edicion'));
+//
+//      cotizacion.save().then(onSuccess, onFail);
+//    }
 
   }
 

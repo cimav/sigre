@@ -18,9 +18,9 @@ module Vinculacion
       if letra.nil?
         # es la 1era cotizacion, valores por default
          letra = 'A'
-         @cotiza[:condicion] = 0
-         @cotiza[:idioma] = 0
-         @cotiza[:divisa] = 0
+         @cotiza[:condicion] = 1 # ember.controller.app.condiciones
+         @cotiza[:idioma] = 1
+         @cotiza[:divisa] = 1
          @cotiza[:comentarios] = 'Los comentarios default de la cotización'
          @cotiza[:observaciones] = 'Las observaciones default'
          @cotiza[:notas] = 'La o las notas por omisión'
@@ -30,6 +30,8 @@ module Vinculacion
          @cotiza[:descuento_porcentaje] = 0.00
          @cotiza[:descuento_status] = 0
          @cotiza[:msg_notificacion] = ''
+         @cotiza[:motivo_status] = ''
+         @cotiza[:duracion] = 0
       else
         # clonar la cotizacion anterior y agrega el consecutivo
          letra = letra.next
@@ -64,13 +66,15 @@ module Vinculacion
           :observaciones,
           :notas,
           :subtotal,
+          :iva,
           :precio_venta,
           :precio_unitario,
           :descuento_porcentaje,
           :descuento_status,
           :status,
           :msg_notificacion,
-          :motivo_status
+          :motivo_status,
+          :duracion
       )
     end
   end
