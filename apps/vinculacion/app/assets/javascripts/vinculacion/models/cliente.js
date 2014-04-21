@@ -2,6 +2,7 @@ App.Cliente = DS.Model.extend(Ember.Validations.Mixin, {
   rfc: DS.attr('string'),
   razon_social: DS.attr('string'),
   contactos: DS.hasMany('contacto'),
+  solicitudes: DS.hasMany('solicitud'),
 
   validations: {
     rfc: {

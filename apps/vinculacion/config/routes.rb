@@ -12,6 +12,7 @@ Vinculacion::Engine.routes.draw do
   post '/servicios/:id/solicitar_costeo', to: 'servicios#solicitar_costeo'
 
   resources :empleados
+  resources :sedes
 
   resources :costeos
 

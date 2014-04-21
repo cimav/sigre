@@ -25,7 +25,7 @@ module Vinculacion
 
     protected
     def cliente
-      params[:cliente].permit(:rfc,
+      params[:cliente].permit(:id, :rfc,
                               :razon_social)
     end
   end

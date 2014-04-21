@@ -4,7 +4,10 @@ module Vinculacion
     has_many :servicios
     has_many :cotizaciones
 
+    belongs_to   :sede
     belongs_to  :proyecto
+    belongs_to  :cliente
+    belongs_to  :contacto
 
   	after_create :set_extra
 

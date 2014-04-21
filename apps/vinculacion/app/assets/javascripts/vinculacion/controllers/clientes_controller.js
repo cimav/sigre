@@ -56,11 +56,5 @@ App.ClientesController = Ember.ArrayController.extend({
       }
     }
   }
-//    ,
-//    actions: {
-//        click: function (evt) {
-//            this.transitionToRoute('contactos.index');
-//        }
-//    }
 
 });

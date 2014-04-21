@@ -15,35 +15,33 @@
       <label for="unknown" class="col-sm-2 control-label">Proyecto</label>
       <div class="col-sm-7">
         {{view App.Select2View contentBinding="controllers.application.proyectosCache"
-                               optionLabelPath="content.nombre"
-                               optionValuePath="content.id"
-                               selectionBinding="proyecto"}}
-
+        optionLabelPath="content.nombre"
+        optionValuePath="content.id"
+        selectionBinding="proyecto"}}
       </div>
     </div>
       <div class="form-group">
       <label for="unknown" class="col-sm-2 control-label">Sede</label>
       <div class="col-sm-7">
-        {{view Ember.Select contentBinding="App.sedeCache"
-                            optionLabelPath="content.nombre"
-                            optionValuePath="content.id"
-                            selectionBinding="sede"
-                            }}
+        {{view App.Select2View contentBinding="controllers.application.sedesCache"
+        optionLabelPath="content.nombre"
+        optionValuePath="content.id"
+        selectionBinding="sede"}}
       </div>
     </div>
     <div class="form-group">
       <label for="unknown" class="col-sm-2 control-label">Cliente</label>
       <div class="col-sm-7">
-        {{view App.Select2View contentBinding="controllers.application.clientesCache"
-                               optionLabelPath="content.nombre"
-                               optionValuePath="content.id"
-                               selectionBinding="cliente"}}
+        {{view App.Select2View contentBinding="controllers.application.clientes"
+        optionLabelPath="content.razon_social"
+        optionValuePath="content.id"
+        selectionBinding="cliente"}}
       </div>
     </div>
     <div class="form-group">
       <label for="unknown" class="col-sm-2 control-label">Contacto</label>
       <div class="col-sm-7">
-        {{view App.Select2View contentBinding="controllers.application.contactosCache"
+        {{view App.Select2View contentBinding="cliente.contactos"
                                optionLabelPath="content.nombre"
                                optionValuePath="content.id"
                                selectionBinding="contacto"}}
