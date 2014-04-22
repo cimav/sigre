@@ -4,12 +4,5 @@ App.SolicitudController = Ember.ObjectController.extend({
   muestrasCount: Ember.computed.alias('content.muestras.length'),
   serviciosCount: Ember.computed.alias('content.servicios.length'),
   prioridad_item: App.computed.list_item('prioridad'),
-  actions: {
-    submit: function() {
-      this.get('model').save();
-      this.get('controllers.application').notify('Solicitud actualizada');
-    }
-  }
-
 });
 
