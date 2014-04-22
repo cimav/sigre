@@ -6,9 +6,6 @@ App.SolicitudesNewController = Ember.ObjectController.extend({
       solicitud = this.get('model');
       self = this
       var onSuccess = function(solicitud) {
-
-        self.get('controllers.cotizaciones').createCotizacion();
-
         self.transitionToRoute('solicitud', solicitud);
         self.get('controllers.application').notify('Se agrego nueva solicitud');
       };

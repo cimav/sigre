@@ -10,6 +10,7 @@ module Vinculacion
     belongs_to  :contacto
 
   	after_create :set_extra
+    after_create :add_cotizacion
 
   	def set_extra
   	  con = Solicitud.where("EXTRACT(YEAR FROM created_at) = :year", {:year => Date.today.year}).maximum('consecutivo')
@@ -24,6 +25,11 @@ module Vinculacion
       self.codigo = "#{year}/#{consecutivo}"
       self.save(:validate => false)
   	end
+
+    def add_cotizacion
+      cotizacion = self.cotizaciones.new
+      cotizacion.save
+    end
 
   end
 end

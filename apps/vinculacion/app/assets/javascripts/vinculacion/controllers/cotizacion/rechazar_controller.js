@@ -9,9 +9,9 @@ App.CotizacionRechazarController = Ember.ObjectController.extend({
 
       var onSuccess = function (cotizacion) {
         // clonar
-        var clone = self.get('controllers.cotizaciones').cloneCotizacion(cotizacion);
-        self.get('controllers.application').notify('Re-cotización: ' + clone.get('consecutivo'));
-        self.transitionToRoute('cotizacion', clone);
+        // var clone = self.get('controllers.cotizaciones').cloneCotizacion(cotizacion);
+        // self.get('controllers.application').notify('Re-cotización: ' + clone.get('consecutivo'));
+        // self.transitionToRoute('cotizacion', clone);
       };
 
       var onFail = function (cotizacion) {
