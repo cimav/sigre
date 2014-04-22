@@ -13,10 +13,7 @@ App.SolicitudEditController = Ember.ObjectController.extend({
       var onFail = function(solicitud) {
         self.get('controllers.application').notify('Error al actualizar solicitud', 'alert-danger');
       };
-
       solicitud.save().then(onSuccess, onFail);
     }
   }
-
-
 });
