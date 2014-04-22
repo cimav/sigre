@@ -4,10 +4,19 @@ module Vinculacion
     has_many :cotizaciones_detalle
 
     IVA = 16
+
+    STATUS_EDICION    = 1
+    STATUS_NOTIFICADO = 2
+    STATUS_ACEPTADO   = 3
+    STATUS_RECHAZADO  = 4
+    STATUS_CANCELADO  = 5
   
     after_create :set_extra
 
     def set_extra
+
+      self.status = STATUS_EDICION
+      
   	  ultima_cotizacion = Cotizacion.where("solicitud_id = :s AND id <> :id", {:s => self.solicitud_id, :id => self.id}).order('created_at').last
 
       if ultima_cotizacion.nil?
