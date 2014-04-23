@@ -18,4 +18,6 @@ Vinculacion::Engine.routes.draw do
 
   root :to => 'assets#index'
   get "assets/index"
+
+  get "cotizacion/:id/:type" => 'cotizaciones#document' 
 end
