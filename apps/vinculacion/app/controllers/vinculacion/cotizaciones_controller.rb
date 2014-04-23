@@ -54,8 +54,8 @@ module Vinculacion
     end
 
     def document
-      c_id = params[:id]
       type = params[:type]
+      cotizacion=  Cotizacion.find(params[:id])
       ## Load locale config
       t = t(:apps)[:vinculacion][:controllers][:cotizaciones][:document]
       ## Default Page Size Is Letter
@@ -75,15 +75,27 @@ module Vinculacion
         ## DIRECCION
         pdf.text_box t[:address], :at=> [x,y], :width => w, :height => h,:valign=> :center, :align => :center, :size=> size
         
-        ## FECHA Y COTIZACION
-        pdf.text "\n\n\n\n\n05 de Marzo del 2014. \n #{t[:quote]} 123456", :style=> :bold, :align=> :right, :size=> size
+        ## FECHA 
+        dia   = cotizacion.fecha_notificacion.day
+        mes   = t(:date)[:month_names][cotizacion.fecha_notificacion.month]
+        anyo  = cotizacion.fecha_notificacion.year
+        ## CALCULANDO FOLIO
+        anyof       = anyo.to_s[2,4]
+        con         = cotizacion.solicitud.consecutivo
+        c_solicitud = "%03d" % con.to_i
+        c_cotizacion = cotizacion.consecutivo
+        folio = "#{anyof}/#{c_solicitud}-#{c_cotizacion}"
+        pdf.text "\n\n\n\n\n#{dia} de #{mes} del #{anyo}. \n #{t[:quote]} #{folio}", :style=> :bold, :align=> :right, :size=> size
         
         ## DATOS GENERALES
-        data = [[t[:company],"Tecnologías de flujo"],
-                [t[:attention],"Saúl Arredondo"],
-                [t[:company_address],"Miguel de Cervantes"],
-                [t[:phone],"614 123 4567"],
-                [t[:email],"saul.arredondo@emerson.com"]]
+        cliente  = cotizacion.solicitud.cliente      
+        contacto = cotizacion.solicitud.contacto
+    
+        data = [[t[:company],cliente.razon_social],
+                [t[:attention],contacto.nombre],
+                [t[:company_address],"#{cliente.calle_num} Col. #{cliente.colonia} C.P. #{cliente.cp}"],
+                [t[:phone],contacto.telefono],
+                [t[:email],contacto.email]]
 
         pdf.table(data,:header=> false,:cell_style=> {:align=>:left,:size=>size,:padding=>1,:borders=>[]},:column_widths=>[80,410]) 
         
@@ -93,13 +105,21 @@ module Vinculacion
         ## CABECERA
         data = [[t[:amount],t[:description],t[:unit_cost], t[:subtotal]]]
         ## REITERATIVOS
-        counter = 0
-        ([["1","Traducción de Informa a idioma ingles.","$1,500.00","$1,500.00"]] * 1).each do |r|
-          data += [r]
-	  counter = counter + 1
+        counter   = 0
+        subtotalf = 0
+        cotizacion.cotizaciones_detalle.each do |cd|
+          subtotal = cd.precio_unitario * cd.cantidad
+          r = [[cd.cantidad,cd.concepto,cd.precio_unitario.to_s,subtotal.to_s]]
+          data += r
+          counter = counter + 1
+          subtotalf += subtotal
         end
+
+        ## CALCULANDO EL IVA
+        iva = (subtotalf * cotizacion.iva)/100
+
         ## FINAL
-        data +=[["","",t[:subtotal],"$1,500.00"],["","","Iva","$240.00"],["","","Total","$1,740.00"]]
+        data +=[["","",t[:subtotal],subtotalf],["","","Iva",iva],["","","Total",(subtotalf + iva).to_s]]
         pdf.table(data,:header=> false,:width=>490,:cell_style=> {:align=>:center,:valign=>:center,:size=>size - 2,:padding=>3}) do 
           row(counter + 1).column(0..2).style(:borders=>[])
           row(counter + 2).column(0..2).style(:borders=>[])
