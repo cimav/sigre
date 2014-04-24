@@ -1,0 +1,27 @@
+{{outlet}}
+
+{{#if showContactos}}
+
+  {{#link-to "contactos.new"  tagName="button" classNames="btn"}} <span title="Agregar contacto" class="glyphicon glyphicon-plus-sign"></span> {{/link-to}}
+
+  {{#each }}
+      <div class="contacto-item">
+
+          <button {{action "delete" this}}><span title="Eliminar contacto" class="glyphicon glyphicon-trash"></span></button>
+        {{#link-to "contacto.edit" this tagName="button" classNames="btn"}} <span title="Editar contacto" class="glyphicon glyphicon-pencil"></span> {{/link-to}}
+
+          <div class="contacto-nombre">{{id}}</div>
+          <div class="contacto-nombre">{{nombre}}</div>
+          <div class="contacto-telefono">{{telefono}}</div>
+          <div class="contacto-email">{{email}}</div>
+      </div>
+  {{/each}}
+{{/if}}
+
+{{#if deleteMode}}
+    <div class="confirm-box">
+        <h4>Really?</h4>
+        <button {{action "confirmDelete"}}> yes</button>
+        <button {{action "cancelDelete"}}> no</button>
+    </div>
+{{/if}}

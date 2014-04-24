@@ -1,13 +1,10 @@
-App.ContactosIndexController = Ember.ObjectController.extend({
+App.ContactosController = Ember.ArrayController.extend({
   needs: ['application', 'cliente'],
 
+  showContactos: true,
   deleteMode: false,
 
   actions: {
-
-    update: function (contacto) {
-      this.get('controllers.application').notify('UPDATE DIEZ');
-    },
 
     delete: function (contacto) {
       // our delete method now only toggles deleteMode's value
@@ -19,16 +16,16 @@ App.ContactosIndexController = Ember.ObjectController.extend({
       this.set('deleteMode', false);
     },
     confirmDelete: function () {
-      // this tells Ember-Data to delete the current user
-      contactoToDelete.deleteRecord();
-      contactoToDelete.save();
+
+      this.get('controllers.application').notify('Contacto eliminado');
+
+      // this tells Ember-Data to delete the current
+      contactoToDelete.destroyRecord();
 
       // set deleteMode back to false
       this.set('deleteMode', false);
-      // and then go to the clientes
-      this.transitionToRoute('contactos.index');
-
-      self.get('controllers.application').notify('Contacto eliminado');
+      // and then go to the contactos
+      this.transitionToRoute('contactos');
     }
 
   }

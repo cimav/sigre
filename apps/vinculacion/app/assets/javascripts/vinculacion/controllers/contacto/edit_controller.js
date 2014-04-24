@@ -13,11 +13,11 @@ App.ContactoEditController = Ember.ObjectController.extend({
       self = this;
 
       var onSuccess = function (contacto) {
-        self.transitionToRoute('contactos.index');
-        self.get('controllers.application').notify('Se actualizó contacto CERO');
+        self.get('controllers.application').notify('Se actualizó contacto');
+        self.transitionToRoute('contactos');
       };
       var onFail = function (contacto) {
-        self.get('controllers.application').notify('Error al actualizar contacto CERO', 'alert-danger');
+        self.get('controllers.application').notify('Error al actualizar contacto', 'alert-danger');
       };
 
       if (contacto.get('isValid')) {

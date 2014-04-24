@@ -39,8 +39,10 @@ App.ClientesController = Ember.ArrayController.extend({
     this.advanceCliente(-1);
   },
   firstCliente: function () {
-    if (this.get('length') >= 0) {
+    if (this.get('length') > 0) {
       this.transitionToRoute('cliente', this.objectAt(0));
+    } else {
+      this.transitionToRoute('clientes');
     }
   },
   advanceCliente: function (delta) {

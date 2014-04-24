@@ -2,16 +2,6 @@
   {{#form-for controller}}
     <h3>Solicitud</h3>
     <div class="form-group">
-      <label for="unknown" class="col-sm-2 control-label">Tipo</label>
-      <div class="col-sm-7">
-        {{view Ember.Select contentBinding="App.tipoCache"
-                            optionLabelPath="content.nombre"
-                            optionValuePath="content.id"
-                            selectionBinding="tipo"
-                            }}
-      </div>
-    </div>
-    <div class="form-group">
       <label for="unknown" class="col-sm-2 control-label">Proyecto</label>
       <div class="col-sm-7">
         {{view App.Select2View contentBinding="controllers.application.proyectosCache"
@@ -59,16 +49,6 @@
     </div>
     {{input notas}}
     {{input acuerdos as="text"}}
-    <div class="form-group">
-      <label for="unknown" class="col-sm-2 control-label">Estatus</label>
-      <div class="col-sm-7">
-        {{view Ember.Select contentBinding="App.statusCache"
-                            optionLabelPath="content.nombre"
-                            optionValuePath="content.id"
-                            selectionBinding="status"
-                            }}
-      </div>
-    </div>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-7">
         {{save-button item=this}}

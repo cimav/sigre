@@ -1,6 +1,3 @@
-/**
- * Created by calderon on 3/12/14.
- */
 App.ClienteController = Ember.ObjectController.extend({
   needs: ['application', 'clientes', 'cliente', 'contacto'],
 
@@ -38,16 +35,17 @@ App.ClienteController = Ember.ObjectController.extend({
       var rfc = self.get('model.rfc');
       if (window.confirm("?Eliminar Cliente: " + rfc + "?")) {
         var onSuccess = function (cliente) {
-          self.get('controllers.clientes').firstCliente(); // transicion al primero
           self.get('controllers.application').notify('Se eliminó cliente ' + rfc);
+          self.get('controllers.clientes').firstCliente(); // transicion al primero
         };
         var onFail = function (cliente) {
           self.get('controllers.application').notify('Error al eliminar cliente', 'alert-error');
         };
-        self.get('model').deleteRecord();
-        self.get('model').save().then(onSuccess, onFail);
-      } else {
-        //self.transitionToRoute('cliente', cliente);
+
+        //TODO Lanza un Error. En pruebas.
+//        self.get('model').deleteRecord();
+//        self.get('model').save().then(onSuccess, onFail);
+        self.get('model').destroyRecord().then(onSuccess, onFail);
       }
     }
 

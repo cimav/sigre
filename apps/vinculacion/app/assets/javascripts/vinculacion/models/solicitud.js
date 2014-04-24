@@ -12,12 +12,13 @@ App.Solicitud = DS.Model.extend({
   contacto: DS.belongsTo('contacto'),
   cotizaciones: DS.hasMany('cotizacion'),
 
+  string: DS.attr('string'),
+
   selectsChanges: function () {
-    // hack: Los Selects de models no ponen por si solos a al model parent en Dirty.
-    // nota: probablemente sean los belongs_to los que no cambian a Dirty
+    // hack: belongs_to no cambian a Dirty
     // https://github.com/emberjs/data/issues/1188
     // TODO poner en False a isDirty
-
+    // this.set('string', Math.random()); // forzar isDirty
   }.observes('cliente','contacto','sede','proyecto')
 
 });

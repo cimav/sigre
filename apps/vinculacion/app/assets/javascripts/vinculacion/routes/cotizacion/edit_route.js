@@ -2,7 +2,6 @@ App.CotizacionEditRoute = Ember.Route.extend({
   activate: function () {
     this.controllerFor('cotizacion').set('showCotizacion', false);
     this.controllerFor('cotizacion').set('showToolBar', false);
-
   },
   deactivate: function () {
 
