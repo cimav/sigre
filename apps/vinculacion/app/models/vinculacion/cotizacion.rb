@@ -12,6 +12,7 @@ module Vinculacion
     STATUS_CANCELADO  = 5
   
     after_create :set_extra
+    after_update :clone_cotizacion
 
     def set_extra
 
@@ -38,9 +39,21 @@ module Vinculacion
         self.descuento_porcentaje = ultima_cotizacion.descuento_porcentaje
         self.descuento_status = ultima_cotizacion.descuento_status
         # TODO: Clonar detalle
+        puts "CREATE**********************"
       end
       self.save(:validate => false)
   	end
+
+
+    def clone_cotizacion
+      if self.status == STATUS_RECHAZADO
+        puts "----------------------"
+        puts self.id
+        puts "----------------------"
+        cotizacion = self.solicitud.cotizaciones.new
+        cotizacion.save
+      end
+    end
 
     
   end

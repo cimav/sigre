@@ -21,7 +21,7 @@ module Vinculacion
 
     def destroy
       Cliente.find(params[:id]).destroy
-      head :no_content
+      render :json => true, :status => :ok
     end
 
     protected
