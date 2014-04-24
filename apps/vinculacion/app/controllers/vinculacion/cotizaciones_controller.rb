@@ -13,36 +13,7 @@ module Vinculacion
     end
 
     def create
-
-      @cotiza = cotizacion
-      letra = @cotiza[:consecutivo]
-      if letra.nil?
-        # es la 1era cotizacion, valores por default
-         letra = 'A'
-         @cotiza[:condicion] = 1 # ember.controller.app.condiciones
-         @cotiza[:idioma] = 1
-         @cotiza[:divisa] = 1
-         @cotiza[:comentarios] = 'Los comentarios default de la cotización'
-         @cotiza[:observaciones] = 'Las observaciones default'
-         @cotiza[:notas] = 'La o las notas por omisión'
-         @cotiza[:subtotal] = 0.00
-         @cotiza[:precio_venta] = 0.00
-         @cotiza[:precio_unitario] = 0.00
-         @cotiza[:descuento_porcentaje] = 0.00
-         @cotiza[:descuento_status] = 0
-         @cotiza[:msg_notificacion] = ''
-         @cotiza[:motivo_status] = ''
-         @cotiza[:duracion] = 0
-      else
-        # clonar la cotizacion anterior y agrega el consecutivo
-         letra = letra.next
-       end
-      @cotiza[:consecutivo] = letra
-      @cotiza[:status] = 1 #edicion #ember.CotizacionController.Status
-
-      @cotiza = Cotizacion.create(@cotiza)
-
-      render json: @cotiza
+      render json: Cotizacion.create(cotizacion)
     end
 
     def update
