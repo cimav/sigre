@@ -1,7 +1,7 @@
 module Vinculacion
   class Cotizacion < ActiveRecord::Base
     belongs_to :solicitud
-    has_many :cotizaciones_detalle
+    has_many :cotizacion_detalle
 
     IVA = 16
 

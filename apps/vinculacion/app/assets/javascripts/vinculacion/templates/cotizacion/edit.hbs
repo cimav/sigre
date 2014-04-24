@@ -1,5 +1,4 @@
 {{#form-for controller}}
-
     <div class="form-group">
         <div class="col-sm-3">
             <label for="unknown" class="col-sm-2 control-label">Condición</label>
@@ -34,17 +33,25 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-7">
-            <table class="table table-striped servicio-muestras">
+            <table class="table">
                 <thead>
                 <tr>
-                    <th></th>
                     <th>Cantidad</th>
                     <th>Concepto</th>
                     <th>Precio</th>
                     <th>Total</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
+                  {{#each cotizacion_detalle}}
+                    <tr>
+                      <td>xx{{cantidad}}</td>
+                      <td>{{concepto}}</td>
+                      <td>{{precio_unitario}}</td>
+                      <td>{{total}}</td>
+                    </tr>
+                  {{/each}}
                 </tbody>
             </table>
         </div>

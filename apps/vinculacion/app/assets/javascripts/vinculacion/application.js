@@ -25,7 +25,7 @@ var inflector = Ember.Inflector.inflector;
 inflector.irregular('solicitud', 'solicitudes');
 inflector.irregular('prioridad', 'prioridades');
 inflector.irregular('cotizacion', 'cotizaciones');
-inflector.irregular('cotizacion_detalle', 'cotizaciones_detalle');
+inflector.irregular('cotizacion_detalle', 'cotizacion_detalle');
 inflector.irregular('costeo_detalle', 'costeo_detalle');
 
 // Create App

@@ -21,7 +21,9 @@ App.Cotizacion = DS.Model.extend({
   motivo_status: DS.attr('string'),
   duracion: DS.attr('number'),
 
-  solicitud: DS.belongsTo('solicitud')
+  solicitud: DS.belongsTo('solicitud'),
+
+  cotizacion_detalle: DS.hasMany('cotizacion_detalle')
 
 });
 
