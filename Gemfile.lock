@@ -97,6 +97,7 @@ GEM
       jquery-rails
       railties (>= 3.1.0)
     json (1.8.1)
+    libv8 (3.16.14.3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -104,8 +105,12 @@ GEM
     minitest (4.7.5)
     mono_logger (1.1.0)
     multi_json (1.8.4)
+    pdf-core (0.2.5)
     pg (0.17.1)
     polyglot (0.3.4)
+    prawn (1.0.0)
+      pdf-core (~> 0.2.2)
+      ttfunk (~> 1.1.1)
     rack (1.5.2)
     rack-protection (1.5.2)
       rack
@@ -130,6 +135,7 @@ GEM
     redis (3.0.7)
     redis-namespace (1.4.1)
       redis (~> 3.0.4)
+    ref (1.0.5)
     resque (1.25.2)
       mono_logger (~> 1.0)
       multi_json (~> 1.0)
@@ -175,6 +181,9 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    therubyracer (0.12.1)
+      libv8 (~> 3.16.14.0)
+      ref
     thor (0.18.1)
     thread_safe (0.1.3)
       atomic
@@ -182,6 +191,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    ttfunk (1.1.1)
     turbolinks (2.2.1)
       coffee-rails
     tzinfo (0.3.38)
@@ -199,10 +209,12 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-ui-rails
   pg
+  prawn
   rails (= 4.0.3)
   rh!
   sass-rails (~> 4.0.0)
   sdoc
+  therubyracer
   turbolinks
   uglifier (>= 1.3.0)
   vinculacion!
