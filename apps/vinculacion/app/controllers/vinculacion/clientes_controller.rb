@@ -20,7 +20,8 @@ module Vinculacion
     end
 
     def destroy
-      render json: Cliente.find(params[:id]).destroy
+      Cliente.find(params[:id]).destroy
+      head :no_content
     end
 
     protected
