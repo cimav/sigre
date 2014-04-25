@@ -4,13 +4,16 @@ App.CotizacionRechazarController = Ember.ObjectController.extend({
 
   actions: {
 
-    recotizar: function (cotizacion) {
+    rechazar: function (cotizacion) {
       self = this;
 
       var onSuccess = function (cotizacion) {
-        self.get('controllers.application').notify('Recotizar');
-        var cotizaciones = self.get('controllers.cotizaciones').get('model');
-        self.transitionToRoute('cotizacion', cotizaciones.sortBy('consecutivo').get('lastObject'));
+        self.get('controllers.application').notify('Cotización ' + self.get('consecutivo') + ' rechazada.' );
+        
+        // Cuando una solicitud se rechaza desde el backend se crea una nueva
+        // cotización basada en la rechazada. Es por eso que transicionamos a esta.
+        ultimo = self.get('model').get('solicitud.cotizaciones.lastObject');
+        self.transitionToRoute('cotizacion', ultimo);
       };
 
       var onFail = function (cotizacion) {
