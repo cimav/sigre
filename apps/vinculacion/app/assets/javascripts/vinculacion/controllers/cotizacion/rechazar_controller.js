@@ -4,14 +4,16 @@ App.CotizacionRechazarController = Ember.ObjectController.extend({
 
   actions: {
 
-    recotizar: function (cotizacion) {
+    rechazar: function (cotizacion) {
       self = this;
 
       var onSuccess = function (cotizacion) {
-        // clonar
-        // var clone = self.get('controllers.cotizaciones').cloneCotizacion(cotizacion);
-        // self.get('controllers.application').notify('Re-cotización: ' + clone.get('consecutivo'));
-        // self.transitionToRoute('cotizacion', clone);
+        self.get('controllers.application').notify('Cotización ' + self.get('consecutivo') + ' rechazada.' );
+        
+        // Cuando una solicitud se rechaza desde el backend se crea una nueva
+        // cotización basada en la rechazada. Es por eso que transicionamos a esta.
+        ultimo = self.get('model').get('solicitud.cotizaciones.lastObject');
+        self.transitionToRoute('cotizacion', ultimo);
       };
 
       var onFail = function (cotizacion) {
@@ -19,24 +21,8 @@ App.CotizacionRechazarController = Ember.ObjectController.extend({
       };
 
       cotizacion.set('status', self.get('controllers.cotizacion.Status.rechazado'));
-
       cotizacion.save().then(onSuccess, onFail);
     }
-
-//    reeditar: function (cotizacion) {
-//      self = this;
-//      var onSuccess = function (cotizacion) {
-//        self.transitionToRoute('cotizacion', cotizacion);
-//        self.get('controllers.application').notify('Se re-editó cotización');
-//      };
-//      var onFail = function (cotizacion) {
-//        self.get('controllers.application').notify('Error al re-editar cotización', 'alert-danger');
-//      };
-//
-//      cotizacion.set('status', self.get('controllers.cotizacion.Status.edicion'));
-//
-//      cotizacion.save().then(onSuccess, onFail);
-//    }
 
   }
 
