@@ -22,11 +22,26 @@ module Vinculacion
 
       if ultima_cotizacion.nil?
         self.consecutivo = 'A'
+        # Valores Default
         self.iva = Cotizacion::IVA
+        self.condicion = 1
+        self.idioma = 1
+        self.divisa = 1
+        self.comentarios = 'Comentarios default...'
+        self.observaciones = 'Observaciones default...'
+        self.notas = 'Notas default...'
+        self.subtotal = 0.00
+        self.precio_venta = 0.00
+        self.descuento_porcentaje = 0.00
+        self.descuento_status = 0
+        self.msg_notificacion = ''
+        self.motivo_status = ''
+        self.duracion = 0
       else
         self.consecutivo = ultima_cotizacion.consecutivo.next
         # Clonar cotizacion anterior.
         self.iva = ultima_cotizacion.iva
+        self.duracion = ultima_cotizacion.duracion
         self.condicion = ultima_cotizacion.condicion
         self.idioma = ultima_cotizacion.idioma
         self.divisa = ultima_cotizacion.divisa
@@ -47,9 +62,6 @@ module Vinculacion
 
     def clone_cotizacion
       if self.status == STATUS_RECHAZADO
-        puts "----------------------"
-        puts self.id
-        puts "----------------------"
         cotizacion = self.solicitud.cotizaciones.new
         cotizacion.save
       end
