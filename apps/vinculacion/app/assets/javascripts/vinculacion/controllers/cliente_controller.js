@@ -32,21 +32,19 @@ App.ClienteController = Ember.ObjectController.extend({
     },
 
     destroy: function () {
-      self = this
+      self = this;
       var rfc = self.get('model.rfc');
       if (window.confirm("?Eliminar Cliente: " + rfc + "?")) {
         var onSuccess = function (cliente) {
           self.get('controllers.application').notify('Se eliminó cliente ' + rfc);
-          self.get('controllers.clientes').firstCliente(); // transicion al primero
+          self.transitionToRoute('clientes');
         };
         var onFail = function (cliente) {
           self.get('controllers.application').notify('Error al eliminar cliente', 'alert-error');
         };
 
-        //TODO Lanza un Error. En pruebas.
-//        self.get('model').deleteRecord();
-//        self.get('model').save().then(onSuccess, onFail);
         self.get('model').destroyRecord().then(onSuccess, onFail);
+
       }
     }
 
