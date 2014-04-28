@@ -4,15 +4,21 @@
   {{input nombre }}
   {{input telefono label='Teléfono'}}
   {{input email }}
+  <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-6">
+          <button type="submit"
+                  class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action 'update' this }} >
+            {{#if item.isSaving}}
+                <span class="spin glyphicon glyphicon-refresh"></span>
+                Guardando...
+            {{else}}
+                Guardar
+            {{/if}}
+          </button>
+      </div>
+      <div class="col-sm-1">
+          <button class="btn-delete btn btn-danger" {{action "destroy" this target='controller'}}><span title="Eliminar cliente" class="glyphicon glyphicon-trash"></span></button>
+      </div>
+  </div>
 {{/form-for}}
-<div class="btn-group">
-    <button type="submit"
-            class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action 'update' this }} >
-      {{#if item.isSaving}}
-          <span class="spin glyphicon glyphicon-refresh"></span>
-          Guardando...
-      {{else}}
-          Guardar
-      {{/if}}
-    </button>
-</div>
+

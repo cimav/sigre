@@ -13,8 +13,8 @@ App.ContactoEditController = Ember.ObjectController.extend({
       self = this;
 
       var onSuccess = function (contacto) {
-        self.get('controllers.application').notify('Se actualizó contacto');
         self.transitionToRoute('contactos');
+        self.get('controllers.application').notify('Se actualizó contacto');
       };
       var onFail = function (contacto) {
         self.get('controllers.application').notify('Error al actualizar contacto', 'alert-danger');
@@ -23,7 +23,23 @@ App.ContactoEditController = Ember.ObjectController.extend({
       if (contacto.get('isValid')) {
         contacto.save().then(onSuccess, onFail);
       }
+    },
+
+    destroy: function(contacto) {
+      self = this;
+      var appController = self.get('controllers.application');
+      if (confirm("¿Desea eliminar el contacto " + contacto.get('nombre') + "?")) {
+        var onSuccess = function (contacto) {
+          appController.notify('Se eliminó contacto');
+          self.transitionToRoute('contactos');
+        };
+        var onFail = function (muestra) {
+          appController.notify('Error al eliminar contacto', 'alert-danger');
+        };
+        contacto.destroyRecord().then(onSuccess, onFail);
+      }
     }
+
 
   }
 

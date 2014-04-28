@@ -1,4 +1,4 @@
-<h3>{{rfc}}</h3>
+<h3>{{razon_social}}</h3>
 
 <!-- Nav tabs -->
 <ul class="nav nav-tabs">
@@ -7,23 +7,33 @@
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane active" id="datos" style="height:450px"> <!-- WIP, style no va aqui -->
+
+    <div class="tab-pane active" id="datos">
+
       {{#form-for controller}}
+
         {{input rfc label='RFC'}}
         {{input razon_social label='Razón social'}}
+
+          <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-6">
+                  <button type="submit"
+                          class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "update" this target='controller'}} >
+                    {{#if item.isSaving}}
+                        <span class="spin glyphicon glyphicon-refresh"></span>
+                        Guardando...
+                    {{else}}
+                        Guardar
+                    {{/if}}
+                  </button>
+              </div>
+              <div class="col-sm-1">
+                  <button class="btn-delete btn btn-danger" {{action "destroy" this target='controller'}}><span title="Eliminar cliente" class="glyphicon glyphicon-trash"></span></button>
+              </div>
+          </div>
+
       {{/form-for}}
-        <div class="btn-group">
-            <button type="submit"
-                    class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "update" this target='controller'}} >
-              {{#if item.isSaving}}
-                  <span class="spin glyphicon glyphicon-refresh"></span>
-                  Guardando...
-              {{else}}
-                  Guardar
-              {{/if}}
-            </button>
-            <button {{action "destroy" this target='controller'}}><span title="Eliminar cliente" class="glyphicon glyphicon-trash"></span></button>
-        </div>
+
     </div>
 
     <div class="tab-pane" id="contactos">

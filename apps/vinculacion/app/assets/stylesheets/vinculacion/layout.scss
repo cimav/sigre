@@ -64,6 +64,12 @@ html, body, .application-view {
   bottom: 10px;
 }
 
+.form-group {
+  .btn-delete {
+    float: right;
+  }
+}
+
 #main-container {
   /** display:table;
   height: 100%; **/
@@ -283,6 +289,11 @@ html, body, .application-view {
     height: 48px;
     margin: 0 0 20px 0;
     font-weight: normal;
+  }
+
+  .tab-content {
+    margin-top: 20px;
+
   }
 }
 
@@ -561,13 +572,25 @@ html, body, .application-view {
 }
 
 #contactos {
+  #contacto-header {
+    height: 34px;
+    .btn {
+      float: right;
+    }
+    .glyphicon {
+      float: right;
+      cursor: pointer;
+    }
+  }
   .contacto-item {
+    position: relative;
     float:left;
     margin: 10px 5px;
     width: 320px;
     border: 1px solid $contacto-border;
+    border-top-width: 5px;
     border-radius: 5px;
-    box-shadow: 0px 2px 4px $grey;
+    box-shadow: 4px 4px 4px #dddddd;
     min-height: 100px;
     .contacto-nombre {
       font-size: 14px;
@@ -591,15 +614,15 @@ html, body, .application-view {
     .contacto-email-input {
       margin: 5px;
     }
-    .contacto-guardar {
-      text-align: right;
-      padding: 10px;
-      button {
-        border: 1px solid $contacto-border;
-        color: $white;
-        background-color: $contacto-bg;
-      }
+    .contacto-bottom {
+      position: absolute;
+      color: $grey;
+      right: 5px;
+      bottom: 5px;
+      cursor: pointer;
+      display: block;
     }
+
   }
 
   #nuevo-contacto {
