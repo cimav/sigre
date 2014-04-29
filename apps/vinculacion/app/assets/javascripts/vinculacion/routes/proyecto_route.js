@@ -1,4 +1,4 @@
-App.ClienteRoute = Ember.Route.extend({
+App.ProyectoRoute = Ember.Route.extend({
 
   beforeModel: function() {
     if (this.modelFor('proyecto')  !== undefined && this.modelFor('proyecto').get('isDirty')) {
