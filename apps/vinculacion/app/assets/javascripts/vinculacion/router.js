@@ -32,6 +32,13 @@ App.Router.map(function () {
     });
   });
 
+  this.resource('proyectos', function () {
+    this.route('new', {path: '/nuevo'});
+    this.resource('proyecto', {path: '/:proyecto_id'}, function () {
+      this.route('edit', {path: '/editar'});
+    });
+  });
+
   this.resource('clientes', function () {
     this.route('new', {path: '/nuevo'});
     this.resource('cliente', {path: '/:cliente_id'}, function () {

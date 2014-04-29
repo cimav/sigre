@@ -20,7 +20,8 @@ module Vinculacion
     end
 
     def destroy
-      render json: Proyecto.find(params[:id]).destroy
+      result = Proyecto.find(params[:id]).destroy == false ? false : true
+      render :json => result, :status => :ok
     end
 
     protected
