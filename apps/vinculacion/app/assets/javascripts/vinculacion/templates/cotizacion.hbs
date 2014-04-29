@@ -16,7 +16,33 @@
 
 
 {{#if showCotizacion}}
-    <table class="table cotizacion">
+  <div id="cotizacion">
+    <div id="cotizacion-codigo">{{codigo}}</div>
+    <div class="cotizacion-cliente-data">
+      <div class="cliente-nombre">{{model.solicitud.cliente.razon_social}}</div>
+      <div class="cliente-contacto">{{model.solicitud.contacto.nombre}}</div>
+      <div class="cliente-contacto-tel">{{model.solicitud.contacto.telefono}}</div>
+      <div class="cliente-contacto-email">{{model.solicitud.contacto_email}}</div>
+    </div>
+
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th>Duración</th><td>{{duracion}}</td>
+        </tr>
+        <tr>
+          <th>Condición de Pago</th><td>{{duracion}}</td>
+        </tr>
+        <tr>
+          <th>Moneda</th><td>{{duracion}}</td>
+        </tr>
+        <tr>
+          <th>Idioma</th><td>{{duracion}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="table">
         <tbody>
         <tr>
             <td>Status</td>
@@ -142,7 +168,7 @@
 
         </tbody>
     </table>
-
+  </div>
 {{/if}}
 
 {{outlet}}

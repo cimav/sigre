@@ -2,4 +2,60 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+#cotizaciones-list {
+  padding: 5px;
+  border-bottom: 1px solid $grey;
+  height: 48px;
+  .nav-pills > li > a {
+    border-radius: 24px;
+    font-weight: bold;
+  }
+}
 
+#cotizaciones-workarea {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  background: lighten($light-grey,1%);
+
+  #cotizacion-header {
+    .glyphicon {
+      float: right;
+      color: #dddddd;
+      cursor: pointer;
+    }
+    .glyphicon.active {
+      color: $dark-grey;
+      cursor: normal;
+    }
+  }
+
+  #datos-fijos {
+    padding: 10px;
+  }
+}
+
+
+#cotizacion {
+  margin: 20px 20px 50px 20px;
+  padding: 20px 20px 50px 20px;
+  border: 1px solid $line-color;
+  background: $white;
+  box-shadow: 0px 2px 4px $grey;
+
+  #cotizacion-codigo {
+    float: right;
+    color: $dark-grey;
+    font-size: 150%;
+  }
+
+  .cotizacion-cliente-data {
+    .cliente-nombre {
+      font-weight: bold;
+      font-size: 110%;
+    }
+  }
+}
