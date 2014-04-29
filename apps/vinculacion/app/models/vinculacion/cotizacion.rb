@@ -14,6 +14,10 @@ module Vinculacion
     after_create :set_extra
     after_update :clone_cotizacion
 
+    def codigo 
+      "#{self.solicitud.codigo}-#{consecutivo}"
+    end
+
     def set_extra
 
       self.status = STATUS_EDICION
