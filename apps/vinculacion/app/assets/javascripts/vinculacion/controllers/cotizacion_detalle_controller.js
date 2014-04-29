@@ -29,5 +29,29 @@ App.CotizacionDetalleController = Ember.ObjectController.extend({
       };
       item.save().then(onSuccess, onFail);
     }
-  }
+  },
+
+  saveDetalle: function() {
+    if (this.get('model.isDirty')) {
+      console.log('SAVE DETALLE ' + this.get('model.id') );  
+     
+      item = this.get('model');
+      self = this;
+      var onSuccess = function(item) {
+        self.get('controllers.application').notify('Se actualizó el detalle');
+      };
+
+      var onFail = function(item) {
+        self.get('controllers.application').notify('Error al actualizar detalle', 'alert-danger');
+      };
+      item.save().then(onSuccess, onFail);
+    }
+  },
+
+  autoSave: function() {
+    console.log('AUTO SAVE!');
+    Ember.run.debounce(this, this.saveDetalle, 1000); 
+  }.observes('content.isDirty')
+
+
 });

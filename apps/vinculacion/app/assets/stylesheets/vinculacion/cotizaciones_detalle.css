@@ -23,6 +23,14 @@
   }
   .det-accion {
     width: 5%;
+    color: $grey;
+    padding: 0 12px;
+    .glyphicon-remove {
+      cursor: pointer;
+    }
+    .glyphicon-record {
+      color: $brand-warning;
+    }
   }
 
   .det-descuento {

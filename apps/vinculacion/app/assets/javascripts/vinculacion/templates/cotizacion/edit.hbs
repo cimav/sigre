@@ -49,17 +49,16 @@
               <td class="det-concepto">{{input-field concepto}}</td>
               <td class="det-precio-unitario text-right">{{input-field precio_unitario}}</td>
               <td class="det-total text-right">{{formatCurrency total}}</td>
-              <td class="det-accion">
-                <button {{action 'updateDetalle' this}} class="btn btn-primary btn-xs" {{bind-attr disabled=isNotDirty}}>
+              <td class="det-accion" {{bind-attr dirty=isDirty}}>
+                {{#if isNotDirty}}
+                  <span {{action 'deleteDetalle' this}} class="glyphicon glyphicon-remove"></span>
+                {{else}}
                   {{#if isSaving}}
                     <span class="spin glyphicon glyphicon-refresh"></span>
                   {{else}}
-                    <span class="glyphicon glyphicon-save"></span>
+                    <span class="glyphicon glyphicon-record"></span>
                   {{/if}}
-                </button>
-                <button {{action 'deleteDetalle' this}} class="btn btn-xs">
-                  <span class="glyphicon glyphicon-remove"></span>
-                </button>
+                {{/if}}
               </td>
             </tr>
           {{/each}}
@@ -68,7 +67,7 @@
             <td class="det-concepto">{{input-field newDetalle.concepto placeholder='Nuevo detalle...'}}</td>
             <td class="det-precio-unitario text-right">{{input-field newDetalle.precio_unitario}}</td>
             <td class="det-total text-right">{{formatCurrency newDetalle.total}}</td>
-            <td class="det-accion">
+            <td class="det-accion-new">
               <button {{action 'addDetalle' newDetalle}} class="btn btn-success btn-xs" {{bind-attr disabled=isNotDirty}}>
                 {{#if isSaving}}
                   <span class="spin glyphicon glyphicon-refresh"></span>
