@@ -19,8 +19,22 @@ App.CotizacionEditController = Ember.ObjectController.extend({
       };
 
       cotizacion.save().then(onSuccess, onFail);
-    }
+    },
 
+    addDetalle: function(detalle) {
+      var detalle = this.get('newDetalle');
+      var self = this
+      var onSuccess = function(detalle) {
+        self.get('controllers.application').notify('Se agrego nuevo detalle');
+        self.set('newDetalle', self.store.createRecord('cotizacion_detalle'));
+      };
+
+      var onFail = function(detalle) {
+        self.get('controllers.application').notify('Error al agregar detalle', 'alert-danger');
+      };
+      self.get('controllers.cotizacion').get('model').get('cotizacion_detalles').pushObject(detalle);
+      detalle.save().then(onSuccess, onFail);
+    }
   }
 
 });

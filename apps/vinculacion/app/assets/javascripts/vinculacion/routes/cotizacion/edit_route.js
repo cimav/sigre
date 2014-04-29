@@ -16,5 +16,9 @@ App.CotizacionEditRoute = Ember.Route.extend({
   },
   model: function () {
     return this.modelFor('cotizacion');
+  },
+  setupController: function(controller, model) {
+    this._super(controller, model);
+    controller.set('newDetalle', this.store.createRecord('cotizacion_detalle'));
   }
 });
