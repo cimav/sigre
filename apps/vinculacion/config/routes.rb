@@ -7,8 +7,7 @@ Vinculacion::Engine.routes.draw do
   resources :contactos
   resources :proyectos
   resources :cotizaciones
-  resources :cotizaciones_detalle, path: 'cotizacionDetalles'
-
+  resources :cotizaciones_detalle, path: 'cotizacion_detalle'
   post '/servicios/:id/solicitar_costeo', to: 'servicios#solicitar_costeo'
 
   resources :empleados
