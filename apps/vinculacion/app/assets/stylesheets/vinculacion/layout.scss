@@ -913,32 +913,3 @@ table.resumen {
     }
   }
 }
-
-#cotizaciones-list {
-  padding: 5px;
-  border-bottom: 1px solid $grey;
-  .nav-pills > li > a {
-    border-radius: 24px;
-    font-weight: bold;
-  }
-}
-
-#cotizaciones-workarea {
-  padding: 0px 20px;
-
-  #cotizacion-header {
-    .glyphicon {
-      float: right;
-      color: #dddddd;
-      cursor: pointer;
-    }
-    .glyphicon.active {
-      color: $dark-grey;
-      cursor: normal;
-    }
-  }
-
-  #datos-fijos {
-    padding: 10px;
-  }
-}
