@@ -5,8 +5,10 @@ App.ClienteClickView = Ember.View.extend({
 //    },
 
   // Detecta el click sobre el Cliente para activar/mostrar sus Contactos
-  // (Cliente.AfterModel no funciona cuando se selecciona a simismo.)
-//    click: function(evt) {
-//       this.get('controller').send('click', event);
-//    }
+  // (Cliente.AfterModel no funciona cuando se selecciona a sí mismo.)
+    click: function(evt) {
+      // TODO Al darle Click al Cliente, debe re-cargar la ruta de contactos.
+      //console.log(App.controller);
+    }
+
 });
