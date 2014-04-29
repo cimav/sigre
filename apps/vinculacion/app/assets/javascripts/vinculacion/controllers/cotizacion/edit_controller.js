@@ -26,7 +26,10 @@ App.CotizacionEditController = Ember.ObjectController.extend({
       var self = this
       var onSuccess = function(detalle) {
         self.get('controllers.application').notify('Se agrego nuevo detalle');
-        self.set('newDetalle', self.store.createRecord('cotizacion_detalle'));
+        var newDetalle = self.store.createRecord('cotizacion_detalle');
+        newDetalle.set('cantidad', 1);
+        newDetalle.set('precio_unitario', 0);
+        self.set('newDetalle', newDetalle);
       };
 
       var onFail = function(detalle) {
