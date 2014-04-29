@@ -1,5 +1,5 @@
 App.CotizacionEditController = Ember.ObjectController.extend({
-  needs: ['application'],
+  needs: ['application', 'cotizacion'],
 
   isNotReadyForSave: function () {
     var result = this.get('content.isDirty') == true && this.get('content.isValid') == true;

@@ -30,37 +30,71 @@
     {{input comentarios as="text"}}
     {{input observaciones as="text"}}
     {{input notas as="text"}}
-
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-7">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Cantidad</th>
-                    <th>Concepto</th>
-                    <th>Precio</th>
-                    <th>Total</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                  {{#each cotizacion_detalle}}
-                    <tr>
-                      <td>xx{{cantidad}}</td>
-                      <td>{{concepto}}</td>
-                      <td>{{precio_unitario}}</td>
-                      <td>{{total}}</td>
-                    </tr>
-                  {{/each}}
-                </tbody>
-            </table>
-        </div>
+    
+    <div class="col-sm-12">
+      <table class="table" id="tabla-edicion-cotizacion-detalle">
+        <thead>
+          <tr>
+            <th class="det-cantidad">Cant.</th>
+            <th class="det-concepto">Concepto</th>
+            <th class="det-precio-unitario">Precio</th>
+            <th class="det-total">Total</th>
+            <th class="det-accion"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each cotizacion_detalles itemController="cotizacion_detalle"}}
+            <tr>
+              <td class="det-cantidad text-right">{{input-field cantidad}}</td>
+              <td class="det-concepto">{{input-field concepto}}</td>
+              <td class="det-precio-unitario text-right">{{input-field precio_unitario}}</td>
+              <td class="det-total text-right">{{formatCurrency total}}</td>
+              <td class="det-accion">
+                <button {{action 'updateDetalle' this}} class="btn btn-primary btn-xs" {{bind-attr disabled=isNotDirty}}>
+                  {{#if isSaving}}
+                    <span class="spin glyphicon glyphicon-refresh"></span>
+                  {{else}}
+                    <span class="glyphicon glyphicon-save"></span>
+                  {{/if}}
+                </button>
+                <button {{action 'deleteDetalle' this}} class="btn btn-xs">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button
+              </td>
+            </tr>
+          {{/each}}
+          <tr>
+            <td class="text-right totales" colspan="3">Subtotal</td>
+            <td class="text-right totales">{{formatCurrency subtotal_calculado}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="det-descuento text-right" colspan="3">
+              <div class="pull-right">
+                <div class="descuento-label">Descuento</div> 
+                <div class="input-group input-group-sm pull-left">
+                  {{view App.NumberField value=descuento_porcentaje classNames="form-control" min="0" max="100"}}
+                  <span class="input-group-addon">%</span>
+                </div>
+              </div>
+            </td>
+            <td class="text-right totales">{{formatCurrency descuento_calculado}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="text-right totales" colspan="3">IVA {{iva}}%</td>
+            <td class="text-right totales">{{formatCurrency iva_calculado}}</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="text-right totales" colspan="3">TOTAL</td>
+            <td class="text-right totales">{{formatCurrency total_calculado}}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
-    {{input precio_venta}}
-    {{input iva label='IVA'}}
-    {{input descuento_porcentaje label='Porcentaje descuento'}}
-
+    
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-7">
             <button type="submit"

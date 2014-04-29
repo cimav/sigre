@@ -26,7 +26,6 @@ App.CotizacionController = Ember.ObjectController.extend({
     return this.get('model.status') == this.get('Status.notificado');
   }.property('model.status'),
 
-
   porcentaje_indirectos: function () {
     // %% de luz, agua, etc.
     return 17.26;

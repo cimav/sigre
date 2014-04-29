@@ -2,3 +2,42 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+
+#tabla-edicion-cotizacion-detalle {
+  tr {
+    td {
+      vertical-align: middle;
+    }
+  }
+  .det-cantidad {
+    width: 15%;
+  }
+  .det-concepto {
+    width: 40%;
+  }
+  .det-precio-unitario {
+    width: 20%;
+  }
+  .det-total {
+    width: 20%;
+  }
+  .det-accion {
+    width: 5%;
+  }
+
+  .det-descuento {
+    font-weight: bold;
+    .descuento-label {
+      padding-top: 6px;
+      margin-right: 10px;
+      float: left;
+    }
+    input {
+      width: 5em;
+    }
+  }
+
+  .totales {
+    font-weight: bold;
+  }
+}

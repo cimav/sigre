@@ -23,7 +23,32 @@ App.Cotizacion = DS.Model.extend({
 
   solicitud: DS.belongsTo('solicitud'),
 
-  cotizacion_detalle: DS.hasMany('cotizacion_detalle')
+  cotizacion_detalles: DS.hasMany('cotizacion_detalle'),
+
+  subtotal_calculado: function(){
+    var dets = this.get('cotizacion_detalles');
+    var ret = 0;
+    dets.forEach(function(d){
+      ret += d.get("total");
+    });
+    return ret;
+  }.property('cotizacion_detalles.@each.cantidad', 'cotizacion_detalles.@each.precio_unitario'),
+
+  descuento_calculado: function() {
+    return this.get('subtotal_calculado') * this.get('descuento_porcentaje') / 100;
+  }.property('subtotal_calculado', 'descuento_porcentaje'),
+
+  subtotal_con_descuento: function() {
+    return this.get('subtotal_calculado') - this.get('descuento_calculado');
+  }.property('subtotal_calculado', 'descuento_calculado'),
+
+  iva_calculado: function() {
+    return this.get('subtotal_con_descuento') * this.get('iva') / 100;
+  }.property('subtotal_con_descuento', 'iva'),
+
+  total_calculado: function() {
+    return this.get('subtotal_con_descuento') + this.get('iva_calculado');
+  }.property('subtotal_con_descuento', 'iva_calculado')
 
 });
 
