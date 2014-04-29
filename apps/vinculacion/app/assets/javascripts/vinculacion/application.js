@@ -42,13 +42,12 @@ App = Ember.Application.create({
   }
 });
 
-App.ApplicationAdapter = DS.RESTAdapter();
+App.ApplicationAdapter = DS.ActiveModelAdapter.extend({});
 App.ApplicationSerializer = DS.ActiveModelSerializer.extend({});
 
 DS.RESTAdapter.reopen({
   namespace: "vinculacion"
 });
-
 
 // Add default classes to Ember form views:
 (function() {
