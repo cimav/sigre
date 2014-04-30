@@ -5,10 +5,10 @@ App.ApplicationController = Ember.Controller.extend({
     {id: 3, descripcion: "Alta"}
   ],
   condiciones: [
-    {id: 1, codigo:'Contado'},
-    {id: 2, codigo:'Parcial'},
-    {id: 3, codigo:'8 días'},
-    {id: 4, codigo:'15 días'}
+    {id: 1, descripcion:'Contado'},
+    {id: 2, descripcion:'Parcial'},
+    {id: 3, descripcion:'8 días'},
+    {id: 4, descripcion:'15 días'}
   ],
   idiomas: [
     {id: 1, codigo:'ES', descripcion:'Español'},

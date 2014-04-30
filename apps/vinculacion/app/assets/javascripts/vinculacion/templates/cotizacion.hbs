@@ -15,160 +15,103 @@
 </div>
 
 
-{{#if showCotizacion}}
-  <div id="cotizacion">
-    <div id="cotizacion-codigo">{{codigo}}</div>
-    <div class="cotizacion-cliente-data">
-      <div class="cliente-nombre">{{model.solicitud.cliente.razon_social}}</div>
-      <div class="cliente-contacto">{{model.solicitud.contacto.nombre}}</div>
-      <div class="cliente-contacto-tel">{{model.solicitud.contacto.telefono}}</div>
-      <div class="cliente-contacto-email">{{model.solicitud.contacto_email}}</div>
+
+<div id="cotizacion">
+  <div class="row">
+    <div class="col-sm-9">
+      <div class="cotizacion-cliente-data">
+        <div class="cliente-nombre">{{model.solicitud.cliente.razon_social}}</div>
+        <div class="cliente-contacto">{{model.solicitud.contacto.nombre}}</div>
+        <div class="cliente-contacto-tel">{{model.solicitud.contacto.telefono}}</div>
+        <div class="cliente-contacto-email">{{model.solicitud.contacto_email}}</div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div id="cotizacion-codigo">{{codigo}}</div>
+    </div>
+  </div>
+  {{#if showCotizacion}}
+    <div class="row">
+      
+      <div class="col-sm-8">
+        <div class="cotizacion-mensaje">
+          <strong>Mensaje:</strong><br/>
+          {{comentarios}}
+        </div>
+        <div class="cotizacion-observaciones">
+          <strong>Observaciones:</strong><br/>
+          {{observaciones}}
+        </div>
+      </div>
+
+      <div class="col-sm-4 cotizacion-extra-data">
+        <div class="extra-item">
+          <span class="glyphicon glyphicon-time"></span> {{duracion}} días habiles.
+        </div>
+        <div class="extra-item">
+          <span class="glyphicon glyphicon-briefcase"></span> {{condicion_item.descripcion}}.
+        </div>
+        <div class="extra-item">
+          <span class="glyphicon glyphicon-globe"></span> {{idioma_item.descripcion}}.
+        </div>
+        <div class="extra-item">
+          <span class="glyphicon glyphicon-usd"></span> {{divisa_item.codigo}} {{divisa_item.descripcion}}.
+        </div>
+      </div>
+    
     </div>
 
-    <table class="table table-bordered">
-      <tbody>
-        <tr>
-          <th>Duración</th><td>{{duracion}}</td>
-        </tr>
-        <tr>
-          <th>Condición de Pago</th><td>{{duracion}}</td>
-        </tr>
-        <tr>
-          <th>Moneda</th><td>{{duracion}}</td>
-        </tr>
-        <tr>
-          <th>Idioma</th><td>{{duracion}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="row">
+      <div class="col-sm-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="det-cantidad">Cant.</th>
+              <th class="det-concepto">Concepto</th>
+              <th class="det-precio-unitario">Precio</th>
+              <th class="det-total">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each cotizacion_detalles itemController="cotizacion_detalle"}}
+              <tr>
+                <td class="det-cantidad text-right">{{cantidad}}</td>
+                <td class="det-concepto">{{concepto}}</td>
+                <td class="det-precio-unitario text-right">{{formatCurrency precio_unitario}}</td>
+                <td class="det-total text-right">{{formatCurrency total}}</td>
+              </tr>
+            {{/each}}
+            <tr>
+              <td class="text-right totales" colspan="3">Subtotal</td>
+              <td class="text-right totales">{{formatCurrency subtotal_calculado}}</td>
+            </tr>
+            <tr>
+              <td class="det-descuento text-right" colspan="3">Descuento {{descuento_porcentaje}}%</td>
+              <td class="text-right totales">{{formatCurrency descuento_calculado}}</td>
+            </tr>
+            <tr>
+              <td class="text-right totales" colspan="3">IVA {{iva}}%</td>
+              <td class="text-right totales">{{formatCurrency iva_calculado}}</td>
+            </tr>
+            <tr>
+              <td class="text-right totales" colspan="3">TOTAL</td>
+              <td class="text-right totales">{{formatCurrency total_calculado}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-    <table class="table">
-        <tbody>
-        <tr>
-            <td>Status</td>
-            <td>
-              {{#view App.EnumView  items=status_text index=status}}
-                {{view.item.texto}}
-              {{/view}}
+    <div class="row">  
+      <div class="col-sm-12 cotizacion-notas">
+        <strong>Notas:</strong><br/>
+        {{notas}}
+      </div>
+    </div>
 
-              {{#if isNotificado}}
-                  <h6>({{msg_notificacion}})</h6>
-              {{/if}}
-              {{#unless isNotificado}}
-                  <h6>{{motivo_status}}</h6>
-              {{/unless}}
-            </td>
-        </tr>
-        <tr>
-            <td>Duración</td>
-            <td>{{duracion}}</td>
-        </tr>
-        <tr>
-            <td>Condición pago</td>
-            <td>
-              {{#view App.EnumView  items=controllers.application.condiciones index=condicion}}
-                {{view.item.codigo}}
-              {{/view}}
-            </td>
-        </tr>
-        <tr>
-            <td>Idioma</td>
-            <td>
-              {{#view App.EnumView  items=controllers.application.idiomas index=idioma}}
-                {{view.item.codigo}} - {{view.item.descripcion}}
-              {{/view}}
-            </td>
-        </tr>
-        <tr>
-            <td>Divisa</td>
-            <td>
-              {{#view App.EnumView  items=controllers.application.divisas index=divisa}}
-                {{view.item.codigo}} - {{view.item.descripcion}}
-              {{/view}}
-            </td>
-        </tr>
-        <tr>
-            <td>Comentarios</td>
-            <td>{{comentarios}}</td>
-        </tr>
-        <tr>
-            <td>Observaciones</td>
-            <td>{{observaciones}}</td>
-        </tr>
-        <tr>
-            <td>Notas</td>
-            <td>{{notas}}</td>
-        </tr>
-        <tr>
-            <td>+++++++++++++++++++++++++++</td>
-        </tr>
-        <tr>
-            <td>Precio Venta</td>
-            <td>{{formatCurrency precio_venta}}</td>
-            <td>Heuristico</td>
-        </tr>
-        <tr>
-            <td>Costos variables</td>
-            <td>{{formatCurrency costos_variables}}</td>
-            <td>Suma Costeos: HrsHombre, Mats, Viaticos, etc.</td>
-        </tr>
-        <tr>
-            <td>Importe indirectos</td>
-            <td>{{formatCurrency importe_indirectos}}</td>
-            <td>17.26% del Costo Variable</td>
-        </tr>
-        <tr>
-            <td>Costo CIMAV</td>
-            <td>{{formatCurrency costo_cimav}}</td>
-            <td>CostoVariable + Importe indirectos</td>
-        </tr>
-        <tr>
-            <td>Margen PV</td>
-            <td>{{formatCurrency margen_precio_venta}}</td>
-            <td>Diferencia  PrecioVenta - CostoCimav</td>
-        </tr>
-        <tr>
-            <td>Remanente topado</td>
-            <td>{{formatCurrency remanente_topado}}</td>
-            <td>70% del MargenPV</td>
-        </tr>
-        <tr>
-            <td>Remanente distribuible</td>
-            <td>{{formatCurrency remanente_distribuible}}</td>
-            <td>35% del topado</td>
-        </tr>
-        <tr>
-            <td>+++++++++++++++++++++++++++</td>
-        </tr>
-        <tr>
-            <td>SubTotal</td>
-            <td>{{formatCurrency precio_venta}}</td>
-            <td>Normalmente es el PrecioVenta</td>
-        </tr>
-        <tr>
-            <td>Descuento</td>
-            <td>{{formatCurrency descuento_calculado}}</td>
-            <td>{{formatPercentage descuento_porcentaje}}</td>
-        </tr>
-        <tr>
-            <td>Descuento aplicado</td>
-            <td>{{formatCurrency descuento_aplicado}}</td>
-            <td>SubTotal - Descuento </td>
-        </tr>
-        <tr>
-            <td>IVA</td>
-            <td>{{formatCurrency iva_calculado}}</td>
-            <td>{{formatPercentage iva}}</td>
-        </tr>
-        <tr>
-            <td>TOTAL</td>
-            <td>{{formatCurrency total}}</td>
-            <td>DescuentoAplicado + IVA </td>
-        </tr>
+  {{/if}}
 
-        </tbody>
-    </table>
-  </div>
-{{/if}}
+  {{outlet}}
+    
+</div>
 
-{{outlet}}

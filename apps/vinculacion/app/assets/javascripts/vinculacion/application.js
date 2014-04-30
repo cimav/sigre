@@ -26,6 +26,7 @@ inflector.irregular('solicitud', 'solicitudes');
 inflector.irregular('prioridad', 'prioridades');
 inflector.irregular('cotizacion', 'cotizaciones');
 inflector.irregular('cotizacion_detalle', 'cotizacion_detalle');
+inflector.irregular('condicion', 'condiciones');
 inflector.irregular('costeo_detalle', 'costeo_detalle');
 
 // Create App
@@ -66,7 +67,10 @@ App.computed = {}
 App.computed.list_item = function(property) {
   return function() {
     p = this.get(property);
+    console.log(p);
+    console.log('controllers.application.' + inflector.pluralize(property));
     list = this.get('controllers.application.' + inflector.pluralize(property));
+    console.log(list);
     return $.grep(list, function (item) {
       return item.id == p;
     })[0];

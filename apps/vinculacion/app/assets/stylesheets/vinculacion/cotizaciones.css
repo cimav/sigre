@@ -53,9 +53,15 @@
   }
 
   .cotizacion-cliente-data {
+    margin-bottom: 20px;
     .cliente-nombre {
       font-weight: bold;
       font-size: 110%;
     }
+  }
+
+  .cotizacion-mensaje, 
+  .cotizacion-observaciones {
+    margin-bottom: 20px;
   }
 }

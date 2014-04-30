@@ -9,6 +9,8 @@
       vertical-align: middle;
     }
   }
+}
+table {
   .det-cantidad {
     width: 15%;
   }
