@@ -29,7 +29,12 @@
 #cotizacion-header {
   border-bottom: 1px solid $line-color;
   background: lighten($light-grey,1%);
-  padding: 10px;
+  padding: 10px 20px;
+  h3 {
+    margin: 5px 0 0 0;
+    width: 50%;
+    float: left
+  }
   .cotizacion-actions {
     float: right;
   }

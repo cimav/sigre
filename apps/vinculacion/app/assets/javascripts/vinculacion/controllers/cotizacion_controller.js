@@ -22,11 +22,21 @@ App.CotizacionController = Ember.ObjectController.extend({
     {id: 5, texto: 'Cancelado'}
   ],
 
-  isEdicion: function () {
+  isEdicion: function() {
     return this.get('model.status') == this.get('Status.edicion');
   }.property('model.status'),
-  isNotificado: function () {
+  isNotificado: function() {
     return this.get('model.status') == this.get('Status.notificado');
+  }.property('model.status'),
+
+  status_encabezado: function() {
+    var encabezado;
+    if (this.get('model.status') == this.get('Status.edicion')) {
+      encabezado = 'Cotizando.';
+    } else if (this.get('model.status') == this.get('Status.notificado')) {
+      encabezado = 'En espera de respuesta del cliente.';
+    }
+    return encabezado;
   }.property('model.status')
 
 });
