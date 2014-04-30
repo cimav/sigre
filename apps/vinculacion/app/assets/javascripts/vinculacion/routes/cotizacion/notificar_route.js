@@ -11,6 +11,10 @@ App.CotizacionNotificarRoute = Ember.Route.extend({
     this.controllerFor('cotizacion').set('showToolBar', true);
   },
 
+  renderTemplate: function() {
+    this.render({ outlet: 'accion-cotizacion' });
+  },
+
   model: function () {
     return this.modelFor('cotizacion');
   }

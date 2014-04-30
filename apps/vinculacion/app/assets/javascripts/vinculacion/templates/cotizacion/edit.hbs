@@ -1,7 +1,5 @@
 {{#form-for controller}}
-
-    <div class="row">
-      
+    <div class="row">  
       <div class="col-sm-8">
         <div class="cotizacion-mensaje">
           <strong>Mensaje:</strong><br/>
@@ -13,43 +11,44 @@
         </div>
       </div>
 
-      <div class="col-sm-4 cotizacion-extra-data">
+      <div class="col-sm-4 cotizacion-extra-data cotizacion-extra-data-edit">
         <div class="extra-item">
-          <div class="input-group">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
-            {{view App.NumberField value=duracion classNames="form-control" min="1"}}
-            <span class="input-group-addon">días habiles.</span>
-           </div>
-            
+          <span class="glyphicon glyphicon-time"></span>
+          {{view App.NumberField value=duracion classNames="form-control input-sm" min="1"}} 
+          <span class="extra-text">días habiles.</span>
+          <div class="clearfix"></div>
         </div>
+        <div class="clearfix"></div>
         <div class="extra-item">
-          <div class="input-group">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-briefcase"></span></span>
-            {{view Ember.Select content=controllers.application.condiciones
-            value=condicion
-            optionValuePath="content.id"
-            optionLabelPath="content.codigo"
-            classNames="input-sm"}}
-          </div>
+          <span class="glyphicon glyphicon-briefcase"></span>
+          {{view Ember.Select content=controllers.application.condiciones
+          value=condicion
+          optionValuePath="content.id"
+          optionLabelPath="content.descripcion"
+          classNames="input-sm"}}
+          <div class="clearfix"></div>
         </div>
+        
         <div class="extra-item">
-          <div class="input-group">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></span>
-            {{view Ember.Select content=controllers.application.idiomas
-            value=idioma
-            optionValuePath="content.id"
-            optionLabelPath="content.codigo"}}
-          </div>
+          <span class="glyphicon glyphicon-globe"></span>
+          {{view Ember.Select content=controllers.application.idiomas
+          value=idioma
+          optionValuePath="content.id"
+          optionLabelPath="content.descripcion"
+          classNames="input-sm"}}
+          <div class="clearfix"></div>
         </div>
+        
         <div class="extra-item">
-          <div class="input-group">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-usd"></span></span>
-            {{view Ember.Select content=controllers.application.divisas
-            value=divisa
-            optionValuePath="content.id"
-            optionLabelPath="content.codigo"}}
-          </div>
+          <span class="glyphicon glyphicon-usd"></span>
+          {{view Ember.Select content=controllers.application.divisas
+          value=divisa
+          optionValuePath="content.id"
+          optionLabelPath="content.codigo"
+          classNames="input-sm"}}
+          <div class="clearfix"></div>
         </div>
+        
       </div>
     </div>
 
@@ -140,21 +139,16 @@
       </div>
     </div>
 
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-7">
-            <button type="submit"
-                    class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "update" this target='controller'}} >
-              {{#if item.isSaving}}
-                  <span class="spin glyphicon glyphicon-refresh"></span>
-                  Guardando...
-              {{else}}
-                {{#if caption}}
-                  {{caption}}
-                {{else}}
-                    Guardar
-                {{/if}}
-              {{/if}}
-            </button>
-        </div>
+    <div class="row">
+      <div class="col-sm-12 cotizacion-save">
+        <button type="submit" class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "update" this target='controller'}} >
+          {{#if item.isSaving}}
+            <span class="spin glyphicon glyphicon-refresh"></span>
+            Guardando...
+          {{else}}
+            Actualizar cotización
+          {{/if}}
+        </button>
+      </div>
     </div>
 {{/form-for}}

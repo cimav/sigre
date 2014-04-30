@@ -4,6 +4,7 @@
 */
 
 #tabla-edicion-cotizacion-detalle {
+  margin: 20px 0;
   tr {
     td {
       vertical-align: middle;

@@ -19,25 +19,21 @@
   bottom: 0;
   left: 0;
   overflow: auto;
-  background: lighten($light-grey,1%);
-
-  #cotizacion-header {
-    .glyphicon {
-      float: right;
-      color: #dddddd;
-      cursor: pointer;
-    }
-    .glyphicon.active {
-      color: $dark-grey;
-      cursor: normal;
-    }
-  }
+  background: lighten($light-grey,2%);
 
   #datos-fijos {
     padding: 10px;
   }
 }
 
+#cotizacion-header {
+  border-bottom: 1px solid $line-color;
+  background: lighten($light-grey,1%);
+  padding: 10px;
+  .cotizacion-actions {
+    float: right;
+  }
+}
 
 #cotizacion {
   margin: 20px 20px 50px 20px;
@@ -61,7 +57,40 @@
   }
 
   .cotizacion-mensaje, 
-  .cotizacion-observaciones {
+  .cotizacion-observaciones,
+  .cotizacion-notas {
     margin-bottom: 20px;
+    textarea {
+      height: 100px;
+    }
+  }
+
+  .cotizacion-extra-data {
+    .extra-item {
+      margin-bottom: 5px;
+      span {
+        margin-right: 10px;
+      }
+    }
+  }
+  .cotizacion-extra-data-edit {
+    .extra-item {
+      span {
+        margin-right: 10px;
+        float: left;
+        margin-top: 8px;
+      }
+      input {
+       width: 40%;
+       float: left;
+      }
+      select { 
+        width: 40%; 
+        float: left;
+      }
+      .extra-text {
+        margin-left: 10px;
+      }
+    }
   }
 }

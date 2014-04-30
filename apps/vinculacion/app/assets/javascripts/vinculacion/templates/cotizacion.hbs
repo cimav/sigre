@@ -1,20 +1,25 @@
 <div id='cotizacion-header'>
-    <h3>Cotización {{consecutivo}}
-      {{#if showToolBar}}
-        {{#if isEdicion}}
-          {{#link-to 'cotizacion.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}
-          {{#link-to 'cotizacion.notificar' this tagName="span" classNames="glyphicon glyphicon-send"}}{{/link-to}}
-        {{/if}}
-        {{#if isNotificado}}
-          {{#link-to 'cotizacion.rechazar' this tagName="span" classNames="glyphicon glyphicon-remove"}}{{/link-to}}
-          {{#link-to 'cotizacion.aceptar' this tagName="span" classNames="glyphicon glyphicon-ok"}}{{/link-to}}
-        {{/if}}
+   {{status}}
+  {{#if showToolBar}}
+    <div class="cotizacion-actions">
+      {{#if isEdicion}}
+        {{#link-to 'cotizacion.edit' this tagName="button" classNames="btn btn-default"}}
+          <span class="glyphicon glyphicon-edit"></span> Editar
+        {{/link-to}}
+        {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-info"}}
+          <span class="glyphicon glyphicon-send"></span> Enviar al cliente
+        {{/link-to}}
       {{/if}}
-    </h3>
-
+    
+      {{#if isNotificado}}
+        {{#link-to 'cotizacion.rechazar' this tagName="span" classNames="glyphicon glyphicon-remove"}}{{/link-to}}
+        {{#link-to 'cotizacion.aceptar' this tagName="span" classNames="glyphicon glyphicon-ok"}}{{/link-to}}
+      {{/if}}
+    </div>
+  {{/if}}
+  {{outlet accion-cotizacion}}
+  <div class="clearfix"></div>
 </div>
-
-
 
 <div id="cotizacion">
   <div class="row">
