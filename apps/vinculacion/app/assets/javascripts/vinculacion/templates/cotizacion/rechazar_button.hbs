@@ -1,0 +1,7 @@
+<h3>Rechazo de cotización</h3>
+<div class="cotizacion-actions">
+  <button type="submit" class="btn btn-warning" {{bind-attr disabled=this.isNotDirty}} {{action "rechazar" this target='controller'}} >
+    <span class="glyphicon glyphicon-repeat"></span>
+    Rechazar cotización
+  </button>
+</div>

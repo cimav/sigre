@@ -14,6 +14,15 @@ App.CotizacionEditRoute = Ember.Route.extend({
     this.controllerFor('cotizacion').set('showToolBar', true);
 
   },
+
+  renderTemplate: function() {
+    this.render();
+    this.render('cotizacion/edit_save_button', { 
+      into: 'cotizacion',
+      outlet: 'cotizacion-header',
+      controller: 'cotizacionEdit' 
+    });
+  },
   model: function () {
     return this.modelFor('cotizacion');
   },

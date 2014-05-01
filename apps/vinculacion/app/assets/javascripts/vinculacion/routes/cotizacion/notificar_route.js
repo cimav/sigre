@@ -13,6 +13,11 @@ App.CotizacionNotificarRoute = Ember.Route.extend({
 
   renderTemplate: function() {
     this.render({ outlet: 'accion-cotizacion' });
+    this.render('cotizacion/notificar_button', { 
+      into: 'cotizacion',
+      outlet: 'cotizacion-header',
+      controller: 'cotizacionNotificar' 
+    });
   },
 
   model: function () {

@@ -25,19 +25,18 @@ App.CotizacionController = Ember.ObjectController.extend({
   isEdicion: function() {
     return this.get('model.status') == this.get('Status.edicion');
   }.property('model.status'),
+
   isNotificado: function() {
     return this.get('model.status') == this.get('Status.notificado');
   }.property('model.status'),
-
-  status_encabezado: function() {
-    var encabezado;
-    if (this.get('model.status') == this.get('Status.edicion')) {
-      encabezado = 'Cotizando.';
-    } else if (this.get('model.status') == this.get('Status.notificado')) {
-      encabezado = 'En espera de respuesta del cliente.';
-    }
-    return encabezado;
-  }.property('model.status')
+  
+  isAceptado: function() {
+    return this.get('model.status') == this.get('Status.aceptado');
+  }.property('model.status'),
+  
+  isRechazado: function() {
+    return this.get('model.status') == this.get('Status.rechazado');
+  }.property('model.status'),
 
 });
 

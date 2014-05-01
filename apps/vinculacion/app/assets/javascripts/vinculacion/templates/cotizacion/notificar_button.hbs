@@ -1,0 +1,7 @@
+<h3>Notificar al cliente</h3>
+<div class="cotizacion-actions">
+  <button type="submit" class="btn btn-primary" {{bind-attr disabled=this.isNotDirty}} {{action "notificar" this target='controller'}} >
+    <span class="glyphicon glyphicon-send"></span>
+    Enviar cotización.
+  </button>
+</div>

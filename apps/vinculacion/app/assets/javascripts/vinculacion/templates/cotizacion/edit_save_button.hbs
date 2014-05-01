@@ -1,0 +1,11 @@
+<h3>Editando.</h3>
+<div class="cotizacion-actions">
+  <button type="submit" class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "update" this target='controller'}} >
+    {{#if item.isSaving}}
+      <span class="spin glyphicon glyphicon-refresh"></span>
+      Guardando...
+    {{else}}
+      Actualizar cotización
+    {{/if}}
+  </button>
+</div>

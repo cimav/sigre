@@ -1,0 +1,7 @@
+<h3>Aceptación de cotización</h3>
+<div class="cotizacion-actions">
+  <button type="submit" class="btn btn-success" {{bind-attr disabled=this.isNotDirty}} {{action "aceptar" this target='controller'}} >
+    <span class="glyphicon glyphicon-ok"></span>
+    Aceptar cotización
+  </button>
+</div>

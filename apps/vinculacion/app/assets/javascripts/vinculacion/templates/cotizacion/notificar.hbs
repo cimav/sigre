@@ -1,16 +1,8 @@
-{{#form-for controller}}
-
-    <h5>Notificar cotización al cliente</h5>
-
-  {{input msg_notificacion as="text" label='Mensaje'}}
-
-  <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-7">
-          <button type="submit"
-                  class="btn btn-info glyphicon glyphicon-send" {{bind-attr disabled=this.isNotDirty}} {{action "notificar" this target='controller'}} >
-              Notificar
-          </button>
-      </div>
-  </div>
-
-{{/form-for}}
+<div id="cotizacion-notificar" class="accion-cotizacion">
+  {{#form-for controller}}
+    <strong>Para:</strong> {{model.solicitud.contacto.nombre}} &lt;{{model.solicitud.contacto.email}}&gt;<br/>
+    <strong>Asunto:</strong> Cotización {{codigo}}<br/>
+    <strong>Mensaje:</strong>
+    {{input-field msg_notificacion as="text" label='Mensaje'}}
+  {{/form-for}}
+</div>

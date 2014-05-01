@@ -1,26 +1,48 @@
 <div id='cotizacion-header'>
-  <h3>{{status_encabezado}}</h3>
   {{#if showToolBar}}
-    <div class="cotizacion-actions">
-      {{#if isEdicion}}
+
+    {{#if isEdicion}}
+      <h3>Cotizando.</h3>
+      <div class="cotizacion-actions">
         {{#link-to 'cotizacion.edit' this tagName="button" classNames="btn btn-default"}}
           <span class="glyphicon glyphicon-edit"></span> Editar
         {{/link-to}}
-        {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-info"}}
-          <span class="glyphicon glyphicon-send"></span> Enviar al cliente
+        {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary"}}
+          <span class="glyphicon glyphicon-send"></span> Notificar al cliente
         {{/link-to}}
-      {{/if}}
+      </div>
+    {{/if}}
     
-      {{#if isNotificado}}
-        {{#link-to 'cotizacion.rechazar' this tagName="span" classNames="glyphicon glyphicon-remove"}}{{/link-to}}
-        {{#link-to 'cotizacion.aceptar' this tagName="span" classNames="glyphicon glyphicon-ok"}}{{/link-to}}
-      {{/if}}
-    </div>
+    {{#if isNotificado}}
+      <h3>En espera de respuesta del cliente.</h3>
+      <div class="cotizacion-actions">
+        
+        {{#link-to 'cotizacion.aceptar' this tagName="button" classNames="btn btn-success"}}
+          <span class="glyphicon glyphicon-ok"></span> Aceptar
+        {{/link-to}}
+
+        {{#link-to 'cotizacion.rechazar' this tagName="button" classNames="btn btn-warning"}}
+          <span class="glyphicon glyphicon-repeat"></span> Rechazar
+        {{/link-to}}
+      
+      </div>
+    {{/if}}
+
+    {{#if isAceptado}}
+      <h3><span class="glyphicon glyphicon-ok"></span> Cotización aceptada.</h3>
+    {{/if}}
+
+    {{#if isRechazado}}
+      <h3><span class="glyphicon glyphicon-remove"></span>Cotización rechazada.</h3>
+    {{/if}}
+  
   {{/if}}
-  {{outlet accion-cotizacion}}
+  {{outlet cotizacion-header}}
   <div class="clearfix"></div>
 </div>
 
+<div id="cotizacion-wrapper">
+{{outlet accion-cotizacion}}
 <div id="cotizacion">
   <div class="row">
     <div class="col-sm-9">
@@ -117,6 +139,7 @@
   {{/if}}
 
   {{outlet}}
-    
+
+</div>    
 </div>
 

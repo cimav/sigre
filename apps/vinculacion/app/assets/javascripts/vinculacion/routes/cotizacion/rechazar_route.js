@@ -11,6 +11,15 @@ App.CotizacionRechazarRoute = Ember.Route.extend({
     this.controllerFor('cotizacion').set('showToolBar', true);
   },
 
+  renderTemplate: function() {
+    this.render({ outlet: 'accion-cotizacion' });
+    this.render('cotizacion/rechazar_button', { 
+      into: 'cotizacion',
+      outlet: 'cotizacion-header',
+      controller: 'cotizacionRechazar' 
+    });
+  },
+
   model: function () {
     return this.modelFor('cotizacion');
   }
