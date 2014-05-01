@@ -1,0 +1,137 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+
+#md-general-panel {
+  position: fixed;
+  padding: 0px;
+  bottom: 0;
+  top: 64px;
+  //width: 300px;
+  border-right: 1px solid $line-color;
+  left: 200px;
+  right: 0px;
+  #md-search-box {
+    height: 50px;
+    background-color: $md-search-bar;
+    border-bottom: 1px solid $line-color;
+    .input-group {
+      padding: 8px;
+      width: 480px;
+    }
+  }
+  #md-items-list {
+    overflow-y: scroll;
+    position: absolute;
+    bottom: 32px;
+    top: 50px;
+    width: 100%;
+    .md-item {
+
+      .md-item-inner {
+        font-size: 90%;
+        padding-left: 15px;
+        cursor: pointer;
+        height: 80px;
+
+        .media {
+          padding-top: 10px;
+          display: block;
+
+          .tabla-solicitudes {
+            width: 100%;
+
+            .columna-logo {
+              width: 48px;
+              font-size: 48px;
+              .glyphicon-folder-close {
+                color: $folder-color;
+              }
+            }
+
+            .columna-cliente {
+              width: 50%;
+              padding-left: 10px;
+            }
+            .columna-proyecto {
+              width: 50%;
+              padding-left: 10px;
+            }
+            .columna-badges {
+              padding-right: 5px;
+              padding-left: 5px;
+              width: 84px;
+              display: block;
+              float: right;
+              .badge {
+                float: right;
+                color: $white !important;
+                font-weight: normal;
+                font-size: 80%;
+                margin-top: 7px;
+                margin-left: 1px;
+                &.badge-muestras {
+                  background-color: $muestra-codigo-border;
+                  border: 1px solid $muestra-codigo-border;
+                }
+                &.badge-servicios {
+                  background-color: $servicio-codigo-border;
+                  border: 1px solid $servicio-codigo-border;
+                }
+                &.badge-cotizaciones {
+                  background-color: $cotizacion-bg;
+                  border: 1px solid $cotizacion-border;
+                }
+              }
+
+
+            }
+
+            .media-heading {
+              font-weight: bold;
+              white-space: pre;
+            }
+
+            .media-body {
+              width: 360px;
+              .media-heading {
+                margin-bottom: 2px;
+              }
+              .media-extra {
+                white-space: pre;
+                overflow: hidden;
+                font-size: 85%;
+                color: $dark-grey;
+                .glyphicon {
+                  color: lighten($dark-grey, 20%);
+                }
+              }
+            }
+
+            .media-data {
+              margin-left: 58px;
+              //display: block;
+              width: 360px;
+            }
+          }
+        }
+      }
+      border-bottom: 1px solid $line-color;
+      &
+      :hover {
+        background-color: $bg-item-hover;
+      }
+
+    }
+    .active .md-item-inner {
+      border-left: 5px solid $brand-primary;
+      background-color: $item-bg;
+      padding-left: 10px;
+    }
+
+  }
+
+}
+
+

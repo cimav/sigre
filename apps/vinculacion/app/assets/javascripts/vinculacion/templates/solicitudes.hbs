@@ -1,38 +1,56 @@
 {{outlet}}
 {{#if showSolicitudesList}}
-<div id="screen-name">
-  <h3>Solicitudes</h3>
-  {{#link-to 'solicitudes.new' tagName="button" classNames="btn btn-success"}}<span title="Agregar nueva solicitud" class="glyphicon glyphicon-plus"></span>{{/link-to}}
-</div>
-<div id="list-solicitudes">
-  <div id="table-search">
-    <div class="inner-padding">
-      {{input type="text" value=searchText placeholder="Buscar solicitud..." classNames="form-control"}}
+    <div id="screen-name">
+        <h3>Solicitudes</h3>
+        {{#link-to 'solicitudes.new' tagName="button" classNames="btn btn-success"}}<span title="Agregar nueva solicitud" class="glyphicon glyphicon-plus"></span>{{/link-to}}
     </div>
-  </div>
-  <div id="table-wrapper">
-    <table class="table table-bordered" id="solicitudes-table">
-      <thead>
-        <tr>
-          <th class="th-numero">Número</th>
-          <th class="th-cliente">Cliente</th>
-          <th class="th-proyecto">Proyecto</th>
-          <th class="th-notas">Notas</th>
-          <th class="th-prioridad">Prioridad</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each itemController="solicitud"}}
-          {{#link-to 'solicitud' this tagName="tr" classNames="row-item"}}
-            <td class="td-numero">{{codigo}}</td>
-            <td class="td-cliente">{{cliente.nombre}}</td>
-            <td class="td-proyecto">{{proyecto.nombre}}</td>
-            <td class="td-notas">{{notas}}</td>
-            <td class="td-prioridad">{{prioridad_item.descripcion}}</td>
-          {{/link-to}}
-        {{/each}}
-      </tbody>
-    </table>
-  </div>
-</div>
+
+    <div id="md-general-panel">
+        <div id="md-search-box">
+            <div class="input-group">
+              {{input type="text" value=searchText placeholder="Buscar solicitud(es)..." classNames="form-control"}}
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="md-items-list">
+          {{#each sortedSolicitudes}}
+
+            {{#link-to 'solicitud' this tagName="div" classNames="md-item"}}
+                <div class="md-item-inner">
+                    <div class="media">
+                        <table class="tabla-solicitudes">
+                            <tr>
+                                <td class="columna-logo">
+                                    <span class="glyphicon glyphicon-folder-close"></span>
+                                </td>
+                                <td class="columna-cliente">
+                                    <div class="media-heading">{{codigo}}</div>
+                                    <div class="razon-social">{{cliente.razon_social}}</div>
+                                    <div class="contacto-nombre">{{contacto.nombre}}</div>
+                                </td>
+                                <td class="columna-proyecto">
+                                    <div class="media-heading">{{proyecto.codigo}}</div>
+                                    <div class="proyecto-nombre">{{proyecto.nombre}}</div>
+                                </td>
+                                <td class="columna-badges">
+                                    <span class="badge badge-cotizaciones">{{lastCotizacion.consecutivo}}</span>
+                                    <span class="badge badge-muestras">{{muestras.length}}</span>
+                                    <span class="badge badge-servicios">{{servicios.length}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            {{/link-to}}
+
+          {{/each}}
+        </div>
+
+
+    </div>
 {{/if}}
+

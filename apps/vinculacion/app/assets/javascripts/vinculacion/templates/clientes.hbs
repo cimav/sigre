@@ -21,12 +21,13 @@
     <div id="md-items-list">
       {{#each}}
 
-          {{#link-to 'cliente' this tagName="div" classNames="md-item"}}
+        {{#view App.ClienteClickView}}
 
-            {{#view App.ClienteClickView}}
+          {{#link-to 'cliente' this tagName="div" classNames="md-item"}}
 
               <div class="md-item-inner">
                   <div class="media">
+                      <div class="media-object pull-right"><span class="badge badge-clientes">{{this.contactos.length}}</span></div>
                       <div class="media-object pull-left"><span class="glyphicon glyphicon-globe"></span></div>
                       <div class="media-body">
                           <div class="media-heading">{{rfc}}</div>
@@ -34,14 +35,13 @@
                       </div>
                   </div>
               </div>
-
-            {{/view}}
-
           {{/link-to}}
+
+        {{/view}}
 
       {{/each}}
     </div>
     <div id="md-items-info">
-      {{clientesCount}} cliente(s)
+      {{this.length}} cliente(s)
     </div>
 </div>

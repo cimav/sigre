@@ -231,6 +231,14 @@ html, body, .application-view {
               //background-color: $cotizacion-bg;
               //border: 1px solid $cotizacion-border;
             }
+            .badge-clientes {
+              font-size: 80%;
+              //background-color: $cotizacion-bg;
+              //border: 1px solid $cotizacion-border;
+            }
+          }
+          .pull-right {
+            width: 20px;
           }
           .media-body {
             margin-left: 58px;
@@ -254,7 +262,7 @@ html, body, .application-view {
         background-color: $bg-item-hover;
       }
     }
-    .active .md-item-inner { 
+    .active .md-item-inner {
       border-left: 5px solid $brand-primary;
       background-color: $item-bg;
       padding-left: 10px;
@@ -286,7 +294,7 @@ html, body, .application-view {
   width: calc(100% - 500px);
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 0 20px 20px 20px; 
+  padding: 0 20px 20px 20px;
   margin: 0;
 
   h3 {
@@ -364,10 +372,10 @@ html, body, .application-view {
   width: 200px;
   border-right: 1px solid $line-color;
   background: $op-options-bg;
-  .nav-pills > li > a { 
+  .nav-pills > li > a {
     border-radius: 0px;
   }
-      
+
   .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
     background-color: $op-option-selected;
     color: $op-option-text-selected;
@@ -378,7 +386,7 @@ html, body, .application-view {
     color: $op-option-text;
   }
 
-  .nav a { 
+  .nav a {
     color: $op-option-text;
     span.glyphicon {
       border: 2px solid $dark-grey;
@@ -418,6 +426,14 @@ html, body, .application-view {
       border: 1px solid $servicio-codigo-border;
     }
     &.badge-cotizaciones {
+      background-color: $cotizacion-bg;
+      border: 1px solid $cotizacion-border;
+    }
+    &.badge-clientes {
+      background-color: $cotizacion-bg;
+      border: 1px solid $cotizacion-border;
+    }
+    &.badge-proyectos {
       background-color: $cotizacion-bg;
       border: 1px solid $cotizacion-border;
     }
