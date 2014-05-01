@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div id="md-items-list">
+    <div id="md-items-list" class="proyectos-list">
       {{#each sortedProyectos}}
 
         {{#link-to 'proyecto' this tagName="div" classNames="md-item"}}
@@ -27,9 +27,9 @@
                       <div class="media-object pull-right"><span class="badge badge-proyectos">{{this.solicitudes.length}}</span></div>
                       <div class="media-object pull-left"><span class="glyphicon glyphicon-globe"></span></div>
                       <div class="media-body">
-                          <div class="media-heading">{{id}}</div>
-                          <div class="media-heading">{{codigo}}</div>
                           <div class="media-heading">{{nombre}}</div>
+                          <div class="media-extra"><span class="glyphicon glyphicon-barcode"></span> {{codigo}}
+                          </div>
                       </div>
                   </div>
               </div>
