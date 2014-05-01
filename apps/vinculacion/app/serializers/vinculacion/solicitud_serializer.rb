@@ -8,7 +8,7 @@ module Vinculacion
     has_many :servicios
     has_many :muestras
     has_many :cotizaciones
-    #has_one :proyecto
+    has_one :proyecto
     has_one :sede
     has_one :cliente
     has_one :contacto
