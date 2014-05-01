@@ -12,6 +12,10 @@ module Vinculacion
   	after_create :set_extra
     after_create :add_cotizacion
 
+    def relation_string
+      "#{proyecto_id},#{sede_id},#{cliente_id},#{contacto_id}"
+    end
+
   	def set_extra
   	  con = Solicitud.where("EXTRACT(YEAR FROM created_at) = :year", {:year => Date.today.year}).maximum('consecutivo')
       if con.nil?

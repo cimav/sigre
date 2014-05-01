@@ -4,7 +4,7 @@ module Vinculacion
     attributes :id
     attributes :usuario_id
     attributes :consecutivo, :codigo, :tipo, :prioridad, :contacto_email, :notas, :acuerdos, :status
-    attributes :proyecto_id
+    attributes :relation_string
     has_many :servicios
     has_many :muestras
     has_many :cotizaciones

@@ -11,13 +11,13 @@ App.Solicitud = DS.Model.extend({
   contacto: DS.belongsTo('contacto'),
   cotizaciones: DS.hasMany('cotizacion'),
 
-  string: DS.attr('string'),
+  relation_string: DS.attr('string'),
 
   selectsChanges: function () {
-    // hack: belongs_to no cambian a Dirty
-    // https://github.com/emberjs/data/issues/1188
-    // TODO poner en False a isDirty
-    //this.set('string', Math.random()); // forzar isDirty
+    // Hack: belongsTo no cambian a Dirty
+    // Info de porque no cambian: https://github.com/emberjs/data/issues/1188
+    s = [this.get('proyecto.id'), this.get('sede.id'), this.get('cliente.id'), this.get('contacto.id')].join(',');
+    this.set('relation_string', s);
   }.observes('cliente','contacto','sede','proyecto'),
 
   clienteChanges: function() {
