@@ -26,7 +26,11 @@ App.Solicitud = DS.Model.extend({
 
 //    var primerContacto = this.get('cliente.contactos').get('firstObject');
 //    this.set('contacto', primerContacto); //App.Contacto.create([{id:null}]));
-  }.observes('cliente')
+  }.observes('cliente'),
+
+  lastCotizacion: function() {
+    return this.get('cotizaciones').sortBy('consecutivo').get('lastObject');
+  }.property('cotizaciones')
 
 
 });
