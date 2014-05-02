@@ -11,16 +11,11 @@ App.CotizacionController = Ember.ObjectController.extend({
     notificado: 2,
     aceptado: 3,
     rechazado: 4,
-    cancelado: 5
+    cancelado: 5,
+    descuento_solicitado: 6,
+    descuento_aceptado: 7,
+    descuento_rechazado: 8
   },
-
-  status_text: [
-    {id: 1, texto: 'Edición'},
-    {id: 2, texto: 'Notificado'},
-    {id: 3, texto: 'Aceptado'},
-    {id: 4, texto: 'Rechazado'},
-    {id: 5, texto: 'Cancelado'}
-  ],
 
   isEdicion: function() {
     return this.get('model.status') == this.get('Status.edicion');
@@ -38,9 +33,48 @@ App.CotizacionController = Ember.ObjectController.extend({
     return this.get('model.status') == this.get('Status.rechazado');
   }.property('model.status'),
 
-  noPuedeNotificar: function() {
-    return this.get('model.subtotal_calculado') <= 0;
-  }.property('model.subtotal_calculado')
+  isDescuentoSolicitado: function() {
+    return this.get('model.status') == this.get('Status.descuento_solicitado');
+  }.property('model.status'),
+
+  isNotAllowAutorizarDescuento: function () {
+    var isEdicion = this.get('isEdicion');
+    var isPorcenMayor = this.get('model.descuento_porcentaje') > 0;
+    var isDescuentoSolicitado = this.get('isDescuentoSolicitado');
+
+    var result =  isEdicion && isPorcenMayor && !isDescuentoSolicitado;
+
+    return !result;
+  }.property('model.descuento_porcentaje'),
+
+  isNotAllowNotificar: function() {
+    result = !this.get('isNotAllowAutorizarDescuento');
+    result = result && this.get('model.subtotal_calculado') <= 0;
+    return result;
+  }.property('model.descuento_porcentaje', 'model.subtotal_calculado'),
+
+  isDescuentoAceptado: function() {
+    result = this.get('model.status') == this.get('Status.descuento_aceptado');
+    return result;
+  }.property('model.status'),
+
+  actions: {
+    autorizar_descuento: function() {
+      self = this;
+      self.set('model.status', this.get('Status.descuento_solicitado'));
+      var onSuccess = function(cotizacion) {
+        self.get('controllers.application').notify('Descuento solicitado');
+      };
+      var onFail = function(cotizacion) {
+        self.get('controllers.application').notify('Error al solicitar descuento', 'alert-danger');
+      };
+      self.get('model').save().then(onSuccess, onFail);
+    }
+  },
+
+//  noPuedeNotificar: function() {
+//    return this.get('model.subtotal_calculado') <= 0;
+//  }.property('model.subtotal_calculado')
 
 });
 

@@ -2,21 +2,34 @@
   {{#if showToolBar}}
 
     {{#if isEdicion}}
-      <h3>Cotizando.</h3>
-      <div class="cotizacion-actions">
-        {{#link-to 'cotizacion.edit' this tagName="button" classNames="btn btn-default"}}
-          <span class="glyphicon glyphicon-edit"></span> Editar
-        {{/link-to}}
-        {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary" disabled=noPuedeNotificar}}
-          <span class="glyphicon glyphicon-send"></span> Notificar al cliente
-        {{/link-to}}
-      </div>
+        <h3>Cotizando</h3>
+        <div class="cotizacion-actions">
+          {{#link-to 'cotizacion.edit' this tagName="button" classNames="btn btn-default"}}
+              <span class="glyphicon glyphicon-edit"></span> Editar
+          {{/link-to}}
+          {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary" disabled=this.isNotAllowNotificar}}
+              <span class="glyphicon glyphicon-send"></span> Notificar al cliente
+          {{/link-to}}
+        </div>
     {{/if}}
-    
+
+    {{#if isDescuentoSolicitado}}
+        <h4>En espera de autorización de descuento</h4>
+    {{/if}}
+
+    {{#if isDescuentoAceptado}}
+        <h3>Descuento aceptado</h3>
+        <div class="cotizacion-actions">
+          {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary" disabled=this.isNotAllowNotificar}}
+              <span class="glyphicon glyphicon-send"></span> Notificar al cliente
+          {{/link-to}}
+        </div>
+    {{/if}}
+
     {{#if isNotificado}}
-      <h3>En espera de respuesta del cliente.</h3>
+      <h3>En espera de respuesta del cliente</h3>
       <div class="cotizacion-actions">
-        
+
         {{#link-to 'cotizacion.aceptar' this tagName="button" classNames="btn btn-success"}}
           <span class="glyphicon glyphicon-ok"></span> Aceptar
         {{/link-to}}
@@ -24,18 +37,18 @@
         {{#link-to 'cotizacion.rechazar' this tagName="button" classNames="btn btn-warning"}}
           <span class="glyphicon glyphicon-repeat"></span> Rechazar
         {{/link-to}}
-      
+
       </div>
     {{/if}}
 
     {{#if isAceptado}}
-      <h3><span class="glyphicon glyphicon-ok"></span> Cotización aceptada.</h3>
+      <h3><span class="glyphicon glyphicon-ok"></span> Cotización aceptada</h3>
     {{/if}}
 
     {{#if isRechazado}}
-      <h3><span class="glyphicon glyphicon-remove"></span>Cotización rechazada.</h3>
+      <h3><span class="glyphicon glyphicon-remove"></span>Cotización rechazada</h3>
     {{/if}}
-  
+
   {{/if}}
   {{outlet cotizacion-header}}
   <div class="clearfix"></div>
@@ -59,7 +72,7 @@
   </div>
   {{#if showCotizacion}}
     <div class="row">
-      
+
       <div class="col-sm-8">
         <div class="cotizacion-mensaje">
           <strong>Mensaje:</strong><br/>
@@ -85,7 +98,7 @@
           <span class="glyphicon glyphicon-usd"></span> {{divisa_item.codigo}} {{divisa_item.descripcion}}.
         </div>
       </div>
-    
+
     </div>
 
     <div class="row">
@@ -113,7 +126,15 @@
               <td class="text-right totales">{{formatCurrency subtotal_calculado}}</td>
             </tr>
             <tr>
-              <td class="det-descuento text-right" colspan="3">Descuento {{descuento_porcentaje}}%</td>
+
+                <td class="text-right totales" colspan="2">
+                    <button type="submit" class="btn btn-info btn-xs" {{bind-attr disabled=this.isNotAllowAutorizarDescuento}} {{action "autorizar_descuento" this target='controller'}} >
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                          Autorizar
+                    </button>
+                </td>
+
+              <td class="det-descuento text-right" colspan="1">Descuento {{descuento_porcentaje}}%</td>
               <td class="text-right totales">{{formatCurrency descuento_calculado}}</td>
             </tr>
             <tr>
@@ -129,7 +150,7 @@
       </div>
     </div>
 
-    <div class="row">  
+    <div class="row">
       <div class="col-sm-12 cotizacion-notas">
         <strong>Notas:</strong><br/>
         {{notas}}
@@ -140,6 +161,6 @@
 
   {{outlet}}
 
-</div>    
+</div>
 </div>
 
