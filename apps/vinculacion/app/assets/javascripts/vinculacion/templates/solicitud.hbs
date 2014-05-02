@@ -9,7 +9,7 @@
     {{#if muestrasCount}}
       {{#link-to 'servicios' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-list"></span> Servicios <span class="badge badge-servicios">{{serviciosCount}}</span></a>{{/link-to}}
     {{/if}}
-    {{#link-to 'cotizaciones' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-usd"></span> Cotizaciones <span class="badge badge-cotizaciones">{{this.cotizaciones.length}}</span></a>{{/link-to}}
+    {{#link-to 'cotizaciones' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-usd"></span> Cotizaciones <span class="badge badge-cotizaciones">{{this.lastCotizacion.consecutivo}}</span></a>{{/link-to}}
   </ul>
 </div>
 <div id="op-main-panel">
