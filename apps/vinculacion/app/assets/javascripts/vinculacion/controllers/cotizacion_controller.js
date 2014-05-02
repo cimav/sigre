@@ -49,7 +49,7 @@ App.CotizacionController = Ember.ObjectController.extend({
 
   isNotAllowNotificar: function() {
     result = !this.get('isNotAllowAutorizarDescuento');
-    result = result && this.get('model.subtotal_calculado') <= 0;
+    result = result || this.get('model.subtotal_calculado') <= 0;
     return result;
   }.property('model.descuento_porcentaje', 'model.subtotal_calculado'),
 
