@@ -3,9 +3,9 @@ require_dependency "vinculacion/application_controller"
 module Vinculacion
   class SolicitudesController < ApplicationController
   	def index
-      results = Solicitud.order(:id)
+      results = Solicitud.includes(:proyecto).order(:id)
       if !params[:q].blank?
-        results = results.where("(notas LIKE :q OR acuerdos LIKE :q)", {:q => "%#{params[:q]}%"})
+        results = results.where("(descripcion LIKE :q OR vinculacion_proyectos.nombre LIKE :q)", {:q => "%#{params[:q]}%"})
       end
       render json: results
     end
@@ -36,9 +36,7 @@ module Vinculacion
                                 :prioridad,
                                 :cliente_id,
                                 :contacto_id,
-                                :contacto_email,
-                                :notas,
-                                :acuerdos,
+                                :descripcion,
                                 :usuario_id,
                                 :status)
     end
