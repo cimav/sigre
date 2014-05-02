@@ -7,7 +7,7 @@
         {{#link-to 'cotizacion.edit' this tagName="button" classNames="btn btn-default"}}
           <span class="glyphicon glyphicon-edit"></span> Editar
         {{/link-to}}
-        {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary"}}
+        {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary" disabled=noPuedeNotificar}}
           <span class="glyphicon glyphicon-send"></span> Notificar al cliente
         {{/link-to}}
       </div>

@@ -38,5 +38,9 @@ App.CotizacionController = Ember.ObjectController.extend({
     return this.get('model.status') == this.get('Status.rechazado');
   }.property('model.status'),
 
+  noPuedeNotificar: function() {
+    return this.get('model.subtotal_calculado') <= 0;
+  }.property('model.subtotal_calculado')
+
 });
 
