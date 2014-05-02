@@ -57,8 +57,18 @@ module Vinculacion
         self.precio_unitario = ultima_cotizacion.precio_unitario
         self.descuento_porcentaje = ultima_cotizacion.descuento_porcentaje
         self.descuento_status = ultima_cotizacion.descuento_status
-        # TODO: Clonar detalle
-        puts "CREATE**********************"
+
+        # Clonar detalle
+        ultima_cotizacion.cotizacion_detalle.each do |detalle|
+          # TODO Checkar orden
+          CotizacionDetalle.create(
+              :cotizacion_id => self.id,
+              :cantidad => detalle.cantidad,
+              :concepto => detalle.concepto,
+              :precio_unitario => detalle.precio_unitario,
+              :status => detalle.status)
+        end
+
       end
       self.save(:validate => false)
   	end
