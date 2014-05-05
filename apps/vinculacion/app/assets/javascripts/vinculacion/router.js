@@ -24,6 +24,7 @@ App.Router.map(function () {
         this.resource('cotizacion', {path: '/:cotizacion_id'}, function(){
           this.route('edit', {path: '/editar'});
           this.route('notificar');
+          this.route('solicitar_descuento');
           this.route('rechazar');
           this.route('aceptar');
         });

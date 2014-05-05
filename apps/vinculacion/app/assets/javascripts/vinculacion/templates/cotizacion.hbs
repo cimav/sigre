@@ -7,9 +7,19 @@
           {{#link-to 'cotizacion.edit' this tagName="button" classNames="btn btn-default"}}
               <span class="glyphicon glyphicon-edit"></span> Editar
           {{/link-to}}
-          {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary" disabled=this.isNotAllowNotificar}}
-              <span class="glyphicon glyphicon-send"></span> Notificar al cliente
-          {{/link-to}}
+
+
+          {{#if isSolicitarDescuento}}
+            {{#link-to 'cotizacion.solicitar_descuento' this tagName="button" classNames="btn btn-info"}}
+                <span class="glyphicon glyphicon-thumbs-up"></span>Solicitar descuento
+            {{/link-to}}
+          {{else}}
+            {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary" disabled=this.noPuedeNotificar}}
+                <span class="glyphicon glyphicon-send"></span> Notificar al cliente
+            {{/link-to}}
+          {{/if}}
+
+
         </div>
     {{/if}}
 
@@ -20,7 +30,7 @@
     {{#if isDescuentoAceptado}}
         <h3>Descuento aceptado</h3>
         <div class="cotizacion-actions">
-          {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary" disabled=this.isNotAllowNotificar}}
+          {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary" disabled=this.noPuedeNotificar}}
               <span class="glyphicon glyphicon-send"></span> Notificar al cliente
           {{/link-to}}
         </div>
@@ -126,15 +136,7 @@
               <td class="text-right totales">{{formatCurrency subtotal_calculado}}</td>
             </tr>
             <tr>
-
-                <td class="text-right totales" colspan="2">
-                    <button type="submit" class="btn btn-info btn-xs" {{bind-attr disabled=this.isNotAllowAutorizarDescuento}} {{action "autorizar_descuento" this target='controller'}} >
-                        <span class="glyphicon glyphicon-thumbs-up"></span>
-                          Autorizar
-                    </button>
-                </td>
-
-              <td class="det-descuento text-right" colspan="1">Descuento {{descuento_porcentaje}}%</td>
+              <td class="det-descuento text-right" colspan="3">Descuento {{descuento_porcentaje}}%</td>
               <td class="text-right totales">{{formatCurrency descuento_calculado}}</td>
             </tr>
             <tr>

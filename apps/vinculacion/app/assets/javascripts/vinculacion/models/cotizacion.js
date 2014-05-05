@@ -12,7 +12,6 @@ App.Cotizacion = DS.Model.extend({
   precio_venta: DS.attr('number'),
   iva: DS.attr('number'),
   descuento_porcentaje: DS.attr('number'),
-  descuento_status: DS.attr('number'),
 
   subtotal: DS.attr('number'),
   precio_unitario: DS.attr('number'),
@@ -20,6 +19,7 @@ App.Cotizacion = DS.Model.extend({
   status: DS.attr('number'),
   msg_notificacion: DS.attr('string'),
   motivo_status: DS.attr('string'),
+  motivo_descuento: DS.attr('string'),
   duracion: DS.attr('number'),
 
   solicitud: DS.belongsTo('solicitud'),

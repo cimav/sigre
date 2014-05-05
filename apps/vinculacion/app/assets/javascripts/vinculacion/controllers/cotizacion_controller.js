@@ -37,44 +37,24 @@ App.CotizacionController = Ember.ObjectController.extend({
     return this.get('model.status') == this.get('Status.descuento_solicitado');
   }.property('model.status'),
 
-  isNotAllowAutorizarDescuento: function () {
+  isSolicitarDescuento: function() {
     var isEdicion = this.get('isEdicion');
     var isPorcenMayor = this.get('model.descuento_porcentaje') > 0;
     var isDescuentoSolicitado = this.get('isDescuentoSolicitado');
 
     var result =  isEdicion && isPorcenMayor && !isDescuentoSolicitado;
 
-    return !result;
-  }.property('model.descuento_porcentaje'),
-
-  isNotAllowNotificar: function() {
-    result = !this.get('isNotAllowAutorizarDescuento');
-    result = result || this.get('model.subtotal_calculado') <= 0;
     return result;
-  }.property('model.descuento_porcentaje', 'model.subtotal_calculado'),
+  }.property('model.descuento_porcentaje'),
 
   isDescuentoAceptado: function() {
     result = this.get('model.status') == this.get('Status.descuento_aceptado');
     return result;
   }.property('model.status'),
 
-  actions: {
-    autorizar_descuento: function() {
-      self = this;
-      self.set('model.status', this.get('Status.descuento_solicitado'));
-      var onSuccess = function(cotizacion) {
-        self.get('controllers.application').notify('Descuento solicitado');
-      };
-      var onFail = function(cotizacion) {
-        self.get('controllers.application').notify('Error al solicitar descuento', 'alert-danger');
-      };
-      self.get('model').save().then(onSuccess, onFail);
-    }
-  },
-
-//  noPuedeNotificar: function() {
-//    return this.get('model.subtotal_calculado') <= 0;
-//  }.property('model.subtotal_calculado')
+  noPuedeNotificar: function() {
+    return this.get('model.subtotal_calculado') <= 0;
+  }.property('model.subtotal_calculado')
 
 });
 

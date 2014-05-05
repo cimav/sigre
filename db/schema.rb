@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140502002803) do
+ActiveRecord::Schema.define(version: 20140505173633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,7 +137,6 @@ ActiveRecord::Schema.define(version: 20140502002803) do
     t.decimal  "precio_venta",         precision: 10, scale: 2, default: 0.0
     t.decimal  "precio_unitario",      precision: 10, scale: 2, default: 0.0
     t.decimal  "descuento_porcentaje", precision: 5,  scale: 2, default: 0.0
-    t.integer  "descuento_status",                              default: 0
     t.integer  "status",                                        default: 0
     t.integer  "solicitud_id"
     t.datetime "created_at"
@@ -146,6 +145,7 @@ ActiveRecord::Schema.define(version: 20140502002803) do
     t.text     "motivo_status"
     t.integer  "duracion"
     t.decimal  "iva",                  precision: 10, scale: 2, default: 15.0
+    t.text     "motivo_descuento"
   end
 
   create_table "vinculacion_cotizaciones_detalle", force: true do |t|

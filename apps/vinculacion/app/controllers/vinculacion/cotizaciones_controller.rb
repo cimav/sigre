@@ -121,10 +121,10 @@ module Vinculacion
           :precio_venta,
           :precio_unitario,
           :descuento_porcentaje,
-          :descuento_status,
           :status,
           :msg_notificacion,
           :motivo_status,
+          :motivo_descuento,
           :duracion
       )
     end
