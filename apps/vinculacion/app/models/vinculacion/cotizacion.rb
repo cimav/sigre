@@ -15,6 +15,7 @@ module Vinculacion
     STATUS_DESCUENTO_RECHAZADO  = 8
   
     after_create :set_extra
+    before_update :update_fecha_notificacion
     after_update :clone_cotizacion
     after_find   :check_descuento
 
@@ -75,6 +76,11 @@ module Vinculacion
       self.save(:validate => false)
   	end
 
+    def update_fecha_notificacion
+      if self.status == STATUS_NOTIFICADO
+        self.fecha_notificacion = Date.today()
+      end
+    end
 
     def clone_cotizacion
       if self.status == STATUS_RECHAZADO
