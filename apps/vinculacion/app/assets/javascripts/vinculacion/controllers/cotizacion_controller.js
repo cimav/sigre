@@ -54,7 +54,12 @@ App.CotizacionController = Ember.ObjectController.extend({
 
   noPuedeNotificar: function() {
     return this.get('model.subtotal_calculado') <= 0;
-  }.property('model.subtotal_calculado')
+  }.property('model.subtotal_calculado'),
+
+  pdf_url: function() {
+    return '/vinculacion/cotizacion/' + this.get('id') + '/pdf';
+  }.property('model.id')
+  
 
 });
 
