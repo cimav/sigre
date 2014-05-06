@@ -41,7 +41,6 @@ module Vinculacion
         self.subtotal = 0.00
         self.precio_venta = 0.00
         self.descuento_porcentaje = 0.00
-        self.descuento_status = 0
         self.msg_notificacion = ''
         self.motivo_status = ''
         self.duracion = 0
@@ -60,7 +59,6 @@ module Vinculacion
         self.precio_venta = ultima_cotizacion.precio_venta
         self.precio_unitario = ultima_cotizacion.precio_unitario
         self.descuento_porcentaje = ultima_cotizacion.descuento_porcentaje
-        self.descuento_status = ultima_cotizacion.descuento_status
 
         # Clonar detalle
         ultima_cotizacion.cotizacion_detalle.each do |detalle|
