@@ -10,9 +10,9 @@ module Vinculacion
     STATUS_ACEPTADO             = 3
     STATUS_RECHAZADO            = 4
     STATUS_CANCELADO            = 5
-    SATUS_DESCUENTO_SOLICITADO  = 6
-    SATUS_DESCUENTO_ACEPTADO    = 7
-    SATUS_DESCUENTO_RECHAZADO   = 8
+    STATUS_DESCUENTO_SOLICITADO = 6
+    STATUS_DESCUENTO_ACEPTADO   = 7
+    STATUS_DESCUENTO_RECHAZADO  = 8
   
     after_create :set_extra
     after_update :clone_cotizacion
@@ -84,7 +84,7 @@ module Vinculacion
     end
 
     def check_descuento
-      if self.status == SATUS_DESCUENTO_RECHAZADO
+      if self.status == STATUS_DESCUENTO_RECHAZADO
         self.descuento_porcentaje = 0.00
         self.status = STATUS_EDICION
         self.save
