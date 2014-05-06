@@ -47,7 +47,6 @@
         {{#link-to 'cotizacion.rechazar' this tagName="button" classNames="btn btn-warning"}}
           <span class="glyphicon glyphicon-repeat"></span> Rechazar
         {{/link-to}}
-
       </div>
     {{/if}}
 
@@ -164,5 +163,10 @@
   {{outlet}}
 
 </div>
+
+<div id="pdf-link">
+  <a class="btn btn-default btn-sm" {{bind-attr href='pdf_url'}}><span class="glyphicon glyphicon-file"></span> Descargar PDF</a>
+</div>
+
 </div>
 

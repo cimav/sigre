@@ -51,11 +51,7 @@ module Vinculacion
         mes   = t(:date)[:month_names][cotizacion.fecha_notificacion.month]
         anyo  = cotizacion.fecha_notificacion.year
         ## CALCULANDO FOLIO
-        anyof       = anyo.to_s[2,4]
-        con         = cotizacion.solicitud.consecutivo
-        c_solicitud = "%03d" % con.to_i
-        c_cotizacion = cotizacion.consecutivo
-        folio = "#{anyof}/#{c_solicitud}-#{c_cotizacion}"
+        folio = "#{cotizacion.solicitud.codigo}-#{cotizacion.consecutivo}"
         pdf.text "\n\n\n\n\n#{dia} de #{mes} del #{anyo}. \n #{t[:quote]} #{folio}", :style=> :bold, :align=> :right, :size=> size
         
         ## DATOS GENERALES
@@ -78,7 +74,7 @@ module Vinculacion
         ## REITERATIVOS
         counter   = 0
         subtotalf = 0
-        cotizacion.cotizaciones_detalle.each do |cd|
+        cotizacion.cotizacion_detalle.each do |cd|
           subtotal = cd.precio_unitario * cd.cantidad
           r = [[cd.cantidad,cd.concepto,cd.precio_unitario.to_s,subtotal.to_s]]
           data += r
