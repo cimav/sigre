@@ -1,7 +1,6 @@
 App.Solicitud = DS.Model.extend({
   codigo: DS.attr('string'),
-  notas: DS.attr('string'),
-  acuerdos: DS.attr('string'),
+  descripcion: DS.attr('string'),
   prioridad: DS.attr('number'),
   muestras: DS.hasMany('muestra'),
   servicios: DS.hasMany('servicio'),
