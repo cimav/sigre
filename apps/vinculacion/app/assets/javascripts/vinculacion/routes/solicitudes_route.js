@@ -1,7 +1,7 @@
 App.SolicitudesRoute = Ember.Route.extend({
   model: function() {
-    this.store.find('solicitud');
-    return this.store.filter(App.Solicitud, function(solicitud) {
+    this.store.find('solicitudBusqueda');
+    return this.store.filter(App.SolicitudBusqueda, function(solicitud) {
       return !solicitud.get('isNew');
     });
   },

@@ -15,6 +15,8 @@ Vinculacion::Engine.routes.draw do
 
   resources :costeos
 
+  resources :solicitud_busqueda, :only => [:index]
+
   root :to => 'assets#index'
   get "assets/index"
 

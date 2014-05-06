@@ -5,7 +5,7 @@ App.SolicitudesController = Ember.ArrayController.extend({
 
   searchChange: function() {
     console.log(this.searchText);
-    results = this.store.find('solicitud', { q: this.searchText });
+    results = this.store.find('solicitudBusqueda', { q: this.searchText });
     this.set('content', results);
   }.observes('searchText'),
 

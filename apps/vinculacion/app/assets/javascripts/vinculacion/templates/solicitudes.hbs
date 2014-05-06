@@ -19,7 +19,7 @@
         <div id="md-items-list">
           {{#each sortedSolicitudes}}
 
-            {{#link-to 'solicitud' this tagName="div" classNames="md-item"}}
+            {{#link-to 'solicitud' this.id tagName="div" classNames="md-item"}}
                 <div class="md-item-inner">
                     <div class="media">
                         <table class="tabla-solicitudes">
@@ -29,12 +29,12 @@
                                 </td>
                                 <td class="columna-cliente">
                                     <div class="media-heading">{{codigo}}</div>
-                                    <div class="razon-social">{{cliente.razon_social}}</div>
-                                    <div class="contacto-nombre">{{contacto.nombre}}</div>
+                                    <div class="razon-social">{{cliente_razon_social}}</div>
+                                    <div class="contacto-nombre">{{contacto_nombre}}</div>
                                 </td>
                                 <td class="columna-proyecto">
-                                    <div class="media-heading">{{proyecto.codigo}}</div>
-                                    <div class="proyecto-nombre">{{proyecto.nombre}}</div>
+                                    <div class="media-heading">{{proyecto_codigo}}</div>
+                                    <div class="proyecto-nombre">{{proyecto_nombre}}</div>
                                 </td>
                                 <td class="columna-badges">
                                     <span class="badge badge-cotizaciones">{{lastCotizacion.consecutivo}}</span>
