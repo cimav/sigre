@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module Vinculacion
   class Cotizacion < ActiveRecord::Base
     belongs_to :solicitud
