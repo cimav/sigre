@@ -3,7 +3,7 @@
         <h3>Cancelar solicitud: <strong>{{codigo}}</strong></h3>
 
         <div class="solicitud-cancelacion-actions">
-            <button type="submit" class="btn btn-inverse" {{bind-attr disabled=this.isNotDirty}} {{action "cancelacion" this target='controller'}} >
+            <button type="submit" class="btn btn-danger" {{bind-attr disabled=this.isNotDirty}} {{action "cancelacion" this target='controller'}} >
                 <span class="glyphicon glyphicon-remove"></span>
                 Cancelar
             </button>

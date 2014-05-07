@@ -23,7 +23,7 @@ App.RadioButtonField = Ember.View.extend({
 
   classNames: ['vwo-radio-button'],
 
-  template: Ember.Handlebars.compile('<label><input type="radio" {{bindAttr disabled="view.disabled" name="view.group" value="view.value" checked="view.checked"}} />{{view.title}}</label>'),
+  template: Ember.Handlebars.compile('<label><input type="radio" {{bind-attr disabled="view.disabled" name="view.group" value="view.value" checked="view.checked"}} />{{view.title}}</label>'),
 
   click: function () {
     this.set('parentView.value', this.get('value'));
