@@ -2,6 +2,10 @@ module Vinculacion
   class SolicitudBusqueda < ActiveRecord::Base
     self.table_name = "vinculacion_solicitudes"
 
+    has_many :muestras, :foreign_key => "solicitud_id", :class_name => "Muestra"
+    has_many :servicios, :foreign_key => "solicitud_id", :class_name => "Servicio"
+    has_many :cotizaciones, :foreign_key => "solicitud_id", :class_name => "Cotizacion"
+
     belongs_to  :proyecto
     belongs_to  :cliente
     belongs_to  :contacto
@@ -22,19 +26,16 @@ module Vinculacion
       self.proyecto.nombre rescue '--'
     end
 
-     def muestras_length
-       muestras = Muestra.where(:solicitud_id => self.id)
-       muestras.count.to_s rescue '-'
-     end
+    def muestras_length
+      self.muestras.count.to_s rescue '-'
+    end
 
     def servicios_length
-      servicios = Servicio.where(:solicitud_id => self.id)
-      servicios.count.to_s rescue '-'
+      self.servicios.count.to_s rescue '-'
     end
 
     def ultima_cotizacion
-      cotizaciones = Cotizacion.where(:solicitud_id => self.id)
-      cotizaciones.last.consecutivo rescue '-'
+      self.cotizaciones.last.consecutivo rescue '-'
     end
 
   end
