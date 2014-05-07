@@ -1,5 +1,5 @@
 {{#form-for controller}}
-    <div class="row">  
+    <div class="row">
       <div class="col-sm-8">
         <div class="cotizacion-mensaje">
           <strong>Mensaje:</strong><br/>
@@ -12,9 +12,16 @@
       </div>
 
       <div class="col-sm-4 cotizacion-extra-data cotizacion-extra-data-edit">
+
+        <div class="extra-item extra-item-date">
+          <span class="glyphicon glyphicon-calendar"></span>
+          {{view App.DateField dateBinding="fecha_notificacion"}}
+          <div class="clearfix"></div>
+        </div>
+
         <div class="extra-item">
           <span class="glyphicon glyphicon-time"></span>
-          {{view App.NumberField value=duracion classNames="form-control input-sm" min="1"}} 
+          {{view App.NumberField value=duracion classNames="form-control input-sm" min="1"}}
           <span class="extra-text">días habiles.</span>
           <div class="clearfix"></div>
         </div>
@@ -28,7 +35,7 @@
           classNames="input-sm"}}
           <div class="clearfix"></div>
         </div>
-        
+
         <div class="extra-item">
           <span class="glyphicon glyphicon-globe"></span>
           {{view Ember.Select content=controllers.application.idiomas
@@ -38,7 +45,7 @@
           classNames="input-sm"}}
           <div class="clearfix"></div>
         </div>
-        
+
         <div class="extra-item">
           <span class="glyphicon glyphicon-usd"></span>
           {{view Ember.Select content=controllers.application.divisas
@@ -48,7 +55,7 @@
           classNames="input-sm"}}
           <div class="clearfix"></div>
         </div>
-        
+
       </div>
     </div>
 
@@ -96,7 +103,7 @@
                 {{else}}
                   <span class="glyphicon glyphicon-plus"></span>
                 {{/if}}
-              </button>  
+              </button>
             </td>
           </tr>
           <tr>
@@ -107,7 +114,7 @@
           <tr>
             <td class="det-descuento text-right" colspan="3">
               <div class="pull-right">
-                <div class="descuento-label">Descuento</div> 
+                <div class="descuento-label">Descuento</div>
                 <div class="input-group input-group-sm pull-left">
                   {{view App.NumberField value=descuento_porcentaje classNames="form-control" min="0" max="100"}}
                   <span class="input-group-addon">%</span>
@@ -132,11 +139,11 @@
       </div>
     </div>
 
-    <div class="row">  
+    <div class="row">
       <div class="col-sm-12 cotizacion-notas">
         <strong>Notas:</strong><br/>
         {{input-field notas as="text"}}
       </div>
     </div>
-    
+
 {{/form-for}}

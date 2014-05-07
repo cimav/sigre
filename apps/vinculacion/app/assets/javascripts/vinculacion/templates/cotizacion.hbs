@@ -94,17 +94,20 @@
       </div>
 
       <div class="col-sm-4 cotizacion-extra-data">
+          <div class="extra-item">
+              <span class="glyphicon glyphicon-calendar"></span> {{format-date "LL" fecha_notificacion}}
+          </div>
+          <div class="extra-item">
+              <span class="glyphicon glyphicon-time"></span> {{duracion}} días habiles
+          </div>
         <div class="extra-item">
-          <span class="glyphicon glyphicon-time"></span> {{duracion}} días habiles.
+          <span class="glyphicon glyphicon-briefcase"></span> {{condicion_item.descripcion}}
         </div>
         <div class="extra-item">
-          <span class="glyphicon glyphicon-briefcase"></span> {{condicion_item.descripcion}}.
+          <span class="glyphicon glyphicon-globe"></span> {{idioma_item.descripcion}}
         </div>
         <div class="extra-item">
-          <span class="glyphicon glyphicon-globe"></span> {{idioma_item.descripcion}}.
-        </div>
-        <div class="extra-item">
-          <span class="glyphicon glyphicon-usd"></span> {{divisa_item.codigo}} {{divisa_item.descripcion}}.
+          <span class="glyphicon glyphicon-usd"></span> {{divisa_item.codigo}} {{divisa_item.descripcion}}
         </div>
       </div>
 

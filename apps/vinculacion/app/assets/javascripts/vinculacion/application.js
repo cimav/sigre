@@ -19,6 +19,7 @@
 //= require vinculacion/vinculacion
 //= require vinculacion/ember-easyForm
 //= require vinculacion/bootstrap
+//= require vinculacion/moment.min
 //= require select2
 
 var inflector = Ember.Inflector.inflector;
@@ -77,3 +78,4 @@ App.computed.list_item = function(property) {
     })[0];
   }.property(property);
 };
+
