@@ -1,0 +1,32 @@
+<div id="solicitud-cancelacion">
+    <div id='solicitud-cancelacion-header'>
+        <h3>Cancelar solicitud: <strong>{{codigo}}</strong></h3>
+
+        <div class="solicitud-cancelacion-actions">
+            <button type="submit" class="btn btn-inverse" {{bind-attr disabled=this.isNotDirty}} {{action "cancelacion" this target='controller'}} >
+                <span class="glyphicon glyphicon-remove"></span>
+                Cancelar
+            </button>
+        </div>
+    </div>
+    <div id="solicitud-cancelacion-forma">
+
+        <div id="solicitud-cancelacion-forma-razon">
+            <strong>Razón</strong>
+          {{#view App.RadioButtonGroup group="razon-option" valueBinding="razon_cancelacion"}}
+            {{view App.RadioButtonField title="Servicio no aceptado por el cliente (rechazado o prescrito)" value="1"}}
+            {{view App.RadioButtonField title="Servicio interrumpido por el cliente durante el proceso" value="2"}}
+            {{view App.RadioButtonField title="No realizable en el centro" value="3"}}
+            {{view App.RadioButtonField title="Falta de capacidad instalada (equipamiento, suministros y/o personal)" value="4"}}
+            {{view App.RadioButtonField title="Otro" value="5"}}
+          {{/view}}
+        </div>
+
+      {{#form-for controller}}
+          <strong>Motivo</strong>
+        {{input-field motivo_status as="text"}}
+      {{/form-for}}
+
+    </div>
+</div>
+

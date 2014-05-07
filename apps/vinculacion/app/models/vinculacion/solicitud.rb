@@ -12,6 +12,9 @@ module Vinculacion
   	after_create :set_extra
     after_create :add_cotizacion
 
+    STATUS_INICIAL    = 1
+    STATUS_CANCELADA  = 99
+
     def relation_string
       "#{proyecto_id},#{sede_id},#{cliente_id},#{contacto_id}"
     end
