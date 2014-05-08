@@ -46,7 +46,7 @@
     
     <div class="form-group">
       <label for="unknown" class="col-sm-2 control-label">Prioridad</label>
-      <div class="col-sm-7">
+      <div class="col-sm-7" id="solicitud-prioridad">
         {{view Ember.Select content=controllers.application.prioridades
                             value=prioridad
                             optionValuePath="content.id"
