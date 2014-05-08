@@ -1,22 +1,81 @@
-<h3>Nuevo</h3>
+<div class="cliente-form">
+    <h3>Nuevo</h3>
 
-{{#form-for controller}}
-  {{input rfc label='RFC'}}
-  {{input razon_social label='Razón social1'}}
+  {{#form-for controller}}
 
-  <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-6">
-          <button type="submit"
-                  class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "create" this target='controller'}} >
-            {{#if item.isSaving}}
-                <span class="spin glyphicon glyphicon-refresh"></span>
-                Guardando...
-            {{else}}
-                Guardar
-            {{/if}}
-          </button>
+      <div class="col-sm-8">
+          <div class="cliente-rfc">
+              <strong>RFC</strong><br/>
+            {{input-field rfc}}
+          </div>
+          <div class="cliente-razon-social">
+              <strong>Razón social</strong><br/>
+            {{input-field razon_social}}
+          </div>
+          <div class="cliente-num-empleados">
+              <strong>Num. empleados</strong><br/>
+            {{view App.NumberField value=num_empleados classNames="form-control input-sm" min="0"}}
+              <div class="clearfix"></div>
+          </div>
+
+          <div class="cliente-tamano-empresa">
+              <strong>Tamaño empresa</strong><br/>
+            {{view Ember.Select content=controllers.application.tamanos_empresa
+            value=tamano_empresa
+            optionValuePath="content.id"
+            optionLabelPath="content.descripcion"}}
+          </div>
+
+          <div class="cliente-sector">
+              <strong>Sector</strong><br/>
+            {{view Ember.Select content=controllers.application.sectores_empresa
+            value=sector
+            optionValuePath="content.id"
+            optionLabelPath="content.descripcion"}}
+          </div>
+
+          <div class="cliente-direccion">
+              <strong>Dirección (calle y núm)</strong><br/>
+            {{input-field calle_num }}
+          </div>
+          <div class="cliente-colonia">
+              <strong>Colonia</strong><br/>
+            {{input-field colonia}}
+          </div>
+          <div class="cliente-cp">
+              <strong>CP</strong><br/>
+            {{view App.NumberField value=cp classNames="form-control input-sm" min="0"}}
+              <div class="clearfix"></div>
+          </div>
+          <div class="cliente-telefono">
+              <strong>Teléfono</strong><br/>
+            {{input-field telefono as="tel"}}
+          </div>
+          <div class="cliente-fax">
+              <strong>Fax</strong><br/>
+            {{input-field fax as="tel"}}
+          </div>
+          <div class="cliente-email">
+              <strong>Email</strong><br/>
+            {{input-field email as="email"}}
+          </div>
       </div>
-  </div>
 
-{{/form-for}}
+
+      <div class="form-group">
+          <div class="col-sm-6">
+              <button type="submit"
+                      class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "create" this target='controller'}} >
+                {{#if item.isSaving}}
+                    <span class="spin glyphicon glyphicon-refresh"></span>
+                    Guardando...
+                {{else}}
+                    Guardar
+                {{/if}}
+              </button>
+          </div>
+      </div>
+
+  {{/form-for}}
+</div>
 

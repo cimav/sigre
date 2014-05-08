@@ -47,7 +47,6 @@
         {{#link-to 'cotizacion.rechazar' this tagName="button" classNames="btn btn-warning"}}
           <span class="glyphicon glyphicon-repeat"></span> Rechazar
         {{/link-to}}
-
       </div>
     {{/if}}
 
@@ -95,17 +94,20 @@
       </div>
 
       <div class="col-sm-4 cotizacion-extra-data">
+          <div class="extra-item">
+              <span class="glyphicon glyphicon-calendar"></span>{{fecha_notificacion}} {{format-date "LL" fecha_notificacion}}
+          </div>
+          <div class="extra-item">
+              <span class="glyphicon glyphicon-time"></span> {{duracion}} días habiles
+          </div>
         <div class="extra-item">
-          <span class="glyphicon glyphicon-time"></span> {{duracion}} días habiles.
+          <span class="glyphicon glyphicon-briefcase"></span> {{condicion_item.descripcion}}
         </div>
         <div class="extra-item">
-          <span class="glyphicon glyphicon-briefcase"></span> {{condicion_item.descripcion}}.
+          <span class="glyphicon glyphicon-globe"></span> {{idioma_item.descripcion}}
         </div>
         <div class="extra-item">
-          <span class="glyphicon glyphicon-globe"></span> {{idioma_item.descripcion}}.
-        </div>
-        <div class="extra-item">
-          <span class="glyphicon glyphicon-usd"></span> {{divisa_item.codigo}} {{divisa_item.descripcion}}.
+          <span class="glyphicon glyphicon-usd"></span> {{divisa_item.codigo}} {{divisa_item.descripcion}}
         </div>
       </div>
 
@@ -164,5 +166,10 @@
   {{outlet}}
 
 </div>
+
+<div id="pdf-link">
+  <a class="btn btn-default btn-sm" {{bind-attr href='pdf_url'}}><span class="glyphicon glyphicon-file"></span> Descargar PDF</a>
+</div>
+
 </div>
 

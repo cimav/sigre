@@ -1,11 +1,11 @@
 module Vinculacion
   class SolicitudBusqueda < ActiveRecord::Base
     self.table_name = "vinculacion_solicitudes"
-    has_many :muestras
-    has_many :servicios
-    has_many :cotizaciones
 
-    belongs_to   :sede
+    has_many :muestras, :foreign_key => "solicitud_id", :class_name => "Muestra"
+    has_many :servicios, :foreign_key => "solicitud_id", :class_name => "Servicio"
+    has_many :cotizaciones, :foreign_key => "solicitud_id", :class_name => "Cotizacion"
+
     belongs_to  :proyecto
     belongs_to  :cliente
     belongs_to  :contacto
@@ -24,6 +24,18 @@ module Vinculacion
 
     def proyecto_nombre
       self.proyecto.nombre rescue '--'
+    end
+
+    def muestras_length
+      self.muestras.count.to_s rescue '-'
+    end
+
+    def servicios_length
+      self.servicios.count.to_s rescue '-'
+    end
+
+    def ultima_cotizacion
+      self.cotizaciones.last.consecutivo rescue '-'
     end
 
   end

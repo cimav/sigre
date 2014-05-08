@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div id="md-items-list">
+    <div id="md-items-list" class="clientes-list">
       {{#each}}
 
         {{#view App.ClienteClickView}}
@@ -27,7 +27,6 @@
 
               <div class="md-item-inner">
                   <div class="media">
-                      <div class="media-object pull-right"><span class="badge badge-clientes">{{this.contactos.length}}</span></div>
                       <div class="media-object pull-left"><span class="glyphicon glyphicon-globe"></span></div>
                       <div class="media-body">
                           <div class="media-heading">{{rfc}}</div>

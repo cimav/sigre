@@ -1,0 +1,33 @@
+
+.clientes-list {
+  .media-heading {
+    white-space: normal !important;
+  }
+}
+
+.cliente-form {
+  margin: 20px;
+  input, textarea, select {
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  .cliente-rfc {
+    width: 180px;
+  }
+  .cliente-num-empleados {
+    width: 100px;
+  }
+  .cliente-tamano-empresa {
+    width: 220px;
+  }
+  .cliente-sector {
+    width: 220px;
+  }
+  .cliente-cp {
+    width: 100px;
+  }
+  .form-group {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

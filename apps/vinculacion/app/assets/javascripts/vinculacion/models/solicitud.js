@@ -1,7 +1,6 @@
 App.Solicitud = DS.Model.extend({
   codigo: DS.attr('string'),
-  notas: DS.attr('string'),
-  acuerdos: DS.attr('string'),
+  descripcion: DS.attr('string'),
   prioridad: DS.attr('number'),
   muestras: DS.hasMany('muestra'),
   servicios: DS.hasMany('servicio'),
@@ -10,8 +9,16 @@ App.Solicitud = DS.Model.extend({
   cliente: DS.belongsTo('cliente'),
   contacto: DS.belongsTo('contacto'),
   cotizaciones: DS.hasMany('cotizacion'),
+  status: DS.attr('string'),
+  razon_cancelacion: DS.attr('string'),
+  motivo_status: DS.attr('string'),
 
   relation_string: DS.attr('string'),
+
+  Status: {
+    inicial: 1,
+    cancelada: 99
+  },
 
   selectsChanges: function () {
     // Hack: belongsTo no cambian a Dirty
@@ -30,7 +37,10 @@ App.Solicitud = DS.Model.extend({
 
   lastCotizacion: function() {
     return this.get('cotizaciones').sortBy('consecutivo').get('lastObject');
-  }.property('cotizaciones')
+  }.property('cotizaciones'),
 
+  isCancelada: function() {
+    return this.get('status') == this.get('Status.cancelada');
+  }.property('status')
 
 });

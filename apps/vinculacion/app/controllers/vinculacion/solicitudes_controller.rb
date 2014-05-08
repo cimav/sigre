@@ -30,7 +30,6 @@ module Vinculacion
     def solicitud
       params[:solicitud].permit(:consecutivo,
                                 :codigo,
-                                :tipo,
                                 :proyecto_id,
                                 :sede_id,
                                 :prioridad,
@@ -38,7 +37,9 @@ module Vinculacion
                                 :contacto_id,
                                 :descripcion,
                                 :usuario_id,
-                                :status)
+                                :status,
+                                :motivo_status,
+                                :razon_cancelacion)
     end
   end
 end

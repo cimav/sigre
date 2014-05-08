@@ -1,0 +1,10 @@
+<div id="solicitud-index">
+    <h3>Solicitud {{codigo}} {{#link-to 'solicitud.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}</h3>
+    <div class="cliente">Cliente: {{cliente.razon_social}}</div>
+
+    {{#if isCancelada}}
+      <h4>Cancelada</h4>
+      {{motivo_status}}
+    {{/if}}
+
+</div>

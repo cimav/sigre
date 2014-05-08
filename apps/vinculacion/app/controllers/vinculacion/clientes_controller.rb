@@ -26,8 +26,20 @@ module Vinculacion
 
     protected
     def cliente
-      params[:cliente].permit(:id, :rfc,
-                              :razon_social)
+      params[:cliente].permit(
+          :id,
+          :rfc,
+          :razon_social,
+          :num_empleados,
+          :calle_num,
+          :colonia,
+          :cp,
+          :telefono,
+          :fax,
+          :email,
+          :tamano_empresa,
+          :sector
+      )
     end
   end
 end

@@ -19,6 +19,18 @@ App.ApplicationController = Ember.Controller.extend({
     {id: 2, codigo:'USD', descripcion:'Dólares americanos'},
     {id: 3, codigo:'EUR', descripcion:'Euros'}
   ],
+  tamanos_empresa: [
+    {id: 1, descripcion: "Micro"},
+    {id: 2, descripcion: "Pequeña"},
+    {id: 3, descripcion: "Mediana"},
+    {id: 4, descripcion: "Grande"}
+  ],
+  sectores_empresa: [
+    {id: 1, descripcion: "Maquiladoras"},
+    {id: 2, descripcion: "Servicios"},
+    {id: 3, descripcion: "Público e institucional"}
+  ],
+
   init: function() {
     self = this;
     Promise.all([

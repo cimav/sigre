@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module Vinculacion
   class Cotizacion < ActiveRecord::Base
     belongs_to :solicitud
@@ -10,11 +11,19 @@ module Vinculacion
     STATUS_ACEPTADO             = 3
     STATUS_RECHAZADO            = 4
     STATUS_CANCELADO            = 5
-    SATUS_DESCUENTO_SOLICITADO  = 6
-    SATUS_DESCUENTO_ACEPTADO    = 7
-    SATUS_DESCUENTO_RECHAZADO   = 8
+    STATUS_DESCUENTO_SOLICITADO = 6
+    STATUS_DESCUENTO_ACEPTADO   = 7
+    STATUS_DESCUENTO_RECHAZADO  = 8
+
+    COMENTARIOS = "En respuesta a su solicitud para traducción de informe y agradeciendo su preferencia, ponemos a su
+consideración la siguiente propuesta económica:"
+
+    OBSERVACIONES = ""
+
+    NOTAS = "Esta cotización tiene una vigencia de 30 días hábiles.\nLa duración del servicio es de 30 días hábiles posteriores a la recepción de la orden de compra."
   
     after_create :set_extra
+    before_update :update_fecha_notificacion
     after_update :clone_cotizacion
     after_find   :check_descuento
 
@@ -35,9 +44,9 @@ module Vinculacion
         self.condicion = 1
         self.idioma = 1
         self.divisa = 1
-        self.comentarios = 'Comentarios default...'
-        self.observaciones = 'Observaciones default...'
-        self.notas = 'Notas default...'
+        self.comentarios = COMENTARIOS
+        self.observaciones = OBSERVACIONES
+        self.notas = NOTAS
         self.subtotal = 0.00
         self.precio_venta = 0.00
         self.descuento_porcentaje = 0.00
@@ -75,6 +84,11 @@ module Vinculacion
       self.save(:validate => false)
   	end
 
+    def update_fecha_notificacion
+      if self.status == STATUS_NOTIFICADO
+        self.fecha_notificacion = Date.today()
+      end
+    end
 
     def clone_cotizacion
       if self.status == STATUS_RECHAZADO
@@ -84,7 +98,7 @@ module Vinculacion
     end
 
     def check_descuento
-      if self.status == SATUS_DESCUENTO_RECHAZADO
+      if self.status == STATUS_DESCUENTO_RECHAZADO
         self.descuento_porcentaje = 0.00
         self.status = STATUS_EDICION
         self.save
