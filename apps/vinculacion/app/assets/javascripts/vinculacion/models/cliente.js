@@ -1,6 +1,14 @@
 App.Cliente = DS.Model.extend(Ember.Validations.Mixin, {
   rfc: DS.attr('string'),
   razon_social: DS.attr('string'),
+  num_empleados: DS.attr('number'),
+  calle_num: DS.attr('string'),
+  colonia: DS.attr('string'),
+  cp: DS.attr('string'),
+  telefono: DS.attr('string'),
+  fax: DS.attr('string'),
+  email: DS.attr('string'),
+
   contactos: DS.hasMany('contacto', { dependent: 'destroy' }),
   solicitudes: DS.hasMany('solicitud')
 
