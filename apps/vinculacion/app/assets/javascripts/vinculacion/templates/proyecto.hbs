@@ -1,26 +1,75 @@
-<h3>{{codigo}} - {{nombre}}</h3>
+<div class="proyecto-form">
+    <h3>{{codigo}} - {{nombre}}</h3>
 
-{{#form-for controller}}
+  {{#form-for controller}}
 
-  {{input codigo label='Código'}}
-  {{input nombre }}
-
-  <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-6">
-          <button type="submit"
-                  class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "update" this target='controller'}} >
-            {{#if item.isSaving}}
-                <span class="spin glyphicon glyphicon-refresh"></span>
-                Guardando...
-            {{else}}
-                Guardar
-            {{/if}}
-          </button>
+      <div class="col-sm-8">
+          <div class="proyecto-cuenta">
+              <strong>Cuenta</strong><br/>
+            {{input-field codigo}}
+          </div>
+          <div class="proyecto-nombre">
+              <strong>Nombre</strong><br/>
+            {{input-field nombre}}
+          </div>
+          <div class="proyecto-descripcion">
+              <strong>Descripción</strong><br/>
+            {{input-field descripcion as="text"}}
+          </div>
+          <div class="proyecto-fechas">
+              <div class="proyecto-anio">
+                  <strong>Año</strong><br/>
+                {{view App.NumberField value=anio classNames="form-control input-sm" min="2000" max="2030"}}
+                  <div class="clearfix"></div>
+              </div>
+              <div class="proyecto-fecha-inicio">
+                  <strong>Fecha inicio</strong><br/>
+                {{view App.DateField dateBinding="fecha_inicio"}}
+                  <div class="clearfix"></div>
+              </div>
+              <div class="proyecto-fecha-termino">
+                  <strong>Fecha termino</strong><br/>
+                {{view App.DateField dateBinding="fecha_termino"}}
+                  <div class="clearfix"></div>
+              </div>
+              <div class="clearfix"></div>
+          </div>
+          <div class="proyecto-obj-proyecto">
+              <strong>Objetivo proyecto</strong><br/>
+            {{input-field obj_proyecto as="text"}}
+          </div>
+          <div class="proyecto-impacto">
+              <strong>Impacto</strong><br/>
+            {{input-field impacto as="text"}}
+          </div>
+          <div class="proyecto-resultado-esperado">
+              <strong>Resultado esperado</strong><br/>
+            {{input-field resultado_esperado as="text"}}
+          </div>
+          <div class="proyecto-obj-estrategico">
+              <strong>Objetivo estratégico</strong><br/>
+            {{input-field obj_estrategico as="text"}}
+          </div>
       </div>
-      <div class="col-sm-1">
-          <button class="btn-delete btn btn-danger" {{bind-attr disabled=this.hasSolicitudes}} {{action "destroy" this target='controller'}}><span title="Eliminar proyecto" class="glyphicon glyphicon-trash"></span></button>
+
+
+      <div class="form-group">
+          <div class="col-sm-7">
+              <button type="submit"
+                      class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "update" this target='controller'}} >
+                {{#if item.isSaving}}
+                    <span class="spin glyphicon glyphicon-refresh"></span>
+                    Guardando...
+                {{else}}
+                    Guardar
+                {{/if}}
+              </button>
+          </div>
+          <div class="col-sm-1">
+              <button class="btn-delete btn btn-danger" {{bind-attr disabled=this.hasSolicitudes}} {{action "destroy" this target='controller'}}><span title="Eliminar proyecto" class="glyphicon glyphicon-trash"></span>
+              </button>
+          </div>
       </div>
-  </div>
 
-{{/form-for}}
-
+  {{/form-for}}
+</div>

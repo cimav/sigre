@@ -1,0 +1,40 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+
+.proyectos-list {
+  .media-heading {
+    white-space: normal !important;
+  }
+}
+
+.proyecto-form {
+  margin: 20px;
+  input, textarea {
+     margin-bottom: 15px;
+  }
+  .proyecto-cuenta {
+    width: 180px;
+  }
+  .proyecto-fechas {
+    .proyecto-anio {
+      float:left;
+      width: 100px;
+    }
+    .proyecto-fecha-inicio {
+      float:left;
+      width: 180px;
+      padding-left: 10px;
+    }
+    .proyecto-fecha-termino {
+      float:left;
+      width: 180px;
+      padding-left: 10px;
+    }
+  }
+  .form-group {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
