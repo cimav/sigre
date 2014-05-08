@@ -8,6 +8,8 @@ App.Cliente = DS.Model.extend(Ember.Validations.Mixin, {
   telefono: DS.attr('string'),
   fax: DS.attr('string'),
   email: DS.attr('string'),
+  tamano_empresa: DS.attr('number'),
+  sector: DS.attr('number'),
 
   contactos: DS.hasMany('contacto', { dependent: 'destroy' }),
   solicitudes: DS.hasMany('solicitud')

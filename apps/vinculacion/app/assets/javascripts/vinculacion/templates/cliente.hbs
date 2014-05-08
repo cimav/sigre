@@ -14,41 +14,58 @@
           {{#form-for controller}}
 
               <div class="col-sm-8">
-                  <div class="proyecto-rfc">
+                  <div class="cliente-rfc">
                       <strong>RFC</strong><br/>
                     {{input-field rfc}}
                   </div>
-                  <div class="proyecto-razon-social">
+                  <div class="cliente-razon-social">
                       <strong>Razón social</strong><br/>
                     {{input-field razon_social}}
                   </div>
-                  <div class="proyecto-num-empleados">
+                  <div class="cliente-num-empleados">
                       <strong>Num. empleados</strong><br/>
                     {{view App.NumberField value=num_empleados classNames="form-control input-sm" min="0"}}
                       <div class="clearfix"></div>
                   </div>
-                  <div class="proyecto-direccion">
+
+                  <div class="cliente-tamano-empresa">
+                      <strong>Tamaño empresa</strong><br/>
+                    {{view Ember.Select content=controllers.application.tamanos_empresa
+                    value=tamano_empresa
+                    optionValuePath="content.id"
+                    optionLabelPath="content.descripcion"}}
+                  </div>
+
+                  <div class="cliente-sector">
+                      <strong>Sector</strong><br/>
+                    {{view Ember.Select content=controllers.application.sectores_empresa
+                    value=sector
+                    optionValuePath="content.id"
+                    optionLabelPath="content.descripcion"}}
+                  </div>
+
+                  <div class="cliente-direccion">
                       <strong>Dirección (calle y núm)</strong><br/>
                     {{input-field calle_num }}
                   </div>
-                  <div class="proyecto-colonia">
+                  <div class="cliente-colonia">
                       <strong>Colonia</strong><br/>
                     {{input-field colonia}}
                   </div>
-                  <div class="proyecto-cp">
+                  <div class="cliente-cp">
                       <strong>CP</strong><br/>
                     {{view App.NumberField value=cp classNames="form-control input-sm" min="0"}}
                       <div class="clearfix"></div>
                   </div>
-                  <div class="proyecto-telefono">
+                  <div class="cliente-telefono">
                       <strong>Teléfono</strong><br/>
                     {{input-field telefono as="tel"}}
                   </div>
-                  <div class="proyecto-fax">
+                  <div class="cliente-fax">
                       <strong>Fax</strong><br/>
                     {{input-field fax as="tel"}}
                   </div>
-                  <div class="proyecto-email">
+                  <div class="cliente-email">
                       <strong>Email</strong><br/>
                     {{input-field email as="email"}}
                   </div>

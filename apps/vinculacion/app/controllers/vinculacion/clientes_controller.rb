@@ -36,7 +36,9 @@ module Vinculacion
           :cp,
           :telefono,
           :fax,
-          :email
+          :email,
+          :tamano_empresa,
+          :sector
       )
     end
   end
