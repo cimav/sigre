@@ -3,7 +3,7 @@ module Vinculacion
   	embed :ids, :include => true
     attributes :id
     attributes :usuario_id
-    attributes :consecutivo, :codigo, :tipo, :prioridad, :descripcion, :status, :motivo_status, :razon_cancelacion
+    attributes :consecutivo, :codigo, :prioridad, :descripcion, :status, :motivo_status, :razon_cancelacion
     attributes :relation_string
     has_many :servicios
     has_many :muestras

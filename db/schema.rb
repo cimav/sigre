@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140507223129) do
+ActiveRecord::Schema.define(version: 20140508173304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -216,7 +216,6 @@ ActiveRecord::Schema.define(version: 20140507223129) do
   create_table "vinculacion_solicitudes", force: true do |t|
     t.integer  "consecutivo"
     t.string   "codigo",            limit: 20
-    t.integer  "tipo"
     t.integer  "proyecto_id"
     t.integer  "sede_id"
     t.integer  "prioridad"

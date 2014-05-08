@@ -30,7 +30,6 @@ module Vinculacion
     def solicitud
       params[:solicitud].permit(:consecutivo,
                                 :codigo,
-                                :tipo,
                                 :proyecto_id,
                                 :sede_id,
                                 :prioridad,
