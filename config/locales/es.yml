@@ -5,20 +5,44 @@ es:
       controllers:
         cotizaciones:
           document:
-            center: "Centro de Investigación en Materiales Avanzados, S.C." 
-            address: "Miguel de Cervantes 120, Complejo Industrial Chihuahua\n Chihuahua, Chihuahua. México.\n (614) 439 11 91"
-            quote: "Número de cotización:"
-            company: "Empresa:"
-            attention: "Atención:"
+            center:          "Centro de Investigación en\n Materiales Avanzados S.C." 
+            address0:        "Miguel de Cervantes 120, \nComplejo Industrial Chihuahua\n Chihuahua, Chihuahua. México. C.P. 31109\n Tel. (614) 439 11 00"
+            address1:        "Alianza Norte 202\n Parque de inovación Tecnológica\n Autopista Monterrey-Aereopuerto\n Km. 10 Apodaca NL. \n Tel. (81) 1156 08 00 "
+            address2:        "Oficina de Representación\n Cd. Juárez, Chihuahua \n (656) 629 39 80"
+            quote:           "Número de cotización:"
+            company:         "Cliente:"
+            attention:       "Atención:"
             company_address: "Dirección:"
-            phone: "Teléfono:"
-            email: "Email:"
-            text0: "En respuesta a su solicitud para traducción de informe y agradeciendo su preferencia, ponemos a su consideración la siguiente propuesta económica: "
-            amount: "Cantidad"
-            description: "Descripción"
-            unit_cost: "Costo \nUnitario"
-            subtotal: "Subtotal"
-            notes: "Notas: \n\n Esta cotización tiene una vigencia de 30 días hábiles.\n\n La duración del servicio es de 30 días hábiles posteriores a la recepción de la orden de compra."
+            phone:           "Teléfono:"
+            email:           "Email:"
+            rfc:             "RFC:"
+            amount:          "Cantidad"
+            description:     "Descripción"
+            unit_cost:       "Costo Unitario"
+            subtotal:        "Subtotal"
+            legal:           "La información contenida en el informe será manejada con la debida confidencialidad, de conformidad con:\n
+                             i) los artículos 16,17,18 y 19 de la <b>Ley Federal de Transparencia y Acceso a la información\n
+                             Pública</b> ii) 26 del reglamento de dicho ordenamiento, iii) 36 de los <b>Lineamientos Generales\n
+                             para la clasificación y desclasificación de la información de las dependencias y entidades\n
+                             de la Administración Pública Federal expedidos por el Instituto Federal de Acceso a la\n
+                             Información Pública</b>; en su caso, iv) los artóculos 82,83 y 84 de la <b>Ley de Propiedad Industrial</b>\n
+                             siempre que dicha información tenga o pudiera llegar a tener el carácter de sercerto industrial; así como , v) el\n
+                             <b>convenio de solicitud de servicios</b> que dará origen al informe"
+            observacion:     "Observaciones: Esta cotizacion tiene vigencia de 30 días hábiles"
+            gratitude:       "Gracias por considerarnos..."
+            version:         "VN01F03-01"
+        solicitudes:
+          cedula:
+            center:        "Centro de Investigación en Materiales Avanzados, S.C." 
+            address:       "Miguel de Cervantes 120, Complejo Industrial Chihuahua"
+            rfc:           "CIM941025MJ1"
+            title:         "CÉDULA DE CONTROL DE COSTOS"
+            form_number:   "CÉDULA No."
+            service_order: "O. SERVICIO"
+            bill_numbre:   "FACTURA"
+            servicex:      "SERVICIO X"
+            
+            
   
   activerecord:
     errors:
