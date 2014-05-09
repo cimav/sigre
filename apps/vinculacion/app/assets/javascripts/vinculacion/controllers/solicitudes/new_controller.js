@@ -9,7 +9,7 @@ App.SolicitudesNewController = Ember.ObjectController.extend({
 
         // despues de guardar una nueva solicitud
         // recarga la lista de solicitud_busqueda
-        self.get('controllers.solicitudes').send('reload');
+        self.get('controllers.solicitudes').send('reloadModel');
 
         self.transitionToRoute('solicitud', solicitud);
         self.get('controllers.application').notify('Se agrego nueva solicitud');

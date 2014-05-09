@@ -14,9 +14,10 @@ App.ClienteController = Ember.ObjectController.extend({
       self = this
       var onSuccess = function (cliente) {
 
-//        self.get('controllers.application').notify('Se actualizó cliente ');// + self.get('model.rfc'));
+        //self.get('controllers.application').notify('Se actualizó cliente ');// + self.get('model.rfc'));
 
         self.get('target').reset(); // forza a re-cargar el modelo de cliente y en consecuencia, a el afterModel de la route.
+        // FIXME: reset no funciona provoca error en el self.get('controllers.application').notify
 
         self.transitionToRoute('cliente', cliente);
       };

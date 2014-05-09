@@ -1,13 +1,10 @@
 App.SolicitudesRoute = Ember.Route.extend({
-  model: function() {
+  model: function () {
     return this.store.find('solicitudBusqueda');
-//    return this.store.filter(App.SolicitudBusqueda, function(solicitud) {
-//      return !solicitud.get('isNew');
-//    });
   },
 
   actions: {
-    reload: function () {
+    reloadModel: function () {
       var controller = this.controller;
       this.store.find('solicitudBusqueda').then(function (solicitudes) {
         controller.set('content', solicitudes);
@@ -15,17 +12,9 @@ App.SolicitudesRoute = Ember.Route.extend({
     }
   },
 
-  renderTemplate: function() {
+  renderTemplate: function () {
     // FIXME: Corregir bug de back
     this.render({ into: 'application' });
   }
-//  setupController: function (controller, model) {
-//    controller.set('content', model);
-//  },
-//  actions: {
-//    delete: function(solicitud) {
-//      solicitud.destroyRecord();
-//    }
-//  }
 });
 
