@@ -11,9 +11,38 @@ module Vinculacion
 
   	after_create :set_extra
     after_create :add_cotizacion
+    before_create :init_status
 
-    STATUS_INICIAL    = 1
-    STATUS_CANCELADA  = 99
+    STATUS_INICIAL              = 1
+    STATUS_EN_COTIZACION        = 2
+    STATUS_ESPERANDO_COSTEO     = 3
+    STATUS_ESPERANDO_CLIENTE    = 4
+    STATUS_COTIZACION_ACEPTADA  = 5
+    STATUS_ESPERANDO_DESCUENTO  = 6
+    STATUS_EN_PROCESO           = 7
+    STATUS_FINALIZADA           = 8
+    STATUS_CANCELADA            = 99
+
+    STATUS = {
+        STATUS_INICIAL              => 'Inicial',
+        STATUS_EN_COTIZACION        => 'En cotización',
+        STATUS_ESPERANDO_COSTEO     => 'Esperando costeo',
+        STATUS_ESPERANDO_CLIENTE    => 'Esperando respuesta del cliente',
+        STATUS_COTIZACION_ACEPTADA  => 'Aceptada',
+        STATUS_ESPERANDO_DESCUENTO  => 'Espererando autorización descuento',
+        STATUS_COTIZACION_ACEPTADA  => 'Aceptada',
+        STATUS_EN_PROCESO           => 'En proceso',
+        STATUS_FINALIZADA           => 'Finalizada',
+        STATUS_CANCELADA            => 'Cancelada',
+    }
+
+    def status_text
+      STATUS[status.to_i]
+    end
+
+    def init_status
+      self.status ||= "1"
+    end
 
     def relation_string
       "#{proyecto_id},#{sede_id},#{cliente_id},#{contacto_id}"

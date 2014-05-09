@@ -10,6 +10,10 @@ module Vinculacion
     belongs_to  :cliente
     belongs_to  :contacto
 
+    def status_text
+      Solicitud::STATUS[status.to_i]
+    end
+
     def cliente_razon_social
       self.cliente.razon_social rescue 'Sin cliente'
     end

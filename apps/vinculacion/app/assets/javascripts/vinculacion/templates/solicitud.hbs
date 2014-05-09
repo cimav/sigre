@@ -1,10 +1,19 @@
 <div id="screen-name">
-  <h3>Solicitud <strong>{{codigo}}</strong> <code> - {{proyecto.nombre}}</code></h3>
-    {{#link-to 'solicitudes' tagName="button" classNames="btn"}}<span title="Regresar a solicitudes" class="glyphicon glyphicon-chevron-left"></span>{{/link-to}}
+  <div id="solicitud-header">
+    <div id="solicitud-header-codigo">
+      <h3>Solicitud <strong>{{codigo}}</strong></h3>
+      <span class="label label-default">{{status_text}}</span>
+      <div class="clearfix"></div>
+    </div>
+    <div id="solicitud-header-proyecto">
+      {{proyecto.nombre}}
+      <div class="clearfix"></div>
+    </div>
+  </div>
 </div>
 <div id="op-options-panel">
   <ul class="nav nav-pills nav-stacked">
-    {{#link-to 'solicitud.index' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-ok"></span> Solicitud</a>{{/link-to}}
+      {{#link-to 'solicitud.index' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-ok"></span> Solicitud</a>{{/link-to}}
     {{#link-to 'muestras' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-th"></span> Muestras <span class="badge badge-muestras">{{muestrasCount}}</span></a>{{/link-to}}
     {{#if muestrasCount}}
       {{#link-to 'servicios' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-list"></span> Servicios <span class="badge badge-servicios">{{serviciosCount}}</span></a>{{/link-to}}

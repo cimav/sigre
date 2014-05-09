@@ -13,6 +13,7 @@ App.Solicitud = DS.Model.extend({
   razon_cancelacion: DS.attr('string'),
   motivo_status: DS.attr('string'),
 
+  status_text:       DS.attr('string'),
   relation_string: DS.attr('string'),
 
   Status: {

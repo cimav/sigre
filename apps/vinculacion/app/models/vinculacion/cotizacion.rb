@@ -25,6 +25,7 @@ consideración la siguiente propuesta económica:"
     after_create :set_extra
     before_update :update_fecha_notificacion
     after_update :clone_cotizacion
+    after_update :check_solicitud_status
     after_find   :check_descuento
 
     def codigo 
@@ -105,7 +106,32 @@ consideración la siguiente propuesta económica:"
       end
     end
 
-    #TODO Eliminar descuento_status
-    
+    def check_solicitud_status
+
+      # Los Status cambian sobre la última cotización (actual). No hay necesidad de revisar las anteriores.
+
+      if self.status_changed?
+
+        if self.status == STATUS_EDICION
+          self.solicitud.status = Solicitud::STATUS_EN_COTIZACION
+          self.solicitud.save
+
+        elsif self.status == STATUS_NOTIFICADO
+          self.solicitud.status = Solicitud::STATUS_ESPERANDO_CLIENTE
+          self.solicitud.save
+
+        elsif self.status == STATUS_ACEPTADO
+          self.solicitud.status = Solicitud::STATUS_COTIZACION_ACEPTADA
+          self.solicitud.save
+
+        elsif self.status == STATUS_DESCUENTO_SOLICITADO
+          self.solicitud.status = Solicitud::STATUS_ESPERANDO_DESCUENTO
+          self.solicitud.save
+        end
+
+      end
+
+    end
+
   end
 end

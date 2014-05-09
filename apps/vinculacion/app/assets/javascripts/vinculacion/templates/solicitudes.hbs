@@ -1,56 +1,59 @@
 {{outlet}}
 {{#if showSolicitudesList}}
-    <div id="screen-name">
-        <h3>Solicitudes</h3>
-        {{#link-to 'solicitudes.new' tagName="button" classNames="btn btn-success"}}<span title="Agregar nueva solicitud" class="glyphicon glyphicon-plus"></span>{{/link-to}}
+  <div id="screen-name">
+    <h3>Solicitudes</h3>
+      {{#link-to 'solicitudes.new' tagName="button" classNames="btn btn-success"}}<span title="Agregar nueva solicitud" class="glyphicon glyphicon-plus"></span>{{/link-to}}
+  </div>
+
+  <div id="md-general-panel">
+    <div id="md-search-box">
+      <div class="input-group">
+        {{input type="text" value=searchText placeholder="Buscar solicitud(es)..." classNames="form-control"}}
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+        </div>
+      </div>
     </div>
 
-    <div id="md-general-panel">
-        <div id="md-search-box">
-            <div class="input-group">
-              {{input type="text" value=searchText placeholder="Buscar solicitud(es)..." classNames="form-control"}}
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                </div>
+
+    <div id="md-items-list">
+      {{#each sortedSolicitudes}}
+
+        {{#link-to 'solicitud' this.id tagName="div" classNames="md-item"}}
+          <div class="md-item-inner">
+            <div class="media">
+              <table class="tabla-solicitudes">
+                <tr>
+                  <td class="columna-logo">
+                    <span class="glyphicon glyphicon-folder-close"></span>
+                  </td>
+                  <td class="columna-cliente">
+                    <div class="solicitud-codigo">{{codigo}}</div>
+                    <div class="razon-social">{{cliente_razon_social}}</div>
+                    <div class="contacto-nombre">{{contacto_nombre}}</div>
+                  </td>
+                  <td class="columna-proyecto">
+                    <div class="media-heading">{{proyecto_codigo}}</div>
+                    <div class="proyecto-nombre">{{proyecto_nombre}}</div>
+                  </td>
+                  <td class="columna-datos">
+                    <table>
+                      <tr><td><span class="etiqueta">status</span></td><td><span class="label label-default">{{status_text}}</span></td></tr>
+                      <tr><td><span class="etiqueta">muestras</span></td><td><span class="badge badge-muestras">{{muestras_length}}</span></td></tr>
+                      <tr><td><span class="etiqueta">servicios</span></td><td><span class="badge badge-servicios">{{servicios_length}}</span></td></tr>
+                      <tr><td><span class="etiqueta">cotización</span></td><td><span class="badge badge-cotizaciones">{{ultima_cotizacion}}</span></td></tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
             </div>
-        </div>
+          </div>
+        {{/link-to}}
 
-
-        <div id="md-items-list">
-          {{#each sortedSolicitudes}}
-
-            {{#link-to 'solicitud' this.id tagName="div" classNames="md-item"}}
-                <div class="md-item-inner">
-                    <div class="media">
-                        <table class="tabla-solicitudes">
-                            <tr>
-                                <td class="columna-logo">
-                                    <span class="glyphicon glyphicon-folder-close"></span>
-                                </td>
-                                <td class="columna-cliente">
-                                    <div class="media-heading">{{codigo}}</div>
-                                    <div class="razon-social">{{cliente_razon_social}}</div>
-                                    <div class="contacto-nombre">{{contacto_nombre}}</div>
-                                </td>
-                                <td class="columna-proyecto">
-                                    <div class="media-heading">{{proyecto_codigo}}</div>
-                                    <div class="proyecto-nombre">{{proyecto_nombre}}</div>
-                                </td>
-                                <td class="columna-badges">
-                                    <span class="badge badge-cotizaciones">{{ultima_cotizacion}}</span>
-                                    <span class="badge badge-muestras">{{muestras_length}}</span>
-                                    <span class="badge badge-servicios">{{servicios_length}}</span>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            {{/link-to}}
-
-          {{/each}}
-        </div>
-
-
+      {{/each}}
     </div>
+
+
+  </div>
 {{/if}}
 
