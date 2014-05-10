@@ -6,60 +6,60 @@ class BitacoraSubscriptions
 
   def recibir_costeo(attributes)
 
-    puts "Recibir costeo #{attributes['bitacora_id']}: #{attributes['nombre_servicio']}"
+    attributes['servicios'].each do |s|
 
-    costeo = ::Vinculacion::Costeo.new
-    costeo.bitacora_id     = attributes['bitacora_id']
-    costeo.servicio_id     = attributes['system_id']
-    costeo.muestra_id      = attributes['muestra_system_id']
-    costeo.nombre_servicio = attributes['nombre_servicio'] 
-    costeo.save
+      puts "Recibir costeo #{s['bitacora_id']}: #{s['nombre_servicio']}"
 
-    # PERSONAL
-    attributes['personal'].each do |p|
-      puts "Agregando #{p['detalle']}"
-      item = costeo.costeo_detalle.new
-      item.tipo = 1
-      item.descripcion     = p['detalle']
-      item.cantidad        = p['cantidad']
-      item.precio_unitario = p['precio_unitario']
-      item.save
+      costeo = ::Vinculacion::Costeo.new
+      costeo.bitacora_id     = s['bitacora_id']
+      costeo.servicio_id     = attributes['system_id']
+      costeo.muestra_id      = s['muestra_system_id']
+      costeo.nombre_servicio = s['nombre_servicio'] 
+      costeo.save
+
+      # PERSONAL
+      s['personal'].each do |p|
+        puts "Agregando #{p['detalle']}"
+        item = costeo.costeo_detalle.new
+        item.tipo = 1
+        item.descripcion     = p['detalle']
+        item.cantidad        = p['cantidad']
+        item.precio_unitario = p['precio_unitario']
+        item.save
+      end
+
+      # EQUIPO
+      s['equipos'].each do |p|
+        puts "Agregando #{p['detalle']}"
+        item = costeo.costeo_detalle.new
+        item.tipo = 2
+        item.descripcion     = p['detalle']
+        item.cantidad        = p['cantidad']
+        item.precio_unitario = p['precio_unitario']
+        item.save
+      end
+
+      # CONSUMIBLES
+      s['consumibles'].each do |p|
+        puts "Agregando #{p['detalle']}"
+        item = costeo.costeo_detalle.new
+        item.tipo = 3
+        item.descripcion     = p['detalle']
+        item.cantidad        = p['cantidad']
+        item.precio_unitario = p['precio_unitario']
+        item.save
+      end
+
+      # OTROS
+      s['otros'].each do |p|
+        puts "Agregando #{p['detalle']}"
+        item = costeo.costeo_detalle.new
+        item.tipo = 4
+        item.descripcion     = p['detalle']
+        item.cantidad        = p['cantidad']
+        item.precio_unitario = p['precio_unitario']
+        item.save
+      end
     end
-
-    # EQUIPO
-    attributes['equipos'].each do |p|
-      puts "Agregando #{p['detalle']}"
-      item = costeo.costeo_detalle.new
-      item.tipo = 2
-      item.descripcion     = p['detalle']
-      item.cantidad        = p['cantidad']
-      item.precio_unitario = p['precio_unitario']
-      item.save
-    end
-
-    # CONSUMIBLES
-    attributes['consumibles'].each do |p|
-      puts "Agregando #{p['detalle']}"
-      item = costeo.costeo_detalle.new
-      item.tipo = 3
-      item.descripcion     = p['detalle']
-      item.cantidad        = p['cantidad']
-      item.precio_unitario = p['precio_unitario']
-      item.save
-    end
-
-    # OTROS
-    attributes['otros'].each do |p|
-      puts "Agregando #{p['detalle']}"
-      item = costeo.costeo_detalle.new
-      item.tipo = 4
-      item.descripcion     = p['detalle']
-      item.cantidad        = p['cantidad']
-      item.precio_unitario = p['precio_unitario']
-      item.save
-    end
-    
-    puts "--------------------------------------"
-
   end
 end
