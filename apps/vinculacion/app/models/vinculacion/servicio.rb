@@ -9,20 +9,20 @@ module Vinculacion
     after_create :set_extra
     after_update :check_solicitud_status
 
-    INICIAL          = 1
-    ESPERANDO_COSTEO = 2
-    EN_COTIZACION    = 3
-    EN_PROCESO       = 4
-    FINALIZADO       = 5
-    CANCELADO        = 99
+    INICIAL            = 1
+    ESPERANDO_COSTEO   = 2
+    ESPERANDO_ARRANQUE = 3
+    EN_PROCESO         = 4
+    FINALIZADO         = 5
+    CANCELADO          = 99
 
     STATUS = {
-      INICIAL          => 'Inicio',
-      ESPERANDO_COSTEO => 'Esperando costeo',
-      EN_COTIZACION    => 'En cotización',
-      EN_PROCESO       => 'En proceso',
-      FINALIZADO       => 'Finalizado',
-      CANCELADO        => 'Cancelado',
+      INICIAL            => 'Inicio',
+      ESPERANDO_COSTEO   => 'Esperando costeo',
+      ESPERANDO_ARRANQUE => 'Esperando arranque',
+      EN_PROCESO         => 'En proceso',
+      FINALIZADO         => 'Finalizado',
+      CANCELADO          => 'Cancelado',
     }
 
     def status_text

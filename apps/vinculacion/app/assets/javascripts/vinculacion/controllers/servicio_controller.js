@@ -11,6 +11,7 @@ App.ServicioController = Ember.ObjectController.extend({
 
     var costeos = servicio.get('costeos');
     var total = 0;
+    var subtotal = 0;
     servicio.get('muestras').forEach(function(m) {
       muestra = m;
       muestra.set('costeos', []);
@@ -18,7 +19,8 @@ App.ServicioController = Ember.ObjectController.extend({
         if (c.get('muestra.id') == m.get('id') && (c.get('servicio.id') == servicio.get('id'))) {
           total = 0;
           c.get('costeo_detalle').forEach(function(d) {
-            total += d.get('cantidad') * d.get('precio_unitario');
+            subtotal = d.get('cantidad') * d.get('precio_unitario');
+            total += subtotal;
           });
           c.total = total;
           muestra.costeos.push(c);
@@ -39,6 +41,10 @@ App.ServicioController = Ember.ObjectController.extend({
 
   isEsperandoCosteo: function() {
     return this.get('model.status') == this.get('controllers.servicios.Status.esperando_costeo');
+  }.property('model.status'),
+
+  isEsperandoArranque: function() {
+    return this.get('model.status') == this.get('controllers.servicios.Status.esperando_arranque');
   }.property('model.status'),
 
 
