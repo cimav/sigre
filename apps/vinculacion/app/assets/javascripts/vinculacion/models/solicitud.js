@@ -9,7 +9,7 @@ App.Solicitud = DS.Model.extend({
   cliente: DS.belongsTo('cliente'),
   contacto: DS.belongsTo('contacto'),
   cotizaciones: DS.hasMany('cotizacion'),
-  status: DS.attr('string'),
+  status: DS.attr('number'),
   razon_cancelacion: DS.attr('string'),
   motivo_status: DS.attr('string'),
 

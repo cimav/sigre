@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140508182203) do
+ActiveRecord::Schema.define(version: 20140513165337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,7 +139,6 @@ ActiveRecord::Schema.define(version: 20140508182203) do
     t.decimal  "precio_venta",         precision: 10, scale: 2, default: 0.0
     t.decimal  "precio_unitario",      precision: 10, scale: 2, default: 0.0
     t.decimal  "descuento_porcentaje", precision: 5,  scale: 2, default: 0.0
-    t.integer  "status",                                        default: 0
     t.integer  "solicitud_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -148,6 +147,7 @@ ActiveRecord::Schema.define(version: 20140508182203) do
     t.integer  "duracion"
     t.decimal  "iva",                  precision: 10, scale: 2, default: 15.0
     t.text     "motivo_descuento"
+    t.integer  "status",                                        default: 1
   end
 
   create_table "vinculacion_cotizaciones_detalle", force: true do |t|
@@ -168,25 +168,25 @@ ActiveRecord::Schema.define(version: 20140508182203) do
     t.text     "descripcion"
     t.integer  "cantidad"
     t.integer  "usuario_id"
-    t.string   "status",                    default: "1"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "status",                    default: 1
   end
 
   create_table "vinculacion_proyectos", force: true do |t|
-    t.string   "codigo",             limit: 20,               null: false
+    t.string   "codigo",             limit: 20,             null: false
     t.string   "descripcion"
     t.text     "obj_proyecto"
     t.text     "impacto"
     t.text     "resultado_esperado"
     t.text     "obj_estrategico"
     t.string   "anio",               limit: 4
-    t.string   "status",                        default: "0"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "nombre"
     t.date     "fecha_inicio"
     t.date     "fecha_termino"
+    t.integer  "status",                        default: 1
   end
 
   create_table "vinculacion_sectores_industrial", force: true do |t|
@@ -203,9 +203,9 @@ ActiveRecord::Schema.define(version: 20140508182203) do
     t.string   "nombre"
     t.text     "descripcion"
     t.integer  "empleado_id"
-    t.string   "status",                  default: "1"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "status",                  default: 1
   end
 
   create_table "vinculacion_servicios_muestras", id: false, force: true do |t|
@@ -224,12 +224,12 @@ ActiveRecord::Schema.define(version: 20140508182203) do
     t.integer  "cliente_id"
     t.integer  "contacto_id"
     t.integer  "usuario_id"
-    t.string   "status",                       default: "1"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "descripcion"
     t.text     "motivo_status"
     t.string   "razon_cancelacion",            default: "1"
+    t.integer  "status",                       default: 1
   end
 
   create_table "vinculacion_tamanos_empresa", force: true do |t|
