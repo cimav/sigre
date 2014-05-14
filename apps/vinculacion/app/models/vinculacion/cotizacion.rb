@@ -26,7 +26,6 @@ consideración la siguiente propuesta económica:"
     before_update :update_fecha_notificacion
     after_update :clone_cotizacion
     after_update :check_solicitud_status
-    after_find   :check_descuento
 
     def codigo 
       "#{self.solicitud.codigo}-#{consecutivo}"
@@ -53,7 +52,9 @@ consideración la siguiente propuesta económica:"
         self.descuento_porcentaje = 0.00
         self.msg_notificacion = ''
         self.motivo_status = ''
+        self.motivo_descuento = ''
         self.duracion = 0
+        self.fecha_notificacion = Time.now
       else
         self.consecutivo = ultima_cotizacion.consecutivo.next
         # Clonar cotizacion anterior.
@@ -69,6 +70,7 @@ consideración la siguiente propuesta económica:"
         self.precio_venta = ultima_cotizacion.precio_venta
         self.precio_unitario = ultima_cotizacion.precio_unitario
         self.descuento_porcentaje = ultima_cotizacion.descuento_porcentaje
+        self.fecha_notificacion = Time.now # la fecha actual, no la clonada
 
         # Clonar detalle
         ultima_cotizacion.cotizacion_detalle.each do |detalle|
@@ -95,14 +97,6 @@ consideración la siguiente propuesta económica:"
       if self.status == STATUS_RECHAZADO
         cotizacion = self.solicitud.cotizaciones.new
         cotizacion.save
-      end
-    end
-
-    def check_descuento
-      if self.status == STATUS_DESCUENTO_RECHAZADO
-        self.descuento_porcentaje = 0.00
-        self.status = STATUS_EDICION
-        self.save
       end
     end
 
