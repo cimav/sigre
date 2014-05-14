@@ -17,6 +17,23 @@ App.CotizacionController = Ember.ObjectController.extend({
     descuento_rechazado: 8
   },
 
+  actions: {
+    recotizar: function(cotizacion) {
+      self = this;
+      var onSuccess = function (cotizacion) {
+        self.transitionToRoute('cotizacion');
+        self.get('controllers.application').notify('Recotizar');
+      };
+      var onFail = function (contacto) {
+        self.get('controllers.application').notify('Error al recotizar', 'alert-danger');
+      };
+      // si un descuento es rechazado, puede re-editar la cotizacion
+      cotizacion.set('status', self.get('Status.edicion'));
+      cotizacion.save().then(onSuccess, onFail);
+      this.transitionToRoute('cotizacion');
+    }
+  },
+
   isEdicion: function() {
     return this.get('model.status') == this.get('Status.edicion');
   }.property('model.status'),
@@ -49,6 +66,11 @@ App.CotizacionController = Ember.ObjectController.extend({
 
   isDescuentoAceptado: function() {
     result = this.get('model.status') == this.get('Status.descuento_aceptado');
+    return result;
+  }.property('model.status'),
+
+  isDescuentoRechazado: function() {
+    result = this.get('model.status') == this.get('Status.descuento_rechazado');
     return result;
   }.property('model.status'),
 
