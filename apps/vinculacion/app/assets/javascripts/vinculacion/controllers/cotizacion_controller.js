@@ -11,10 +11,10 @@ App.CotizacionController = Ember.ObjectController.extend({
     notificado: 2,
     aceptado: 3,
     rechazado: 4,
-    cancelado: 5,
-    descuento_solicitado: 6,
-    descuento_aceptado: 7,
-    descuento_rechazado: 8
+    descuento_solicitado: 5,
+    descuento_aceptado: 6,
+    descuento_rechazado: 7,
+    cancelado: 99
   },
 
   actions: {

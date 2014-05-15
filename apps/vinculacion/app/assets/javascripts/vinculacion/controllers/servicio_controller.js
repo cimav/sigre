@@ -1,5 +1,5 @@
 App.ServicioController = Ember.ObjectController.extend({
-  needs: ["application", "solicitud", "servicios"],
+  needs: ["application", "solicitud", "servicios", "cotizacion"],
 
   servicio_datos: function() {
     servicio = this.get('model');
@@ -47,6 +47,16 @@ App.ServicioController = Ember.ObjectController.extend({
     return this.get('model.status') == this.get('controllers.servicios.Status.esperando_arranque');
   }.property('model.status'),
 
+  isCotizacionAceptada: function() {
+    var solicitud = this.get('controllers.solicitud');
+    var result = solicitud.get('model.lastCotizacion.status') == this.get('controllers.cotizacion.Status.aceptado');
+    return result;
+  }.property('model.status'),
+
+  isNotReadyForSave: function () {
+    var result = this.get('content.isDirty') == true && this.get('content.isValid') == true;
+    return !result;
+  }.property('content.isDirty', 'content.isValid'),
 
   actions: {
     solicitaCosteo: function() {

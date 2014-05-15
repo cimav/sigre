@@ -1,78 +1,86 @@
 <div id="servicio">
-<h3><span class="consecutivo">{{consecutivo}}</span> {{nombre}} {{#link-to 'servicio.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}</h3>
-{{#if showServicio}}
-  <div id="servicio-detalles">
-    <div class="servicio-empleado media">
+  <h3><span class="consecutivo">{{consecutivo}}</span> {{nombre}} {{#link-to 'servicio.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}</h3>
+  {{#if showServicio}}
+    <div id="servicio-detalles">
+      <div class="servicio-empleado media">
       <span class="pull-left">
         <img class="media-object img-circle" {{bind-attr src=empleado.avatar_url}} />
       </span>
-      <div class="media-body">
-        <h4 class="media-heading">{{empleado.nombre_completo}}</h4>
-        <div class="empleado-datos">
-          {{mailTo empleado.email}}
-          {{empleado.telefono}}
-        </div>
-      </div>
-    </div>
-    <p>{{descripcion}}</p>
 
-    {{#each servicio_datos.muestras}}
-      <div class="muestra-servicios">
-        <div class="muestra-item">
-          <div class="muestra-codigo">{{codigo}} <span class="badge badge-muestras">{{cantidad}}</span></div>
-          <div class="muestra-info">
-            <div class="muestra-identificacion">{{identificacion}}</div>
+        <div class="media-body">
+          <h4 class="media-heading">{{empleado.nombre_completo}}</h4>
+
+          <div class="empleado-datos">
+            {{mailTo empleado.email}}
+            {{empleado.telefono}}
           </div>
         </div>
-        <div class="muestra-servicios-detalles">
-          {{#unless costeos}}
-            <div class="no-costeos">No existen costeos.</div>
-          {{/unless}}
-          <table class="table">
-            {{#each costeos}}
-              <tr>
-                <th colspan="4">{{nombre_servicio}}</th>
-                <th>{{formatCurrency total}}</th>
-              </tr>
-              <tr>
-                <th></th>
-                <th>Concepto</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-                <th>Subtotal</th>
-              </tr>
-              {{#each costeo_detalle itemController='CosteoDetalle'}}
-                <tr>
-                  <td><span {{bind-attr class='tipo_class'}}></span></td>
-                  <td>{{descripcion}}</td>
-                  <td>{{cantidad}}</td>
-                  <td>{{formatCurrency precio_unitario}}</td>
-                  <td>{{formatCurrency subtotal}}</td>
-                </tr>
-              {{/each}}
-
-            {{/each}}
-          </table>
-        </div>
       </div>
-      <div class="clearfix"></div>
-    {{/each}}
+      <p>{{descripcion}}</p>
 
-  </div>
+      {{#each servicio_datos.muestras}}
+        <div class="muestra-servicios">
+          <div class="muestra-item">
+            <div class="muestra-codigo">{{codigo}} <span class="badge badge-muestras">{{cantidad}}</span></div>
+            <div class="muestra-info">
+              <div class="muestra-identificacion">{{identificacion}}</div>
+            </div>
+          </div>
+          <div class="muestra-servicios-detalles">
+            {{#unless costeos}}
+              <div class="no-costeos">No existen costeos.</div>
+            {{/unless}}
+            <table class="table">
+              {{#each costeos}}
+                <tr>
+                  <th colspan="4">{{nombre_servicio}}</th>
+                  <th>{{formatCurrency total}}</th>
+                </tr>
+                <tr>
+                  <th></th>
+                  <th>Concepto</th>
+                  <th>Cantidad</th>
+                  <th>Precio Unitario</th>
+                  <th>Subtotal</th>
+                </tr>
+                {{#each costeo_detalle itemController='CosteoDetalle'}}
+                  <tr>
+                    <td><span {{bind-attr class='tipo_class'}}></span></td>
+                    <td>{{descripcion}}</td>
+                    <td>{{cantidad}}</td>
+                    <td>{{formatCurrency precio_unitario}}</td>
+                    <td>{{formatCurrency subtotal}}</td>
+                  </tr>
+                {{/each}}
 
-  <div class="servicio-acciones">
-    {{#if isInicial}}
-      <button {{action 'solicitaCosteo'}} class="btn btn-primary">Solicitar costeo</button>
-    {{/if}}
-    {{#if isEsperandoCosteo}}
-      <button disabled="disabled" class="btn btn-primary">Esperando costeo...</button>
-    {{/if}}
-    {{#if isEsperandoArranque}}
-      <button {{action 'arrancarServicio'}} class="btn btn-primary">Iniciar servicio</button>
-    {{/if}}
-  </div>
+              {{/each}}
+            </table>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      {{/each}}
 
-{{/if}}
+    </div>
+
+    <div class="servicio-acciones">
+      {{#if isInicial}}
+        <button {{action 'solicitaCosteo'}} class="btn btn-primary">Solicitar costeo</button>
+      {{/if}}
+      {{#if isEsperandoCosteo}}
+        <button disabled="disabled" class="btn btn-primary">Esperando costeo...</button>
+      {{/if}}
+      {{#if isEsperandoArranque}}
+        {{#if isCotizacionAceptada}}
+          <button {{action 'arrancarServicio'}} class="btn btn-primary">Iniciar servicio</button>
+        {{else}}
+          <span class="servicio-msg-aceptar-cotizacion">Para iniciar el servicio, primero debe aceptar la cotización</span>
+        {{/if}}
+      {{/if}}
+    </div>
+
+  {{/if}}
 
 
-{{outlet}}
+  {{outlet}}
+
+</div>

@@ -3,26 +3,26 @@ module Vinculacion
   class Servicio < ActiveRecord::Base
     belongs_to :solicitud
     belongs_to :empleado
-    has_many   :costeos
+    has_many :costeos
     has_and_belongs_to_many :muestras, :join_table => :vinculacion_servicios_muestras
 
     after_create :set_extra
     after_update :check_solicitud_status
 
-    INICIAL            = 1
-    ESPERANDO_COSTEO   = 2
-    ESPERANDO_ARRANQUE = 3
-    EN_PROCESO         = 4
-    FINALIZADO         = 5
-    CANCELADO          = 99
+    INICIAL             = 1
+    ESPERANDO_COSTEO    = 2
+    ESPERANDO_ARRANQUE  = 3
+    EN_PROCESO          = 4
+    FINALIZADO          = 5
+    CANCELADO           = 99
 
     STATUS = {
-      INICIAL            => 'Inicio',
-      ESPERANDO_COSTEO   => 'Esperando costeo',
-      ESPERANDO_ARRANQUE => 'Esperando arranque',
-      EN_PROCESO         => 'En proceso',
-      FINALIZADO         => 'Finalizado',
-      CANCELADO          => 'Cancelado',
+        INICIAL             => 'Inicio',
+        ESPERANDO_COSTEO    => 'Esperando costeo',
+        ESPERANDO_ARRANQUE  => 'Esperando arranque',
+        EN_PROCESO          => 'En proceso',
+        FINALIZADO          => 'Finalizado',
+        CANCELADO           => 'Cancelado',
     }
 
     def status_text
@@ -48,25 +48,24 @@ module Vinculacion
 
       if self.status_changed?
 
-        if self.status == ESPERANDO_COSTEO
+        if self.status == EN_PROCESO
 
-          # basta con uno este en ESPERANDO_COSTEO
-          self.solicitud.status = Solicitud::STATUS_ESPERANDO_COSTEO
-          self.solicitud.save
-
-        elsif self.status == EN_PROCESO
-
-          # todos deben estar en EN_PROCESO
-          todosEnProceso = true
-          self.solicitud.servicios.each do |servicio|
-            if servicio.status != EN_PROCESO
-              todosEnProceso = false
-              break
+          last_cotiza = self.solicitud.cotizaciones.last
+          cotiza_is_aceptada = !last_cotiza.nil? and last_cotiza.status == Cotizacion::STATUS_ACEPTADO
+          # para pasar a proceso, la cotizacion debe estar aceptada
+          if cotiza_is_aceptada
+            # todos deben estar en EN_PROCESO
+            todosEnProceso = true
+            self.solicitud.servicios.each do |servicio|
+              if servicio.status != EN_PROCESO
+                todosEnProceso = false
+                break
+              end
             end
-          end
-          if todosEnProceso
-            self.solicitud.status = Solicitud::STATUS_EN_PROCESO
-            self.solicitud.save
+            if todosEnProceso
+              self.solicitud.status = Solicitud::STATUS_EN_PROCESO
+              self.solicitud.save
+            end
           end
 
         elsif self.status == FINALIZADO

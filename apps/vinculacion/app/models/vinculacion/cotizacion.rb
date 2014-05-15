@@ -10,10 +10,10 @@ module Vinculacion
     STATUS_NOTIFICADO           = 2
     STATUS_ACEPTADO             = 3
     STATUS_RECHAZADO            = 4
-    STATUS_CANCELADO            = 5
-    STATUS_DESCUENTO_SOLICITADO = 6
-    STATUS_DESCUENTO_ACEPTADO   = 7
-    STATUS_DESCUENTO_RECHAZADO  = 8
+    STATUS_DESCUENTO_SOLICITADO = 5
+    STATUS_DESCUENTO_ACEPTADO   = 6
+    STATUS_DESCUENTO_RECHAZADO  = 7
+    STATUS_CANCELADO            = 99
 
     COMENTARIOS = "En respuesta a su solicitud para traducción de informe y agradeciendo su preferencia, ponemos a su
 consideración la siguiente propuesta económica:"
@@ -21,21 +21,21 @@ consideración la siguiente propuesta económica:"
     OBSERVACIONES = ""
 
     NOTAS = "Esta cotización tiene una vigencia de 30 días hábiles.\nLa duración del servicio es de 30 días hábiles posteriores a la recepción de la orden de compra."
-  
+
     after_create :set_extra
     before_update :update_fecha_notificacion
     after_update :clone_cotizacion
     after_update :check_solicitud_status
 
-    def codigo 
+    def codigo
       "#{self.solicitud.codigo}-#{consecutivo}"
     end
 
     def set_extra
 
       self.status = STATUS_EDICION
-      
-  	  ultima_cotizacion = Cotizacion.where("solicitud_id = :s AND id <> :id", {:s => self.solicitud_id, :id => self.id}).order('created_at').last
+
+      ultima_cotizacion = Cotizacion.where("solicitud_id = :s AND id <> :id", {:s => self.solicitud_id, :id => self.id}).order('created_at').last
 
       if ultima_cotizacion.nil?
         self.consecutivo = 'A'
@@ -85,7 +85,7 @@ consideración la siguiente propuesta económica:"
 
       end
       self.save(:validate => false)
-  	end
+    end
 
     def update_fecha_notificacion
       if self.status == STATUS_NOTIFICADO
@@ -110,21 +110,12 @@ consideración la siguiente propuesta económica:"
           self.solicitud.status = Solicitud::STATUS_EN_COTIZACION
           self.solicitud.save
 
-        elsif self.status == STATUS_NOTIFICADO
-          self.solicitud.status = Solicitud::STATUS_ESPERANDO_CLIENTE
-          self.solicitud.save
-
         elsif self.status == STATUS_ACEPTADO
-          self.solicitud.status = Solicitud::STATUS_COTIZACION_ACEPTADA
+          self.solicitud.status = Solicitud::STATUS_ACEPTADA
           self.solicitud.save
 
-        elsif self.status == STATUS_DESCUENTO_SOLICITADO
-          self.solicitud.status = Solicitud::STATUS_ESPERANDO_DESCUENTO
-          self.solicitud.save
         end
-
       end
-
     end
 
   end
