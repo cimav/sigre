@@ -8,6 +8,7 @@ App.Cotizacion = DS.Model.extend({
   observaciones: DS.attr('string'),
   notas: DS.attr('string'),
   codigo: DS.attr('string'),
+  status_text: DS.attr('string'),
 
   precio_venta: DS.attr('number'),
   iva: DS.attr('number'),

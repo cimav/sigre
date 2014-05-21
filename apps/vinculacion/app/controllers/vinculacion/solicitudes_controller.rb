@@ -39,7 +39,11 @@ module Vinculacion
                                 :usuario_id,
                                 :status,
                                 :motivo_status,
-                                :razon_cancelacion)
+                                :razon_cancelacion,
+                                :orden_compra,
+                                :fecha_inicio,
+                                :fecha_termino
+      )
     end
   end
 end

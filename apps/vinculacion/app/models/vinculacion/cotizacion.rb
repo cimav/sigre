@@ -15,6 +15,21 @@ module Vinculacion
     STATUS_DESCUENTO_RECHAZADO  = 7
     STATUS_CANCELADO            = 99
 
+    STATUS = {
+        STATUS_EDICION              => "en edición",
+        STATUS_NOTIFICADO           => "en espera de respuesta del cliente",
+        STATUS_ACEPTADO             => "aceptada",
+        STATUS_RECHAZADO            => "rechazada",
+        STATUS_DESCUENTO_SOLICITADO => "en espera de autorización descuento",
+        STATUS_DESCUENTO_ACEPTADO   => "con descuento aceptado",
+        STATUS_DESCUENTO_RECHAZADO  => "con descuento rechazado",
+        STATUS_CANCELADO            => "cancelada"
+    }
+
+    def status_text
+      STATUS[status.to_i]
+    end
+    
     COMENTARIOS = "En respuesta a su solicitud para traducción de informe y agradeciendo su preferencia, ponemos a su
 consideración la siguiente propuesta económica:"
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140513165337) do
+ActiveRecord::Schema.define(version: 20140519184758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -230,6 +230,9 @@ ActiveRecord::Schema.define(version: 20140513165337) do
     t.text     "motivo_status"
     t.string   "razon_cancelacion",            default: "1"
     t.integer  "status",                       default: 1
+    t.string   "orden_compra"
+    t.date     "fecha_inicio"
+    t.date     "fecha_termino"
   end
 
   create_table "vinculacion_tamanos_empresa", force: true do |t|

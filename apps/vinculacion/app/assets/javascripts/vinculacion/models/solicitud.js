@@ -12,12 +12,19 @@ App.Solicitud = DS.Model.extend({
   status: DS.attr('number'),
   razon_cancelacion: DS.attr('string'),
   motivo_status: DS.attr('string'),
+  orden_compra: DS.attr('string'),
+  fecha_inicio: DS.attr('date'),
+  fecha_termino: DS.attr('date'),
 
   status_text:       DS.attr('string'),
   relation_string: DS.attr('string'),
 
   Status: {
     inicial: 1,
+    en_cotizacion: 2,
+    aceptada: 3,
+    en_proceso: 4,
+    finalizada: 5,
     cancelada: 99
   },
 
@@ -42,6 +49,22 @@ App.Solicitud = DS.Model.extend({
 
   isCancelada: function() {
     return this.get('status') == this.get('Status.cancelada');
-  }.property('status')
+  }.property('status'),
+
+  isAceptada: function() {
+    return this.get('status') == this.get('Status.aceptada');
+  }.property('status'),
+
+  isEnProceso: function() {
+    return this.get('status') == this.get('Status.en_proceso');
+  }.property('status'),
+
+  duracion : function() {
+    moment.lang('es');
+    var inicio  = moment(this.get('fecha_inicio'));
+    var termino = moment(this.get('fecha_termino'));
+    var result = termino.diff(inicio, 'days');
+    return result;
+  }.property('fecha_inicio','fecha_termino')
 
 });

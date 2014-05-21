@@ -28,7 +28,7 @@
     span {
       font-size: 100%;
       margin-right: 10px;
-      margin-top: 20px;
+      margin-top: 24px;
       font-weight: normal;
       float: right;
     }
@@ -37,6 +37,78 @@
     margin-left: 20px;
     color: #888888;
     font-size: 80%;
+  }
+}
+
+#cotizacion-header {
+  border-bottom: 1px solid $line-color;
+  background: lighten($light-grey, 1%);
+  padding: 10px 20px;
+  height: 48px;
+  h3 {
+    margin: 5px 0 0 0;
+    width: 50%;
+    float: left
+  }
+  .cotizacion-actions {
+    float: right;
+  }
+}
+
+#solicitud-arrancar {
+  #arrancar-header {
+    border-bottom: 1px solid $line-color;
+    background: lighten($light-grey, 1%);
+    padding: 10px 20px;
+    height: 48px;
+    h3 {
+      margin: 5px 0 0 0;
+      width: 50%;
+      float: left
+    }
+    #arrancar-actions {
+      float: right;
+    }
+  }
+  .arrancar-item {
+    position: relative;
+    left: 30px;
+    margin: 30px 20px 36px;
+    .item-number {
+      top:  -4px;
+      left: -30px;
+      position: absolute;
+      font-size: 22px;
+      color: lightgray; //#47a447
+    }
+    p {
+      margin-left: 15px;
+    }
+    .item-fechas {
+      .fecha-inicio {
+        float: left;
+        width: 170px;
+        padding-left: 10px;
+      }
+      .fecha-termino {
+        float: left;
+        width: 170px;
+        padding-left: 10px;
+      }
+      .fecha-duracion {
+        float: left;
+        width: 170px;
+        padding-left: 10px;
+        #fecha-duracion-dias {
+          margin-top: 8px;
+        }
+      }
+    }
+    #tabla-servicios {
+      margin-left: 20px;
+      width: 400px;
+    }
+
   }
 }
 
@@ -95,7 +167,7 @@
               width: 50%;
               padding-left: 10px;
               font-weight: bold;
-              .solicitud-codigo{
+              .solicitud-codigo {
                 font-size: 14px;
               }
               .contacto-nombre {

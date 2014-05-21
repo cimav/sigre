@@ -1,0 +1,96 @@
+<div id="solicitud-arrancar">
+  <div id="arrancar-header">
+    <h3>Check-list de arranque</h3>
+
+    <div id="arrancar-actions">
+      <button class="btn btn-primary" {{action "update" this target='controller'}} {{bind-attr disabled=this.isNotReadyForSave}}>
+        <span title="Actualizar"> Actualizar</span></button>
+      <button class="btn btn-danger" {{action "arrancar" this target='controller'}} {{bind-attr disabled=this.isNotReadyForArrancar}}>
+        <span class="glyphicon glyphicon-flash" title="Arrancar"></span> Arrancar
+      </button>
+    </div>
+
+  </div>
+  {{#form-for model}}
+    <div class="arrancar-item">
+      <span class="item-number glyphicon glyphicon-ok" {{bind-attr style=styleAceptada}}></span>
+      <h4 class="item-header">Cotización {{this.lastCotizacion.status_text}}</h4>
+
+      <p>La cotización debe estar aceptada para arrancar el servicio</p>
+    </div>
+    <div class="arrancar-item">
+      <span class="item-number glyphicon glyphicon-ok" {{bind-attr style=styleAuto}}></span>
+      <h4 class="item-header">Notificar a direcciones </h4>
+
+      <p>Al arrancar, se enviará notificación a la dirección de vinculación <br/> y a la sub-dirección de presupuesto</p>
+    </div>
+    <div class="arrancar-item">
+      <span class="item-number glyphicon glyphicon-ok"  {{bind-attr style=styleOrdenCompra}}></span>
+      <h4 class="item-header">Orden de compra</h4>
+
+      <div class="col-sm-5">
+        {{input type="text" value=orden_compra disabled=this.isNotEnabledToEdit}}
+      </div>
+      <div class="clearfix"></div>
+      <p>Se debe capturar orden de compra del cliente</p>
+    </div>
+    <div class="arrancar-item">
+      <span class="item-number glyphicon glyphicon-ok"  {{bind-attr style=styleAuto}}></span>
+      <h4 class="item-header">Resguardo de muestras</h4>
+
+      <p>Las muestras deben estar resguardadas</p>
+    </div>
+    <div class="arrancar-item">
+      <span class="item-number glyphicon glyphicon-ok" {{bind-attr style=styleServicios}}></span>
+      <h4 class="item-header">Estado servicios</h4>
+
+      <p>Todos los servicios deben estar costeados para arrancar</p>
+
+      <div id="tabla-servicios">
+        <table class="table resumen">
+          <tbody>
+          {{#each servicio in this.servicios}}
+            <tr>
+              <td>{{servicio.nombre}}</td>
+              <td class="status-text">
+                {{servicio.status_text}}
+              </td>
+            </tr>
+          {{/each}}
+          </tbody>
+          <tfoot>
+          <!--<tr class="total"><td colspan="3">{{costototal}}</td></tr>-->
+          </tfoot>
+        </table>
+      </div>
+
+    </div>
+    <div class="arrancar-item">
+      <span class="item-number glyphicon glyphicon-ok" {{bind-attr style=styleFechas}}></span>
+
+      <h4 class="item-header">Fechas</h4>
+
+      <div class="item-fechas">
+        <div class="fecha-inicio">
+          <strong>Inicio</strong><br/>
+          {{view App.DateField dateBinding="fecha_inicio" disabled=this.isNotEnabledToEdit}}
+          <div class="clearfix"></div>
+        </div>
+        <div class="fecha-termino">
+          <strong>Término</strong><br/>
+          {{view App.DateField dateBinding="fecha_termino" disabled=this.isNotEnabledToEdit}}
+          <div class="clearfix"></div>
+        </div>
+        <div class="fecha-duracion">
+          <strong>Duración</strong><br>
+
+          <div id="fecha-duracion-dias">
+            {{duracion}} días
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+
+    </div>
+  {{/form-for}}
+</div>

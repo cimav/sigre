@@ -50,23 +50,29 @@ module Vinculacion
 
         if self.status == EN_PROCESO
 
+          puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
           last_cotiza = self.solicitud.cotizaciones.last
+          puts last_cotiza
           cotiza_is_aceptada = !last_cotiza.nil? and last_cotiza.status == Cotizacion::STATUS_ACEPTADO
+          puts cotiza_is_aceptada
           # para pasar a proceso, la cotizacion debe estar aceptada
           if cotiza_is_aceptada
             # todos deben estar en EN_PROCESO
             todosEnProceso = true
             self.solicitud.servicios.each do |servicio|
+              puts servicio.status
               if servicio.status != EN_PROCESO
                 todosEnProceso = false
                 break
               end
             end
+            puts todosEnProceso
             if todosEnProceso
               self.solicitud.status = Solicitud::STATUS_EN_PROCESO
               self.solicitud.save
             end
           end
+          puts self.solicitud.status
 
         elsif self.status == FINALIZADO
 
