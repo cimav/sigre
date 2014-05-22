@@ -26,17 +26,21 @@ App.ArrancarController = Ember.ObjectController.extend({
 
     arrancar: function() {
 
-      // El Cliente pone todos los servicos En_proceso,
-      // Y el Server pone la solicitud En_Proceso.
       var solicitud = this.get('model');
       var servicios = solicitud.get('servicios');
       var srvStatusEnProceso = this.get('controllers.servicios.Status.en_proceso');
 
+      // poner todos los servicios en_proceso
       servicios.forEach(function (servicio, index, enumerable) {
         servicio.set('solicitud', solicitud); // se requiere debido a que el serializer no tiene el solicitud_id
         servicio.set('status', srvStatusEnProceso);
         servicio.save();
       });
+
+      // En rails. Si todos los servicios estan en_proceso, en automatico pone la solicitud en_proceso
+      // a excepción de cuando no tiene servicios. Por eso poner la solicitud en_proceso explicitamente.
+      solicitud.set('status', this.get('model.Status.en_proceso'));
+      solicitud.save();
 
     }
   },
@@ -68,9 +72,26 @@ App.ArrancarController = Ember.ObjectController.extend({
     return result;
   }.property('model.status'),
 
+  // Hack: las funciones declaradas como properties no son llamadas hasta que se use el set o get.
+  // El cambio de instancia no usa los get y set de las propiedades.
+  // Por tanto, al entrar al Controller no son llamadas.
+  // Se requiere llamar el get de cada propiedad a usar para poner los check.
+  // No funciona pornerlas en el init porque las propiedades van vacias en ese punto.
+  // Tampoco funciona ponerlas como observes().property()
+  // El observes('status') también se llama cuando cambia la instancia  y no solo con el el get/set directo.
+  checkPropertiesHack: function() {
+    // al cargar la instancia, forza a llamar a las funciones property.
+    Ember.run.once(this, function() {
+      // que lo llame solo una vez
+      this.get('hasOrdenCompra')
+      this.get('isCotizacionAceptada');
+      this.get('isAllServiciosReady');
+      this.get('isDuracionValida');
+    });
+  }.observes('model.status'),
+
   isCotizacionAceptada: function() {
     var result = this.get('model.lastCotizacion.status') == this.get('controllers.cotizacion.Status.aceptado');
-    console.log(this.get('model.lastCotizacion.status')+ ' == ' + this.get('controllers.cotizacion.Status.aceptado'));
     if (result) {
       this.set('colorAceptada', this.get('colorChecked'));
     } else {
@@ -79,14 +100,13 @@ App.ArrancarController = Ember.ObjectController.extend({
     return result;
   }.property('model.status'), // observa el status de la Solicitud, pero compara con el status de la ultima cotizacion
 
-  observesAutoChecked: function() {
+  isAutoChecked: function() {
     // cuando la solicitud esta enProceso o finaliza,
     // 'palomear' los puntos automaticos (notificaciones y resguardos)
     var enProceso = this.get('model.Status.en_proceso');
     var finalizada = this.get('model.Status.finalizada');
     var statusSol = this.get('model.status');
     result = statusSol == enProceso || statusSol == finalizada;
-    console.log('XXX66: ' + result);
     if (result) {
       this.set('colorAuto', this.get('colorChecked'));
     } else {
@@ -116,10 +136,8 @@ App.ArrancarController = Ember.ObjectController.extend({
 
     var result = this.get('model.servicios').every(function (servicio) {
       var statusSrv = servicio.get('status');
-      console.log('XXX44: ' + statusSrv);
       return statusSrv == esperandoArranque || statusSrv == enProceso || statusSrv == finalizado;
     });
-    console.log('XXX55: ' + result);
 
     if (result) {
       this.set('colorServicios', this.get('colorChecked'));
@@ -128,6 +146,7 @@ App.ArrancarController = Ember.ObjectController.extend({
     }
     return result;
   }.property('model.status'),
+
 
   isDuracionValida: function() {
     // la duración debe ser mayor a 0
