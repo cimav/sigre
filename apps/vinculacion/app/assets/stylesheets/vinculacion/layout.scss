@@ -735,6 +735,26 @@ html, body, .application-view {
   overflow-x: hidden;
   width: 200px;
 
+  .add-disabled{
+    background: $grey;
+    border: 1px solid darken($grey, 10%);
+    width: 18px;
+    padding: 0;
+    height: 18px;
+    display: block;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    color: $white;
+    margin-right: 5px;
+    font-size: 80%;
+  }
+  .p-disabled{
+    color: $grey !important;
+    font-style: italic;
+    margin: 10px 14px;
+  }
+
   li {
     cursor: pointer;
     .consecutivo {

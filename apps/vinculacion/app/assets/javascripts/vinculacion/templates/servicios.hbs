@@ -4,7 +4,11 @@
     {{#each}}
       {{#link-to 'servicio' this tagName="li"}}<a href="#"><span class="consecutivo">{{consecutivo}}</span> <span class="servicio-nombre">{{nombre}}</span></a>{{/link-to}}
     {{/each}}
-    {{#link-to 'servicios.new' tagName="li"}}<a href="#"><span class="add">+</span> Agregar servicio</a>{{/link-to}}
+     {{#if allowAddServicios}}
+       {{#link-to 'servicios.new' tagName="li"}}<a href="#"><span class="add">+</span>Agregar servicio</a>{{/link-to}}
+     {{else}}
+       <p class="p-disabled"><span class="add-disabled">+</span>Agregar servicio</p>
+     {{/if}}
   </ul>
 </div>
 <div id="servicios-workarea" data-spy="scroll" data-target="#servicios-list">
