@@ -1,5 +1,5 @@
 App.ServiciosNewController = Ember.ObjectController.extend({
-  needs: ["application", "solicitud"],
+  needs: ["application", "solicitud", "servicios"],
   isNotDirty: Ember.computed.not('content.isDirty'),
   actions: {
     submit: function() {
@@ -14,6 +14,7 @@ App.ServiciosNewController = Ember.ObjectController.extend({
         self.get('controllers.application').notify('Error al agregar servicio', 'alert-danger');
       };
       self.get('controllers.solicitud').get('model').get('servicios').pushObject(servicio);
+      servicio.set('status', this.get('controllers.servicios.Status.inicial')); //requerido debido al servicio_params en servicios_controller.rb
       servicio.save().then(onSuccess, onFail);
     }
   }
