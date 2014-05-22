@@ -1,5 +1,5 @@
 App.ArrancarController = Ember.ObjectController.extend({
-  needs: ['application','servicios'],
+  needs: ['application','servicios', 'cotizacion'],
 
   colorChecked: '#47a447',
   colorUnchecked: 'lightgray',
@@ -25,65 +25,75 @@ App.ArrancarController = Ember.ObjectController.extend({
     },
 
     arrancar: function() {
-      solicitud = this.get('model');
-      self = this;
-      var onSuccess = function(solicitud) {
-        self.get('controllers.application').notify('Se arrancó el servicio');
-      };
-      var onFail = function(solicitud) {
-        self.get('controllers.application').notify('Error al arrancar el servicio', 'alert-danger');
-      };
-      solicitud.set('status', this.get('model.Status.en_proceso'));
-      solicitud.save().then(onSuccess, onFail);
+
+      // El Cliente pone todos los servicos En_proceso,
+      // Y el Server pone la solicitud En_Proceso.
+      var solicitud = this.get('model');
+      var servicios = solicitud.get('servicios');
+      var srvStatusEnProceso = this.get('controllers.servicios.Status.en_proceso');
+
+      servicios.forEach(function (servicio, index, enumerable) {
+        servicio.set('solicitud', solicitud); // se requiere debido a que el serializer no tiene el solicitud_id
+        servicio.set('status', srvStatusEnProceso);
+        servicio.save();
+      });
+
     }
   },
 
   isNotReadyForSave: function () {
-    var result = this.get('content.isDirty') == true;
-    result = result && this.get('isDuracionValida');
+    var isDirty = this.get('content.isDirty');
+    var isDuracionValida = this.get('isDuracionValida');
+    result = isDirty && isDuracionValida;
     return !result;
   }.property('content.isDirty', 'model.duracion'),
 
   isNotReadyForArrancar: function () {
     var isNotDirty = this.get('content.isDirty') == false;
+    var isCotizaAceptada = this.get('isCotizacionAceptada');
     var hasOrdenCompra = this.get('hasOrdenCompra');
+    var hasAllServicios = this.get('isAllServiciosReady');
     var isDuracionValida = this.get('isDuracionValida');
-    var isAceptada = this.get('model.isAceptada');
-    var hasAllServiciosCosteados = this.get('hasAllServiciosCosteados');
-    result = isNotDirty && isDuracionValida && hasOrdenCompra && isAceptada && hasAllServiciosCosteados;
+    result = isNotDirty && isDuracionValida && hasOrdenCompra && isCotizaAceptada && hasAllServicios;
     return !result;
   }.property('content.isDirty', 'model.duracion', 'model.orden_compra', 'model.isAceptada'),
 
-  isSolicitudAceptada: function() {
-    result = this.get('model.isAceptada');
+  isNotEnabledToEdit: function() {
+    // No puede editar si la solicitud esta en enProceso, finaliza o cancelada.
+    var enProceso = this.get('model.Status.en_proceso');
+    var finalizada = this.get('model.Status.finalizada');
+    var cancelada = this.get('model.Status.cancelada');
+    var statusSol = this.get('model.status');
+    result = statusSol == enProceso || statusSol == finalizada || statusSol == cancelada;
+    return result;
+  }.property('model.status'),
+
+  isCotizacionAceptada: function() {
+    var result = this.get('model.lastCotizacion.status') == this.get('controllers.cotizacion.Status.aceptado');
+    console.log(this.get('model.lastCotizacion.status')+ ' == ' + this.get('controllers.cotizacion.Status.aceptado'));
     if (result) {
       this.set('colorAceptada', this.get('colorChecked'));
     } else {
       this.set('colorAceptada', this.get('colorUnchecked'));
     }
     return result;
-  }.observes('model.isAceptada'),
+  }.property('model.status'), // observa el status de la Solicitud, pero compara con el status de la ultima cotizacion
 
-  isSolicitudEnProceso: function() {
-    result = this.get('model.isEnProceso');
+  observesAutoChecked: function() {
+    // cuando la solicitud esta enProceso o finaliza,
+    // 'palomear' los puntos automaticos (notificaciones y resguardos)
+    var enProceso = this.get('model.Status.en_proceso');
+    var finalizada = this.get('model.Status.finalizada');
+    var statusSol = this.get('model.status');
+    result = statusSol == enProceso || statusSol == finalizada;
+    console.log('XXX66: ' + result);
     if (result) {
       this.set('colorAuto', this.get('colorChecked'));
     } else {
       this.set('colorAuto', this.get('colorAutoChecked'));
     }
     return result;
-  }.observes('model.isEnProceso'),
-
-  isDuracionValida: function() {
-    var dur = this.get('model.duracion');
-    result = !isNaN(dur) && dur > 0;
-    if (result) {
-      this.set('colorFechas', this.get('colorChecked'));
-    } else {
-      this.set('colorFechas', this.get('colorUnchecked'));
-    }
-    return result;
-  }.property('model.duracion'),
+  }.observes('model.status'),
 
   hasOrdenCompra: function() {
     var oc = this.get('model.orden_compra');
@@ -97,15 +107,20 @@ App.ArrancarController = Ember.ObjectController.extend({
     return result;
   }.property('model.orden_compra'),
 
-  hasAllServiciosCosteados: function() {
-    var result = true;
-    var servicios = this.get('model.servicios').toArray();
-    for(var i=0; i<servicios.length; i++) {
-      if (servicios[i].get('status') != this.get('controllers.servicios.Status.esperando_arranque')) {
-        result = false;
-        break;
-      }
-    }
+  isAllServiciosReady: function() {
+    // Ready significa que el servicio esta en status: esperando_arranque, en_proceso o finalizado.
+    // Todos los servicios deben estar en Ready para arrancar
+    var esperandoArranque = this.get('controllers.servicios.Status.esperando_arranque');
+    var enProceso = this.get('controllers.servicios.Status.en_proceso');
+    var finalizado = this.get('controllers.servicios.Status.finalizado');
+
+    var result = this.get('model.servicios').every(function (servicio) {
+      var statusSrv = servicio.get('status');
+      console.log('XXX44: ' + statusSrv);
+      return statusSrv == esperandoArranque || statusSrv == enProceso || statusSrv == finalizado;
+    });
+    console.log('XXX55: ' + result);
+
     if (result) {
       this.set('colorServicios', this.get('colorChecked'));
     } else {
@@ -114,9 +129,17 @@ App.ArrancarController = Ember.ObjectController.extend({
     return result;
   }.property('model.status'),
 
-  isNotEnabledToEdit: function() {
-    return this.get('model.isEnProceso');
-  }.property('model.isEnProceso'),
+  isDuracionValida: function() {
+    // la duración debe ser mayor a 0
+    var duracion = this.get('model.duracion');
+    result = !isNaN(duracion) && duracion > 0;
+    if (result) {
+      this.set('colorFechas', this.get('colorChecked'));
+    } else {
+      this.set('colorFechas', this.get('colorUnchecked'));
+    }
+    return result;
+  }.property('model.duracion'),
 
   styleAceptada: function() {
     var str = 'color:%@%@'.fmt(this.get('colorAceptada'));

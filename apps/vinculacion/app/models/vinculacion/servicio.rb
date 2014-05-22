@@ -50,7 +50,8 @@ module Vinculacion
 
         if self.status == EN_PROCESO
 
-          puts '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+          # TODO en depuracion
+
           last_cotiza = self.solicitud.cotizaciones.last
           puts last_cotiza
           cotiza_is_aceptada = !last_cotiza.nil? and last_cotiza.status == Cotizacion::STATUS_ACEPTADO

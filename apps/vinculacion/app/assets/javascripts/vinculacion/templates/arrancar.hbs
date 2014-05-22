@@ -3,11 +3,13 @@
     <h3>Check-list de arranque</h3>
 
     <div id="arrancar-actions">
-      <button class="btn btn-primary" {{action "update" this target='controller'}} {{bind-attr disabled=this.isNotReadyForSave}}>
-        <span title="Actualizar"> Actualizar</span></button>
-      <button class="btn btn-danger" {{action "arrancar" this target='controller'}} {{bind-attr disabled=this.isNotReadyForArrancar}}>
-        <span class="glyphicon glyphicon-flash" title="Arrancar"></span> Arrancar
-      </button>
+      {{#unless isNotEnabledToEdit}}
+        <button class="btn btn-primary" {{action "update" this target='controller'}} {{bind-attr disabled=this.isNotReadyForSave}}>
+          <span title="Actualizar"> Actualizar</span></button>
+        <button class="btn btn-danger" {{action "arrancar" this target='controller'}} {{bind-attr disabled=this.isNotReadyForArrancar}}>
+          <span class="glyphicon glyphicon-flash" title="Arrancar"></span> Arrancar
+        </button>
+      {{/unless}}
     </div>
 
   </div>

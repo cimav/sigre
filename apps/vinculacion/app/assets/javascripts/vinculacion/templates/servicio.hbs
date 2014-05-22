@@ -71,7 +71,7 @@
       {{/if}}
       {{#if isEsperandoArranque}}
         {{#if isCotizacionAceptada}}
-          <button {{action 'arrancarServicio'}} class="btn btn-primary">Iniciar servicio</button>
+          <span class="servicio-msg-cotizacion">Esperando arranque...</span>
         {{else}}
           <span class="servicio-msg-cotizacion">Para iniciar el servicio, primero debe aceptar la cotización</span>
         {{/if}}

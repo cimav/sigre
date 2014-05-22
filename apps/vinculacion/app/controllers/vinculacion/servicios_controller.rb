@@ -65,7 +65,8 @@ module Vinculacion
       params[:servicio].permit(:solicitud_id,
                                 :nombre,
                                 :descripcion,
-                                :empleado_id)
+                                :empleado_id,
+                                :status)
     end
   end
 end
