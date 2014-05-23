@@ -4,7 +4,7 @@
 */
 
 #solicitud-index {
-  margin: 0 20px;
+  margin: 20px;
   h3 {
     font-weight: normal;
   }
@@ -17,6 +17,25 @@
     color: $dark-grey;
     cursor: normal;
   }
+  #solicitud-index-datos {
+    margin: 20px;
+    .header {
+      padding: 10px 0px 3px 0px;
+      font-weight: bold;
+    }
+    .dato {
+      padding-left: 20px;
+      #table-fechas {
+        .fechas-header {
+          text-align: right;
+          padding-right: 6px;
+          //color: #dddddd;
+          color: #999999;
+        }
+      }
+    }
+  }
+
 }
 
 #solicitud-header {
@@ -75,7 +94,7 @@
     left: 30px;
     margin: 30px 20px 36px;
     .item-number {
-      top:  -4px;
+      top: -4px;
       left: -30px;
       position: absolute;
       font-size: 22px;
