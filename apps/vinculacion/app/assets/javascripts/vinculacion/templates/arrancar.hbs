@@ -54,15 +54,12 @@
           {{#each servicio in this.servicios}}
             <tr>
               <td>{{servicio.nombre}}</td>
-              <td class="status-text">
+              <td id="status-text">
                 {{servicio.status_text}}
               </td>
             </tr>
           {{/each}}
           </tbody>
-          <tfoot>
-          <!--<tr class="total"><td colspan="3">{{costototal}}</td></tr>-->
-          </tfoot>
         </table>
       </div>
 

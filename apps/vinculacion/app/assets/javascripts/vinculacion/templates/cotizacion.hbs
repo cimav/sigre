@@ -2,7 +2,7 @@
   {{#if showToolBar}}
 
     {{#if isEdicion}}
-        <h3>Cotizando</h3>
+        <h4>Cotizando</h4>
         <div class="cotizacion-actions">
           {{#link-to 'cotizacion.edit' this tagName="button" classNames="btn btn-default"}}
               <span class="glyphicon glyphicon-edit"></span> Editar
@@ -27,7 +27,7 @@
     {{/if}}
 
     {{#if isDescuentoAceptado}}
-        <h3>Descuento aceptado</h3>
+        <h4>Descuento aceptado</h4>
         <div class="cotizacion-actions">
           {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary" disabled=this.noPuedeNotificar}}
               <span class="glyphicon glyphicon-send"></span> Notificar al cliente
@@ -36,7 +36,7 @@
     {{/if}}
 
     {{#if isDescuentoRechazado}}
-      <h3>Descuento rechazado</h3>
+      <h4>Descuento rechazado</h4>
       <div class="cotizacion-actions">
         <button type="submit" class="btn btn-default" {{action "recotizar" this target='controller'}} >
           Re-cotizar
@@ -48,7 +48,7 @@
     {{/if}}
 
     {{#if isNotificado}}
-      <h3>En espera de respuesta del cliente</h3>
+      <h4>En espera de respuesta del cliente</h4>
       <div class="cotizacion-actions">
 
         {{#link-to 'cotizacion.aceptar' this tagName="button" classNames="btn btn-success"}}
@@ -62,11 +62,11 @@
     {{/if}}
 
     {{#if isAceptado}}
-      <h3><span class="glyphicon glyphicon-ok"></span> Cotización aceptada</h3>
+      <h4><span class="glyphicon glyphicon-ok"></span> Cotización aceptada</h4>
     {{/if}}
 
     {{#if isRechazado}}
-      <h3><span class="glyphicon glyphicon-remove"></span>Cotización rechazada</h3>
+      <h4><span class="glyphicon glyphicon-remove"></span>Cotización rechazada</h4>
     {{/if}}
 
   {{/if}}
