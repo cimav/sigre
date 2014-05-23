@@ -2,41 +2,44 @@
   {{#if showToolBar}}
 
     {{#if isEdicion}}
-        <h4>Cotizando</h4>
-        <div class="cotizacion-actions">
-          {{#link-to 'cotizacion.edit' this tagName="button" classNames="btn btn-default"}}
-              <span class="glyphicon glyphicon-edit"></span> Editar
+      <h4>Cotizando</h4>
+
+      <div class="cotizacion-actions">
+        {{#link-to 'cotizacion.edit' this tagName="button" classNames="btn btn-default"}}
+          <span class="glyphicon glyphicon-edit"></span> Editar
+        {{/link-to}}
+
+        {{#if isSolicitarDescuento}}
+          {{#link-to 'cotizacion.solicitar_descuento' this tagName="button" classNames="btn btn-info"}}
+            <span class="glyphicon glyphicon-thumbs-up"></span>Solicitar descuento
           {{/link-to}}
-
-          {{#if isSolicitarDescuento}}
-            {{#link-to 'cotizacion.solicitar_descuento' this tagName="button" classNames="btn btn-info"}}
-                <span class="glyphicon glyphicon-thumbs-up"></span>Solicitar descuento
-            {{/link-to}}
-          {{else}}
-            {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary" disabled=this.noPuedeNotificar}}
-                <span class="glyphicon glyphicon-send"></span> Notificar al cliente
-            {{/link-to}}
-          {{/if}}
+        {{else}}
+          {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary" disabled=this.noPuedeNotificar}}
+            <span class="glyphicon glyphicon-send"></span> Notificar al cliente
+          {{/link-to}}
+        {{/if}}
 
 
-        </div>
+      </div>
     {{/if}}
 
     {{#if isDescuentoSolicitado}}
-        <h4>En espera de autorización de descuento</h4>
+      <h4>En espera de autorización de descuento</h4>
     {{/if}}
 
     {{#if isDescuentoAceptado}}
-        <h4>Descuento aceptado</h4>
-        <div class="cotizacion-actions">
-          {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary" disabled=this.noPuedeNotificar}}
-              <span class="glyphicon glyphicon-send"></span> Notificar al cliente
-          {{/link-to}}
-        </div>
+      <h4>Descuento aceptado</h4>
+
+      <div class="cotizacion-actions">
+        {{#link-to 'cotizacion.notificar' this tagName="button" classNames="btn btn-primary" disabled=this.noPuedeNotificar}}
+          <span class="glyphicon glyphicon-send"></span> Notificar al cliente
+        {{/link-to}}
+      </div>
     {{/if}}
 
     {{#if isDescuentoRechazado}}
       <h4>Descuento rechazado</h4>
+
       <div class="cotizacion-actions">
         <button type="submit" class="btn btn-default" {{action "recotizar" this target='controller'}} >
           Re-cotizar
@@ -49,6 +52,7 @@
 
     {{#if isNotificado}}
       <h4>En espera de respuesta del cliente</h4>
+
       <div class="cotizacion-actions">
 
         {{#link-to 'cotizacion.aceptar' this tagName="button" classNames="btn btn-success"}}
@@ -75,67 +79,67 @@
 </div>
 
 <div id="cotizacion-wrapper">
-{{outlet accion-cotizacion}}
-<div id="cotizacion">
-  <div class="row">
-    <div class="col-sm-9">
-      <div class="cotizacion-cliente-data">
-        <div class="cliente-nombre">{{model.solicitud.cliente.razon_social}}</div>
-        <div class="cliente-contacto">{{model.solicitud.contacto.nombre}}</div>
-        <div class="cliente-contacto-tel">{{model.solicitud.contacto.telefono}}</div>
-        <div class="cliente-contacto-email">{{model.solicitud.contacto_email}}</div>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div id="cotizacion-codigo">{{codigo}}</div>
-    </div>
-  </div>
-  {{#if showCotizacion}}
+  {{outlet accion-cotizacion}}
+  <div id="cotizacion">
     <div class="row">
-
-      <div class="col-sm-8">
-        <div class="cotizacion-mensaje">
-          <strong>Mensaje:</strong><br/>
-          {{comentarios}}
-        </div>
-        <div class="cotizacion-observaciones">
-          <strong>Observaciones:</strong><br/>
-          {{observaciones}}
+      <div class="col-sm-9">
+        <div class="cotizacion-cliente-data">
+          <div class="cliente-nombre">{{model.solicitud.cliente.razon_social}}</div>
+          <div class="cliente-contacto">{{model.solicitud.contacto.nombre}}</div>
+          <div class="cliente-contacto-tel">{{model.solicitud.contacto.telefono}}</div>
+          <div class="cliente-contacto-email">{{model.solicitud.contacto_email}}</div>
         </div>
       </div>
+      <div class="col-sm-3">
+        <div id="cotizacion-codigo">{{codigo}}</div>
+      </div>
+    </div>
+    {{#if showCotizacion}}
+      <div class="row">
 
-      <div class="col-sm-4 cotizacion-extra-data">
+        <div class="col-sm-8">
+          <div class="cotizacion-mensaje">
+            <strong>Mensaje:</strong><br/>
+            {{comentarios}}
+          </div>
+          <div class="cotizacion-observaciones">
+            <strong>Observaciones:</strong><br/>
+            {{observaciones}}
+          </div>
+        </div>
+
+        <div class="col-sm-4 cotizacion-extra-data">
           <div class="extra-item">
-              <span class="glyphicon glyphicon-calendar"></span>{{format-date "LL" fecha_notificacion}}
+            <span class="glyphicon glyphicon-calendar"></span>{{format-date "LL" fecha_notificacion}}
           </div>
           <div class="extra-item">
-              <span class="glyphicon glyphicon-time"></span> {{duracion}} días hábiles
+            <span class="glyphicon glyphicon-time"></span> {{duracion}} días hábiles
           </div>
-        <div class="extra-item">
-          <span class="glyphicon glyphicon-briefcase"></span> {{condicion_item.descripcion}}
+          <div class="extra-item">
+            <span class="glyphicon glyphicon-briefcase"></span> {{condicion_item.descripcion}}
+          </div>
+          <div class="extra-item">
+            <span class="glyphicon glyphicon-globe"></span> {{idioma_item.descripcion}}
+          </div>
+          <div class="extra-item">
+            <span class="glyphicon glyphicon-usd"></span> {{divisa_item.codigo}} {{divisa_item.descripcion}}
+          </div>
         </div>
-        <div class="extra-item">
-          <span class="glyphicon glyphicon-globe"></span> {{idioma_item.descripcion}}
-        </div>
-        <div class="extra-item">
-          <span class="glyphicon glyphicon-usd"></span> {{divisa_item.codigo}} {{divisa_item.descripcion}}
-        </div>
+
       </div>
 
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12">
-        <table class="table">
-          <thead>
+      <div class="row">
+        <div class="col-sm-12">
+          <table class="table">
+            <thead>
             <tr>
               <th class="det-cantidad">Cant.</th>
               <th class="det-concepto">Concepto</th>
               <th class="det-precio-unitario">Precio</th>
               <th class="det-total">Total</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             {{#each cotizacion_detalles itemController="cotizacion_detalle"}}
               <tr>
                 <td class="det-cantidad text-right">{{cantidad}}</td>
@@ -160,27 +164,29 @@
               <td class="text-right totales" colspan="3">TOTAL</td>
               <td class="text-right totales">{{formatCurrency total_calculado}}</td>
             </tr>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-sm-12 cotizacion-notas">
-        <strong>Notas:</strong><br/>
-        {{notas}}
+      <div class="row">
+        <div class="col-sm-12 cotizacion-notas">
+          <strong>Notas:</strong><br/>
+          {{notas}}
+        </div>
       </div>
-    </div>
 
+    {{/if}}
+
+    {{outlet}}
+
+  </div>
+
+  {{#if showCotizacion}}
+    <div id="pdf-link">
+      <a class="btn btn-default btn-sm" {{bind-attr href='pdf_url'}}><span class="glyphicon glyphicon-file"></span> Descargar PDF</a>
+    </div>
   {{/if}}
-
-  {{outlet}}
-
-</div>
-
-<div id="pdf-link">
-  <a class="btn btn-default btn-sm" {{bind-attr href='pdf_url'}}><span class="glyphicon glyphicon-file"></span> Descargar PDF</a>
-</div>
 
 </div>
 
