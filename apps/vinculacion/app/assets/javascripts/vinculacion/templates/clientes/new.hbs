@@ -17,6 +17,15 @@
             {{view App.NumberField value=num_empleados classNames="form-control input-sm" min="0"}}
               <div class="clearfix"></div>
           </div>
+          
+          <div class="cliente-pais">
+          <strong>País</strong><br/>
+            {{view App.Select2View 
+            contentBinding="controllers.application.paises"
+            value=pais_id
+            optionValuePath="content.id"
+            optionLabelPath="content.nombre"}}
+          </div>
 
           <div class="cliente-tamano-empresa">
               <strong>Tamaño empresa</strong><br/>

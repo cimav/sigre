@@ -38,7 +38,8 @@ module Vinculacion
           :fax,
           :email,
           :tamano_empresa,
-          :sector
+          :sector,
+          :pais_id
       )
     end
   end

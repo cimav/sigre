@@ -38,13 +38,15 @@ App.ApplicationController = Ember.Controller.extend({
       this.store.find('proyecto'),
       this.store.find('sede'),
       this.store.find('cliente'),
-      this.store.find('contacto')
+      this.store.find('contacto'),
+      this.store.find('pais')
     ]).then(function(values){
       self.set('empleadosCache', values[0]);
       self.set('proyectosCache', values[1]);
       self.set('sedesCache', values[2]);
       self.set('clientes', values[3]);
       self.set('contactos', values[4]);
+      self.set('paises', values[5]);
        return values;
     });
     console.log('App Init');
