@@ -26,6 +26,15 @@
             optionValuePath="content.id"
             optionLabelPath="content.nombre"}}
           </div>
+          
+          <div class="cliente-estado">
+          <strong>Estado</strong><br/>
+            {{view App.Select2View 
+            contentBinding="controllers.application.estados"
+            value=estado_id
+            optionValuePath="content.id"
+            optionLabelPath="content.nombre"}}
+          </div>
 
           <div class="cliente-tamano-empresa">
               <strong>Tamaño empresa</strong><br/>

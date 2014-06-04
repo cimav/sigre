@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140604001523) do
+ActiveRecord::Schema.define(version: 20140604222607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20140604001523) do
     t.integer  "tamano_empresa"
     t.integer  "sector"
     t.integer  "pais_id"
+    t.integer  "estado_id"
   end
 
   create_table "vinculacion_contactos", force: true do |t|

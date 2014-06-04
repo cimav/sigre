@@ -11,6 +11,7 @@ App.Cliente = DS.Model.extend(Ember.Validations.Mixin, {
   tamano_empresa: DS.attr('number'),
   sector: DS.attr('number'),
   pais_id: DS.attr('number'),
+  estado_id: DS.attr('number'),
 
   contactos: DS.hasMany('contacto', { dependent: 'destroy' }),
   solicitudes: DS.hasMany('solicitud')

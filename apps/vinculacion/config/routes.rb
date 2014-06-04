@@ -13,6 +13,7 @@ Vinculacion::Engine.routes.draw do
   resources :empleados
   resources :sedes
   resources :paises
+  resources :estados
 
   resources :costeos
 

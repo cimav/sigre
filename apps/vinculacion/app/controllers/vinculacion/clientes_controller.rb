@@ -39,7 +39,8 @@ module Vinculacion
           :email,
           :tamano_empresa,
           :sector,
-          :pais_id
+          :pais_id,
+          :estado_id
       )
     end
   end
