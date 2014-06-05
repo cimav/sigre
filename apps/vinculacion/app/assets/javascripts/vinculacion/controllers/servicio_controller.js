@@ -58,6 +58,10 @@ App.ServicioController = Ember.ObjectController.extend({
     return !result;
   }.property('content.isDirty', 'content.isValid'),
 
+  canEdit: function () {
+    return this.get('model.status') == 1;
+  }.property('model.status'),
+
   actions: {
     solicitaCosteo: function() {
       servicio = this.get('model');

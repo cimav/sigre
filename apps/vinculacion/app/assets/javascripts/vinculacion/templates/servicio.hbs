@@ -1,5 +1,13 @@
 <div id="servicio">
-  <h3><span class="consecutivo">{{consecutivo}}</span> {{nombre}} {{#link-to 'servicio.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}</h3>
+  <h3>
+    <span class="consecutivo">{{consecutivo}}</span> 
+    {{nombre}}
+    {{#if canEdit}}
+      {{#link-to 'servicio.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}
+    {{else}}
+      <span class="glyphicon glyphicon-edit disabled"></span>
+    {{/if}}
+  </h3>
   {{#if showServicio}}
     <div id="servicio-detalles">
       <div class="servicio-empleado media">

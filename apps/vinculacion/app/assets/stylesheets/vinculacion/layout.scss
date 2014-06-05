@@ -856,13 +856,13 @@ html, body, .application-view {
   }
   .glyphicon {
     float: right;
-    color: $grey;
     cursor: pointer;
   }
-  .glyphicon.active {
-    color: $dark-grey;
-    cursor: normal;
+  .glyphicon.disabled {
+    color: $grey;
+    cursor: default;
   }
+
   .servicio-info {
     margin-left: 35px;
   }
