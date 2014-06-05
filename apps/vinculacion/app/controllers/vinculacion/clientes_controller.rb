@@ -40,7 +40,8 @@ module Vinculacion
           :tamano_empresa,
           :sector,
           :pais_id,
-          :estado_id
+          :estado_id,
+          :ciudad
       )
     end
   end
