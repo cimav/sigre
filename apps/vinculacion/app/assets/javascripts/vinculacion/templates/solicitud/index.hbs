@@ -1,5 +1,11 @@
 <div id="solicitud-index">
-  <h3>Solicitud {{codigo}} {{#link-to 'solicitud.edit' this tagName="span" classNames="glyphicon glyphicon-edit"}}{{/link-to}}</h3>
+  <h3>Solicitud {{codigo}}
+  {{#if canEdit}}
+    {{#link-to 'solicitud.edit' this tagName="span" classNames="glyphicon glyphicon-edit enabled"}}{{/link-to}}
+  {{else}}
+   <span class="glyphicon glyphicon-edit disabled"></span>
+  {{/if}}
+  </h3>
 
   <div id="solicitud-index-datos">
     <div class="header">Proyecto</div>

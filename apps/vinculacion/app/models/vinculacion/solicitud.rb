@@ -1,7 +1,7 @@
 # coding: utf-8
 module Vinculacion
   class Solicitud < ActiveRecord::Base
-  	has_many :muestras
+    has_many :muestras
     has_many :servicios
     has_many :cotizaciones
 
@@ -10,7 +10,7 @@ module Vinculacion
     belongs_to  :cliente
     belongs_to  :contacto
 
-  	after_create :set_extra
+    after_create :set_extra
     after_create :add_cotizacion
     before_create :init_status
 

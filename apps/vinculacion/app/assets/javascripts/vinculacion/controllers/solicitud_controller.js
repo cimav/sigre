@@ -4,7 +4,12 @@ App.SolicitudController = Ember.ObjectController.extend({
   muestrasCount: Ember.computed.alias('content.muestras.length'),
   serviciosCount: Ember.computed.alias('content.servicios.length'),
   prioridad_item: App.computed.list_item('prioridad'),
-
+  canEdit: function(){
+    var status = this.get('model.status');
+    var inicial = this.get('model.Status.inicial');
+    var en_cotizacion = this.get('model.Status.en_cotizacion');
+    return status == inicial || status == en_cotizacion
+  }.property('model.status'),
   allowAddServicios: function() {
     // permitir agregar nuevos servicios cuando la solicitud esta en inicial, en_cotizacion o aceptada
     var inicial = this.get('model.Status.inicial');

@@ -70,6 +70,7 @@ html, body, .application-view {
   }
 }
 
+
 #main-container {
   /** display:table;
   height: 100%; **/
@@ -363,6 +364,18 @@ html, body, .application-view {
 #solicitudes-table {
   .td-numero {
     text-align: center;
+  }
+}
+
+#solicitud-index{
+  .glyphicon.enabled {
+    color: inherit;
+    float: right;
+    cursor: pointer;
+  }
+  .glyphicon.disabled {
+    color: $grey;
+    cursor: default;
   }
 }
 
