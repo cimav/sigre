@@ -32,6 +32,7 @@
       </div>
     </div>
   {{/each}}
+  {{#if allowAddMuestras}}
   <div class="muestra-item" id="nueva-muestra">
     <div class="muestra-codigo"><button type="button" class="close" {{action 'closeNewMuestra'}}>&times;</button> Nueva Muestra</div>
     <div id="nueva-muestra-link">
@@ -55,5 +56,7 @@
       <div class="muestra-cantidad"></div>
       <div class="muestra-guardar">{{save-button item=newMuestra caption="Agregar muestra"}}</div>
     </form>
+    </div>
   </div>
+  {{/if}}
 </div>

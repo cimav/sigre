@@ -2,6 +2,7 @@ App.MuestrasController = Ember.ArrayController.extend({
   needs: ["application", "solicitud"],
   itemController: 'muestra',
   prev_muestra: null,
+  allowAddMuestras: Ember.computed.alias('controllers.solicitud.allowAddServicios'), 
   closeEdit: function() {
     if ($('#nueva-muestra').hasClass('new-muestra-open')) return true; 
     var muestra = this.get('prev_muestra');
