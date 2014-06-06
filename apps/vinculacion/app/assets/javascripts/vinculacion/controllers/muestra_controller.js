@@ -1,9 +1,16 @@
 App.MuestraController = Ember.ObjectController.extend({
   needs: ["application", "muestras", "muestra"],
   isNotDirty: Ember.computed.not('content.isDirty'),
+  Status: {
+    inicial:    1,
+    en_uso:     2,
+  },
   div_id: function() {
     return 'muestra_' + this.get('id');
   }.property('id'),
+  canEdit: function(){
+    return this.get('model.status') == this.get('Status.inicial');
+  }.property('model.status'),
   actions: {
     editMuestra: function(muestra) {
       muestrasController = this.get('controllers.muestras');

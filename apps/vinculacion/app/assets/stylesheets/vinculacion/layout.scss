@@ -578,9 +578,13 @@ html, body, .application-view {
       position: absolute;
       right: 10px;
       top: 170px;
-      color: $grey;
       cursor: pointer;
       display: block;
+    }
+    .muestra-edit.disabled
+    {
+      color: $grey;
+      cursor: default;
     }
     .muestra-identificacion {
       font-size: 18px;

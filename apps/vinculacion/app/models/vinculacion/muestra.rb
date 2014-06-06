@@ -1,12 +1,15 @@
 module Vinculacion
   class Muestra < ActiveRecord::Base
-  	belongs_to :solicitud
+    belongs_to :solicitud
     has_and_belongs_to_many :servicios, :join_table => :vinculacion_servicios_muestras
+    after_create :set_extra
 
-  	after_create :set_extra
+    INICIAL    = 1
+    EN_USO     = 2
 
-  	def set_extra
-  	  con = Muestra.where(:solicitud_id => self.solicitud_id).maximum('consecutivo')
+    def set_extra
+      con = Muestra.where(:solicitud_id => self.solicitud_id).maximum('consecutivo')
+    
       if con.nil?
         con = 1
       else
@@ -16,7 +19,6 @@ module Vinculacion
       self.consecutivo = con
       self.codigo = "#{self.solicitud.codigo}-#{consecutivo}"
       self.save(:validate => false)
-  	end
-
+    end
   end
 end
