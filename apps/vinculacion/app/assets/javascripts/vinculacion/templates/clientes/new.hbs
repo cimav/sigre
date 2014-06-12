@@ -22,7 +22,7 @@
           <strong>País</strong><br/>
             {{view App.Select2View 
             contentBinding="controllers.application.paises"
-            value=pais_id
+            selectionBinding="pais"
             optionValuePath="content.id"
             optionLabelPath="content.nombre"}}
           </div>
@@ -31,7 +31,7 @@
           <strong>Estado</strong><br/>
             {{view App.Select2View 
             contentBinding="controllers.application.estados"
-            value=estado_id
+            selectionBinding="estado"
             optionValuePath="content.id"
             optionLabelPath="content.nombre"}}
           </div>
