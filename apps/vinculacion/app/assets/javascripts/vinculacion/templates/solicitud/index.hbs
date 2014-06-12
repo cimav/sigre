@@ -45,10 +45,11 @@
       </table>
     </div>
 
+    {{#if isCancelada}}
+      <div class="header"><span class="label label-default">{{status_text}}</span></div>
+      <div class="dato">{{motivo_status}}</div>
+    {{/if}}
+
   </div>
 
-  {{#if isCancelada}}
-    <h4>Cancelada por:</h4>
-    {{motivo_status}}
-  {{/if}}
 </div>

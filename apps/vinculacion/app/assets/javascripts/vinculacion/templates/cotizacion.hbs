@@ -73,6 +73,10 @@
       <h4><span class="glyphicon glyphicon-remove"></span>Cotización rechazada</h4>
     {{/if}}
 
+    {{#if isCancelado}}
+      <h4><span class="glyphicon glyphicon-remove"></span>Cotización cancelada</h4>
+    {{/if}}
+
   {{/if}}
   {{outlet cotizacion-header}}
   <div class="clearfix"></div>

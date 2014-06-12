@@ -8,7 +8,7 @@ App.SolicitudCancelacionController = Ember.ObjectController.extend({
       self = this;
       var onSuccess = function(solicitud) {
         self.transitionToRoute('solicitud', solicitud);
-        self.get('controllers.application').notify('TODO Se canceló solicitud');
+        self.get('controllers.application').notify('Se canceló solicitud');
       };
 
       var onFail = function(solicitud) {

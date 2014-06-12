@@ -45,9 +45,13 @@ App.CotizacionController = Ember.ObjectController.extend({
   isAceptado: function() {
     return this.get('model.status') == this.get('Status.aceptado');
   }.property('model.status'),
-  
+
   isRechazado: function() {
     return this.get('model.status') == this.get('Status.rechazado');
+  }.property('model.status'),
+
+  isCancelado: function() {
+    return this.get('model.status') == this.get('Status.cancelado');
   }.property('model.status'),
 
   isDescuentoSolicitado: function() {

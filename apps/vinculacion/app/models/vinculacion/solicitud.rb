@@ -13,6 +13,7 @@ module Vinculacion
     after_create :set_extra
     after_create :add_cotizacion
     before_create :init_status
+    after_update :check_status
 
     STATUS_INICIAL        = 1
     STATUS_EN_COTIZACION  = 2
@@ -59,6 +60,30 @@ module Vinculacion
     def add_cotizacion
       cotizacion = self.cotizaciones.new
       cotizacion.save
+    end
+
+    def check_status
+
+      if self.status_changed?
+
+        if self.status == STATUS_CANCELADA
+
+          # TODO Notificar a Bitacora
+
+          # cancelar ultima cotización
+          ultima_cotizacion = Cotizacion.where("solicitud_id = :sol_id", {:sol_id => self.id}).order('created_at').last
+          ultima_cotizacion.status = Cotizacion::STATUS_CANCELADO
+          ultima_cotizacion.save
+
+          # cancelar todos los servicios
+          self.servicios.each do |servicio|
+            servicio.status = Servicio::CANCELADO
+            servicio.save
+          end
+
+        end
+
+      end
     end
 
   end
