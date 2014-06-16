@@ -37,6 +37,8 @@ module Vinculacion
 
     def init_status
       self.status ||= "1"
+      self.fecha_inicio ||= Time.now
+      self.fecha_termino ||= Time.now
     end
 
     def relation_string
