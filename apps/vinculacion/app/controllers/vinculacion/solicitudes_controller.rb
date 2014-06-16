@@ -26,6 +26,23 @@ module Vinculacion
       render json: Solicitud.find(params[:id]).destroy
     end
 
+    def cancelar_solicitud
+      solicitud = Solicitud.find(params[:id])
+
+      # notificar a Bitacora
+      ResqueBus.redis = '127.0.0.1:6379' # TODO: Mover a config
+      ResqueBus.publish('cancelar_solicitud',
+                        'id' => solicitud.id,
+                        'agente_id'      => 1,                            #  TODO: Estos datos se deben de obtener
+                        'agente_email'   => 'karen.valles@cimav.edu.mx')  #  del usuario que da de alta el servicio.
+
+      # Cancelar solicitud
+      solicitud.status = Solicitud::STATUS_CANCELADA  # el modelo actualiza su cotizacion, servicios y muestras.
+      solicitud.save
+
+      render json: solicitud
+    end
+
     protected
     def solicitud
       params[:solicitud].permit(:consecutivo,

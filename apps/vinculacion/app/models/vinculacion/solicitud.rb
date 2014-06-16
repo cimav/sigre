@@ -68,7 +68,7 @@ module Vinculacion
 
         if self.status == STATUS_CANCELADA
 
-          # TODO Notificar a Bitacora
+          # El controlador Notifica a Bitacora publicando cancelar_solicitud
 
           # cancelar ultima cotización
           ultima_cotizacion = Cotizacion.where("solicitud_id = :sol_id", {:sol_id => self.id}).order('created_at').last
