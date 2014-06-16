@@ -1,5 +1,5 @@
 App.MuestraController = Ember.ObjectController.extend({
-  needs: ["application", "muestras", "muestra"],
+  needs: ["application", "muestras", "muestra","solicitud"],
   isNotDirty: Ember.computed.not('content.isDirty'),
   Status: {
     inicial:    1,
@@ -9,7 +9,8 @@ App.MuestraController = Ember.ObjectController.extend({
     return 'muestra_' + this.get('id');
   }.property('id'),
   canEdit: function(){
-    return this.get('model.status') == this.get('Status.inicial');
+    var solicitud = this.get('controllers.solicitud');
+    return this.get('model.status') == this.get('Status.inicial') && solicitud.get('model.status')!=solicitud.get('model.Status.cancelada');
   }.property('model.status'),
   actions: {
     editMuestra: function(muestra) {

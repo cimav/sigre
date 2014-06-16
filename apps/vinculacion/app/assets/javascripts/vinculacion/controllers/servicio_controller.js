@@ -59,7 +59,8 @@ App.ServicioController = Ember.ObjectController.extend({
   }.property('content.isDirty', 'content.isValid'),
 
   canEdit: function () {
-    return this.get('model.status') == 1;
+    var solicitud = this.get('controllers.solicitud');
+    return this.get('model.status') == 1 && solicitud.get('model.status')!=solicitud.get('model.Status.cancelada');
   }.property('model.status'),
 
   actions: {
