@@ -42,7 +42,27 @@ App.ArrancarController = Ember.ObjectController.extend({
       solicitud.set('status', this.get('model.Status.en_proceso'));
       solicitud.save();
 
+      // Notificar el arranque a la Bitacora publicando el resque bus.
+      this.send('notificar_arranque', solicitud);
+
+    },
+
+    notificar_arranque: function(solicitud) {
+      // notificar el arranque a bitacora a través del request bus
+      self = this;
+      url = '/vinculacion/solicitudes/' + self.get('id') + '/notificar_arranque'; // url del controlador en rails
+      $.post(url).then(function(response) {
+        if (!response.error) {
+          self.get('controllers.application').notify('Se notificó arranque a Bitácora');
+          self.transitionToRoute('solicitud', solicitud);
+        } else {
+          console.log('ERROR');
+          console.log(response);
+          self.get('controllers.application').notify('Error al arrancar solicitud', 'alert-danger');
+        }
+      });
     }
+
   },
 
   isNotReadyForSave: function () {

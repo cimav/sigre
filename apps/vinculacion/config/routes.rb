@@ -10,6 +10,7 @@ Vinculacion::Engine.routes.draw do
   resources :cotizaciones_detalle, path: 'cotizacion_detalle'
   post '/servicios/:id/solicitar_costeo', to: 'servicios#solicitar_costeo'
   post '/solicitudes/:id/notificar_cancelacion', to: 'solicitudes#notificar_cancelacion'
+  post '/solicitudes/:id/notificar_arranque', to: 'solicitudes#notificar_arranque'
 
   resources :empleados
   resources :sedes
