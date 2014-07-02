@@ -1,0 +1,47 @@
+<div id="solicitud-cedulas">
+  <div id="cedulas-header">
+    <h4>Cédulas...</h4>
+  </div>
+  <div id="cedulas-datos">
+    {{#form-for model}}
+      <table>
+        <tr>
+          <td>Cédula No.</td>
+          <td>NotYet</td>
+          <td>Descripción</td>
+          <td>{{descripcion}}</td>
+        </tr>
+        <tr>
+          <td>Orden servicio</td>
+          <td>{{codigo}}</td>
+          <td>Facturado a</td>
+          <td>{{cliente.razon_social}}</td>
+        </tr>
+        <tr>
+          <td>Fecha realización</td>
+          <td>{{view App.DateField dateBinding="fecha_termino"}}</td>
+          <td>RFC</td>
+          <td>{{cliente.rfc}}</td>
+        </tr>
+        <tr>
+          <td>Fecha factura</td>
+          <td>Dos</td>
+          <td>Domicilio</td>
+          <td>{{cliente.calle_num}} | {{cliente.colonia}} | {{cliente.cp}} | {{cliente.telefono}}</td>
+        </tr>
+        <tr>
+          <td>Servicio X</td>
+          <td>Dos</td>
+          <td>At'na</td>
+          <td>{{contacto.nombre}} | {{contacto.email}} | {{contacto.telefono}}</td>
+        </tr>
+        <tr>
+          <td>Progr. fact.</td>
+          <td>Dos</td>
+          <td>Observacion</td>
+          <td>Cuatro</td>
+        </tr>
+      </table>
+    {{/form-for}}
+  </div>
+</div>

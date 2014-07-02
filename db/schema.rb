@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140604230118) do
+ActiveRecord::Schema.define(version: 20140702145724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,15 @@ ActiveRecord::Schema.define(version: 20140604230118) do
     t.datetime "updated_at"
   end
 
+  create_table "vinculacion_costos_variables", force: true do |t|
+    t.integer  "servicio_id"
+    t.integer  "tipo"
+    t.text     "descripcion"
+    t.decimal  "costo",       precision: 10, scale: 2, default: 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "vinculacion_cotizaciones", force: true do |t|
     t.string   "consecutivo"
     t.date     "fecha_notificacion"
@@ -190,6 +199,15 @@ ActiveRecord::Schema.define(version: 20140604230118) do
     t.date     "fecha_inicio"
     t.date     "fecha_termino"
     t.integer  "status",                        default: 1
+  end
+
+  create_table "vinculacion_remanentes", force: true do |t|
+    t.integer  "servicio_id"
+    t.integer  "empleado_id"
+    t.decimal  "porcentaje_participacion", precision: 6,  scale: 2, default: 0.0
+    t.decimal  "monto",                    precision: 10, scale: 2, default: 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "vinculacion_sectores_industrial", force: true do |t|

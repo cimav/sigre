@@ -32,6 +32,7 @@ inflector.irregular('costeo_detalle', 'costeo_detalle');
 inflector.irregular('solicitud_busqueda', 'solicitud_busqueda');
 inflector.irregular('pais', 'paises');
 inflector.irregular('estado', 'estados');
+inflector.irregular('costo_variable', 'costos_variables');
 
 // Create App
 App = Ember.Application.create({

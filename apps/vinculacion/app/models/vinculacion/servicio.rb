@@ -5,9 +5,15 @@ module Vinculacion
     belongs_to :empleado
     has_many :costeos
     has_and_belongs_to_many :muestras, :join_table => :vinculacion_servicios_muestras
+    has_many :costo_variable
+    has_many :remanentes
 
     after_create :set_extra
     after_update :check_solicitud_status
+
+    attr_accessor :total_costo_variable
+    attr_accessor :porcentaje_participacion
+    attr_accessor :remanente_distribuible
 
     INICIAL             = 1
     ESPERANDO_COSTEO    = 2
@@ -40,6 +46,18 @@ module Vinculacion
       self.consecutivo = con
       self.codigo = "#{self.solicitud.codigo}-S#{consecutivo}"
       self.save(:validate => false)
+    end
+
+    def total_costo_variable
+      self.costo_variable.sum('costo')
+    end
+
+    def porcentaje_participacion
+      self.total_costo_variable * 100 / self.solicitud.total_costo_variable
+    end
+
+    def remanente_distribuible
+      self.porcentaje_participacion * self.solicitud.remanente_distribuible / 100
     end
 
     def check_solicitud_status

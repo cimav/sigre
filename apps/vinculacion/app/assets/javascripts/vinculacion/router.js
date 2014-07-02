@@ -33,6 +33,8 @@ App.Router.map(function () {
 
       this.resource('arrancar', {path: '/arrancar'});
 
+      this.resource('cedulas', {path: '/cedulas'});
+
     });
   });
 

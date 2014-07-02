@@ -15,6 +15,12 @@ module Vinculacion
     before_create :init_status
     after_update :check_status
 
+    attr_accessor :total_costo_variable
+    attr_accessor :costo_indirecto
+    attr_accessor :costo_interno
+    attr_accessor :utilidad
+    attr_accessor :remanente_distribuible
+
     STATUS_INICIAL        = 1
     STATUS_EN_COTIZACION  = 2
     STATUS_ACEPTADA       = 3
@@ -64,6 +70,40 @@ module Vinculacion
       cotizacion.save
     end
 
+    def total_costo_variable
+      total = 0
+      self.servicios.each do |servicio|
+        total = total + servicio.total_costo_variable
+      end
+      return total
+    end
+
+    def costo_indirecto
+      total_costo_variable * 0.1726
+      # TODO 17.26% a constantes
+    end
+
+    def costo_interno
+      total_costo_variable + costo_indirecto
+    end
+
+    def utilidad
+      ultima_cotizacion.precio_venta - costo_interno
+    end
+
+    def remanente_distribuible
+      precio_venta = ultima_cotizacion.precio_venta
+      margen_ganancia = utilidad
+      porcentaje_utilidad = margen_ganancia * 100 / precio_venta
+      tope = porcentaje_utilidad > 70 ? (70 * precio_venta / 100) : margen_ganancia
+      return 35 * tope / 100
+      #TODO 70% y 35% a constantes
+    end
+
+    def ultima_cotizacion
+      Cotizacion.where("solicitud_id = :sol_id", {:sol_id => self.id}).order('created_at').last
+    end
+
     def check_status
 
       if self.status_changed?
@@ -73,7 +113,7 @@ module Vinculacion
           # El controlador Notifica a Bitacora publicando cancelar_solicitud
 
           # cancelar ultima cotización
-          ultima_cotizacion = Cotizacion.where("solicitud_id = :sol_id", {:sol_id => self.id}).order('created_at').last
+          # ultima_cotizacion = Cotizacion.where("solicitud_id = :sol_id", {:sol_id => self.id}).order('created_at').last
           ultima_cotizacion.status = Cotizacion::STATUS_CANCELADO
           ultima_cotizacion.save
 

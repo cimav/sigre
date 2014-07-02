@@ -21,6 +21,9 @@ Vinculacion::Engine.routes.draw do
 
   resources :solicitud_busqueda, :only => [:index]
 
+  resources :costos_variables
+  resources :remanentes
+
   root :to => 'assets#index'
   get "assets/index"
 

@@ -6,5 +6,7 @@ module Vinculacion
     attributes :status_text
     has_many :muestras
     has_many :costeos
+    has_many :costo_variable
+    has_many :remanentes
   end
 end
