@@ -16,6 +16,8 @@ module Vinculacion
     after_update :check_status
 
     attr_accessor :costo_interno
+    attr_accessor :ultima_cotizacion
+    attr_accessor :precio_venta
 
     STATUS_INICIAL        = 1
     STATUS_EN_COTIZACION  = 2
@@ -76,6 +78,10 @@ module Vinculacion
 
     def ultima_cotizacion
       Cotizacion.where("solicitud_id = :sol_id", {:sol_id => self.id}).order('created_at').last
+    end
+
+    def precio_venta
+      ultima_cotizacion.precio_venta
     end
 
     def check_status

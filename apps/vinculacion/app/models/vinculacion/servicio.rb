@@ -19,7 +19,6 @@ module Vinculacion
     attr_accessor :precio_venta
     attr_accessor :remanente_distribuible
 
-
     INICIAL             = 1
     ESPERANDO_COSTEO    = 2
     ESPERANDO_ARRANQUE  = 3
@@ -70,7 +69,7 @@ module Vinculacion
     end
 
     def precio_venta
-      self.porcentaje_participacion * self.solicitud.ultima_cotizacion.precio_venta / 100
+      self.porcentaje_participacion * self.solicitud.precio_venta / 100
     end
 
     def utilidad
