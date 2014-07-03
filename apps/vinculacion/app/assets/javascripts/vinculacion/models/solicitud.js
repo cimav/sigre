@@ -15,6 +15,10 @@ App.Solicitud = DS.Model.extend({
   orden_compra: DS.attr('string'),
   fecha_inicio: DS.attr('date'),
   fecha_termino: DS.attr('date'),
+  cedulas: DS.hasMany('cedula'),
+
+  precio_venta: DS.attr('number'),
+  costo_interno: DS.attr('number'),
 
   status_text:       DS.attr('string'),
   relation_string: DS.attr('string'),

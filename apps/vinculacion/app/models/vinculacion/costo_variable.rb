@@ -4,7 +4,7 @@ module Vinculacion
 
     self.table_name = "vinculacion_costos_variables"
 
-    belongs_to :servicio
+    belongs_to :cedula
 
   end
 

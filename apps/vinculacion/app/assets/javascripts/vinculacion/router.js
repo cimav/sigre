@@ -18,6 +18,8 @@ App.Router.map(function () {
         this.route('new', {path: '/nuevo'});
         this.resource('servicio', {path: '/:servicio_id'}, function () {
           this.route('edit', {path: '/editar'});
+          this.resource('costos_variables', {path: '/costos_variables'});
+          this.resource('remanentes', {path: '/remanentes'});
         });
       });
 
@@ -33,7 +35,9 @@ App.Router.map(function () {
 
       this.resource('arrancar', {path: '/arrancar'});
 
-      this.resource('cedulas', {path: '/cedulas'});
+      this.resource('cedulas', {path: '/cedulas'}, function(){
+        this.resource('cedula', {path: '/:cedula_id'});
+      });
 
     });
   });

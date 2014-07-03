@@ -1,6 +1,5 @@
 module Vinculacion
   class SolicitudSerializer < ActiveModel::Serializer
-    #include ActiveModel::Serializers::JSON
   	embed :ids, :include => true
     attributes :id
     attributes :usuario_id
@@ -15,6 +14,8 @@ module Vinculacion
     has_one :sede
     has_one :cliente
     has_one :contacto
+
+    has_many :cedulas
 
     # calculados
     attributes :costo_interno, :precio_venta

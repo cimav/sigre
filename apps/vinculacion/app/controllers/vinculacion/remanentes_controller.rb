@@ -3,7 +3,7 @@ require_dependency "vinculacion/application_controller"
 module Vinculacion
   class RemanentesController < ApplicationController
     def index
-      render json: Remanente.where(:servicio_id => params[:servicio_id])
+      render json: Remanente.where(:cedula_id => params[:cedula_id])
     end
 
     def show
@@ -24,7 +24,7 @@ module Vinculacion
 
     protected
     def remanente
-      params[:remanente].permit(:servicio_id,
+      params[:remanente].permit(:cedula_id,
                                     :empleado_id,
                                     :porcentaje_participacion,
                                     :monto)

@@ -3,6 +3,7 @@ module Vinculacion
   class Solicitud < ActiveRecord::Base
     has_many :muestras
     has_many :servicios
+    has_many :cedulas
     has_many :cotizaciones
 
     belongs_to   :sede
@@ -70,8 +71,8 @@ module Vinculacion
 
     def costo_interno
       total = 0
-      self.servicios.each do |servicio|
-        total = total + servicio.costo_interno
+      self.cedulas.each do |cedula|
+        total = total + cedula.costo_interno
       end
       return total
     end

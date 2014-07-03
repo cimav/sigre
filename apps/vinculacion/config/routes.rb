@@ -23,6 +23,7 @@ Vinculacion::Engine.routes.draw do
 
   resources :costos_variables
   resources :remanentes
+  resources :cedulas
 
   root :to => 'assets#index'
   get "assets/index"

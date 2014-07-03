@@ -3,7 +3,7 @@ require_dependency "vinculacion/application_controller"
 module Vinculacion
   class CostosVariablesController < ApplicationController
     def index
-      render json: CostoVariable.where(:servicio_id => params[:servicio_id])
+      render json: CostoVariable.where(:cedula_id => params[:cedula_id])
     end
 
     def show
@@ -24,7 +24,7 @@ module Vinculacion
 
     protected
     def costo_variable
-      params[:costo_variable].permit(:servicio_id,
+      params[:costo_variable].permit(:cedula_id,
                                :tipo,
                                :descripcion,
                                :costo)

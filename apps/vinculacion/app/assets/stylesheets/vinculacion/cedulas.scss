@@ -1,0 +1,49 @@
+
+#solicitud-cedulas-header {
+
+  #cedulas-title {
+    padding-left: 15px;
+  }
+
+  #tabla-datos {
+    width: 100%;
+    margin-bottom: 5px;
+    border-bottom: 1px solid $grey;
+    tbody {
+      vertical-align: top;
+    }
+
+    #columna-cliente {
+      padding-left: 15px;
+      #cliente-nombre {
+        font-weight: bold;
+      }
+    }
+
+    #columna-costos {
+      float: right;
+      padding-right: 25px;
+      .cedula-etiqueta {
+        font-weight: normal;
+        float: right;
+        padding-right: 4px;
+        color: $grey;
+      }
+      .cedula-costo-valor {
+
+      }
+
+    }
+
+  }
+
+  #cedulas-list {
+    border-bottom: 1px solid $grey;
+    padding: 5px;
+    height: 48px;
+    .nav-pills > li > a {
+      border-radius: 24px;
+      font-weight: bold;
+    }
+  }
+}

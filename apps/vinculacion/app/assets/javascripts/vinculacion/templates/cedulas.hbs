@@ -1,47 +1,45 @@
-<div id="solicitud-cedulas">
-  <div id="cedulas-header">
-    <h4>Cédulas...</h4>
+<div id="solicitud-cedulas-header">
+  <div id="cedulas-title">
+    <h4>Cédulas de control de costos</h4>
   </div>
-  <div id="cedulas-datos">
-    {{#form-for model}}
-      <table>
-        <tr>
-          <td>Cédula No.</td>
-          <td>NotYet</td>
-          <td>Descripción</td>
-          <td>{{descripcion}}</td>
-        </tr>
-        <tr>
-          <td>Orden servicio</td>
-          <td>{{codigo}}</td>
-          <td>Facturado a</td>
-          <td>{{cliente.razon_social}}</td>
-        </tr>
-        <tr>
-          <td>Fecha realización</td>
-          <td>{{view App.DateField dateBinding="fecha_termino"}}</td>
-          <td>RFC</td>
-          <td>{{cliente.rfc}}</td>
-        </tr>
-        <tr>
-          <td>Fecha factura</td>
-          <td>Dos</td>
-          <td>Domicilio</td>
-          <td>{{cliente.calle_num}} | {{cliente.colonia}} | {{cliente.cp}} | {{cliente.telefono}}</td>
-        </tr>
-        <tr>
-          <td>Servicio X</td>
-          <td>Dos</td>
-          <td>At'na</td>
-          <td>{{contacto.nombre}} | {{contacto.email}} | {{contacto.telefono}}</td>
-        </tr>
-        <tr>
-          <td>Progr. fact.</td>
-          <td>Dos</td>
-          <td>Observacion</td>
-          <td>Cuatro</td>
-        </tr>
-      </table>
-    {{/form-for}}
+  <div id="cedulas-wrapper">
+    <table id="tabla-datos">
+      <tr>
+        <td id="columna-cliente">
+          <div id="cliente-nombre">{{cliente.razon_social}}</div>
+          <div class="contacto-nombre">{{contacto.nombre}}</div>
+          <div class="contacto-tel">{{contacto.telefono}}</div>
+          <div class="contacto-email">{{contacto_email}}</div>
+        </td>
+        <td id="columna-costos">
+          <table>
+            <tr>
+              <td><span class="cedula-etiqueta">orden compra</span></td>
+              <td><span class="cedula-costo-valor">{{orden_compra}}</span></td>
+            </tr>
+            <tr>
+              <td><span class="cedula-etiqueta">precio venta</span></td>
+              <td><span class="cedula-costo-valor">{{formatCurrency precio_venta}}</span></td>
+            </tr>
+            <tr>
+              <td><span class="cedula-etiqueta">costo interno acumulado</span></td>
+              <td><span class="cedula-costo-valor">{{formatCurrency costo_interno}}</span></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
   </div>
+  <div id="cedulas-list">
+    <ul class="nav nav-pills">
+      {{#each cedula in cedulas}}
+        {{#link-to 'cedula' cedula tagName="li"}}<a href="#"><span class="cedula-codigo">{{cedula.codigo}}</span> </a>{{/link-to}}
+      {{/each}}
+    </ul>
+  </div>
+
+</div>
+
+<div id="cedulas-workarea">
+  {{outlet}}
 </div>

@@ -2,9 +2,9 @@
 module Vinculacion
   class Remanente < ActiveRecord::Base
 
-    belongs_to :servicio
+    belongs_to :cedula
 
-    def remanente
+    def remanente_distribuible
       self.porcentaje_participacion * self.servicio.remanente_distribuible / 100
       # NOTE No esta persistiendo el monto
     end
