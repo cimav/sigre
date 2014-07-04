@@ -24,3 +24,8 @@ App.DateField = Ember.TextField.extend({
   size: 12,
   maxLength: 8
 });
+
+Em.Handlebars.helper('formatPercent', function(value) {
+  value = Math.round(value * 100) / 100;
+  return value + '%';
+});
