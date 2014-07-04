@@ -8,9 +8,13 @@
   #tabla-datos {
     width: 100%;
     margin-bottom: 5px;
-    border-bottom: 1px solid $grey;
+    //border-bottom: 1px solid $grey;
     tbody {
       vertical-align: top;
+    }
+
+    #columna-espacio {
+      width: 10px;
     }
 
     #columna-cliente {
@@ -38,12 +42,36 @@
   }
 
   #cedulas-list {
+
     border-bottom: 1px solid $grey;
-    padding: 5px;
+    padding: 3px;
     height: 48px;
+    border-top: 1px solid $grey;
+
     .nav-pills > li > a {
       border-radius: 24px;
       font-weight: bold;
+      margin-left: 12px;
+    }
+    .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+      color: white;
+      background-color: #fac76f;
+      border: 1px solid #e6b45e;
+    }
+    a {
+      color: #fac76f;
+      border: 1px solid $grey;
+      text-decoration: none;
     }
   }
+
+}
+
+#cedula {
+  margin: 20px 20px 0px 20px;
+  padding: 20px 20px 30px 20px;
+  border: 1px solid $line-color;
+  box-shadow: 0px 2px 4px $grey;
+  background: lighten($light-grey,2%);
+
 }
