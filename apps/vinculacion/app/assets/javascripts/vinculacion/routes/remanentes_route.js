@@ -1,7 +1,7 @@
 App.RemanentesRoute = Ember.Route.extend({
 
   model: function () {
-    var obj = this.store.find('remanente');
+    this.modelFor('cedula').get('remanentes');
   }
 
 });

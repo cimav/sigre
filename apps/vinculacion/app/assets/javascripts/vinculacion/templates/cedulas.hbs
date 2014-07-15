@@ -6,10 +6,14 @@
     <table id="tabla-datos">
       <tr>
         <td id="columna-cliente">
-          <div id="cliente-nombre">{{cliente.razon_social}}</div>
-          <div class="contacto-nombre">{{contacto.nombre}}</div>
-          <div class="contacto-tel">{{contacto.telefono}}</div>
-          <div class="contacto-email">{{contacto_email}}</div>
+          <div id="cliente-nombre" class="dato-bold">{{cliente.razon_social}}</div>
+          <div id="cliente-rfc">{{cliente.rfc}}</div>
+          <div id="cliente-ciudad">{{cliente.ciudad}}</div>
+          <div id="cliente-direccion">{{cliente.calle_num}}</div>
+
+          <div id="contacto-nombre"  class="dato-bold">{{contacto.nombre}}</div>
+          <div id="contacto-tel">{{contacto.telefono}}</div>
+          <div id="contacto-email">{{contacto.email}}</div>
         </td>
         <td id="columna-costos">
           <table>

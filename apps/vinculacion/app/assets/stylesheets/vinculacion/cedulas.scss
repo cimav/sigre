@@ -8,10 +8,7 @@
   #tabla-datos {
     width: 100%;
     margin-bottom: 5px;
-    //border-bottom: 1px solid $grey;
-    tbody {
-      vertical-align: top;
-    }
+    position: relative;
 
     #columna-espacio {
       width: 10px;
@@ -19,24 +16,27 @@
 
     #columna-cliente {
       padding-left: 15px;
-      #cliente-nombre {
+      .dato-bold {
         font-weight: bold;
+        padding-top: 5px;
       }
     }
 
     #columna-costos {
-      float: right;
+  //    float: right;
+      position: absolute;
+      bottom: 0;
+      right: 0;
       padding-right: 25px;
       .cedula-etiqueta {
         font-weight: normal;
         float: right;
-        padding-right: 4px;
+        padding-right: 5px;
         color: $grey;
       }
       .cedula-costo-valor {
-
+        font-weight: bold;
       }
-
     }
 
   }
@@ -73,5 +73,78 @@
   border: 1px solid $line-color;
   box-shadow: 0px 2px 4px $grey;
   background: lighten($light-grey,2%);
+  position: relative;
+
+  #table-cedula-header {
+    width: 100%;
+
+    td {
+      vertical-align: top;
+    }
+
+    #column-servicio{
+      position: relative;
+    }
+    #column-porcentaje{
+      position: absolute;
+      right: 10px;
+    }
+    .etiqueta {
+      font-weight: normal;
+      float: right;
+      padding-right: 6px;
+      color: $grey;
+      padding-top: 5px;
+    }
+    .dato {
+
+    }
+    .dato-bold {
+      font-weight: bold;
+      padding-top: 5px;
+    }
+  }
+
+  table.costos-variables-remanente {
+    margin-top: 20px;
+    margin-bottom: 2px;
+    thead {
+      font-weight: bold;
+    }
+    tbody {
+      font-size: 80%;
+      tr {
+       // border-bottom: 1px solid blueviolet;
+        &:hover {
+          cursor: pointer;
+          td {
+            background-color: $bg-item-hover;
+          }
+        }
+        td {
+          text-align: right;
+          &.descripcion {
+            text-align: left;
+          }
+        }
+      }
+    }
+    tfoot {
+      border-top: 2px solid $dark-grey;
+      td {
+        text-align: right;
+      }
+    }
+  }
+
+  table.costos-totales {
+    font-size: 120%;
+    float: right;
+    td {
+      text-align: right;
+      padding-left: 30px;
+    }
+  }
+
 
 }

@@ -1,11 +1,125 @@
 <div id="cedula">
-  Codigo {{codigo}}</br>
-  Total Costo variable {{formatCurrency total_costo_variable}} de {{costos_variables.length}} variables </br>
-  Costo indirecto {{formatCurrency costo_indirecto}} (17.26%)</br>
-  Costo interno {{formatCurrency costo_interno}}</br>
-  Porcentaje participación {{formatPercent porcentaje_participacion}}</br>
-  Precio venta {{formatCurrency precio_venta}}</br>
-  Utilidad {{formatCurrency utilidad}}</br>
-  Remanente {{formatCurrency remanente_distribuible}}</br>
+
+  <table id="table-cedula-header">
+    <tr>
+      <td id="column-servicio">
+        <table id="table-servicio">
+          <tr>
+            <td class="etiqueta">No</td>
+            <td class="dato-bold">{{codigo}}</td>
+          </tr>
+          <tr>
+            <td class="etiqueta">Servicio</td>
+            <td class="dato-bold">{{servicio.codigo}}</td>
+          </tr>
+          <tr>
+            <td class="etiqueta"></td>
+            <td class="dato">{{servicio.nombre}}</td>
+          </tr>
+          <tr>
+            <td class="etiqueta"></td>
+            <td class="dato">{{servicio.descripcion}}</td>
+          </tr>
+          <tr>
+            <td class="etiqueta">Responsable</td>
+            <td class="dato-bold">{{servicio.empleado.nombre_completo}}</td>
+          </tr>
+        </table>
+      </td>
+      <td id="column-porcentaje">
+        <table id="table-servicio">
+          <tr>
+            <td class="etiqueta">Porcentaje</td>
+            <td class="dato-bold">{{formatPercent porcentaje_participacion}}</td>
+          </tr>
+          <tr>
+            <td class="etiqueta">Precio venta</td>
+            <td class="dato-bold">{{formatCurrency precio_venta}}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <div id="div-costos-variables">
+    <table class="table costos-variables-remanente">
+      <thead>
+      <tr class="encebezado">
+        <td>Costos variables</td>
+      </tr>
+      </thead>
+      <tbody>
+      {{#each costo_var in costos_variables}}
+        <tr>
+          <td class="descripcion">{{costo_var.descripcion}}</td>
+          <td>{{formatCurrency costo_var.costo}}</td>
+        </tr>
+      {{/each}}
+      </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="2">
+          <table class="costos-totales">
+            <tr>
+              <td class="total-descripcion">Total costo variable</td>
+              <td class="total-monto">{{formatCurrency total_costo_variable}}</td>
+            </tr>
+            <tr>
+              <td class="total-descripcion">Costo indirecto (17.26%)</td>
+              <td class="total-monto">{{formatCurrency costo_indirecto}}</td>
+            </tr>
+            <tr>
+              <td class="total-descripcion">Costo interno</td>
+              <td class="total-monto">{{formatCurrency costo_interno}}</td>
+            </tr>
+            <!--<tr>-->
+              <!--<td class="total-descripcion">Porcentaje participación</td>-->
+              <!--<td class="total-monto">{formatPercent porcentaje_participacion}}</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+              <!--<td class="total-descripcion">Precio venta</td>-->
+              <!--<td class="total-monto">{formatCurrency precio_venta}}</td>-->
+            <!--</tr>-->
+            <tr>
+              <td class="total-descripcion">Utilidad (topada al 70% precio venta)</td>
+              <td class="total-monto">{{formatCurrency utilidad}}</td>
+            </tr>
+            <tr>
+              <td class="total-descripcion">Remanente (35% del precio venta)</td>
+              <td class="total-monto">{{formatCurrency remanente_distribuible}}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div id="div-costos-variables">
+    <table class="table costos-variables-remanente">
+      <thead>
+      <tr class="encebezado">
+        <td>Remanente distribuible</td>
+      </tr>
+      </thead>
+      <tbody>
+      {{#each remanente in remanentes}}
+        <tr>
+          <td class="descripcion">{{remanente.empleado.nombre_completo}}</td>
+          <td>{{formatPercent remanente.porcentaje_participacion}}</td>
+          <td>{{formatCurrency remanente.monto}}</td>
+        </tr>
+      {{/each}}
+      </tbody>
+      <tfoot>
+      <tr>
+        <td>Importe a distribuir</td>
+        <td>{{formatPercent 100}}</td>
+        <td>{{formatCurrency remanente_distribuible}}</td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+
 
 </div>̵
