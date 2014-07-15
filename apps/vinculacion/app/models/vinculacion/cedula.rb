@@ -33,14 +33,17 @@ module Vinculacion
       self.porcentaje_participacion * self.solicitud.precio_venta / 100
     end
 
-    def utilidad
+    def utilidad_neta
       self.precio_venta - self.costo_interno
     end
 
-    def remanente_distribuible
+    def utilidad_topada
       tope = 70 * self.precio_venta / 100
-      topado = self.utilidad > tope ? tope : self.utilidad
-      topado * 0.35
+      self.utilidad_neta > tope ? tope : self.utilidad_neta
+    end
+
+    def remanente_distribuible
+      self.utilidad_topada * 0.35
     end
 
   end

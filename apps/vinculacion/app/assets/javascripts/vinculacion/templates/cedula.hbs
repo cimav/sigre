@@ -45,12 +45,13 @@
     <table class="table costos-variables-remanente">
       <thead>
       <tr class="encebezado">
-        <td>Costos variables</td>
+        <td colspan="2">Costos variables</td>
       </tr>
       </thead>
       <tbody>
-      {{#each costo_var in costos_variables}}
+      {{#each costo_var in costos_variables itemController='CostoVariable'}}
         <tr>
+          <td class="tipo"><span {{bind-attr class="tipo_class"}}></span></td>
           <td class="descripcion">{{costo_var.descripcion}}</td>
           <td>{{formatCurrency costo_var.costo}}</td>
         </tr>
@@ -58,7 +59,7 @@
       </tbody>
       <tfoot>
       <tr>
-        <td colspan="2">
+        <td colspan="3">
           <table class="costos-totales">
             <tr>
               <td class="total-descripcion">Total costo variable</td>
@@ -72,20 +73,16 @@
               <td class="total-descripcion">Costo interno</td>
               <td class="total-monto">{{formatCurrency costo_interno}}</td>
             </tr>
-            <!--<tr>-->
-              <!--<td class="total-descripcion">Porcentaje participación</td>-->
-              <!--<td class="total-monto">{formatPercent porcentaje_participacion}}</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td class="total-descripcion">Precio venta</td>-->
-              <!--<td class="total-monto">{formatCurrency precio_venta}}</td>-->
-            <!--</tr>-->
             <tr>
-              <td class="total-descripcion">Utilidad (topada al 70% precio venta)</td>
-              <td class="total-monto">{{formatCurrency utilidad}}</td>
+              <td class="total-descripcion">Utilidad neta</td>
+              <td class="total-monto">{{formatCurrency utilidad_neta}}</td>
             </tr>
             <tr>
-              <td class="total-descripcion">Remanente (35% del precio venta)</td>
+              <td class="total-descripcion">Utilidad topada (max 70% del precio venta)</td>
+              <td class="total-monto">{{formatCurrency utilidad_topada}}</td>
+            </tr>
+            <tr>
+              <td class="total-descripcion">Remanente (35% de la utilidad topada)</td>
               <td class="total-monto">{{formatCurrency remanente_distribuible}}</td>
             </tr>
           </table>
@@ -99,12 +96,13 @@
     <table class="table costos-variables-remanente">
       <thead>
       <tr class="encebezado">
-        <td>Remanente distribuible</td>
+        <td colspan="2">Remanente distribuible</td>
       </tr>
       </thead>
       <tbody>
-      {{#each remanente in remanentes}}
+      {{#each remanente in remanentes itemController='Remanente'}}
         <tr>
+          <td class="tipo"><span class="glyphicon glyphicon-user"></span></td>
           <td class="descripcion">{{remanente.empleado.nombre_completo}}</td>
           <td>{{formatPercent remanente.porcentaje_participacion}}</td>
           <td>{{formatCurrency remanente.monto}}</td>
@@ -113,8 +111,13 @@
       </tbody>
       <tfoot>
       <tr>
+        <td></td>
         <td>Importe a distribuir</td>
-        <td>{{formatPercent 100}}</td>
+        {{#if chk_total_porcentaje}}
+          <td><span>{{formatPercent total_porcentaje}}</span></td>
+        {{else}}
+          <td><span class="total_porcentaje_invalido">{{formatPercent total_porcentaje}}</span></td>
+        {{/if}}
         <td>{{formatCurrency remanente_distribuible}}</td>
       </tr>
       </tfoot>

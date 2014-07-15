@@ -12,7 +12,7 @@ module Vinculacion
     #has_one :solicitud
 
     #calculados
-    attributes :total_costo_variable, :costo_indirecto, :costo_interno, :porcentaje_participacion, :precio_venta, :utilidad, :remanente_distribuible
+    attributes :total_costo_variable, :costo_indirecto, :costo_interno, :porcentaje_participacion, :precio_venta, :utilidad_neta, :utilidad_topada, :remanente_distribuible
 
   end
 end

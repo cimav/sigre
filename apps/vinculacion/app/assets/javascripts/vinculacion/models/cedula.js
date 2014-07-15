@@ -14,7 +14,8 @@ App.Cedula = DS.Model.extend({
   costo_interno: DS.attr('number'),
   porcentaje_participacion: DS.attr('number'),
   precio_venta: DS.attr('number'),
-  utilidad: DS.attr('number'),
+  utilidad_neta: DS.attr('number'),
+  utilidad_topada: DS.attr('number'),
   remanente_distribuible: DS.attr('number')
 
 });

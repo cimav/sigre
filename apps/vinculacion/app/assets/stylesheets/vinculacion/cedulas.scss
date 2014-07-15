@@ -23,7 +23,7 @@
     }
 
     #columna-costos {
-  //    float: right;
+      //    float: right;
       position: absolute;
       bottom: 0;
       right: 0;
@@ -72,7 +72,7 @@
   padding: 20px 20px 30px 20px;
   border: 1px solid $line-color;
   box-shadow: 0px 2px 4px $grey;
-  background: lighten($light-grey,2%);
+  background: lighten($light-grey, 2%);
   position: relative;
 
   #table-cedula-header {
@@ -82,10 +82,10 @@
       vertical-align: top;
     }
 
-    #column-servicio{
+    #column-servicio {
       position: relative;
     }
-    #column-porcentaje{
+    #column-porcentaje {
       position: absolute;
       right: 10px;
     }
@@ -112,9 +112,9 @@
       font-weight: bold;
     }
     tbody {
-      font-size: 80%;
+      font-size: 90%;
       tr {
-       // border-bottom: 1px solid blueviolet;
+        // border-bottom: 1px solid blueviolet;
         &:hover {
           cursor: pointer;
           td {
@@ -126,6 +126,10 @@
           &.descripcion {
             text-align: left;
           }
+          &.tipo {
+            width: 30px;
+            text-align: center;
+          }
         }
       }
     }
@@ -133,18 +137,24 @@
       border-top: 2px solid $dark-grey;
       td {
         text-align: right;
+        span {
+          color: #333333;
+          &.total_porcentaje_invalido {
+            color: red;
+          }
+        }
+
       }
     }
   }
 
   table.costos-totales {
-    font-size: 120%;
+    font-size: 110%;
     float: right;
     td {
       text-align: right;
       padding-left: 30px;
     }
   }
-
 
 }
