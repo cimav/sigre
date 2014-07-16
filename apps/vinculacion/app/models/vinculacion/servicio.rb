@@ -3,10 +3,12 @@ module Vinculacion
   class Servicio < ActiveRecord::Base
     belongs_to :solicitud
     belongs_to :empleado
+    has_one :cedula
     has_many :costeos
     has_and_belongs_to_many :muestras, :join_table => :vinculacion_servicios_muestras
 
     after_create :set_extra
+    after_create :add_cedula
     after_update :check_solicitud_status
 
     INICIAL             = 1
@@ -41,6 +43,19 @@ module Vinculacion
       self.codigo = "#{self.solicitud.codigo}-S#{consecutivo}"
       self.save(:validate => false)
     end
+
+    def add_cedula
+      # A cada Servicio le corresponde una Cédula
+      cedula = self.solicitud.cedulas.new
+      cedula.servicio = self;
+      cedula.solicitud = self.solicitud;
+      cod = self.codigo
+      cod["S"] = "C"
+      cedula.codigo = cod
+      cedula.status = 1;
+      cedula.save
+    end
+
 
     def check_solicitud_status
 

@@ -2,6 +2,7 @@
 module Vinculacion
   class Cedula < ActiveRecord::Base
     belongs_to :solicitud
+    belongs_to :servicio
     has_many :costo_variable
     has_many :remanentes
 
