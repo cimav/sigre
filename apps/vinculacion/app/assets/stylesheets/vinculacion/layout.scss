@@ -493,7 +493,10 @@ html, body, .application-view {
       background-color: $cotizacion-bg;
       border: 1px solid $cotizacion-border;
     }
-
+    &.badge-cedulas {
+      background-color: $cedula-bg;
+      border: 1px solid $cedula-border;
+    }
   }
 
   #bottom-options {

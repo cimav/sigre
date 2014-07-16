@@ -52,8 +52,10 @@
     }
     .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
       color: white;
-      background-color: #fac76f;
-      border: 1px solid #e6b45e;
+//      background-color: #fac76f;
+//      border: 1px solid #e6b45e;
+      background-color: $cedula-bg;
+      border: 1px solid $cedula-border;
     }
     a {
       color: #fac76f;
