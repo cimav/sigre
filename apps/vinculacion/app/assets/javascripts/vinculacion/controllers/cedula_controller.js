@@ -11,7 +11,6 @@ App.CedulaController = Ember.ObjectController.extend({
 
   chk_total_porcentaje : function() {
     var result = this.get('total_porcentaje') == 100;
-    console.log('chk: ' + this.get('total_porcentaje')  + " : " + result);
     return result;
   }.property('total_porcentaje')
 
