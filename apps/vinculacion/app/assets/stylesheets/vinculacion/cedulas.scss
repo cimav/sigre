@@ -45,6 +45,8 @@
     height: 68px;
     border-top: 1px solid $grey;
 
+    letter-spacing:1px;
+
     .nav-pills > li > a {
       border-radius: 24px;
       font-weight: bold;
@@ -58,7 +60,7 @@
       border: 1px solid $cedula-border;
     }
     a {
-      color: #fac76f;
+      color: $cedula-border;
       border: 1px solid $grey;
       text-decoration: none;
     }
@@ -82,6 +84,7 @@
       }
       .cedula-costo-valor {
         font-weight: bold;
+        letter-spacing:0px;
       }
     }
   }
@@ -174,7 +177,7 @@
   }
 
   table.costos-totales {
-    font-size: 110%;
+    //font-size: 110%;
     float: right;
     td {
       text-align: right;

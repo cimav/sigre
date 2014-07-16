@@ -3,8 +3,11 @@ App.CedulasRoute = Ember.Route.extend({
     return this.modelFor('solicitud');
   },
   afterModel: function (solicitud) {
-    var primerCedula = solicitud.get('cedulas').sortBy('codigo').get('firstObject');
-    this.transitionTo('cedula', primerCedula);
+    var cedulas = solicitud.get('cedulas');
+    if (!Ember.isEmpty(cedulas)) {
+      var primerCedula = cedulas.sortBy('codigo').get('firstObject');
+      this.transitionTo('cedula', primerCedula);
+    }
   }
 
 });
