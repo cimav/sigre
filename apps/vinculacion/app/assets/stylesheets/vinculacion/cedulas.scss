@@ -22,20 +22,17 @@
       }
     }
 
-    #columna-costos {
-      //    float: right;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      padding-right: 25px;
-      .cedula-etiqueta {
-        font-weight: normal;
-        float: right;
-        padding-right: 5px;
-        color: $grey;
-      }
-      .cedula-costo-valor {
+    #columna-contacto {
+//      float: right;
+//      position: absolute;
+//      top: 0;
+//      right: 0;
+      vertical-align: top;
+      padding-right: 10px;
+      padding-left: 10px;
+      .dato-bold {
         font-weight: bold;
+        padding-top: 5px;
       }
     }
 
@@ -45,7 +42,7 @@
 
     border-bottom: 1px solid $grey;
     padding: 3px;
-    height: 48px;
+    height: 68px;
     border-top: 1px solid $grey;
 
     .nav-pills > li > a {
@@ -62,6 +59,28 @@
       color: #fac76f;
       border: 1px solid $grey;
       text-decoration: none;
+    }
+
+    #columna-lista {
+      float: left;
+      margin-top: 10px;
+    }
+
+      #columna-costos {
+      float: right;
+//      position: absolute;
+//      bottom: 0;
+//      right: 0;
+      padding-right: 25px;
+      .cedula-etiqueta {
+        font-weight: normal;
+        float: right;
+        padding-right: 5px;
+        color: $grey;
+      }
+      .cedula-costo-valor {
+        font-weight: bold;
+      }
     }
   }
 

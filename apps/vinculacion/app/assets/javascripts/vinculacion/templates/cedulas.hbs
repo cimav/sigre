@@ -10,36 +10,43 @@
           <div id="cliente-rfc">{{cliente.rfc}}</div>
           <div id="cliente-ciudad">{{cliente.ciudad}}</div>
           <div id="cliente-direccion">{{cliente.calle_num}}</div>
-
-          <div id="contacto-nombre"  class="dato-bold">{{contacto.nombre}}</div>
+        </td>
+        <td id="columna-contacto">
+          <div id="contacto-nombre" class="dato-bold">{{contacto.nombre}}</div>
           <div id="contacto-tel">{{contacto.telefono}}</div>
           <div id="contacto-email">{{contacto.email}}</div>
-        </td>
-        <td id="columna-costos">
-          <table>
-            <tr>
-              <td><span class="cedula-etiqueta">orden compra</span></td>
-              <td><span class="cedula-costo-valor">{{orden_compra}}</span></td>
-            </tr>
-            <tr>
-              <td><span class="cedula-etiqueta">precio venta</span></td>
-              <td><span class="cedula-costo-valor">{{formatCurrency precio_venta}}</span></td>
-            </tr>
-            <tr>
-              <td><span class="cedula-etiqueta">costo interno acumulado</span></td>
-              <td><span class="cedula-costo-valor">{{formatCurrency costo_interno}}</span></td>
-            </tr>
-          </table>
         </td>
       </tr>
     </table>
   </div>
+
   <div id="cedulas-list">
-    <ul class="nav nav-pills">
-      {{#each cedula in cedulas}}
-        {{#link-to 'cedula' cedula tagName="li"}}<a href="#"><span class="cedula-codigo">{{cedula.codigo}}</span> </a>{{/link-to}}
-      {{/each}}
-    </ul>
+
+    <div id="columna-lista">
+      <ul class="nav nav-pills">
+        {{#each cedula in cedulas}}
+          {{#link-to 'cedula' cedula tagName="li"}}<a href="#"><span class="cedula-codigo">{{cedula.codigo}}</span> </a>{{/link-to}}
+        {{/each}}
+      </ul>
+    </div>
+
+    <div id="columna-costos">
+      <table>
+        <tr>
+          <td><span class="cedula-etiqueta">orden compra</span></td>
+          <td><span class="cedula-costo-valor">{{orden_compra}}</span></td>
+        </tr>
+        <tr>
+          <td><span class="cedula-etiqueta">precio venta</span></td>
+          <td><span class="cedula-costo-valor">{{formatCurrency precio_venta}}</span></td>
+        </tr>
+        <tr>
+          <td><span class="cedula-etiqueta">costo interno acumulado</span></td>
+          <td><span class="cedula-costo-valor">{{formatCurrency costo_interno}}</span></td>
+        </tr>
+      </table>
+    </div>
+
   </div>
 
 </div>
