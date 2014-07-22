@@ -17,6 +17,7 @@ module Vinculacion
 
       ResqueBus.redis = '127.0.0.1:6379' # TODO: Mover a config
       ResqueBus.publish('solicitar_costeo', 'id'             => servicio.id, 
+                                            'solicitud_id'   => servicio.solicitud_id,
                                             'codigo'         => servicio.codigo,
                                             'nombre'         => servicio.nombre,
                                             'empleado_id'    => servicio.empleado_id,

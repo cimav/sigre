@@ -33,7 +33,7 @@ module Vinculacion
       # notificar a Bitacora
       ResqueBus.redis = '127.0.0.1:6379' # TODO: Mover a config
       ResqueBus.publish('notificar_cancelacion',
-                        'id' => solicitud.id,
+                        'solicitud_id' => solicitud.id,
                         'agente_id'      => 1,                            #  TODO: Estos datos se deben de obtener
                         'agente_email'   => 'karen.valles@cimav.edu.mx')  #  del usuario que da de alta el servicio.
 
@@ -46,7 +46,7 @@ module Vinculacion
       # notificar a Bitacora
       ResqueBus.redis = '127.0.0.1:6379' # TODO: Mover a config
       ResqueBus.publish('notificar_arranque',
-                        'id' => solicitud.id,
+                        'solicitud_id' => solicitud.id,
                         'agente_id'      => 1,                            #  TODO: Estos datos se deben de obtener
                         'agente_email'   => 'karen.valles@cimav.edu.mx')  #  del usuario que da de alta el servicio.
 
