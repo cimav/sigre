@@ -76,6 +76,15 @@ class BitacoraSubscriptions
     cedula = ::Vinculacion::Cedula.where(:solicitud_id => attributes['system_request_id'], :servicio_id => attributes['system_id']).first
     puts "Recibir reporte para cedula: #{cedula.codigo}"
 
+    attributes['participaciones'].each do |p|
+      puts "Agregando participante #{p['email']} con #{p['porcentaje']}%"
+      remanente = cedula.remanentes.new
+      empleado = ::Vinculacion::Empleado.where(:email => p['email']).first
+      remanente.porcentaje_participacion = p['porcentaje']
+      remanente.empleado_id = empleado.id
+      remanente.save
+    end
+
     attributes['servicios'].each do |s|
 
       puts "Servicio #{s['bitacora_id']}: #{s['nombre_servicio']}"
@@ -85,8 +94,8 @@ class BitacoraSubscriptions
         puts "Agregando #{p['detalle']}"
         item = cedula.costo_variable.new
         item.tipo = 1 
-        if p['cantidad'] > 1
-          item.descripcion = "#{p['detalle'] } (x#{p['cantidad']})"
+        if p['cantidad'].to_f > 1
+          item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
         else   
           item.descripcion = p['detalle'] 
         end        
@@ -99,8 +108,8 @@ class BitacoraSubscriptions
         puts "Agregando #{p['detalle']}"
         item = cedula.costo_variable.new
         item.tipo = 2 
-        if p['cantidad'] > 1
-          item.descripcion = "#{p['detalle'] } (x#{p['cantidad']})"
+        if p['cantidad'].to_f > 1
+          item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
         else   
           item.descripcion = p['detalle'] 
         end        
@@ -113,26 +122,22 @@ class BitacoraSubscriptions
         puts "Agregando #{p['detalle']}"
         item = cedula.costo_variable.new
         item.tipo = 3 
-        if p['cantidad'] > 1
-          item.descripcion = "#{p['detalle'] } (x#{p['cantidad']})"
+        if p['cantidad'].to_f > 1
+          item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
         else   
           item.descripcion = p['detalle'] 
-        end        
-        item.costo        = p['cantidad'].to_f * p['precio_unitario'].to_f
+        end      
+        item.costo = p['cantidad'].to_f * p['precio_unitario'].to_f
         item.save
       end
 
       # OTROS
       s['otros'].each do |p|
-        puts "XX Agregando #{p['detalle']}"
+        puts "Agregando #{p['detalle']}"
         item = cedula.costo_variable.new
-        puts item
-        x = p['cantidad'].to_f * p['precio_unitario'].to_f
-        puts x
-        puts "-------------------"
         item.tipo = 4 
-        if p['cantidad'] > 1
-          item.descripcion = "#{p['detalle'] } (x#{p['cantidad']})"
+        if p['cantidad'].to_f > 1
+          item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
         else   
           item.descripcion = p['detalle'] 
         end        
