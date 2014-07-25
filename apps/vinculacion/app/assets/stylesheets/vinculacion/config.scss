@@ -27,18 +27,18 @@ $op-option-text: #333;
 $op-option-text-selected: #000;
 
 $muestra-codigo-bg: #71c986;
-$muestra-codigo-border: #64a673;
+$muestra-codigo-border: darken($muestra-codigo-bg, 10%);
 
 $servicio-codigo-bg: #fac76f;
-$servicio-codigo-border: #e6b45e;
+$servicio-codigo-border: darken($servicio-codigo-bg, 10%);
 
 $cotizacion-bg: #95d6e9;
-$cotizacion-border: #39b3d7;
+$cotizacion-border: darken($cotizacion-bg, 10%);
 
 $contacto-bg: #6cbcd5;
-$contacto-border: #428bca;
+$contacto-border: darken($contacto-bg, 10%);
 
-$cedula-bg: #d2c9d5;
-$cedula-border: #b8a7d5;
+$cedula-bg: #f19e60;
+$cedula-border: darken($cedula-bg, 10%);
 
 $notificar-cotizacion-bg: $light-grey;
