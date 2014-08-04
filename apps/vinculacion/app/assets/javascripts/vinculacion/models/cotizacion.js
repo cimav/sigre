@@ -33,6 +33,7 @@ App.Cotizacion = DS.Model.extend({
     dets.forEach(function(d){
       ret += d.get("total");
     });
+    this.set('subtotal', ret);
     return ret;
   }.property('cotizacion_detalles.@each.cantidad', 'cotizacion_detalles.@each.precio_unitario'),
 
@@ -40,17 +41,20 @@ App.Cotizacion = DS.Model.extend({
     return this.get('subtotal_calculado') * this.get('descuento_porcentaje') / 100;
   }.property('subtotal_calculado', 'descuento_porcentaje'),
 
-  subtotal_con_descuento: function() {
-    return this.get('subtotal_calculado') - this.get('descuento_calculado');
-  }.property('subtotal_calculado', 'descuento_calculado'),
+  precio_venta_calculado: function() {
+    // PrecioVenta = SubTotal - Descuento
+    var result = this.get('subtotal_calculado') - this.get('descuento_calculado');
+    this.set('precio_venta', result);
+    return result;
+  }.property('subtotal_calculado', 'descuento_porcentaje'),
 
   iva_calculado: function() {
-    return this.get('subtotal_con_descuento') * this.get('iva') / 100;
-  }.property('subtotal_con_descuento', 'iva'),
+    return this.get('precio_venta') * this.get('iva') / 100;
+  }.property('precio_venta', 'iva'),
 
   total_calculado: function() {
-    return this.get('subtotal_con_descuento') + this.get('iva_calculado');
-  }.property('subtotal_con_descuento', 'iva_calculado')
+    return this.get('precio_venta') + this.get('iva_calculado');
+  }.property('precio_venta', 'iva_calculado')
 
 });
 
