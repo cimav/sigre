@@ -22,7 +22,7 @@ App.ServicioController = Ember.ObjectController.extend({
             subtotal = d.get('cantidad') * d.get('precio_unitario');
             total += subtotal;
           });
-          c.total = total;
+          c.set('total', total);
           muestra.costeos.push(c);
         }
       });
