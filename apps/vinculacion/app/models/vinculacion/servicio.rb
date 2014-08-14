@@ -43,7 +43,7 @@ module Vinculacion
         con = 1
       end
 
-      consecutivo = "%05d" % con
+      consecutivo = "%03d" % con
       self.consecutivo = con
       self.codigo = "#{self.solicitud.codigo}-S#{consecutivo}"
       self.save(:validate => false)
