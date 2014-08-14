@@ -92,6 +92,14 @@ App.ArrancarController = Ember.ObjectController.extend({
     return result;
   }.property('model.status'),
 
+  isReadyToDownPDFPresupuesto: function() {
+    var enProceso = this.get('model.Status.en_proceso');
+    var finalizada = this.get('model.Status.finalizada');
+    var statusSol = this.get('model.status');
+    result = statusSol == enProceso || statusSol == finalizada;
+    return !result;
+  }.property('model.status'),
+
   // Hack: las funciones declaradas como properties no son llamadas hasta que se use el set o get.
   // El cambio de instancia no usa los get y set de las propiedades.
   // Por tanto, al entrar al Controller no son llamadas.
