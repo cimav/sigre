@@ -62,6 +62,7 @@ module Vinculacion
                                 :prioridad,
                                 :cliente_id,
                                 :contacto_id,
+                                :responsable_presupuestal_id,
                                 :descripcion,
                                 :usuario_id,
                                 :status,
@@ -70,6 +71,7 @@ module Vinculacion
                                 :orden_compra,
                                 :fecha_inicio,
                                 :fecha_termino
+
       )
     end
   end

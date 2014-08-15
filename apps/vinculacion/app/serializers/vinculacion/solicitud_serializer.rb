@@ -20,5 +20,10 @@ module Vinculacion
     # calculados
     attributes :costo_interno, :precio_venta
 
+    #has_one :responsable_presupuestal , class_name: "empleado"
+    #attributes :responsable_presupuestal_id
+
+    has_one :responsable_presupuestal, root: :empleado
+
   end
 end

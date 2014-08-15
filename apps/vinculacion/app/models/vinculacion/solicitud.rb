@@ -6,10 +6,11 @@ module Vinculacion
     has_many :cedulas
     has_many :cotizaciones
 
-    belongs_to   :sede
-    belongs_to  :proyecto
-    belongs_to  :cliente
-    belongs_to  :contacto
+    belongs_to :sede
+    belongs_to :proyecto
+    belongs_to :cliente
+    belongs_to :contacto
+    belongs_to :responsable_presupuestal, class_name: "Empleado"
 
     after_create :set_extra
     after_create :add_cotizacion
