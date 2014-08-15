@@ -32,17 +32,12 @@ module Vinculacion
     end
 
     def set_extra
-
-      con = 0
-      begin
-        sql_stmt = "SELECT MAX(v_srvs.consecutivo) FROM vinculacion_solicitudes v_sol JOIN vinculacion_servicios v_srvs ON v_sol.id = v_srvs.solicitud_id WHERE v_sol.proyecto_id = #{self.solicitud.proyecto_id};"
-        result = ActiveRecord::Base.connection.execute(sql_stmt)
-        con = result[0]['max'].to_f
-        con += 1
-      rescue => e
+      con = Servicio.where(:solicitud_id => self.solicitud_id).maximum('consecutivo')
+      if con.nil?
         con = 1
+      else
+        con += 1
       end
-
       consecutivo = "%03d" % con
       self.consecutivo = con
       self.codigo = "#{self.solicitud.codigo}-S#{consecutivo}"
