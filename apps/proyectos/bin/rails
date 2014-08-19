@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+# This command will automatically be run when you run "rails" with Rails 4 gems installed from the root of your application.
+
+ENGINE_ROOT = File.expand_path('../..', __FILE__)
+ENGINE_PATH = File.expand_path('../../lib/proyectos/engine', __FILE__)
+
+# HACK PARA INFLECCIONES
+require 'active_support/inflections'
+require "#{ENGINE_ROOT}/config/initializers/inflections.rb"
+
+require 'rails/all'
+require 'rails/engine/commands'

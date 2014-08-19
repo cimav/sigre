@@ -1,0 +1,49 @@
+// Core variables and mixins
+@import "proyectos/bootstrap/variables";
+@import "proyectos/bootstrap/mixins";
+
+// Reset
+@import "proyectos/bootstrap/normalize";
+@import "proyectos/bootstrap/print";
+
+// Core CSS
+@import "proyectos/bootstrap/scaffolding";
+@import "proyectos/bootstrap/type";
+@import "proyectos/bootstrap/code";
+@import "proyectos/bootstrap/grid";
+@import "proyectos/bootstrap/tables";
+@import "proyectos/bootstrap/forms";
+@import "proyectos/bootstrap/buttons";
+
+// Components
+@import "proyectos/bootstrap/component-animations";
+@import "proyectos/bootstrap/glyphicons";
+@import "proyectos/bootstrap/dropdowns";
+@import "proyectos/bootstrap/button-groups";
+@import "proyectos/bootstrap/input-groups";
+@import "proyectos/bootstrap/navs";
+@import "proyectos/bootstrap/navbar";
+@import "proyectos/bootstrap/breadcrumbs";
+@import "proyectos/bootstrap/pagination";
+@import "proyectos/bootstrap/pager";
+@import "proyectos/bootstrap/labels";
+@import "proyectos/bootstrap/badges";
+@import "proyectos/bootstrap/jumbotron";
+@import "proyectos/bootstrap/thumbnails";
+@import "proyectos/bootstrap/alerts";
+@import "proyectos/bootstrap/progress-bars";
+@import "proyectos/bootstrap/media";
+@import "proyectos/bootstrap/list-group";
+@import "proyectos/bootstrap/panels";
+@import "proyectos/bootstrap/wells";
+@import "proyectos/bootstrap/close";
+
+// Components w/ JavaScript
+@import "proyectos/bootstrap/modals";
+@import "proyectos/bootstrap/tooltip";
+@import "proyectos/bootstrap/popovers";
+@import "proyectos/bootstrap/carousel";
+
+// Utility classes
+@import "proyectos/bootstrap/utilities";
+@import "proyectos/bootstrap/responsive-utilities";

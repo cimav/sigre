@@ -1,0 +1,536 @@
+html, body, .application-view {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.spinner {
+  display: inline-block;
+  opacity: 0;
+  max-width: 0;
+  -webkit-transition: opacity 0.25s, max-width 0.45s;
+  -moz-transition: opacity 0.25s, max-width 0.45s;
+  -o-transition: opacity 0.25s, max-width 0.45s;
+  transition: opacity 0.25s, max-width 0.45s; /* Duration fixed since we animate additional hidden width */
+}
+
+.spin {
+  -webkit-animation: spin 1.5s infinite linear;
+  -moz-animation: spin 1.5s infinite linear;
+  -o-animation: spin 1.5s infinite linear;
+  animation: spin 1.5s infinite linear;
+}
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.has-spinner.active {
+  cursor: progress;
+}
+
+.has-spinner.active .spinner {
+  opacity: 1;
+  max-width: 50px;
+}
+
+.app-notification {
+  position: absolute;
+  max-width: 480px;
+  right: 10px;
+  bottom: 10px;
+}
+
+.form-group {
+  .btn-delete {
+    float: right;
+  }
+}
+
+
+#main-container {
+  /** display:table;
+  height: 100%; **/
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 0 0;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  #main-row {
+    /* height: 100%; */
+    width: 100%;
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+
+    #left-panel {
+      position: fixed;
+      bottom: 0;
+      top: 0;
+      padding: 0;
+      margin: 0;
+      width: 200px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background-color: $left-panel-bg;
+      border-right: 1px solid $left-panel-line;
+      float: none;
+
+      #app-info {
+        position: absolute;
+        top: 0;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 64px;
+        border-bottom: 1px solid $left-panel-inner-line;
+        color: $white;
+        text-align: center;
+        h3 {
+          font-size: 140%;
+          margin-top: 20px;
+          font-weight: normal;
+        }
+      }
+
+      #app-nav {
+        position: absolute;
+        top: 65px;
+        width: 100%;
+      }
+
+      .nav-pills > li > a {
+        border-radius: 0px;
+      }
+
+      .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+        background-color: $left-panel-selected;
+        color: $white;
+      }
+
+      .nav > li > a:hover, .nav > li > a:focus {
+        background-color: $left-panel-hover;
+        color: $left-panel-nav-text;
+      }
+
+      .nav a {
+        color: $left-panel-nav-text;
+      }
+
+    }
+
+    #main-panel {
+      z-index: 500;
+      position: absolute;
+      left: 200px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background: $white;
+      padding: 0px;
+      margin: 0px;
+      float: none;
+
+      #screen-name {
+        background-color: $screen-name-bar;
+        height: 64px;
+        border: 1px solid $white;
+        border-bottom: 1px solid $grey;
+        h3 {
+          margin-left: 20px;
+          font-size: 140%;
+          margin-top: 20px;
+          font-weight: normal;
+          float: left;
+        }
+        button {
+          position: relative;
+          float: right;
+          right: 10px;
+          top: 14px;
+        }
+      }
+    }
+  }
+}
+
+#md-search-panel {
+  position: fixed;
+  padding: 0px;
+  bottom: 0;
+  top: 64px;
+  width: 300px;
+  border-right: 1px solid $line-color;
+  #md-search-tools {
+    height: 40px;
+    border-bottom: 1px solid $line-color;
+    background-color: $md-tools-bar;
+  }
+  #md-search-box {
+    height: 50px;
+    background-color: $md-search-bar;
+    border-bottom: 1px solid $line-color;
+    .input-group {
+      padding: 8px;
+    }
+  }
+  #md-items-list {
+    overflow-y: scroll;
+    position: absolute;
+    bottom: 32px;
+    top: 50px;
+    width: 100%;
+    .md-item {
+      .md-item-inner {
+        font-size: 90%;
+        padding-left: 15px;
+        cursor: pointer;
+        height: 80px;
+        .media {
+          padding-top: 10px;
+          .media-heading {
+            font-weight: bold;
+            white-space: pre;
+          }
+          .media-object {
+            width: 48px;
+            margin-right: 10px;
+            span {
+              color: $grey;
+              font-size: 48px;
+            }
+            .badge-proyectos {
+              font-size: 80%;
+              //background-color: $cotizacion-bg;
+              //border: 1px solid $cotizacion-border;
+            }
+            .badge-clientes {
+              font-size: 80%;
+              //background-color: $cotizacion-bg;
+              //border: 1px solid $cotizacion-border;
+            }
+          }
+          .pull-right {
+            width: 20px;
+          }
+          .media-body {
+            margin-left: 58px;
+            .media-heading {
+              margin-bottom: 2px;
+            }
+            .media-extra {
+              white-space: pre;
+              overflow: hidden;
+              font-size: 85%;
+              color: $dark-grey;
+              .glyphicon {
+                color: lighten($dark-grey, 20%);
+              }
+            }
+          }
+        }
+      }
+      border-bottom: 1px solid $line-color;
+      &:hover {
+        background-color: $bg-item-hover;
+      }
+    }
+    .active .md-item-inner {
+      border-left: 5px solid $brand-primary;
+      background-color: $item-bg;
+      padding-left: 10px;
+    }
+  }
+  #md-items-info {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid $line-color;
+    height: 32px;
+    background-color: $md-search-bar;
+    border-bottom: 1px solid $line-color;
+    padding: 8px;
+    font-size: 90%;
+    color: $dark-grey;
+    text-align: center;
+  }
+}
+
+#md-main-panel {
+  left: 500px;
+  position: fixed;
+  bottom: 0;
+  top: 64px;
+  right: 0;
+  width: -moz-calc(100% - 500px);
+  width: -webkit-calc(100% - 500px);
+  width: calc(100% - 500px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 20px 20px 20px;
+  margin: 0;
+
+  h3 {
+    padding: 10px 0 0 0;
+    height: 48px;
+    margin: 0 0 20px 0;
+    font-weight: normal;
+  }
+
+  .tab-content {
+    margin-top: 20px;
+
+  }
+}
+
+.btn-primary[disabled] {
+  background: $light-grey;
+  border-color: $grey;
+  color: $grey;
+}
+
+.inner-padding {
+  padding: 8px;
+}
+
+#table-search {
+  height: 48px;
+  background-color: $md-tools-bar;
+  border-bottom: 1px solid $line-color;
+}
+
+#table-wrapper {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  top: 112px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  table {
+    tr {
+      td {
+        cursor: pointer;
+      }
+      &:hover {
+        background-color: $bg-item-hover;
+      }
+    }
+  }
+}
+
+#wide-panel {
+  padding: 20px;
+  overflow: auto;
+  position: absolute;
+  left: 0;
+  top: 64px;
+  right: 0;
+  bottom: 0;
+  .tab-content {
+    margin-top: 20px;
+  }
+}
+
+#op-options-panel {
+  position: fixed;
+  padding: 0px;
+  bottom: 0;
+  top: 64px;
+  width: 200px;
+  border-right: 1px solid $line-color;
+  background: $op-options-bg;
+  .nav-pills > li > a {
+    border-radius: 0px;
+  }
+
+  .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: $op-option-selected;
+    color: $op-option-text-selected;
+  }
+
+  .nav > li > a:hover, .nav > li > a:focus {
+    background-color: $op-option-hover;
+    color: $op-option-text;
+  }
+
+  .nav a {
+    color: $op-option-text;
+    span.glyphicon {
+      border: 2px solid $dark-grey;
+      color: $dark-grey;
+      padding: 6px;
+      border-radius: 20px;
+      margin-right: 2px;
+    }
+  }
+  .nav li.disabled {
+    color: $grey;
+    a {
+      color: $grey;
+      &:hover, &:focus {
+        background-color: $op-options-bg;
+        color: $grey;
+      }
+    }
+    span.glyphicon {
+      border: 2px solid $grey;
+      color: $grey;
+    }
+  }
+
+  .badge {
+    float: right;
+    color: $white !important;
+    font-weight: normal;
+    font-size: 80%;
+    margin-top: 7px;
+    &.badge-muestras {
+      background-color: $muestra-codigo-border;
+      border: 1px solid $muestra-codigo-border;
+    }
+    &.badge-servicios {
+      background-color: $servicio-codigo-border;
+      border: 1px solid $servicio-codigo-border;
+    }
+    &.badge-cotizaciones {
+      background-color: $cotizacion-bg;
+      border: 1px solid $cotizacion-border;
+    }
+    &.badge-clientes {
+      background-color: $cotizacion-bg;
+      border: 1px solid $cotizacion-border;
+    }
+    &.badge-proyectos {
+      background-color: $cotizacion-bg;
+      border: 1px solid $cotizacion-border;
+    }
+    &.badge-cedulas {
+      background-color: $cedula-bg;
+      border: 1px solid $cedula-border;
+    }
+  }
+
+  #bottom-options {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid $line-color;
+    background-color: $op-options-bg;
+    border-bottom: 1px solid $line-color;
+    padding: 8px;
+    font-size: 90%;
+    color: $dark-grey;
+    text-align: center;
+  }
+
+}
+
+#op-main-panel {
+  left: 400px;
+  position: fixed;
+  bottom: 0;
+  top: 64px;
+  right: 0;
+  width: -moz-calc(100% - 400px);
+  width: -webkit-calc(100% - 400px);
+  width: calc(100% - 400px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  .tab-content {
+    .tab-pane {
+      h3 {
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+.confirm-box {
+  @include box-sizing(border-box);
+  padding: 7px;
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  margin-left: -63px;
+  background: white;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+
+  h4 {
+    display: inline-block;
+    margin: 0 2px 0 0;
+    color: #666;
+    line-height: 11px;
+    font-size: 11px;
+  }
+  button {
+    font-size: 11px;
+  }
+}
+
+table.resumen {
+  tbody {
+    tr {
+      &:hover {
+        cursor: pointer;
+        td {
+          background-color: $bg-item-hover;
+        }
+      }
+      td {
+        img {
+          width: 32px;
+          height: 32px;
+        }
+        &.status-text {
+          text-align: right;
+          font-size: 80%;
+          text-color: $grey;
+        }
+        &.avatar {
+          text-align: right;
+        }
+      }
+    }
+  }
+  tr.total {
+    td {
+      font-weight: bold;
+      font-size: 110%;
+      border-top: 2px solid $dark-grey;
+      text-align: right;
+    }
+  }
+}

@@ -52,3 +52,4 @@ gem 'prawn'
 
 gem 'rh', path: 'apps/rh'
 gem 'vinculacion', path: 'apps/vinculacion'
+gem 'proyectos', path: 'apps/proyectos'

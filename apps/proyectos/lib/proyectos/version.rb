@@ -1,0 +1,3 @@
+module Proyectos
+  VERSION = "0.0.1"
+end

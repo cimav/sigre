@@ -1,0 +1,18 @@
+<div id="main-container">
+  <div id="main-row">
+    <div id="left-panel">
+      <div id="app-info">
+        <h3>Proyectos</h3>
+      </div>
+      <ul id="app-nav" class="nav nav-pills nav-stacked">
+        {{#link-to '' tagName='li'}}<a href="#">Uno</a>{{/link-to}}
+        {{#link-to '' tagName='li'}}<a href="#">Dos</a>{{/link-to}}
+        {{#link-to '' tagName='li'}}<a href="#">Tres</a>{{/link-to}}
+      </ul>
+    </div>
+    <div id="main-panel">
+      {{outlet}}
+    </div>
+  </div>
+</div>
+{{view App.NotificationView id="notifications" notificationBinding="notification" notification_typeBinding="notification_type"}}

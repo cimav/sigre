@@ -1,0 +1,12 @@
+//= require proyectos/bootstrap/affix
+//= require proyectos/bootstrap/alert
+//= require proyectos/bootstrap/button
+//= require proyectos/bootstrap/carousel
+//= require proyectos/bootstrap/collapse
+//= require proyectos/bootstrap/dropdown
+//= require proyectos/bootstrap/tab
+//= require proyectos/bootstrap/transition
+//= require proyectos/bootstrap/scrollspy
+//= require proyectos/bootstrap/modal
+//= require proyectos/bootstrap/tooltip
+//= require proyectos/bootstrap/popover
