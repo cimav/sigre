@@ -1,5 +1,5 @@
 require 'resque/tasks'
-require 'resque_scheduler/tasks'
+require 'resque/scheduler/tasks'
 require 'resque_bus/tasks'
 
 namespace :resque do

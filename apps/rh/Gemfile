@@ -13,7 +13,7 @@ gemspec
 # To use debugger
 # gem 'debugger'
 
-gem 'ember-rails', '~>0.14.1'
+gem 'ember-rails', '~>0.15'
 gem 'ember-source', '~>1.1'
 gem 'select2-rails', '~>3.5.4'
 gem 'jquery-rails'
