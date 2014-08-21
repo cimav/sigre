@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140815211248) do
+ActiveRecord::Schema.define(version: 20140821200553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,22 @@ ActiveRecord::Schema.define(version: 20140815211248) do
     t.string   "codigo"
     t.string   "lat",        limit: 20
     t.string   "long",       limit: 20
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "proyectos_recursos", force: true do |t|
+    t.string   "nombre"
+    t.text     "descripcion"
+    t.integer  "tipo_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "proyectos_recursos", ["tipo_id"], name: "index_proyectos_recursos_on_tipo_id", using: :btree
+
+  create_table "proyectos_tipos", force: true do |t|
+    t.string   "nombre"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

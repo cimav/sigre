@@ -1,0 +1,7 @@
+1|Fiscales||1
+2|Propios||1
+3|Conacyt||2
+4|Mixtos||2
+5|Sectoriales||2
+6|Consorcio||2
+7|Fideicomiso||2
