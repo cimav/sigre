@@ -5,7 +5,7 @@ module Proyectos
     attributes :id
     attributes :nombre, :descripcion
 
-    attributes :tipo_id
+    has_one :tipo
 
   end
 end
