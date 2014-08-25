@@ -1,0 +1,2 @@
+1|CHI|Chihuahua
+2|MTY|Monterrey

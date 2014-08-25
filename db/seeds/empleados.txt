@@ -1,0 +1,2 @@
+1|José Juan|Calderón|Ochoa|juan.calderon@cimav.edu.mx|00398|Arquitecto de Desarrollo|1|1
+2|Enrique|Turcott|Cervantes|enrique.turcott@cimav.edu.mx|00374|Desarrollador|1|1
