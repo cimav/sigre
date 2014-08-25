@@ -50,6 +50,8 @@ gem 'jquery-ui-rails'
 # Use prawn, pdf generator library
 gem 'prawn'
 
+gem 'omniauth-google-oauth2'
+
 gem 'rh', path: 'apps/rh'
 gem 'vinculacion', path: 'apps/vinculacion'
 gem 'proyectos', path: 'apps/proyectos'

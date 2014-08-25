@@ -1,0 +1,33 @@
+#body-login {
+  background-color: $brand;
+  #login-area {
+    background: transparent url(/assets/sigre.png) center top no-repeat;
+    padding-top: 320px;
+    margin: 0 auto;
+    margin-top: 40px;
+    width: 640px;
+    .login-title {
+      color:#fff;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, .4), 0 0 30px rgba(0, 0, 0, .075);
+      font-size: 36px;
+      text-align: center;
+    }
+    .login-message {
+      margin-top: 20px;
+      text-align: center;
+      color: #ffd6d6;
+    }
+    .login-methods {
+      margin-top: 20px;
+      text-align: center;
+    }
+    button {
+      padding: 10px;
+      font-size: 14px;
+      border: 2px solid darken($brand, 5%);
+      background: #fafafa;
+      color: $brand;
+      @include rounded(8px);
+    } 
+  }
+}

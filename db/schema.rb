@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140821200553) do
+ActiveRecord::Schema.define(version: 20140825184009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,20 @@ ActiveRecord::Schema.define(version: 20140821200553) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "usuarios", force: true do |t|
+    t.string   "usuario",                null: false
+    t.string   "email",                  null: false
+    t.string   "nombre",                 null: false
+    t.string   "apellidos",              null: false
+    t.string   "token"
+    t.integer  "status",     default: 1, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "usuarios", ["email"], name: "index_usuarios_on_email", using: :btree
+  add_index "usuarios", ["usuario"], name: "index_usuarios_on_usuario", using: :btree
 
   create_table "vinculacion_cedulas", force: true do |t|
     t.integer  "solicitud_id"

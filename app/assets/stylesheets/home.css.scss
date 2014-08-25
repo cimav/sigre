@@ -1,0 +1,14 @@
+#apps {
+  margin-top: 40px;
+}
+.app-item {
+  cursor: pointer;
+  .app-icon {
+    text-align: center;
+  }
+  .app-label {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 0.5em;
+  }
+}
