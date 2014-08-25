@@ -1,1 +1,1 @@
-1|20061|PROYECTO CONTENEDOR DE SERVICIOS| alimentado por Seed
+1|20061|BOLSA SERVICIOS|Bolsa usada para Servicios|El Impacto|El resultado esperado|El obj estratégico|El Alcance|La ref. externa|El Convenio|0000001365898|01/01/2014|12/12/2014|2014|5263475.85|1|1|1|1|1|1|1

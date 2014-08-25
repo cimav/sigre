@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140821200553) do
+ActiveRecord::Schema.define(version: 20140821221628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 20140821200553) do
     t.datetime "updated_at"
   end
 
+  create_table "monedas", force: true do |t|
+    t.string   "codigo"
+    t.string   "nombre"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "paises", force: true do |t|
     t.string   "nombre"
     t.string   "codigo"
@@ -32,6 +39,39 @@ ActiveRecord::Schema.define(version: 20140821200553) do
     t.string   "long",       limit: 20
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "proyectos_fondos", force: true do |t|
+    t.string   "nombre"
+    t.text     "descripcion"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "proyectos_proyectos", force: true do |t|
+    t.string   "cuenta"
+    t.string   "nombre"
+    t.text     "descripcion"
+    t.text     "impacto"
+    t.text     "resultado_esperado"
+    t.text     "objetivo_estrategico"
+    t.text     "alcance"
+    t.string   "referencia_externa"
+    t.string   "convenio"
+    t.string   "banco_cuenta"
+    t.date     "fecha_inicio"
+    t.date     "fecha_fin"
+    t.integer  "anio",                                            default: 0
+    t.decimal  "presupuesto_autorizado", precision: 10, scale: 2, default: 0.0
+    t.integer  "fondo_id"
+    t.integer  "recurso_id"
+    t.integer  "tipo_id"
+    t.integer  "departamento_id"
+    t.integer  "sede_id"
+    t.integer  "moneda_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "responsable_id"
   end
 
   create_table "proyectos_recursos", force: true do |t|
