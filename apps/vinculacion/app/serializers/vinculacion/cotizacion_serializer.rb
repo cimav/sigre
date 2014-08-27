@@ -8,6 +8,6 @@ module Vinculacion
     attributes :codigo
     attributes :status_text
     has_many  :cotizacion_detalle
-    has_one :solicitud
+ #   has_one :solicitud
   end
 end
