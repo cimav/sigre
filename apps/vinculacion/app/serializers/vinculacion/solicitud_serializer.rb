@@ -10,10 +10,13 @@ module Vinculacion
     has_many :servicios
     has_many :muestras
     has_many :cotizaciones
-    has_one :proyecto
-    has_one :sede
-    has_one :cliente
-    has_one :contacto
+
+    # FixMe varificar has_one provocan stack level too deep
+    # has_one :proyecto
+    # has_one :sede
+    # has_one :cliente
+    # has_one :contacto
+    attributes :proyecto_id, :sede_id, :cliente_id, :contacto_id
 
     has_many :cedulas
 
