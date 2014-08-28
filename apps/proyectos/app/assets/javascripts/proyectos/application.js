@@ -21,9 +21,12 @@
 //= require select2
 
 var inflector = Ember.Inflector.inflector;
-// irregulares
+inflector.irregular('proyecto', 'proyectos');
+inflector.irregular('proyecto_busqueda', 'proyecto_busqueda');
 
+// Create App
 App = Ember.Application.create({
+  LOG_TRANSITIONS: true,
   Resolver: Ember.DefaultResolver.extend({
     resolveTemplate: function(parsedName) {
       parsedName.fullNameWithoutType = "proyectos/" + parsedName.fullNameWithoutType;
@@ -34,7 +37,7 @@ App = Ember.Application.create({
   }
 });
 
-App.ApplicationAdapter = DS.RESTAdapter();
+App.ApplicationAdapter = DS.ActiveModelAdapter.extend({});
 App.ApplicationSerializer = DS.ActiveModelSerializer.extend({});
 
 DS.RESTAdapter.reopen({
