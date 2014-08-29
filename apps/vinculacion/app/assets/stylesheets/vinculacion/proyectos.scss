@@ -8,34 +8,43 @@
     white-space: normal !important;
   }
 }
-
-.proyecto-form {
+#proyecto-index {
   margin: 20px;
-  input, textarea {
-     margin-bottom: 10px;
-    font-size: 14px;
+  h3 {
+    font-weight: normal;
   }
-  .proyecto-cuenta {
-    width: 180px;
+  .glyphicon {
+    float: right;
+    color: $grey;
+    cursor: pointer;
   }
-  .proyecto-fechas {
-    .proyecto-anio {
-      float:left;
-      width: 100px;
+  .glyphicon.active {
+    color: $dark-grey;
+    cursor: normal;
+  }
+  #proyecto-index-datos {
+    margin: 20px;
+    .header {
+      padding: 10px 0px 3px 0px;
+      font-weight: bold;
+      .label {
+        font-size: 100%;
+        margin-top: 24px;
+        margin-bottom: 5px;
+        font-weight: normal;
+      }
     }
-    .proyecto-fecha-inicio {
-      float:left;
-      width: 170px;
-      padding-left: 10px;
-    }
-    .proyecto-fecha-termino {
-      float:left;
-      width: 170px;
-      padding-left: 10px;
+    .dato {
+      padding-left: 20px;
+      #table-fechas {
+        .fechas-header {
+          text-align: right;
+          padding-right: 6px;
+          //color: #dddddd;
+          color: #999999;
+        }
+      }
     }
   }
-  .form-group {
-    margin-left: 0;
-    margin-right: 0;
-  }
+
 }

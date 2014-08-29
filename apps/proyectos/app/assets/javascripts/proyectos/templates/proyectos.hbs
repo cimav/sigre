@@ -1,0 +1,39 @@
+{{outlet}}
+{{#if showProyectosList}}
+  <div id="screen-name" xmlns="http://www.w3.org/1999/html">
+    <h3>Proyectos</h3>
+      {{#link-to '' tagName="button" classNames="btn btn-success"}}<span title="Agregar nuevo proyecto" class="glyphicon glyphicon-plus"></span>{{/link-to}}
+  </div>
+
+  <div id="md-general-panel">
+    <div id="md-search-box">
+      <div class="input-group">
+        {{input type="text" value=searchText placeholder="Buscar proyecto(s)..." classNames="form-control"}}
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="md-items-list">
+      {{#each sortedProyectos}}
+        {{cuenta}} </br>
+        {{nombre}} </br>
+        {{descripcion}} </br>
+        {{fecha_inicio}} </br>
+        {{fecha_fin}} </br>
+        {{anio}} </br>
+        {{sede_text}} </br>
+        {{departamento_text}} </br>
+        {{tipo_text}} </br>
+        {{recurso_text}} </br>
+        {{fondo_text}} </br>
+        {{moneda_text}} </br>
+        {{responsable_text}} </br>
+      {{/each}}
+    </div>
+
+  </div>
+{{/if}}
+

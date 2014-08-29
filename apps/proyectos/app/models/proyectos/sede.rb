@@ -3,7 +3,7 @@ module Proyectos
 
     self.table_name = "rh_sedes"
 
-    #belongs_to :solicitud
+    has_many :departamentos
 
   end
 end
