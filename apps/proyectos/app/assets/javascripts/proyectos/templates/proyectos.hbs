@@ -1,11 +1,11 @@
 {{outlet}}
 {{#if showProyectosList}}
   <div id="screen-name" xmlns="http://www.w3.org/1999/html">
-    <h3>Proyectos</h3>
-      {{#link-to '' tagName="button" classNames="btn btn-success"}}<span title="Agregar nuevo proyecto" class="glyphicon glyphicon-plus"></span>{{/link-to}}
+    <h3>Administración de Proyectos</h3>
   </div>
 
   <div id="md-general-panel">
+
     <div id="md-search-box">
       <div class="input-group">
         {{input type="text" value=searchText placeholder="Buscar proyecto(s)..." classNames="form-control"}}
@@ -18,19 +18,100 @@
 
     <div id="md-items-list">
       {{#each sortedProyectos}}
-        {{cuenta}} </br>
-        {{nombre}} </br>
-        {{descripcion}} </br>
-        {{fecha_inicio}} </br>
-        {{fecha_fin}} </br>
-        {{anio}} </br>
-        {{sede_text}} </br>
-        {{departamento_text}} </br>
-        {{tipo_text}} </br>
-        {{recurso_text}} </br>
-        {{fondo_text}} </br>
-        {{moneda_text}} </br>
-        {{responsable_text}} </br>
+
+        {{#link-to '' this.id tagName="div" classNames="md-item"}}
+
+          <div class="md-item-inner">
+            <div class="media">
+
+              <table class="tabla-proyectos">
+                <tr>
+                  <td class="columna-logo">
+                    <span class="glyphicon glyphicon-folder-close"></span>
+                  </td>
+
+                  <td colspan="3">
+                    <table class="tabla-proyectos-datos">
+                      <tr>
+                        <td id="renglon-nombre" colspan="3">
+                          <span>{{nombre}}</span></td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="columna-info">
+                          <table>
+                            <tr>
+                              <td><span class="etiqueta">cuenta</span></td>
+                              <td><span class="dato">{{cuenta}}</span></td>
+                            </tr>
+                            <tr>
+                              <td><span class="etiqueta">responsable</span></td>
+                              <td><span class="dato">{{responsable_text}}</span></td>
+                            </tr>
+                            <tr>
+                              <td><span class="etiqueta">sede</span></td>
+                              <td><span class="dato">{{sede_text}}</span></td>
+                            </tr>
+                            <tr>
+                              <td><span class="etiqueta">depto</span></td>
+                              <td><span class="dato">{{departamento_text}}</span></td>
+                            </tr>
+                          </table>
+                        </td>
+
+                        <td class="columna-fechas">
+                          <table>
+                            <tr>
+                              <td><span class="etiqueta">año</span></td>
+                              <td><span class="dato">{{anio}}</span></td>
+                            </tr>
+                            <tr>
+                              <td><span class="etiqueta">incio</span></td>
+                              <td><span class="dato">{{format-date "ll" fecha_inicio}}</span></td>
+                            </tr>
+                            <tr>
+                              <td><span class="etiqueta">fin</span></td>
+                              <td><span class="dato">{{format-date "ll" fecha_fin}}</span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td><span class="etiqueta">duración</span></td>
+                              <td><span class="dato">{{duracion}} días</span></td>
+                            </tr>
+                          </table>
+                        </td>
+
+                        <td class="columna-trfm">
+                          <table>
+                            <tr>
+                              <td><span class="etiqueta">tipo</span></td>
+                              <td><span class="dato">{{tipo_text}}</span></td>
+                            </tr>
+                            <tr>
+                              <td><span class="etiqueta">recurso</span></td>
+                              <td><span class="dato">{{recurso_text}}</span></td>
+                            </tr>
+                            <tr>
+                              <td><span class="etiqueta">fondo</span></td>
+                              <td><span class="dato">{{fondo_text}}</span></td>
+                            </tr>
+                            <tr>
+                              <td><span class="etiqueta">moneda</span></td>
+                              <td><span class="dato">{{moneda_text}}</span></td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+
+                </tr>
+
+              </table>
+            </div>
+          </div>
+        {{/link-to}}
+
       {{/each}}
     </div>
 

@@ -11,5 +11,19 @@ App.ProyectoBusqueda = DS.Model.extend({
   recurso_text: DS.attr('string'),
   fondo_text: DS.attr('string'),
   moneda_text: DS.attr('string'),
-  responsable_text: DS.attr('string')
+  responsable_text: DS.attr('string'),
+
+  duracion : function() {
+    moment.lang('es');
+    var inicio  = moment(this.get('fecha_inicio'));
+    var termino = moment(this.get('fecha_fin'));
+    var result = termino.diff(inicio, 'days');
+    return result;
+  }.property('fecha_inicio','fecha_fin'),
+
+  humanise_duracion : function() {
+    var result = humaniseDays(this.get('duracion'));
+    return result;
+  }.property('duracion')
+
 });

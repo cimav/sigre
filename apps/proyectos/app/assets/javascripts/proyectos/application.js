@@ -18,6 +18,7 @@
 //= require proyectos/proyectos
 //= require proyectos/ember-easyForm
 //= require proyectos/bootstrap
+//= require proyectos/moment.min
 //= require select2
 
 var inflector = Ember.Inflector.inflector;
@@ -53,3 +54,25 @@ DS.RESTAdapter.reopen({
     classNames: ['form-control']
   });
 })();
+
+
+function humaniseDays (diff) {
+  var str = '';
+  var values = {
+    ' anio': 365,
+    ' mes': 30,
+    ' día': 1
+  };
+
+  for (var x in values) {
+    var amount = Math.floor(diff / values[x]);
+
+    if (amount >= 1) {
+      str += amount + x + (amount > 1 ? 's' : '') + ' ';
+      str = str.replace('mess', 'meses');
+      diff -= amount * values[x];
+    }
+  }
+
+  return str;
+}
