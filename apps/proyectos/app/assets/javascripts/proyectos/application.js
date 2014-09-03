@@ -18,12 +18,16 @@
 //= require proyectos/proyectos
 //= require proyectos/ember-easyForm
 //= require proyectos/bootstrap
+//= require proyectos/moment.min
 //= require select2
 
 var inflector = Ember.Inflector.inflector;
-// irregulares
+inflector.irregular('proyecto', 'proyectos');
+inflector.irregular('proyecto_busqueda', 'proyecto_busqueda');
 
+// Create App
 App = Ember.Application.create({
+  LOG_TRANSITIONS: true,
   Resolver: Ember.DefaultResolver.extend({
     resolveTemplate: function(parsedName) {
       parsedName.fullNameWithoutType = "proyectos/" + parsedName.fullNameWithoutType;
@@ -34,7 +38,7 @@ App = Ember.Application.create({
   }
 });
 
-App.ApplicationAdapter = DS.RESTAdapter();
+App.ApplicationAdapter = DS.ActiveModelAdapter.extend({});
 App.ApplicationSerializer = DS.ActiveModelSerializer.extend({});
 
 DS.RESTAdapter.reopen({
@@ -50,3 +54,25 @@ DS.RESTAdapter.reopen({
     classNames: ['form-control']
   });
 })();
+
+
+function humaniseDays (diff) {
+  var str = '';
+  var values = {
+    ' anio': 365,
+    ' mes': 30,
+    ' día': 1
+  };
+
+  for (var x in values) {
+    var amount = Math.floor(diff / values[x]);
+
+    if (amount >= 1) {
+      str += amount + x + (amount > 1 ? 's' : '') + ' ';
+      str = str.replace('mess', 'meses');
+      diff -= amount * values[x];
+    }
+  }
+
+  return str;
+}

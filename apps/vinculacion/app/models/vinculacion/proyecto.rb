@@ -1,5 +1,8 @@
 module Vinculacion
   class Proyecto < ActiveRecord::Base
+
+    self.table_name = "proyectos_proyectos"
+
     has_many :solicitudes
 
     before_destroy :check_for_solicitudes

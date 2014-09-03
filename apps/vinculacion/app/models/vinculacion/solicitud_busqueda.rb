@@ -22,12 +22,12 @@ module Vinculacion
       self.contacto.nombre rescue 'Sin contacto'
     end
 
-    def proyecto_codigo
-      self.proyecto.codigo rescue 'Sin proyecto'
+    def proyecto_cuenta
+      self.proyecto.cuenta rescue 'Proyecto sin cuenta'
     end
 
     def proyecto_nombre
-      self.proyecto.nombre rescue '--'
+      self.proyecto.nombre rescue 'Proyecto sin nombre'
     end
 
     def muestras_length

@@ -8,6 +8,10 @@ module Proyectos
     belongs_to  :moneda
     belongs_to  :responsable, class_name: "Empleado"
 
+    def sede_text
+      self.departamento.sede.nombre + " " + self.departamento.sede.descripcion rescue 'Sin sede'
+    end
+
     def departamento_text
       self.departamento.nombre + " " + self.departamento.descripcion rescue 'Sin departamento'
     end

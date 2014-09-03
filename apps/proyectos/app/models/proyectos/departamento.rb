@@ -3,5 +3,6 @@ module Proyectos
 
     self.table_name = "rh_departamentos"
 
+    belongs_to :sede
   end
 end

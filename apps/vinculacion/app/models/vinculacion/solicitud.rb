@@ -10,6 +10,7 @@ module Vinculacion
     belongs_to :proyecto
     belongs_to :cliente
     belongs_to :contacto
+    belongs_to :usuario
     belongs_to :responsable_presupuestal, class_name: "Empleado"
 
     after_create :set_extra
@@ -83,7 +84,11 @@ module Vinculacion
     end
 
     def precio_venta
-      ultima_cotizacion.precio_venta
+      if !ultima_cotizacion.nil?
+        ultima_cotizacion.precio_venta
+      else 
+        0
+      end
     end
 
     def check_status

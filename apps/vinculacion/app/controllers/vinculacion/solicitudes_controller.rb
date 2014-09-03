@@ -16,8 +16,10 @@ module Vinculacion
       render json: Solicitud.find(params[:id])
     end
 
-    def create
-      render json: Solicitud.create(solicitud)
+    def create 
+      solicitud_params = solicitud
+      solicitud_params[:usuario_id] = current_user.id
+      render json: Solicitud.create(solicitud_params)
     end
 
     def update
@@ -36,7 +38,7 @@ module Vinculacion
       ResqueBus.publish('notificar_cancelacion',
                         'solicitud_id' => solicitud.id,
                         'agente_id'      => 1,                            #  TODO: Estos datos se deben de obtener
-                        'agente_email'   => 'enrique.turcott@cimav.edu.mx')  #  del usuario que da de alta el servicio.
+                        'agente_email'   => solicitud.usuario.email)  #  del usuario que da de alta el servicio.
 
       render json: solicitud
     end
@@ -49,7 +51,7 @@ module Vinculacion
       ResqueBus.publish('notificar_arranque',
                         'solicitud_id' => solicitud.id,
                         'agente_id'      => 1,                            #  TODO: Estos datos se deben de obtener
-                        'agente_email'   => 'enrique.turcott@cimav.edu.mx')  #  del usuario que da de alta el servicio.
+                        'agente_email'   => solicitud.usuario.email)  #  del usuario que da de alta el servicio.
 
       render json: solicitud
     end
