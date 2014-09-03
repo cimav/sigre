@@ -49,6 +49,7 @@ gem 'jquery-ui-rails'
 
 # Use prawn, pdf generator library
 gem 'prawn'
+gem 'prawn-table'
 
 gem 'omniauth-google-oauth2'
 
