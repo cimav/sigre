@@ -98,7 +98,7 @@ module Vinculacion
 
         ## ALGUNOS SALTOS DE LINEA PARA BAJAR LA TABLA
         pdf.text "\n\n\n\n\n"
-        proyecto_title  = "#{solicitud.proyecto.codigo} #{solicitud.proyecto.descripcion}" 
+        proyecto_title  = "#{solicitud.proyecto.cuenta} #{solicitud.proyecto.descripcion}"
         solicitud_title = "#{solicitud.codigo}"
         x = x + 10
         pdf.text_box "Proyecto:", :at=> [x,y -20], :width => 55, :height => 13,:valign=> :top, :align => :left, :size=> 12
