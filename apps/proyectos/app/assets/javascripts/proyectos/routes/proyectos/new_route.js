@@ -2,6 +2,15 @@ App.ProyectosNewRoute = Ember.Route.extend({
   model: function() {
     return this.store.createRecord('proyecto');
   },
+
+  activate: function () {
+    this.controllerFor('proyectos').set('showProyectosList', false);
+  },
+
+  deactivate: function () {
+    this.controllerFor('proyectos').set('showProyectosList', true);
+  },
+
   actions: {
     create: function(proyecto) {
       self = this;
