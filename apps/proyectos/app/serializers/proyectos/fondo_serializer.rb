@@ -3,6 +3,7 @@ module Proyectos
     embed :ids, :include => true
 
     attributes :id
+    attributes :recurso_id
     attributes :nombre, :descripcion
 
   end

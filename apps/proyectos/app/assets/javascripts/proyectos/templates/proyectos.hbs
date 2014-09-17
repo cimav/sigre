@@ -1,7 +1,9 @@
 {{outlet}}
+
 {{#if showProyectosList}}
   <div id="screen-name" xmlns="http://www.w3.org/1999/html">
     <h3>Administración de Proyectos</h3>
+      {{#link-to 'proyectos.new' tagName="button" classNames="btn btn-success"}}<span title="Agregar nuevo proyecto" class="glyphicon glyphicon-plus"></span>{{/link-to}}
   </div>
 
   <div id="md-general-panel">
@@ -19,7 +21,7 @@
     <div id="md-items-list">
       {{#each sortedProyectos}}
 
-        {{#link-to '' this.id tagName="div" classNames="md-item"}}
+        {{#link-to 'proyecto' this.id tagName="div" classNames="md-item"}}
 
           <div class="md-item-inner">
             <div class="media">

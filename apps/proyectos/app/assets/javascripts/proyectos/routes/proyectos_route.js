@@ -1,22 +1,24 @@
 App.ProyectosRoute = Ember.Route.extend({
   model: function () {
-    var pb = this.store.find('proyectoBusqueda');
-    return pb;
+    return this.store.find('proyectoBusqueda');
   },
-
   actions: {
     reloadModel: function () {
+      // usada despues de agregar o actualizar un proyecto
       var controller = this.controller;
       this.store.find('proyectoBusqueda').then(function (proyectos) {
         controller.set('content', proyectos);
       });
-    }
-  },
+    },
 
-//  renderTemplate: function () {
-//    // FIXME: Corregir bug de back
-//    this.render({ into: 'application' });
-//  }
+    willTransition: function(transition) {
+      // si la transición es a proyectos, activa el showProyectosList
+      var show = transition.targetName == "proyectos.index";
+      this.controller.set('showProyectosList', show);
+    }
+
+  }
+
 
 });
 

@@ -41,11 +41,11 @@ module Proyectos
           :fecha_inicio,
           :fecha_termino,
           :presupuesto_autorizado,
-          :fondo_id,
-          :recurso_id,
-          :tipo_id,
           :sede_id,
           :departamento_id,
+          :tipo_id,
+          :recurso_id,
+          :fondo_id,
           :moneda_id,
           :responsable_id
       )

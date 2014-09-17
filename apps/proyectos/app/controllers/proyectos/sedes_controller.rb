@@ -1,4 +1,4 @@
-require_dependency "proyecto/application_controller"
+require_dependency "proyectos/application_controller"
 
 module Proyectos
   class SedesController < ApplicationController

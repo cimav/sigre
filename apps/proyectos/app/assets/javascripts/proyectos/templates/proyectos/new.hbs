@@ -1,0 +1,18 @@
+<div id="screen-name">
+  <h3>Nuevo Proyecto</h3>
+    {{#link-to 'proyectos' tagName="button" classNames="btn"}}<span title="Regresar a proyectos" class="glyphicon glyphicon-chevron-left"></span>{{/link-to}}
+</div>
+<div id="wide-panel">
+  <div id="proyecto-new">
+    {{#form-for controller}}
+      <h3>Proyectos</h3>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-7">
+          {{save-button item=this}}
+        </div>
+      </div>
+
+    {{/form-for}}
+  </div>
+</div>

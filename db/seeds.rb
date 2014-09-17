@@ -16,15 +16,15 @@
 #     end
 # end
 
-puts "VINCULACION - Proyectos..."
-::Vinculacion::Proyecto.delete_all
-ActiveRecord::Base.connection.reset_pk_sequence!('vinculacion_proyectos')
-open("db/seeds/vinculacion_proyectos.txt") do |proyectos|
-  proyectos.read.each_line do |proyecto|
-    id, codigo, nombre, descripcion = proyecto.chomp.split("|")
-    ::Vinculacion::Proyecto.create!(:id => id, :codigo => codigo, :nombre=>nombre, :descripcion => descripcion)
-  end
-end
+# puts "VINCULACION - Proyectos..."
+# ::Vinculacion::Proyecto.delete_all
+# ActiveRecord::Base.connection.reset_pk_sequence!('vinculacion_proyectos')
+# open("db/seeds/vinculacion_proyectos.txt") do |proyectos|
+#   proyectos.read.each_line do |proyecto|
+#     id, cuenta, nombre, descripcion = proyecto.chomp.split("|")
+#     ::Vinculacion::Proyecto.create!(:id => id, :cuenta => cuenta, :nombre=>nombre, :descripcion => descripcion)
+#   end
+# end
 
 
 #puts "Llenando solicitudes..."
@@ -74,6 +74,17 @@ open("db/seeds/departamentos.txt") do |deptos|
   end
 end
 
+puts "Empleados..."
+::Rh::Empleado.delete_all
+ActiveRecord::Base.connection.reset_pk_sequence!('rh_empleados')
+open("db/seeds/empleados.txt") do |empleados|
+  empleados.read.each_line do |empleado|
+    id, nombre, apellido_paterno, apellido_materno, email, codigo, puesto, sede_id, departamento_id = empleado.chomp.split("|")
+    ::Rh::Empleado.create!(:id=>id, :nombre=>nombre, :apellido_paterno=>apellido_paterno, :apellido_materno=>apellido_materno, :email=>email, :codigo=>codigo, :puesto=>puesto, :sede_id=>sede_id, :departamento_id=>departamento_id )
+  end
+end
+
+
 puts "Monedas..."
 Moneda.delete_all
 ActiveRecord::Base.connection.reset_pk_sequence!('monedas')
@@ -89,8 +100,8 @@ puts "Fondos..."
 ActiveRecord::Base.connection.reset_pk_sequence!('proyectos_fondos')
 open("db/seeds/fondos.txt") do |sedes|
   sedes.read.each_line do |sede|
-    id, nombre= sede.chomp.split("|")
-    ::Proyectos::Fondo.create!(:id => id, :nombre=>nombre)
+    id, nombre, recurso_id = sede.chomp.split("|")
+    ::Proyectos::Fondo.create!(:id => id, :nombre=>nombre, :recurso_id=>recurso_id)
   end
 end
 
@@ -111,16 +122,6 @@ open("db/seeds/recursos.txt") do |recursos|
   recursos.read.each_line do |recurso|
     id, nombre, descripcion, tipo_id = recurso.chomp.split("|")
     ::Proyectos::Recurso.create!(:id => id, :nombre=>nombre, :descripcion=>descripcion, :tipo_id=>tipo_id)
-  end
-end
-
-puts "Empleados..."
-::Rh::Empleado.delete_all
-ActiveRecord::Base.connection.reset_pk_sequence!('rh_empleados')
-open("db/seeds/empleados.txt") do |empleados|
-  empleados.read.each_line do |empleado|
-    id, nombre, apellido_paterno, apellido_materno, email, codigo, puesto, sede_id, departamento_id = empleado.chomp.split("|")
-    ::Rh::Empleado.create!(:id=>id, :nombre=>nombre, :apellido_paterno=>apellido_paterno, :apellido_materno=>apellido_materno, :email=>email, :codigo=>codigo, :puesto=>puesto, :sede_id=>sede_id, :departamento_id=>departamento_id )
   end
 end
 

@@ -1,6 +1,6 @@
-require_dependency "proyecto/application_controller"
+require_dependency "proyectos/application_controller"
 
-module Proyecto
+module Proyectos
   class EmpleadosController < ApplicationController
     def index
       render json: Empleado.all

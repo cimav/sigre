@@ -6,6 +6,8 @@ module Proyectos
     attributes :tipo_id
     attributes :nombre, :descripcion
 
+    has_many :fondos
+
     #has_one :tipo #provoca un Stack level too deep
 
   end
