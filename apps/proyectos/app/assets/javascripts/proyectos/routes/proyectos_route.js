@@ -2,6 +2,7 @@ App.ProyectosRoute = Ember.Route.extend({
   model: function () {
     return this.store.find('proyectoBusqueda');
   },
+
   actions: {
     reloadModel: function () {
       // usada despues de agregar o actualizar un proyecto

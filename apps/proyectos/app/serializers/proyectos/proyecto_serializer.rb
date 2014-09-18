@@ -16,7 +16,8 @@ module Proyectos
 
     attributes :values_belongs_to # usada para forzar el isDirty en las belongsTo
     def values_belongs_to
-      "#{sede_id},#{departamento_id}"
+      emp_resp = responsable.id rescue 'null'
+      "#{sede_id},#{departamento_id},#{emp_resp},#{tipo_id},#{recurso_id},#{fondo_id}"
     end
 
   end

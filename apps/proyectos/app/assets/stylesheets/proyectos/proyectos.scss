@@ -248,24 +248,44 @@
 
 }
 
-//#proyecto-header {
-//  #proyecto-header-cuenta {
-//    h3 {
-//      margin-top: 0px;
-//      margin-bottom: 0px;
-//    }
-//    span {
-//      font-size: 100%;
-//      margin-right: 10px;
-//      margin-top: 24px;
-//      font-weight: normal;
-//      float: right;
-//    }
-//  }
-//  #proyecto-header-proyecto {
-//    margin-left: 20px;
-//    color: #888888;
-//    font-size: 80%;
-//  }
-//}
+#proyecto-edit {
+  .fecha-anio {
+    float: left;
+    width: 100px;
+  }
+  .item-fechas {
+    .fecha-inicio {
+      float: left;
+      width: 170px;
+    }
+    .fecha-fin {
+      float: left;
+      width: 170px;
+      padding-left: 10px;
+    }
+    .fecha-duracion {
+      float: left;
+      padding-left: 10px;
+      #fecha-duracion-dias {
+        margin-top: 8px;
+      }
+    }
+  }
+  .item-estructura {
+    .estructura-tipo {
+      float: left;
+      width: 170px;
+    }
+    .estructura-recurso {
+      float: left;
+      width: 170px;
+      padding-left: 10px;
+    }
+    .estructura-fondo {
+      float: left;
+      width: 170px;
+      padding-left: 10px;
+    }
+  }
+}
 

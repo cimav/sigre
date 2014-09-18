@@ -16,10 +16,9 @@ App.Proyecto = DS.Model.extend({
   fecha_fin: DS.attr('date'),
   anio: DS.attr('number'),
 
-  responsable:  DS.belongsTo('empleado'),
-
   sede:  DS.belongsTo('sede'),
   departamento:  DS.belongsTo('departamento'),
+  responsable:  DS.belongsTo('empleado'),
 
   tipo:  DS.belongsTo('tipo'),
   recurso:  DS.belongsTo('recurso'),

@@ -33,6 +33,8 @@
 
         <div class="col-sm-7">
           {{view App.Select2View contentBinding="controllers.application.sedesCache"
+          id = "selSedes"
+          prompt = "Seleccionar sede..."
           optionLabelPath="content.descripcion"
           optionValuePath="content.id"
           selectionBinding="sede"}}
@@ -43,6 +45,8 @@
 
         <div class="col-sm-7">
           {{view App.Select2View contentBinding="controllers.application.departamentosCache"
+          id = "selDepartamentos"
+          prompt = "Seleccionar departamento..."
           optionLabelPath="content.descripcion"
           optionValuePath="content.id"
           selectionBinding="departamento"}}
@@ -53,9 +57,83 @@
 
         <div class="col-sm-7">
           {{view App.Select2View contentBinding="departamento.empleados"
+          id = "selResponsables"
+          prompt = "Seleccionar responsable..."
           optionLabelPath="content.nombre_completo"
           optionValuePath="content.id"
           selectionBinding="responsable"}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Estructura</label>
+        <div class="col-sm-9 item-estructura">
+          <div class="estructura-tipo">
+            <strong>Tipo</strong><br/>
+            {{view App.Select2View contentBinding="controllers.application.tiposCache"
+            id = "selTipos"
+            prompt = "Seleccionar..."
+            optionLabelPath="content.id_nombre"
+            optionValuePath="content.id"
+            selectionBinding="tipo"}}
+          </div>
+          <div class="estructura-recurso">
+            <strong>Recurso</strong><br/>
+            {{view App.Select2View contentBinding="tipo.sortedRecursos"
+            id = "selRecursos"
+            prompt = "Seleccionar..."
+            optionLabelPath="content.id_nombre"
+            optionValuePath="content.id"
+            selectionBinding="recurso"}}
+          </div>
+          <div class="estructura-fondo">
+            <strong>Fondo</strong><br/>
+            {{view App.Select2View contentBinding="recurso.sortedFondos"
+            id = "selFondos"
+            prompt = "Seleccionar..."
+            optionLabelPath="content.id_nombre"
+            optionValuePath="content.id"
+            selectionBinding="fondo"}}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Año</label>
+
+        <div class="col-sm-3">
+          <div class="fecha-anio">
+            {{input type="text" value=anio classNames="form-control"}}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Fechas</label>
+
+        <div class="col-sm-9 item-fechas">
+
+          <div class="fecha-inicio">
+            <strong>Inicio</strong><br/>
+            {{view App.DateField dateBinding="fecha_inicio"}}
+            <div class="clearfix"></div>
+          </div>
+
+          <div class="fecha-fin">
+            <strong>Término</strong><br/>
+            {{view App.DateField dateBinding="fecha_fin"}}
+            <div class="clearfix"></div>
+          </div>
+
+          <div class="fecha-duracion">
+            <strong>Duración</strong><br>
+
+            <div id="fecha-duracion-dias">
+              {{humanise_duracion}} ({{duracion}} días)
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
         </div>
       </div>
 
