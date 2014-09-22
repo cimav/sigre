@@ -2,6 +2,9 @@ App.ProyectoEditController = Ember.ObjectController.extend({
   needs: ['application', 'proyectos'],
   isNotDirty: Ember.computed.not('content.isDirty'),
 
+  // NOTE: al cargarse un select, si su valor es nulo y tiene elementos, selecciona
+  // en automático el 1er valor lo que provoca al isDirty. El 1er valor puede ser el prompt.
+
   departamentoChanged: function() {
 //    var hasChanged = this.get('_data.departamento.id') != this.get('departamento.id');
 ////    if (hasChanged) {

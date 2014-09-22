@@ -39,7 +39,7 @@ module Proyectos
           :banco_cuenta,
           :anio,
           :fecha_inicio,
-          :fecha_termino,
+          :fecha_fin,
           :presupuesto_autorizado,
           :sede_id,
           :departamento_id,

@@ -1,6 +1,16 @@
 App.ProyectosNewRoute = Ember.Route.extend({
   model: function() {
-    return this.store.createRecord('proyecto');
+    var fechaInicio = new Date();
+    var fechaFin = new Date();
+    var mes = fechaInicio.getMonth() < 11 ? fechaInicio.getMonth() + 1 : 0;
+    fechaFin.setMonth(mes);
+    var newProyecto = this.store.createRecord('proyecto', {
+      anio: fechaInicio.getFullYear(),
+      fecha_inicio: fechaInicio,
+      fecha_fin: fechaFin
+    });
+
+    return newProyecto;
   },
 
   activate: function () {
@@ -11,20 +21,13 @@ App.ProyectosNewRoute = Ember.Route.extend({
     this.controllerFor('proyectos').set('showProyectosList', true);
   },
 
+  shortcuts: {
+    'shift+g': 'callSubmit'
+  },
+
   actions: {
-    create: function(proyecto) {
-      self = this;
-      var onSuccess = function(proyecto) {
-        self.transitionTo('proyecto', proyecto);
-        self.controllerFor('application').notify('Se agregó nueva proyecto');
-      };
-
-      var onFail = function(proyecto) {
-        self.controllerFor('application').notify('Error al agregar proyecto', 'alert-error');
-      };
-
-      proyecto.save().then(onSuccess, onFail);
-
+    callSubmit: function() {
+      this.get('controller').send('submit');
     }
   }
 
