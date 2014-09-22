@@ -47,7 +47,8 @@ module Proyectos
           :recurso_id,
           :fondo_id,
           :moneda_id,
-          :responsable_id
+          :responsable_id,
+          :proyecto_base_id
       )
     end
   end

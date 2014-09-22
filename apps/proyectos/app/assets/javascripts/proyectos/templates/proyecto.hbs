@@ -3,8 +3,17 @@
 
   <div id="screen-name">
     <div id="proyecto-header">
-      <h3>Proyecto <strong>{{cuenta}}</strong></h3>
-      {{#link-to 'proyecto.edit' this tagName="span" classNames="glyphicon glyphicon-edit enabled"}}{{/link-to}}
+      <div id="proyecto-header-cuenta">
+        <h3>Proyecto <strong>{{cuenta}}</strong></h3>
+        {{#link-to 'proyecto.edit' this tagName="span" classNames="glyphicon glyphicon-edit enabled"}}{{/link-to}}
+        <div class="clearfix"></div>
+      </div>
+      <div id="proyecto-header-base">
+        {{#if isProyectoBase}}
+          PROYECTO BASE
+        {{/if}}
+        <div class="clearfix"></div>
+      </div>
     </div>
   </div>
 
@@ -13,6 +22,13 @@
     <div id="proyecto-index-datos">
       <div class="header">Cuenta presupuestal</div>
       <div class="dato">{{cuenta}}</div>
+
+      {{#unless isProyectoBase}}
+        <div class="header">Proyecto Base</div>
+        <div class="dato"><strong>{{proyecto_base.cuenta}}</strong> {{proyecto_base.nombre}}
+          {{#link-to 'proyecto' this.proyecto_base tagName="span" classNames="glyphicon glyphicon-chevron-right enabled"}}{{/link-to}}</div>
+      {{/unless}}
+
       <div class="header">Nombre</div>
       <div class="dato">{{nombre}}</div>
       <div class="header">Descripción</div>
@@ -74,7 +90,6 @@
       <div class="dato">{{alcance}} </div>
       <div class="header">Convenio</div>
       <div class="dato">{{convenio}}</div>
-
 
     </div>
 

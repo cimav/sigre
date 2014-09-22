@@ -200,6 +200,11 @@
     //color: $grey;
     cursor: pointer;
   }
+  #proyecto-header-base {
+    margin-left: 20px;
+    color: #888888;
+    font-size: 80%;
+  }
 }
 
 #proyecto-index {
@@ -228,6 +233,12 @@
     }
     .dato {
       padding-left: 20px;
+      .glyphicon {
+        float: none;
+        padding-left: 5px;
+        font-size: 160%;
+        top: 5px;
+      }
     }
 
     table {

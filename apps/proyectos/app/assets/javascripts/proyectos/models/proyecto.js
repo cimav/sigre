@@ -24,6 +24,8 @@ App.Proyecto = DS.Model.extend({
   recurso:  DS.belongsTo('recurso'),
   fondo:  DS.belongsTo('fondo'),
 
+  proyecto_base: DS.belongsTo('proyecto'),
+
   values_belongs_to: DS.attr('string'),
 
   duracion : function() {

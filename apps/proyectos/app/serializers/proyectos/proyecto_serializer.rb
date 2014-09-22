@@ -14,6 +14,9 @@ module Proyectos
     # has_one :moneda
     has_one :responsable, root: :empleado
 
+    #has_one :proyecto_base, root: :proyecto
+    attributes :proyecto_base_id
+
     attributes :values_belongs_to # usada para forzar el isDirty en las belongsTo
     def values_belongs_to
       emp_resp = responsable.id rescue 'null'
