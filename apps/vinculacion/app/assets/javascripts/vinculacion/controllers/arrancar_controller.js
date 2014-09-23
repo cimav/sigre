@@ -211,6 +211,10 @@ App.ArrancarController = Ember.ObjectController.extend({
   styleServicios: function() {
     var str = 'color:%@%@'.fmt(this.get('colorServicios'));
     return str;
-  }.observes('colorServicios').property('colorServicios')
+  }.observes('colorServicios').property('colorServicios'),
+
+  pdf_url: function(){
+    return '/vinculacion/estimacion_costos/' + this.get('id');
+  }.property('model.id')
 
 });
