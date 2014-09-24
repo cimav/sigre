@@ -1,0 +1,97 @@
+{{outlet}}
+{{#if showProyectoTemplate}}
+
+  <div id="screen-name">
+    <div id="proyecto-header">
+      <div id="proyecto-header-cuenta">
+        <h3>Proyecto <strong>{{cuenta}}</strong></h3>
+        {{#link-to 'proyecto.edit' this tagName="span" classNames="glyphicon glyphicon-edit enabled"}}{{/link-to}}
+        <div class="clearfix"></div>
+      </div>
+      <div id="proyecto-header-base">
+        {{#if isProyectoBase}}
+          PROYECTO BASE
+        {{/if}}
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="proyecto-index">
+
+    <div id="proyecto-index-datos">
+      <div class="header">Cuenta presupuestal</div>
+      <div class="dato">{{cuenta}}</div>
+
+      {{#unless isProyectoBase}}
+        <div class="header">Proyecto Base</div>
+        <div class="dato"><strong>{{proyecto_base.cuenta}}</strong> {{proyecto_base.nombre}}
+          {{#link-to 'proyecto' this.proyecto_base tagName="span" classNames="glyphicon glyphicon-chevron-right enabled"}}{{/link-to}}</div>
+      {{/unless}}
+
+      <div class="header">Nombre</div>
+      <div class="dato">{{nombre}}</div>
+      <div class="header">Descripción</div>
+      <div class="dato">{{descripcion}}</div>
+      <div class="header">Sede</div>
+      <div class="dato">{{departamento.sede.nombre}} {{departamento.sede.descripcion}} </div>
+      <div class="dato">{{departamento.nombre}} {{departamento.descripcion}}</div>
+      <div class="header">Responsable</div>
+      <div class="dato">{{responsable.nombre_completo}}</div>
+      <div class="dato">{{responsable.email}}</div>
+      <div class="header">Estructura</div>
+      <table id="table-trf">
+        <thead>
+        <tr>
+          <td>Tipo</td>
+          <td>Recurso</td>
+          <td>Fondo</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{tipo.id}} {{tipo.nombre}}</td>
+          <td>{{recurso.id}} {{recurso.nombre}}</td>
+          <td>{{fondo.id}} {{fondo.nombre}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="header">Fechas</div>
+      <table>
+        <thead>
+        <tr>
+          <td>Año</td>
+          <td>Inicia</td>
+          <td>Termina</td>
+          <td>Duración</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{anio}}</td>
+          <td>{{format-date "ll" fecha_inicio}}</td>
+          <td>{{format-date "ll" fecha_fin}}</td>
+          <td>{{humanise_duracion}} ({{duracion}} días)</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="header">Presupuesto autorizado</div>
+      <div class="dato">{{formatCurrency presupuesto_autorizado}}</div>
+      <div class="header">Cuenta bancaria</div>
+      <div class="dato">{{banco_cuenta}}</div>
+      <div class="header">Impacto</div>
+      <div class="dato">{{impacto}}</div>
+      <div class="header">Resultado esperado</div>
+      <div class="dato">{{resultado_esperado}}</div>
+      <div class="header">Objetivo estratégico</div>
+      <div class="dato">{{objetivo_estrategico}}</div>
+      <div class="header">Alcance</div>
+      <div class="dato">{{alcance}} </div>
+      <div class="header">Convenio</div>
+      <div class="dato">{{convenio}}</div>
+
+    </div>
+
+  </div>
+{{/if}}

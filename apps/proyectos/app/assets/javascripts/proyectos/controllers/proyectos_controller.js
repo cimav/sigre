@@ -1,7 +1,7 @@
 App.ProyectosController = Ember.ArrayController.extend({
   proyectosCount: Ember.computed.alias('length'),
   searchText: null,
-  showProyectosList: true,
+  showProyectosList: true, //controlada en la ruta
 
   searchChange: function() {
     console.log(this.searchText);
@@ -13,4 +13,3 @@ App.ProyectosController = Ember.ArrayController.extend({
   sortedProyectos: Ember.computed.sort('model', 'sortProperties')
 
 });
-

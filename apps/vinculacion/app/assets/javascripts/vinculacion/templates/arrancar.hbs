@@ -27,7 +27,10 @@
       <p>Al arrancar, se enviará la <strong>Estimación de Costos</strong> <br/>a la dirección de vinculación y a la sub-dirección de presupuesto</p>
 
         <div id="pdf-link">
-          <a class="btn btn-default btn-sm" {{bind-attr href='pdf_url' disabled=this.isReadyToDownPDFPresupuesto}}><span class="glyphicon glyphicon-file"></span> Descargar PDF</a>
+          <a class="btn btn-default btn-sm" {{bind-attr href='pdf_url' disabled=this.isReadyToDownPDFPresupuesto}} target="_blank">
+            <span class="glyphicon glyphicon-file"></span> 
+            Descargar PDF
+          </a>
         </div>
 
     </div>

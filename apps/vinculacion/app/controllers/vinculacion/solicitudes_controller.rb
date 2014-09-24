@@ -117,21 +117,26 @@ module Vinculacion
         pdf.stroke_rounded_rectangle([0,y], 500, 50, 10)
         #pdf.stroke_rounded_rectangle([360,y], 145, 80, 10)
         
-        ##  SALTOS DE LINEA PARA BAJAR LA TABLA
+        #### PRESUPUESTO PROGRAMADO
         pdf.text "\n\n"
+        pdf.text "Presupuesto Programado", :size=> 15,:style=> :bold
         data = []
         subtotal_consumibles = 0
         subtotal_otros       = 0 
-        total_consumibles = 0
-        total_otros       = 0 
-        data_consumibles  = []
-        data_otros        = []
-        ssccd_spaces       = "#{Prawn::Text::NBSP * 6}"
+        subtotal_hhombre     = 0
+        total_consumibles    = 0
+        total_otros          = 0 
+        total_hhombre        = 0
+        data_consumibles     = []
+        data_otros           = []
+        data_hhombre         = []
+        ssccd_spaces         = "#{Prawn::Text::NBSP * 6}"
         solicitud.servicios.each do |ss|
           ss.costeos.each do |ssc|
             ssc.costeo_detalle.order(:tipo,:descripcion).each do |ssccd|
               subtotal_consumibles = 0
               subtotal_otros       = 0 
+              subtotal_hhombre     = 0
               cantidad = 0
               if ssccd.cantidad.to_i.eql? 0
                 cantidad = 1
@@ -139,7 +144,25 @@ module Vinculacion
                 cantidad = ssccd.cantidad
               end
               
-              if ssccd.tipo.to_i.eql? 3 then
+              if ssccd.tipo.to_i.eql? 1 then
+                subtotal_hhombre = ssccd.precio_unitario * cantidad
+                if data_hhombre.empty?
+                  data_hhombre += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_hhombre]]
+                else
+                  counter = 0
+                  data_hhombre.each do |dhh|
+                    if dhh[0] == "#{ssccd_spaces} #{ssccd.descripcion}" then
+                       data_hhombre[counter][1] = dhh[1] + subtotal_hhombre
+                       break;
+                    else
+                      data_hhombre += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_hhombre]]
+                      break;
+                    end
+                    counter= counter + 1
+                  end
+                end
+                total_hhombre = total_hhombre + subtotal_hhombre
+              elsif ssccd.tipo.to_i.eql? 3 then
                 subtotal_consumibles = ssccd.precio_unitario * cantidad
                 if data_consumibles.empty? then
                   data_consumibles += [["#{ssccd_spaces}  #{ssccd.descripcion}",subtotal_consumibles]]
@@ -157,7 +180,7 @@ module Vinculacion
                   end
                 end
                 total_consumibles = total_consumibles + subtotal_consumibles
-              elsif ssccd.tipo.to_i.eql? 4
+              elsif ssccd.tipo.to_i.eql? 4 then
                 subtotal_otros = ssccd.precio_unitario * cantidad
                 if data_otros.empty? then
                   data_otros += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_otros]]
@@ -165,7 +188,7 @@ module Vinculacion
                   counter = 0
                   data_otros.each do |dot|
                     if dot[0] == "#{ssccd_spaces}  #{ssccd.descripcion}" then
-                      data_otros[counter][1] = dot[1] + subtotal_consumibles
+                      data_otros[counter][1] = dot[1] + subtotal_otros
                       break;
                     else
                       data_otros += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_otros]]
@@ -182,19 +205,35 @@ module Vinculacion
         
         title_spaces = "#{Prawn::Text::NBSP * 2}"
         ## CONSUMIBLES
-        data += [[ {:content=>"#{title_spaces} <b>Consumibles</b> ",:colspan=>2}  ]]
+        data += [[ {:content=>"#{title_spaces} <b>Insumos</b> ",:colspan=>2}  ]]
         data += data_consumibles
         data += [[{:content=>"Subtotal #{title_spaces}",:align=>:right},total_consumibles]]
         # OTROS
         data += [[ {:content=>"#{title_spaces} <b>Otros</b> ",:colspan=>2}  ]]
         data += data_otros
         data += [[{:content=>"Subtotal #{title_spaces}",:align=>:right},total_otros]]
-
-        data += [[{:content=>"Total #{title_spaces}",:align=>:right},total_otros+total_consumibles]]
          
         pdf.table(data,:width=>505,:cell_style=>{:size=>size - 2,:padding=>3,:border_width=>0.1,:inline_format => true})
+        
+        ##  COSTOS INDIRECTOS
+        pdf.text "\n"
+        pdf.text "Costos Indirectos", :size=> 15,:style=> :bold
+        data = []
+        data += [[ {:content=>"#{title_spaces} <b>Horas hombre</b> ",:colspan=>2}  ]]
+        data += data_hhombre
+        data += [[{:content=>"Subtotal #{title_spaces}",:align=>:right},total_hhombre]]
+        pdf.table(data,:width=>505,:cell_style=>{:size=>size - 2,:padding=>3,:border_width=>0.1,:inline_format => true})
+        
+        pdf.text "\n"
+        data = []
+        data += [[{:content=>"Total #{title_spaces}",:align=>:left},total_otros+total_consumibles+total_hhombre]]
+        pdf.table(data,:width=>250,:cell_style=>{:size=>size - 2,:padding=>3,:border_width=>0.1,:inline_format => true})
+ 
+        ### ENVIANDO EL PDF
         send_data pdf.render, type: "application/pdf", disposition: "inline"
       end
+
+      
     end
 
     protected

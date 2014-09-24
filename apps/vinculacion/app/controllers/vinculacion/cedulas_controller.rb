@@ -1,5 +1,4 @@
 require_dependency "vinculacion/application_controller"
-require 'resque-bus'
 
 module Vinculacion
   class CedulasController < ApplicationController

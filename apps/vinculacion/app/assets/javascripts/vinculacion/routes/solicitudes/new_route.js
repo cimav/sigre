@@ -13,7 +13,7 @@ App.SolicitudesNewRoute = Ember.Route.extend({
       self = this
       var onSuccess = function(solicitud) {
         self.transitionTo('solicitud', solicitud);
-        self.controllerFor('application').notify('Se agrego nueva solicitud');
+        self.controllerFor('application').notify('Se agregó nueva solicitud');
       };
 
       var onFail = function(solicitud) {

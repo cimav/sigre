@@ -19,6 +19,7 @@
 //= require proyectos/ember-easyForm
 //= require proyectos/bootstrap
 //= require proyectos/moment.min
+//= require proyectos/mixins/ember-shortcuts
 //= require select2
 
 var inflector = Ember.Inflector.inflector;

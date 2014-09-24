@@ -183,3 +183,120 @@
   }
 
 }
+
+#proyecto-header {
+  h3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  span {
+    margin-right: 10px;
+    margin-top: 24px;
+    float: right;
+    font-size: 160%;
+  }
+  .glyphicon {
+    float: right;
+    //color: $grey;
+    cursor: pointer;
+  }
+  #proyecto-header-base {
+    margin-left: 20px;
+    color: #888888;
+    font-size: 80%;
+  }
+}
+
+#proyecto-index {
+  margin: 20px;
+
+  .glyphicon {
+    float: right;
+    color: $grey;
+    cursor: pointer;
+  }
+  .glyphicon.active {
+    color: $dark-grey;
+    cursor: normal;
+  }
+  #proyecto-index-datos {
+    margin: 20px;
+    .header {
+      padding: 10px 0px 3px 0px;
+      font-weight: bold;
+      .label {
+        font-size: 100%;
+        margin-top: 24px;
+        margin-bottom: 5px;
+        font-weight: normal;
+      }
+    }
+    .dato {
+      padding-left: 20px;
+      .glyphicon {
+        float: none;
+        padding-left: 5px;
+        font-size: 160%;
+        top: 5px;
+      }
+    }
+
+    table {
+      margin-left: 20px;
+      tr {
+        border-top: 1px solid $grey;
+        border-bottom: 1px solid $grey;
+      }
+      thead {
+        color: #999999;
+      }
+      td {
+        padding-right: 20px;
+      }
+    }
+
+  }
+
+}
+
+#proyecto-edit {
+  .fecha-anio {
+    float: left;
+    width: 100px;
+  }
+  .item-fechas {
+    .fecha-inicio {
+      float: left;
+      width: 170px;
+    }
+    .fecha-fin {
+      float: left;
+      width: 170px;
+      padding-left: 10px;
+    }
+    .fecha-duracion {
+      float: left;
+      padding-left: 10px;
+      #fecha-duracion-dias {
+        margin-top: 8px;
+      }
+    }
+  }
+  .item-estructura {
+    .estructura-tipo {
+      float: left;
+      width: 170px;
+    }
+    .estructura-recurso {
+      float: left;
+      width: 170px;
+      padding-left: 10px;
+    }
+    .estructura-fondo {
+      float: left;
+      width: 170px;
+      padding-left: 10px;
+    }
+  }
+}
+

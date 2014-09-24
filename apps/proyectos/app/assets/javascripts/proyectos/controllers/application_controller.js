@@ -1,17 +1,16 @@
 App.ApplicationController = Ember.Controller.extend({
   init: function() {
     self = this;
-//    Promise.all([
-//      this.store.find('sede'),
-//      this.store.find('departamento'),
-//      this.store.find('empleado')
-//    ]).then(function(values){
-//       console.log('Lo prometido...');
-//       self.set('sedesCache', values[0]);
-//       self.set('departamentosCache', values[1]);
-//       self.set('empleadosCache', values[2]);
-//       return values;
-//    });
+    Promise.all([
+      this.store.find('sede'),
+      this.store.find('departamento'),  // departamento.empleados
+      this.store.find('tipo')           // tipo.recursos, recurso.fondos
+    ]).then(function(values){
+       self.set('sedesCache', values[0]);
+       self.set('departamentosCache', values[1]);
+      self.set('tiposCache', values[2]);
+       return values;
+    });
     console.log('App Init');
   },
 
