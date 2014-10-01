@@ -1,5 +1,6 @@
 Proyectos::Engine.routes.draw do
 
+  resources :monedas
   resources :tipos
   resources :recursos
   resources :fondos

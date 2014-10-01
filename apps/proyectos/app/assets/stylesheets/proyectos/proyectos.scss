@@ -48,6 +48,11 @@
               .glyphicon-folder-close {
                 color: #2BAAE1; //$folder-color;
               }
+              .columna-logo-es-base {
+                font-size: 9px;
+                color: $grey;
+                margin-top: -10px;
+              }
             }
 
             .tabla-proyectos-datos {
@@ -230,19 +235,25 @@
         margin-bottom: 5px;
         font-weight: normal;
       }
+      .badge {
+        font-size: 80%;
+        color: $white !important;
+        font-weight: normal;
+        &.badge-subproyecto {
+          background-color: $dark-grey;
+          border: 1px solid $dark-grey;
+        }
+      }
     }
     .dato {
       padding-left: 20px;
-      .glyphicon {
-        float: none;
-        padding-left: 5px;
-        font-size: 160%;
-        top: 5px;
-      }
     }
 
     table {
       margin-left: 20px;
+      .tr-link {
+        cursor: pointer;
+      }
       tr {
         border-top: 1px solid $grey;
         border-bottom: 1px solid $grey;

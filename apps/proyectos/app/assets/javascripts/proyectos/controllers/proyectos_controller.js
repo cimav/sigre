@@ -10,6 +10,20 @@ App.ProyectosController = Ember.ArrayController.extend({
   }.observes('searchText'),
 
   sortProperties: ['cuenta:desc'],
-  sortedProyectos: Ember.computed.sort('model', 'sortProperties')
+  sortedProyectos: Ember.computed.sort('model', 'sortProperties'),
+
+//  proyectosBase: Ember.computed.filter('sortedProyectos', function(proyecto) {
+//    return proyecto.get('isProyectoBase');
+//  }),
+//  proyectosBaseArray: function(){
+//    var result = Ember.A();
+//    for (i = 0; i < this.get('proyectosBase.length'); i++) {
+//      var id = this.get('proyectosBase')[i].get('id');
+//      this.store.find('proyecto', id).then(function(proy){
+//        result.push(proy)
+//      });
+//    }
+//    return result;
+//  }.property('proyectosBase')
 
 });

@@ -11,6 +11,8 @@
       <div id="proyecto-header-base">
         {{#if isProyectoBase}}
           PROYECTO BASE
+        {{else}}
+          SUB-PROYECTO
         {{/if}}
         <div class="clearfix"></div>
       </div>
@@ -25,9 +27,21 @@
 
       {{#unless isProyectoBase}}
         <div class="header">Proyecto Base</div>
-        <div class="dato"><strong>{{proyecto_base.cuenta}}</strong> {{proyecto_base.nombre}}
-          {{#link-to 'proyecto' this.proyecto_base tagName="span" classNames="glyphicon glyphicon-chevron-right enabled"}}{{/link-to}}</div>
+        <table>
+          <thead>
+          <tr>
+            <td>Cuenta</td>
+            <td>Nombre</td>
+          </tr>
+          </thead>
+          <tbody>
+        {{#link-to 'proyecto' this.proyecto_base tagName="tr" class="tr-link"}}<td><strong>{{proyecto_base.cuenta}}</strong></td><td>{{proyecto_base.nombre}}</td>{{/link-to}}
+        </tbody></table>
       {{/unless}}
+
+      <div class="header">Here</div>
+      <div class="dato">{{householdIncome}}</div>
+      <div class="dato">{{userName}}</div>
 
       <div class="header">Nombre</div>
       <div class="dato">{{nombre}}</div>
@@ -35,6 +49,7 @@
       <div class="dato">{{descripcion}}</div>
       <div class="header">Sede</div>
       <div class="dato">{{departamento.sede.nombre}} {{departamento.sede.descripcion}} </div>
+      <div class="header">Departamento</div>
       <div class="dato">{{departamento.nombre}} {{departamento.descripcion}}</div>
       <div class="header">Responsable</div>
       <div class="dato">{{responsable.nombre_completo}}</div>
@@ -76,10 +91,16 @@
         </tbody>
       </table>
 
+      <div class="header">Moneda</div>
+      <div class="dato">{{moneda.codigo}} {{moneda.nombre}}</div>
       <div class="header">Presupuesto autorizado</div>
       <div class="dato">{{formatCurrency presupuesto_autorizado}}</div>
       <div class="header">Cuenta bancaria</div>
       <div class="dato">{{banco_cuenta}}</div>
+      <div class="header">Referencia externa</div>
+      <div class="dato">{{referencia_externa}}</div>
+      <div class="header">Convenio</div>
+      <div class="dato">{{convenio}}</div>
       <div class="header">Impacto</div>
       <div class="dato">{{impacto}}</div>
       <div class="header">Resultado esperado</div>
@@ -88,8 +109,26 @@
       <div class="dato">{{objetivo_estrategico}}</div>
       <div class="header">Alcance</div>
       <div class="dato">{{alcance}} </div>
-      <div class="header">Convenio</div>
-      <div class="dato">{{convenio}}</div>
+
+      {{#if isProyectoBase}}
+        <div class="header">Sub-proyectos <span class="badge badge-subproyectos">{{sortedSubProyectos.length}}</span> </div>
+        <table>
+          <thead>
+          <tr>
+            <td>Cuenta</td>
+            <td>Nombre</td>
+          </tr>
+          </thead>
+          <tbody>
+          {{#each sub_proy in sortedSubProyectos}}
+            {{#link-to 'proyecto' sub_proy tagName="tr" class="tr-link"}}
+              <td><strong>{{sub_proy.cuenta}}</strong></td>
+              <td>{{sub_proy.nombre}}</td>{{/link-to}}
+          {{/each}}
+          </tbody>
+        </table>
+      {{/if}}
+
 
     </div>
 

@@ -8,6 +8,15 @@ module Proyectos
     belongs_to  :moneda
     belongs_to  :responsable, class_name: "Empleado"
 
+    def is_proyecto_base
+      self.proyecto_base_id == nil
+    end
+
+    def cuenta_proyecto_base
+      pb = Proyecto.where(["id = ?", self.proyecto_base_id]).select("id, cuenta").first
+      pb.cuenta rescue 'BASE'
+    end
+
     def sede_text
       self.departamento.sede.nombre + " " + self.departamento.sede.descripcion rescue 'Sin sede'
     end

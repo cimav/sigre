@@ -4,11 +4,13 @@ App.ApplicationController = Ember.Controller.extend({
     Promise.all([
       this.store.find('sede'),
       this.store.find('departamento'),  // departamento.empleados
-      this.store.find('tipo')           // tipo.recursos, recurso.fondos
+      this.store.find('tipo'),           // tipo.recursos, recurso.fondos
+      this.store.find('moneda')
     ]).then(function(values){
-       self.set('sedesCache', values[0]);
-       self.set('departamentosCache', values[1]);
+      self.set('sedesCache', values[0]);
+      self.set('departamentosCache', values[1]);
       self.set('tiposCache', values[2]);
+      self.set('monedasCache', values[3]);
        return values;
     });
     console.log('App Init');
@@ -24,4 +26,6 @@ App.ApplicationController = Ember.Controller.extend({
     this.set('notification_type', notification_type);
     this.set('notification', notification);
   }
+
+
 });

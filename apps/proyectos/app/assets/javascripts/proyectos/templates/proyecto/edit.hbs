@@ -13,6 +13,20 @@
           {{input type="text" value=cuenta classNames="form-control"}}
         </div>
       </div>
+
+          <!--      <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Projecto base</label>
+
+        <div class="col-sm-7">
+          {view App.Select2View contentBinding="model.lista"
+          id = "selProyectosBase"
+          prompt = "Seleccionar proyecto base..."
+          optionLabelPath="content.cuenta"
+          optionValuePath="content.id"
+          selectionBinding="proyecto_base"}}
+        </div>
+      </div> -->
+
       <div class="form-group">
         <label for="unknown" class="col-sm-2 control-label">Nombre</label>
 
@@ -138,6 +152,18 @@
       </div>
 
       <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Moneda</label>
+
+        <div class="col-sm-4">
+          {{view App.Select2View contentBinding="controllers.application.monedasCache"
+          id = "selMonedas"
+          optionLabelPath="content.codigo_nombre"
+          optionValuePath="content.id"
+          selectionBinding="moneda"}}
+        </div>
+      </div>
+
+      <div class="form-group">
         <label for="unknown" class="col-sm-2 control-label">Presupuesto autorizado</label>
 
         <div class="col-sm-3">
@@ -149,6 +175,20 @@
 
         <div class="col-sm-4">
           {{input type="text" value=banco_cuenta classNames="form-control"}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Referencia externa</label>
+
+        <div class="col-sm-4">
+          {{input type="text" value=referencia_externa classNames="form-control"}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Convenio</label>
+
+        <div class="col-sm-9">
+          {{textarea value=convenio classNames="form-control"}}
         </div>
       </div>
       <div class="form-group">
@@ -177,13 +217,6 @@
 
         <div class="col-sm-9">
           {{textarea value=alcance classNames="form-control"}}
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="unknown" class="col-sm-2 control-label">Convenio</label>
-
-        <div class="col-sm-9">
-          {{textarea value=convenio classNames="form-control"}}
         </div>
       </div>
 

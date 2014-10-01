@@ -3,11 +3,11 @@ require_dependency "proyectos/application_controller"
 module Proyectos
   class MonedasController < ApplicationController
     def index
-      render json: Sede.all
+      render json: Moneda.all
     end
 
     def show
-      render json: Sede.find(params[:id])
+      render json: Moneda.find(params[:id])
     end
 
   end

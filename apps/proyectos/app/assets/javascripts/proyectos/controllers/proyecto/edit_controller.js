@@ -97,10 +97,11 @@ App.ProyectoEditController = Ember.ObjectController.extend({
 
   belongsToChanged: function() {
     // detecta si hubo cambio en almenos una de las belongsTo
-    var chk_belongs = this.get('sede.id') + "," + this.get('departamento.id') + "," + this.get('responsable.id')
+    var chk_belongs = this.get('moneda.id')
+        + ',' + this.get('sede.id') + "," + this.get('departamento.id') + "," + this.get('responsable.id')
         + ',' + this.get('tipo.id') + "," + this.get('recurso.id') + "," + this.get('fondo.id');
     chk_belongs = chk_belongs.replace('null','');
     this.set('values_belongs_to', chk_belongs);
-  }.observes('sede', 'departamento', 'responsable', 'tipo', 'recurso', 'fondo')
+  }.observes('moneda', 'sede', 'departamento', 'responsable', 'tipo', 'recurso', 'fondo')
 
 });

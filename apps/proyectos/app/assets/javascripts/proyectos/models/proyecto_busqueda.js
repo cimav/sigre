@@ -13,6 +13,9 @@ App.ProyectoBusqueda = DS.Model.extend({
   moneda_text: DS.attr('string'),
   responsable_text: DS.attr('string'),
 
+  isProyectoBase: DS.attr('boolean'),
+  cuenta_proyecto_base: DS.attr('string'),
+
   duracion : function() {
     moment.lang('es');
     var inicio  = moment(this.get('fecha_inicio'));
