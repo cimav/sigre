@@ -11,19 +11,23 @@ App.ProyectosController = Ember.ArrayController.extend({
 
   sortProperties: ['cuenta:desc'],
   sortedProyectos: Ember.computed.sort('model', 'sortProperties'),
-
 //  proyectosBase: Ember.computed.filter('sortedProyectos', function(proyecto) {
 //    return proyecto.get('isProyectoBase');
 //  }),
-//  proyectosBaseArray: function(){
-//    var result = Ember.A();
-//    for (i = 0; i < this.get('proyectosBase.length'); i++) {
-//      var id = this.get('proyectosBase')[i].get('id');
-//      this.store.find('proyecto', id).then(function(proy){
-//        result.push(proy)
-//      });
-//    }
-//    return result;
-//  }.property('proyectosBase')
+
+  proyectosBaseCache: function(){
+    self = this;
+    this.get('sortedProyectos').forEach(function(proyectoB){
+      if (proyectoB.get('isProyectoBase')) {
+        var idProy = proyectoB.get('id');
+        self.store.find('proyecto', idProy).then(function(proy){
+          if (!self.get('proyectosBaseCache').contains(proy)) {
+            self.get('proyectosBaseCache').pushObject(proy);
+          }
+        });
+      }
+    });
+    return Ember.A();
+  }.property('')
 
 });
