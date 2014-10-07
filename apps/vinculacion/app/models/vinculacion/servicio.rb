@@ -109,6 +109,9 @@ module Vinculacion
 
       end
     end
-
+    
+    def relation_string
+      "#{empleado_id},#{solicitud_id}"
+    end 
   end
 end

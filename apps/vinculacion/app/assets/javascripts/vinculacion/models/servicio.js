@@ -10,6 +10,14 @@ App.Servicio = DS.Model.extend({
   costeos: DS.hasMany('costeo'),
 
   status_text: DS.attr('string'),
-  muestras_string: DS.attr('string')
+  muestras_string: DS.attr('string'),
+  relation_string: DS.attr('string'),
+  
+  selectsChanges: function () {
+    // Hack: belongsTo no cambian a Dirty
+    // Info de porque no cambian: https://github.com/emberjs/data/issues/1188
+    s = [this.get('empleado.id'), this.get('solicitud.id')].join(',');
+    this.set('relation_string', s);
+  }.observes('empleado','solicitud')
 
 });
