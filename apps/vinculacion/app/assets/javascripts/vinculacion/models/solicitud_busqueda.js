@@ -10,5 +10,16 @@ App.SolicitudBusqueda = DS.Model.extend({
   muestras_length: DS.attr('string'),
   servicios_length: DS.attr('string'),
   ultima_cotizacion: DS.attr('string'),
-  status_text: DS.attr('string')
+  status_text: DS.attr('string'),
+ 
+  getDescripcion: function() {
+    size =  this.get('descripcion.length');
+    data =  this.get('descripcion')
+    if (size > 110) {
+      data =  data.slice(0,107);
+      data =  data + '...';
+    }
+    return data;
+  }.property('descripcion')
+
 });
