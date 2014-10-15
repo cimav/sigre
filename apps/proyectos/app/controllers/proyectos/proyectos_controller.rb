@@ -2,8 +2,20 @@ require_dependency "proyectos/application_controller"
 
 module Proyectos
   class ProyectosController < ApplicationController
+
+    before_filter :auth_required
+
     def index
+
       results = Proyecto.order(:id)
+
+      # filtrar por tipo de Usuario
+      if current_user.interno?
+        results = results.where(" tipo_id = 1 ")
+      elsif current_user.externo?
+        results = results.where(" tipo_id = 2 ")
+      end
+
       render json: results
     end
 

@@ -6,3 +6,6 @@
     = csrf_meta_tags
   %body
     = javascript_include_tag "proyectos/application"
+
+    // poner aqui la tag del CurrentUser
+    %meta{:name => "current-user", :content => UsuarioSerializer.new(current_user).to_json(root: false)}
