@@ -74,17 +74,28 @@ class BitacoraSubscriptions
   def recibir_reporte(attributes)
 
     cedula = ::Vinculacion::Cedula.where(:solicitud_id => attributes['system_request_id'], :servicio_id => attributes['system_id']).first
+    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
     puts "Recibir reporte para cedula: #{cedula.codigo}"
+    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
+    puts "--------------"
+    puts "Participantes."
+    puts "--------------"
     attributes['participaciones'].each do |p|
       puts "Agregando participante #{p['email']} con #{p['porcentaje']}%"
-      remanente = cedula.remanentes.new
-      empleado = ::Vinculacion::Empleado.where(:email => p['email']).first
-      remanente.porcentaje_participacion = p['porcentaje']
-      remanente.empleado_id = empleado.id
-      remanente.save
+      if empleado = ::Vinculacion::Empleado.where(:email => p['email']).first
+        remanente = cedula.remanentes.new
+        remanente.porcentaje_participacion = p['porcentaje']
+        remanente.empleado_id = empleado.id
+        remanente.save
+      else
+        puts "Error: Empleado no existe"
+      end
     end
 
+    puts "-----------------"
+    puts "Costos variables."
+    puts "-----------------"
     attributes['servicios'].each do |s|
 
       puts "Servicio #{s['bitacora_id']}: #{s['nombre_servicio']}"
