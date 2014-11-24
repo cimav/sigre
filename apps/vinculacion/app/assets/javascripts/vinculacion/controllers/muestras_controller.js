@@ -46,7 +46,9 @@ App.MuestrasController = Ember.ArrayController.extend({
   actions: {
     addMuestra: function() {
       var muestra = this.get('newMuestra');
-      var self = this
+      var self = this;
+      var validation_errors = [];
+      var error_msg = '';
       var onSuccess = function(muestra) {
         self.get('controllers.application').notify('Se agrego nueva muestra');
         self.set('newMuestra', self.store.createRecord('muestra'));
@@ -56,8 +58,26 @@ App.MuestrasController = Ember.ArrayController.extend({
       var onFail = function(muestra) {
         self.get('controllers.application').notify('Error al agregar muestra', 'alert-danger');
       };
-      self.get('controllers.solicitud').get('model').get('muestras').pushObject(muestra);
-      muestra.save().then(onSuccess, onFail);
+      
+      if ((muestra.get('identificacion') === undefined) || (muestra.get('identificacion').trim() == '')) {
+        validation_errors.push('Se debe especificar la identificación de la muestra');
+      }
+
+      if ((muestra.get('cantidad') === undefined) || (muestra.get('cantidad') <= 0)) {
+        validation_errors.push('Se debe especificar una cantidad mayor que 0');
+      }
+
+      if (validation_errors.length == 0) {
+        self.get('controllers.solicitud').get('model').get('muestras').pushObject(muestra);
+        muestra.save().then(onSuccess, onFail);  
+      } else {
+        error_msg = "Existen errores:\n"
+        validation_errors.forEach(function(e) {
+          error_msg += e + "\n";
+        });
+        alert(error_msg);
+      }
+      
     },
     showAddMuestraForm: function() {
       if(!this.closeEdit()) { return false; }
