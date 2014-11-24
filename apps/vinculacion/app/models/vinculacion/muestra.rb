@@ -18,6 +18,7 @@ module Vinculacion
       consecutivo = "%03d" % con
       self.consecutivo = con
       self.codigo = "#{self.solicitud.codigo}-#{consecutivo}"
+      self.status = Muestra::INICIAL
       self.save(:validate => false)
     end
   end

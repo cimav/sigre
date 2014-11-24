@@ -68,6 +68,7 @@ App.MuestrasController = Ember.ArrayController.extend({
       }
 
       if (validation_errors.length == 0) {
+        muestra.set('status', self.get('controllers.solicitud').get('Status.inicial'));
         self.get('controllers.solicitud').get('model').get('muestras').pushObject(muestra);
         muestra.save().then(onSuccess, onFail);  
       } else {

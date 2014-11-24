@@ -5,13 +5,16 @@ App.MuestraController = Ember.ObjectController.extend({
     inicial:    1,
     en_uso:     2,
   },
+  
   div_id: function() {
     return 'muestra_' + this.get('id');
   }.property('id'),
+  
   canEdit: function(){
     var solicitud = this.get('controllers.solicitud');
-    return this.get('model.status') == this.get('Status.inicial') && solicitud.get('model.status')!=solicitud.get('model.Status.cancelada');
+    return this.get('model.status') == this.get('Status.inicial') && solicitud.get('model.status') != solicitud.get('model.Status.cancelada');
   }.property('model.status'),
+
   actions: {
     editMuestra: function(muestra) {
       muestrasController = this.get('controllers.muestras');
