@@ -11,6 +11,8 @@ Vinculacion::Engine.routes.draw do
   post '/servicios/:id/solicitar_costeo', to: 'servicios#solicitar_costeo'
   post '/solicitudes/:id/notificar_cancelacion', to: 'solicitudes#notificar_cancelacion'
   post '/solicitudes/:id/notificar_arranque', to: 'solicitudes#notificar_arranque'
+  get '/solicitudes/:id/estado_actual', to: 'solicitudes#estado_actual'
+
 
   resources :empleados
   resources :sedes

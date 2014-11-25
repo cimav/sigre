@@ -12,6 +12,16 @@ module Vinculacion
       render json: results
     end
 
+    def estado_actual
+      solicitud = Solicitud.find(params[:id])
+      if solicitud 
+        status = solicitud.status
+      else
+        status = 0
+      end
+      render json: status
+    end
+
     def show
       render json: Solicitud.find(params[:id])
     end
