@@ -9,6 +9,7 @@ rails g controller Assets
 * Generate migrations:
 
 rake railties:install:migrations
+rake db:migrate:status
 
 * Ember en el Engine
 
@@ -17,3 +18,5 @@ rails generate ember:install --ember
 rails generate ember:install --channel=beta --ember-data
 
 rails g ember:bootstrap
+
+mysql -u root -p bitacora_development
