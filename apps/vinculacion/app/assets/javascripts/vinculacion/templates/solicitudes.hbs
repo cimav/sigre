@@ -24,9 +24,15 @@
             <div class="media">
               <table class="tabla-solicitudes">
                 <tr>
-                  <td class="columna-logo">
-                    <span class="glyphicon glyphicon-folder-close"></span>
-                  </td>
+                  {{#if is_coordinado}}
+                    <td class="columna-logo">
+                      <span class="glyphicon glyphicon-folder-close"></span>
+                    </td>
+                  {{else}}
+                    <td class="columna-logo-coordinado">
+                      <span class="glyphicon glyphicon-folder-close"></span>
+                    </td>
+                  {{/if}}
                   <td class="columna-cliente">
                     <div class="solicitud-codigo">{{codigo}}</div>
                     <div class="razon-social">{{cliente_razon_social}}</div>

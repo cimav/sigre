@@ -263,7 +263,8 @@ module Vinculacion
                                 :razon_cancelacion,
                                 :orden_compra,
                                 :fecha_inicio,
-                                :fecha_termino
+                                :fecha_termino,
+                                :isCoordinado
 
       )
     end

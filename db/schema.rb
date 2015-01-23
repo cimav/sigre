@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150121000712) do
+ActiveRecord::Schema.define(version: 20150123000927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -286,23 +286,26 @@ ActiveRecord::Schema.define(version: 20150121000712) do
   create_table "vinculacion_servicios", force: true do |t|
     t.integer  "solicitud_id"
     t.integer  "consecutivo"
-    t.string   "codigo",       limit: 20
+    t.string   "codigo",               limit: 20
     t.string   "nombre"
     t.text     "descripcion"
     t.integer  "empleado_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "status",                  default: 1
+    t.integer  "status",                          default: 1
+    t.integer  "servicio_bitacora_id"
   end
 
   create_table "vinculacion_servicios_bitacora", force: true do |t|
     t.integer  "bitacora_id"
     t.string   "nombre"
     t.string   "descripcion"
-    t.decimal  "precio_venta", precision: 10, scale: 2, default: 0.0
-    t.integer  "status",                                default: 0
+    t.decimal  "precio_venta",  precision: 10, scale: 2, default: 0.0
+    t.integer  "status",                                 default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "costo_interno", precision: 10, scale: 2, default: 0.0
+    t.integer  "empleado_id"
   end
 
   create_table "vinculacion_servicios_muestras", id: false, force: true do |t|
@@ -331,6 +334,7 @@ ActiveRecord::Schema.define(version: 20150121000712) do
     t.date     "fecha_inicio"
     t.date     "fecha_termino"
     t.integer  "responsable_presupuestal_id"
+    t.boolean  "is_coordinado"
   end
 
   create_table "vinculacion_tamanos_empresa", force: true do |t|

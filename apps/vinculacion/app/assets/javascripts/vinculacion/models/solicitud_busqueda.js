@@ -11,6 +11,7 @@ App.SolicitudBusqueda = DS.Model.extend({
   servicios_length: DS.attr('string'),
   ultima_cotizacion: DS.attr('string'),
   status_text: DS.attr('string'),
+  is_coordinado:  DS.attr('boolean'),
  
   getDescripcion: function() {
     size =  this.get('descripcion.length');

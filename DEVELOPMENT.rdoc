@@ -19,4 +19,3 @@ rails generate ember:install --channel=beta --ember-data
 
 rails g ember:bootstrap
 
-mysql -u root -p bitacora_development

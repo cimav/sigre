@@ -33,6 +33,15 @@ inflector.irregular('solicitud_busqueda', 'solicitud_busqueda');
 inflector.irregular('pais', 'paises');
 inflector.irregular('estado', 'estados');
 inflector.irregular('costo_variable', 'costos_variables');
+inflector.irregular('servicio_bitacora', 'servicios_bitacora');
+inflector.irregular('servicioBitacora', 'serviciosBitacora'); //requerido para los Promises
+
+// console.log("test");
+// console.log(inflector.pluralize('servicio_bitacora'));    //servicios_bitacora
+// console.log(inflector.pluralize('servicios_bitacora'));   //servicios_bitacoras
+// console.log(inflector.singularize('servicio_bitacora'));  //servicio_bitacora
+// console.log(inflector.singularize('servicios_bitacora')); //servicio_bitacora
+
 
 // Create App
 App = Ember.Application.create({

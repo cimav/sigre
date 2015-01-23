@@ -1,14 +1,25 @@
 <div id="screen-name">
-    <h3>Nueva Solicitud</h3>
+  <h3>Nueva Solicitud</h3>
     {{#link-to 'solicitudes' tagName="button" classNames="btn"}}<span title="Regresar a solicitudes" class="glyphicon glyphicon-chevron-left"></span>{{/link-to}}
 </div>
 <div id="wide-panel">
-    <div id="solicitud-edit">
-      {{#form-for controller}}
-          <h3>Solicitud</h3>
+  <div id="solicitud-new">
+    {{#form-for controller}}
+      <h3>Solicitud</h3>
+
+      <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Coordinado</label>
+
+        <div class="col-sm-2">
+          {{view Ember.Checkbox checkedBinding="content.is_coordinado"}}
+        </div>
+      </div>
+
+      {{#if is_coordinado}}
 
         <div class="form-group">
           <label for="unknown" class="col-sm-2 control-label">Responsable</label>
+
           <div class="col-sm-7">
             {{view App.Select2View contentBinding="controllers.application.empleadosCache"
             optionLabelPath="content.nombre_completo"
@@ -17,63 +28,105 @@
           </div>
         </div>
 
-          <div class="form-group">
-              <label for="unknown" class="col-sm-2 control-label">Proyecto</label>
-              <div class="col-sm-7">
-                {{view App.Select2View contentBinding="controllers.application.proyectosCache"
-                optionLabelPath="content.nombre"
-                optionValuePath="content.id"
-                selectionBinding="proyecto"}}
-              </div>
-          </div>
+        <div class="form-group">
+          <label for="unknown" class="col-sm-2 control-label">Proyecto</label>
 
-          <div class="form-group">
-              <label for="unknown" class="col-sm-2 control-label">Sede</label>
-              <div class="col-sm-7">
-                {{view App.Select2View contentBinding="controllers.application.sedesCache"
-                optionLabelPath="content.nombre"
-                optionValuePath="content.id"
-                selectionBinding="sede"}}
-              </div>
+          <div class="col-sm-7">
+            {{view App.Select2View contentBinding="controllers.application.proyectosCache"
+            optionLabelPath="content.nombre"
+            optionValuePath="content.id"
+            selectionBinding="proyecto"}}
           </div>
+        </div>
+
+        <div class="form-group">
+          <label for="unknown" class="col-sm-2 control-label">Sede</label>
+
+          <div class="col-sm-7">
+            {{view App.Select2View contentBinding="controllers.application.sedesCache"
+            optionLabelPath="content.nombre"
+            optionValuePath="content.id"
+            selectionBinding="sede"}}
+          </div>
+        </div>
 
         {{input descripcion as="text" label="Descripción"}}
 
-          <div class="form-group">
-              <label for="unknown" class="col-sm-2 control-label">Cliente</label>
-              <div class="col-sm-7">
-                {{view App.Select2View contentBinding="controllers.application.clientes"
-                optionLabelPath="content.razon_social"
-                optionValuePath="content.id"
-                selectionBinding="cliente"}}
-              </div>
-          </div>
+      {{/if}}
 
-          <div class="form-group">
-              <label for="unknown" class="col-sm-2 control-label">Contacto</label>
-              <div class="col-sm-7">
-                {{view App.Select2View contentBinding="cliente.contactos"
-                optionLabelPath="content.nombre"
-                optionValuePath="content.id"
-                selectionBinding="contacto"}}
-              </div>
-          </div>
+      <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Cliente</label>
 
-          <div class="form-group">
-              <label for="unknown" class="col-sm-2 control-label">Prioridad</label>
-              <div class="col-sm-7" id="solicitud-prioridad">
-                {{view Ember.Select content=controllers.application.prioridades
-                value=prioridad
-                optionValuePath="content.id"
-                optionLabelPath="content.descripcion"}}
-              </div>
-          </div>
+        <div class="col-sm-7">
+          {{view App.Select2View contentBinding="controllers.application.clientes"
+          optionLabelPath="content.razon_social"
+          optionValuePath="content.id"
+          selectionBinding="cliente"}}
+        </div>
+      </div>
 
-          <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-7">
-                {{save-button item=this}}
-              </div>
+      <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Contacto</label>
+
+        <div class="col-sm-7">
+          {{view App.Select2View contentBinding="cliente.contactos"
+          optionLabelPath="content.nombre"
+          optionValuePath="content.id"
+          selectionBinding="contacto"}}
+        </div>
+      </div>
+
+      {{#if is_coordinado}}
+
+        <div class="form-group">
+          <label for="unknown" class="col-sm-2 control-label">Prioridad</label>
+
+          <div class="col-sm-7" id="solicitud-prioridad">
+            {{view Ember.Select content=controllers.application.prioridades
+            value=prioridad
+            optionValuePath="content.id"
+            optionLabelPath="content.descripcion"}}
           </div>
-      {{/form-for}}
-    </div>
+        </div>
+
+      {{/if}}
+
+      {{#unless is_coordinado}}
+
+        <div class="form-group">
+          <label for="unknown" class="col-sm-2 control-label">Muestra</label>
+
+          <div class="col-sm-7">
+            <table width="100%">
+              <tr>
+                <td>  <div id="muestra-identificacion"> {{input type="text" value=newMuestra.identificacion classNames="form-control muestra-identificacion-input" placeholder="Identificación"}} </div></td>
+                <td width="100px"> <div id="muestra-cantidad"> {{input type="number" min="1" value=newMuestra.cantidad classNames="form-control muestra-cantidad-input" placeholder="Cantidad"}} </div></td>
+              </tr>
+              <tr width="100%">
+                <td colspan="2"> {{textarea value=newMuestra.descripcion classNames="form-control muestra-descripcion-input" placeholder="Descripción"}} </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="unknown" class="col-sm-2 control-label">Servicio</label>
+
+          <div class="col-sm-7">
+            {{view App.Select2View contentBinding="controllers.application.servicios_bitacora"
+            optionLabelPath="content.nombre"
+            optionValuePath="content.id"
+            selectionBinding="servicio_bitacora"}}
+          </div>
+        </div>
+
+      {{/unless}}
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-7">
+          {{save-button item=this}}
+        </div>
+      </div>
+    {{/form-for}}
+  </div>
 </div>

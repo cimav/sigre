@@ -191,6 +191,13 @@
                 color: $folder-color;
               }
             }
+            .columna-logo-coordinado {
+              width: 48px;
+              font-size: 48px;
+              .glyphicon-folder-close {
+                color: $folder-color-coordinado;
+              }
+            }
 
             .columna-cliente {
               width: 50%;
@@ -324,6 +331,16 @@
 
   }
 
+}
+
+#solicitud-new {
+  #muestra-identificacion {
+    padding-right: 10px;
+    padding-bottom: 10px;
+  }
+  #muestra-cantidad {
+    padding-bottom: 10px;
+  }
 }
 
 

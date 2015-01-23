@@ -3,7 +3,7 @@ module Vinculacion
   	embed :ids, :include => true
     attributes :id
     attributes :usuario_id
-    attributes :consecutivo, :codigo, :prioridad, :descripcion, :status, :motivo_status, :razon_cancelacion, :orden_compra, :fecha_inicio, :fecha_termino
+    attributes :consecutivo, :codigo, :prioridad, :descripcion, :status, :motivo_status, :razon_cancelacion, :orden_compra, :fecha_inicio, :fecha_termino, :is_coordinado
     attributes :relation_string
     attributes :status_text
 

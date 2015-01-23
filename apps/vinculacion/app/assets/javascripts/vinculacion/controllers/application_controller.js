@@ -40,7 +40,8 @@ App.ApplicationController = Ember.Controller.extend({
       this.store.find('cliente'),
       this.store.find('contacto'),
       this.store.find('pais'),
-      this.store.find('estado')
+      this.store.find('estado'),
+      this.store.find('servicio_bitacora')
     ]).then(function(values){
       self.set('empleadosCache', values[0]);
       self.set('proyectosCache', values[1]);
@@ -49,7 +50,10 @@ App.ApplicationController = Ember.Controller.extend({
       self.set('contactos', values[4]);
       self.set('paises', values[5]);
       self.set('estados', values[6]);
+      self.set('servicios_bitacora', values[7]);
       return values;
+    }, function(reason){
+      console.log('Promises fail: ' + reason);
     });
     console.log('App Init');
   },
