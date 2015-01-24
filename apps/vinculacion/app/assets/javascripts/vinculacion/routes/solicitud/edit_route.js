@@ -11,6 +11,7 @@ App.SolicitudEditRoute = Ember.Route.extend({
       var newMuestra = solicitud.get('muestras').get('firstObject');
       if (newMuestra == null) {
         newMuestra = this.store.createRecord('muestra');
+        newMuestra.set('status', 1);
         newMuestra.set('cantidad', 1);
       }
       this.controllerFor("solicitud_edit").set("newMuestra", newMuestra);
@@ -21,7 +22,7 @@ App.SolicitudEditRoute = Ember.Route.extend({
       if (newServicio != null) {
         servicioBitacora = newServicio.get('servicio_bitacora');
       } else {
-        servicioBitacora = this.store.find('servicio_bitacora', 1);
+        servicioBitacora = this.store.getById('servicio_bitacora', 1); // evita la Promise
       }
       solicitud.set("servicioBitacora", servicioBitacora);
 

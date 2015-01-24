@@ -8,8 +8,31 @@
       <h3>Solicitud</h3>
 
       <div class="form-group">
-        <label for="unknown" class="col-sm-2 control-label">Coordinado</label>
+        <label for="unknown" class="col-sm-2 control-label">Cliente</label>
 
+        <div class="col-sm-7">
+          {{view App.Select2View contentBinding="controllers.application.clientes"
+          optionLabelPath="content.razon_social"
+          optionValuePath="content.id"
+          selectionBinding="cliente"}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Contacto</label>
+
+        <div class="col-sm-7">
+          {{view App.Select2View contentBinding="cliente.contactos"
+          optionLabelPath="content.nombre"
+          optionValuePath="content.id"
+          selectionBinding="contacto"}}
+        </div>
+      </div>
+
+      {{input descripcion as="text" label="Descripción"}}
+
+      <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Coordinado</label>
         <div class="col-sm-2">
           {{view Ember.Checkbox checkedBinding="content.is_coordinado"}}
         </div>
@@ -50,34 +73,6 @@
           </div>
         </div>
 
-        {{input descripcion as="text" label="Descripción"}}
-
-      {{/if}}
-
-      <div class="form-group">
-        <label for="unknown" class="col-sm-2 control-label">Cliente</label>
-
-        <div class="col-sm-7">
-          {{view App.Select2View contentBinding="controllers.application.clientes"
-          optionLabelPath="content.razon_social"
-          optionValuePath="content.id"
-          selectionBinding="cliente"}}
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="unknown" class="col-sm-2 control-label">Contacto</label>
-
-        <div class="col-sm-7">
-          {{view App.Select2View contentBinding="cliente.contactos"
-          optionLabelPath="content.nombre"
-          optionValuePath="content.id"
-          selectionBinding="contacto"}}
-        </div>
-      </div>
-
-      {{#if is_coordinado}}
-
         <div class="form-group">
           <label for="unknown" class="col-sm-2 control-label">Prioridad</label>
 
@@ -96,6 +91,7 @@
           {{save-button item=this}}
         </div>
       </div>
+
     {{/form-for}}
   </div>
 </div>

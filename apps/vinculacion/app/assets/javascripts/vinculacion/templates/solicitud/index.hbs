@@ -104,6 +104,10 @@
               <td class="fechas-header">Precio venta</td>
               <td>{{formatCurrency servicioNoCoordinado.servicio_bitacora.precio_venta}}</td>
             </tr>
+            <tr>
+              <td class="fechas-header">Status</td>
+              <td>{{servicioNoCoordinado.status_text}}</td>
+            </tr>
             </tbody>
           </table>
         {{else}}

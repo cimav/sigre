@@ -26,7 +26,7 @@ App.Solicitud = DS.Model.extend({
 
   is_coordinado: DS.attr('boolean'),
 
-  servicioBitacora: null,
+//  servicio_bitacora: null,
 
   Status: {
     inicial: 1,
