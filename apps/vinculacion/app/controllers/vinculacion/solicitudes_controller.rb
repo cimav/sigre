@@ -66,6 +66,23 @@ module Vinculacion
       render json: solicitud
     end
 
+    def notificar_arranque_no_coordinado
+      solicitud = Solicitud.find(params[:id])
+      servicio = solicitud.servicios[0]
+
+      # notificar a Bitacora
+      ResqueBus.redis = '127.0.0.1:6379' # TODO: Mover a config
+      ResqueBus.publish('notificar_arranque_no_coordinado',
+                        'solicitud_id'          => solicitud.id,
+                        'agente_id'             => 1,                            #  TODO: Estos datos se deben de obtener
+                        'agente_email'          => solicitud.usuario.email,  #  del usuario que da de alta el servicio.
+                        'codigo'                => servicio.codigo,
+                        'servicio_bitacora_id'  => servicio.servicio_bitacora_id,
+                        'muestra'              => solicitud.muestras[0]
+      )
+      render json: solicitud
+    end
+
     def estimacion_costos
       type      = params[:type]
       solicitud = Solicitud.find(params[:id])
