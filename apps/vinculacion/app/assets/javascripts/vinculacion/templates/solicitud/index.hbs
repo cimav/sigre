@@ -1,30 +1,35 @@
 <div id="solicitud-index">
   <h3>Solicitud {{codigo}}
-  {{#if canEdit}}
-    {{#link-to 'solicitud.edit' this tagName="span" classNames="glyphicon glyphicon-edit enabled"}}{{/link-to}}
-  {{else}}
-   <span class="glyphicon glyphicon-edit disabled"></span>
-  {{/if}}
+    {{#if canEdit}}
+      {{#link-to 'solicitud.edit' this tagName="span" classNames="glyphicon glyphicon-edit enabled"}}{{/link-to}}
+    {{else}}
+      <span class="glyphicon glyphicon-edit disabled"></span>
+    {{/if}}
   </h3>
 
   <div id="solicitud-index-datos">
-    <div class="header">Responsable presupuestal</div>
-    <div class="dato">{{responsable_presupuestal.apellido_paterno}} {{responsable_presupuestal.apellido_materno}}, {{responsable_presupuestal.nombre}}</div>
-    <div class="header">Proyecto</div>
-    <div class="dato">{{proyecto.codigo}}</div>
-    <div class="dato">{{proyecto.nombre}}</div>
-    <div class="header">Sede</div>
-    <div class="dato">{{sede.nombre}}</div>
-    <div class="header">Descripción</div>
-    <div class="dato">{{descripcion}}</div>
+
+    {{#if is_coordinado}}
+      <div class="header">Responsable presupuestal</div>
+      <div class="dato">{{responsable_presupuestal.apellido_paterno}} {{responsable_presupuestal.apellido_materno}}, {{responsable_presupuestal.nombre}}</div>
+      <div class="header">Proyecto</div>
+      <div class="dato">{{proyecto.codigo}}</div>
+      <div class="dato">{{proyecto.nombre}}</div>
+      <div class="header">Sede</div>
+      <div class="dato">{{sede.nombre}}</div>
+      <div class="header">Descripción</div>
+      <div class="dato">{{descripcion}}</div>
+    {{/if}}
     <div class="header">Cliente</div>
     <div class="dato">{{cliente.razon_social}}</div>
     <div class="header">Contacto</div>
     <div class="dato">{{contacto.nombre}} </div>
     <div class="dato">{{contacto.email}}</div>
     <div class="dato">{{contacto.telefono}}</div>
-    <div class="header">Prioridad</div>
-    <div class="dato">{{#view App.EnumView  items=controllers.application.prioridades index=prioridad}}{{view.item.descripcion}}{{/view}}</div>
+    {{#if is_coordinado}}
+      <div class="header">Prioridad</div>
+      <div class="dato">{{#view App.EnumView  items=controllers.application.prioridades index=prioridad}}{{view.item.descripcion}}{{/view}}</div>
+    {{/if}}
     <div class="header">Orden compra</div>
     <div class="dato">{{orden_compra}}</div>
 
@@ -47,6 +52,66 @@
         </tbody>
       </table>
     </div>
+
+    {{#unless is_coordinado}}
+
+      <div class="header">Muestra</div>
+      <div class="dato">
+        {{#if hasMuestras}}
+          <table id="table-fechas">
+            <tbody>
+            <tr>
+              <td class="fechas-header">Cantidad</td>
+              <td>{{muestraNoCoordinado.cantidad}}</td>
+            </tr>
+            <tr>
+              <td class="fechas-header">Identificación</td>
+              <td>{{muestraNoCoordinado.identificacion}}</td>
+            </tr>
+            <tr>
+              <td class="fechas-header">Descripción</td>
+              <td>{{muestraNoCoordinado.descripcion}}</td>
+            </tr>
+            </tbody>
+          </table>
+        {{else}}
+          No tiene muestra capturada
+        {{/if}}
+      </div>
+
+      <div class="header">Servicio</div>
+      <div class="dato">
+        {{#if hasServicios}}
+          <table id="table-fechas">
+            <tbody>
+            <tr>
+              <td class="fechas-header">Código</td>
+              <td>{{servicioNoCoordinado.codigo}}</td>
+            </tr>
+            <tr>
+              <td class="fechas-header">Nombre</td>
+              <td>{{servicioNoCoordinado.nombre}}</td>
+            </tr>
+            <tr>
+              <td class="fechas-header">Descripción</td>
+              <td>{{servicioNoCoordinado.descripcion}}</td>
+            </tr>
+            <tr>
+              <td class="fechas-header">Costo interno</td>
+              <td>{{formatCurrency servicioNoCoordinado.servicio_bitacora.costo_interno}}</td>
+            </tr>
+            <tr>
+              <td class="fechas-header">Precio venta</td>
+              <td>{{formatCurrency servicioNoCoordinado.servicio_bitacora.precio_venta}}</td>
+            </tr>
+            </tbody>
+          </table>
+        {{else}}
+          No tiene servicio capturado
+        {{/if}}
+      </div>
+
+    {{/unless}}
 
     {{#if isCancelada}}
       <div class="header"><span class="label label-default">{{status_text}}</span></div>

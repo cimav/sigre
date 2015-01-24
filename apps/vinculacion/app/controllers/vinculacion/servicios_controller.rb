@@ -67,7 +67,9 @@ module Vinculacion
                                 :nombre,
                                 :descripcion,
                                 :empleado_id,
-                                :status)
+                                :status,
+                                :servicio_bitacora_id
+      )
     end
   end
 end

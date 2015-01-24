@@ -12,7 +12,9 @@ App.Servicio = DS.Model.extend({
   status_text: DS.attr('string'),
   muestras_string: DS.attr('string'),
   relation_string: DS.attr('string'),
-  
+
+  servicio_bitacora: DS.belongsTo('servicio_bitacora'),
+
   selectsChanges: function () {
     // Hack: belongsTo no cambian a Dirty
     // Info de porque no cambian: https://github.com/emberjs/data/issues/1188

@@ -7,5 +7,7 @@ module Vinculacion
     has_many :muestras
     has_many :costeos
 
+    attributes  :servicio_bitacora_id
+
   end
 end

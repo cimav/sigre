@@ -264,7 +264,7 @@ module Vinculacion
                                 :orden_compra,
                                 :fecha_inicio,
                                 :fecha_termino,
-                                :isCoordinado
+                                :is_coordinado
 
       )
     end

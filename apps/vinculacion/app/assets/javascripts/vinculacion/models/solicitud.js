@@ -25,7 +25,8 @@ App.Solicitud = DS.Model.extend({
   relation_string: DS.attr('string'),
 
   is_coordinado: DS.attr('boolean'),
-  servicio_bitacora: DS.belongsTo('servicioBitacora'),
+
+  servicioBitacora: null,
 
   Status: {
     inicial: 1,
@@ -73,6 +74,22 @@ App.Solicitud = DS.Model.extend({
     var termino = moment(this.get('fecha_termino'));
     var result = termino.diff(inicio, 'days');
     return result;
-  }.property('fecha_inicio','fecha_termino')
+  }.property('fecha_inicio','fecha_termino'),
+
+  hasMuestras: function() {
+    return this.get('muestras.length') > 0;
+  }.property('muestras'),
+
+  muestraNoCoordinado: function() {
+    return this.get('muestras').get('firstObject');
+  }.property('muestras'),
+
+  hasServicios: function() {
+    return this.get('servicios.length') > 0;
+  }.property('servicios'),
+
+  servicioNoCoordinado: function() {
+    return this.get('servicios').get('firstObject');
+  }.property('servicios')
 
 });

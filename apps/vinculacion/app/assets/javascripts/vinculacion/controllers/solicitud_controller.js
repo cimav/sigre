@@ -8,7 +8,8 @@ App.SolicitudController = Ember.ObjectController.extend({
     var status = this.get('model.status');
     var inicial = this.get('model.Status.inicial');
     var en_cotizacion = this.get('model.Status.en_cotizacion');
-    return status == inicial || status == en_cotizacion
+    var result = status == inicial || status == en_cotizacion;
+    return result;
   }.property('model.status'),
   allowAddServicios: function() {
     // permitir agregar nuevos servicios cuando la solicitud esta en inicial, en_cotizacion o aceptada
