@@ -78,7 +78,8 @@ module Vinculacion
                         'solicitud_id'          => solicitud.id,
                         'agente_id'             => 1,                            #  TODO: Estos datos se deben de obtener
                         'agente_email'          => solicitud.usuario.email,      #  del usuario que da de alta el servicio.
-                        'codigo'                => servicio.codigo,
+                        'carpeta_codigo'        => solicitud.codigo,
+                        'servicio_codigo'       => servicio.codigo,
                         'servicio_bitacora_id'  => servicio.servicio_bitacora_id,
                         'nombre'                => servicio.nombre,
                         'descripcion'           => servicio.descripcion,
