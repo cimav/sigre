@@ -128,19 +128,19 @@ class BitacoraSubscriptions
         item.save
       end
 
-      # CONSUMIBLES
-      s['consumibles'].each do |p|
-        puts "Agregando #{p['detalle']}"
-        item = cedula.costo_variable.new
-        item.tipo = 3 
-        if p['cantidad'].to_f > 1
-          item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
-        else   
-          item.descripcion = p['detalle'] 
-        end      
-        item.costo = p['cantidad'].to_f * p['precio_unitario'].to_f
-        item.save
-      end
+      # # CONSUMIBLES
+      # s['consumibles'].each do |p|
+      #   puts "Agregando #{p['detalle']}"
+      #   item = cedula.costo_variable.new
+      #   item.tipo = 3 
+      #   if p['cantidad'].to_f > 1
+      #     item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
+      #   else   
+      #     item.descripcion = p['detalle'] 
+      #   end      
+      #   item.costo = p['cantidad'].to_f * p['precio_unitario'].to_f
+      #   item.save
+      # end
 
       # OTROS
       s['otros'].each do |p|
