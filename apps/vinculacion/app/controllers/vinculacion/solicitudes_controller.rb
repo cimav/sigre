@@ -82,7 +82,9 @@ module Vinculacion
                         'servicio_codigo'       => servicio.codigo,
                         'servicio_bitacora_id'  => servicio.servicio_bitacora_id,
                         'nombre'                => servicio.nombre,
-                        'descripcion'           => servicio.descripcion,
+                        'cliente_id'            => solicitud.cliente_id,
+                        'cliente_nombre'        => solicitud.cliente.razon_social,
+                        'descripcion'           => solicitud.descripcion,
                         'muestra'               => solicitud.muestras[0]
       )
       render json: solicitud
