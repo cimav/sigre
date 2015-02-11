@@ -22,8 +22,8 @@ module Vinculacion
                                             'nombre'         => servicio.nombre,
                                             'empleado_id'    => servicio.empleado_id,
                                             'empleado_email' => servicio.empleado.email,
-                                            'agente_id'      => 1,                            #  TODO: Estos datos se deben de obtener
-                                            'agente_email'   => 'karen.valles@cimav.edu.mx',  #  del usuario que da de alta el servicio.
+                                            'agente_id'      => servicio.solicitud.usuario.id,
+                                            'agente_email'   => servicio.solicitud.usuario.email,  #  del usuario que da de alta el servicio.
                                             'descripcion'    => servicio.descripcion,
                                             'muestras'       => servicio.muestras)
       servicio.status = Servicio::ESPERANDO_COSTEO

@@ -47,7 +47,7 @@ module Vinculacion
       ResqueBus.redis = '127.0.0.1:6379' # TODO: Mover a config
       ResqueBus.publish('notificar_cancelacion',
                         'solicitud_id' => solicitud.id,
-                        'agente_id'      => 1,                            #  TODO: Estos datos se deben de obtener
+                        'agente_id'      => solicitud.usuario.id,
                         'agente_email'   => solicitud.usuario.email)  #  del usuario que da de alta el servicio.
 
       render json: solicitud
@@ -60,7 +60,7 @@ module Vinculacion
       ResqueBus.redis = '127.0.0.1:6379' # TODO: Mover a config
       ResqueBus.publish('notificar_arranque',
                         'solicitud_id' => solicitud.id,
-                        'agente_id'      => 1,                        #  TODO: Estos datos se deben de obtener
+                        'agente_id'      => solicitud.usuario.id,
                         'agente_email'   => solicitud.usuario.email)  #  del usuario que da de alta el servicio.
 
       render json: solicitud
@@ -76,7 +76,7 @@ module Vinculacion
       ResqueBus.publish('notificar_arranque_no_coordinado',
                         'id'                    => servicio.id,
                         'solicitud_id'          => solicitud.id,
-                        'agente_id'             => 1,                            #  TODO: Estos datos se deben de obtener
+                        'agente_id'             => solicitud.usuario.id,
                         'agente_email'          => solicitud.usuario.email,      #  del usuario que da de alta el servicio.
                         'carpeta_codigo'        => solicitud.codigo,
                         'servicio_codigo'       => servicio.codigo,
