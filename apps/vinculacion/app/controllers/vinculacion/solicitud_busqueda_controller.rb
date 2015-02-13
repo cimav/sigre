@@ -5,10 +5,10 @@ module Vinculacion
     def index
       results = SolicitudBusqueda.includes(:proyecto,:cliente, :contacto).order(:id)
       if !params[:q].blank?
-        results = results.where("(vinculacion_solicitudes.descripcion ILIKE :q OR 
-                                  vinculacion_proyectos.nombre ILIKE :q OR
-                                  vinculacion_clientes.razon_social ILIKE :q OR
-                                  vinculacion_contactos.nombre ILIKE :q)",
+        results = results.where("(vinculacion_solicitudes.descripcion LIKE :q OR 
+                                  vinculacion_proyectos.nombre LIKE :q OR
+                                  vinculacion_clientes.razon_social LIKE :q OR
+                                  vinculacion_contactos.nombre LIKE :q)",
                                  {:q => "%#{params[:q]}%"})
       end
       render json: results

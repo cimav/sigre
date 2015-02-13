@@ -25,5 +25,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'select2-rails', '~>3.5.4'
   s.add_dependency 'jquery-rails'
   s.add_dependency 'haml'
-  s.add_development_dependency "pg"
+  s.add_development_dependency "mysql2"
 end

@@ -16,9 +16,9 @@ module Proyectos
       end
 
       if !params[:q].blank?
-        results = results.where("(proyectos_proyectos.descripcion ILIKE :q OR
-                                  proyectos_proyectos.nombre ILIKE :q OR
-                                  proyectos_proyectos.cuenta ILIKE :q)",
+        results = results.where("(proyectos_proyectos.descripcion LIKE :q OR
+                                  proyectos_proyectos.nombre LIKE :q OR
+                                  proyectos_proyectos.cuenta LIKE :q)",
                                 {:q => "%#{params[:q]}%"})
       end
       render json: results
