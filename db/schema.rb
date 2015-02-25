@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150216164141) do
+ActiveRecord::Schema.define(version: 20150225200725) do
 
   create_table "estados", force: true do |t|
     t.string   "nombre"
@@ -130,15 +130,17 @@ ActiveRecord::Schema.define(version: 20150216164141) do
   end
 
   create_table "usuarios", force: true do |t|
-    t.string   "usuario",                null: false
-    t.string   "email",                  null: false
-    t.string   "nombre",                 null: false
-    t.string   "apellidos",              null: false
+    t.string   "usuario",                 null: false
+    t.string   "email",                   null: false
+    t.string   "nombre",                  null: false
+    t.string   "apellidos",               null: false
     t.string   "token"
-    t.integer  "status",     default: 1, null: false
+    t.integer  "status",      default: 1, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "role"
+    t.integer  "sede_id"
+    t.integer  "proyecto_id"
   end
 
   add_index "usuarios", ["email"], name: "index_usuarios_on_email", using: :btree
