@@ -57,6 +57,19 @@ App = Ember.Application.create({
   }
 });
 
+Ember.Application.initializer({
+  name: 'currentUser',
+  initialize: function(container) {
+    var attributes, controller, store, user;
+    store = container.lookup('store:main');
+    attributes = $('meta[name="current-user"]').attr('content');
+    if (attributes) {
+      user = store.push('usuario', store.serializerFor(App.Usuario).normalize(App.Usuario, JSON.parse(attributes)));
+      controller = container.lookup('controller:currentUser').set('content', user);
+      return container.typeInjection('controller', 'currentUser', 'controller:currentUser');
+    }
+  }
+});
 App.ApplicationAdapter = DS.ActiveModelAdapter.extend({});
 App.ApplicationSerializer = DS.ActiveModelSerializer.extend({});
 

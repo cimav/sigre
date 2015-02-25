@@ -79,7 +79,7 @@ GEM
     minitest (4.7.5)
     mono_logger (1.1.0)
     multi_json (1.10.1)
-    pg (0.17.1)
+    mysql2 (0.3.17)
     polyglot (0.3.5)
     rack (1.5.2)
     rack-protection (1.5.3)
@@ -154,5 +154,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  pg
+  mysql2
   vinculacion!

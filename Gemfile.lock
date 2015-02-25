@@ -11,18 +11,6 @@ PATH
       select2-rails (~> 3.5.4)
 
 PATH
-  remote: apps/rh
-  specs:
-    rh (0.0.1)
-      active_model_serializers
-      ember-rails (~> 0.15)
-      ember-source (~> 1.1)
-      haml
-      jquery-rails
-      rails (~> 4.0.3)
-      select2-rails (~> 3.5.4)
-
-PATH
   remote: apps/vinculacion
   specs:
     vinculacion (0.0.1)
@@ -34,6 +22,18 @@ PATH
       jquery-ui-rails
       rails (~> 4.0.3)
       resque-bus
+      select2-rails (~> 3.5.4)
+
+PATH
+  remote: apps/rh
+  specs:
+    rh (0.0.1)
+      active_model_serializers
+      ember-rails (~> 0.15)
+      ember-source (~> 1.1)
+      haml
+      jquery-rails
+      rails (~> 4.0.3)
       select2-rails (~> 3.5.4)
 
 GEM

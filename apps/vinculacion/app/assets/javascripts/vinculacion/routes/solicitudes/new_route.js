@@ -6,7 +6,16 @@ App.SolicitudesNewRoute = Ember.Route.extend({
     this.controllerFor('solicitudes').set('showSolicitudesList', true);
   },
   model: function() {
-    return this.store.createRecord('solicitud');
+    var currentUser = this.controllerFor('application').get('currentUser');
+    var sede = currentUser.get('sede');
+    var proyecto = currentUser.get('proyecto');
+
+    var newSolicitud = this.store.createRecord('solicitud');
+    newSolicitud.set('proyecto', proyecto)
+    newSolicitud.set('sede', sede);
+    newSolicitud.set('prioridad', 1);
+
+    return newSolicitud;
   },
   actions: {
     create: function(solicitud) {

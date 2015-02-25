@@ -46,13 +46,6 @@ module Vinculacion
       self.status ||= "1"
       self.fecha_inicio ||= Time.now
       self.fecha_termino ||= Time.now
-
-      if !self.is_coordinado?
-        # valores default para los no-coordinados
-        self.proyecto = Proyecto.find(1);
-        self.prioridad = 1;
-      end
-
     end
 
     def relation_string
