@@ -24,8 +24,11 @@ module Vinculacion
                                             'empleado_email' => servicio.empleado.email,
                                             'agente_id'      => servicio.solicitud.usuario.id,
                                             'agente_email'   => servicio.solicitud.usuario.email,  #  del usuario que da de alta el servicio.
+                                            'cliente_id'     => servicio.solicitud.cliente_id,
+                                            'cliente_nombre' => servicio.solicitud.cliente.razon_social,
                                             'descripcion'    => servicio.descripcion,
                                             'muestras'       => servicio.muestras)
+
       servicio.status = Servicio::ESPERANDO_COSTEO
       servicio.save
       render json: servicio
