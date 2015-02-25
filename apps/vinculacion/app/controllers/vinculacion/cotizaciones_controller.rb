@@ -86,18 +86,24 @@ module Vinculacion
         ## DATOS GENERALES
         cliente  = cotizacion.solicitud.cliente      
         contacto = cotizacion.solicitud.contacto
+ 
+        contacto_nombre = contacto.nombre rescue 'Sin contacto'
+        contacto_telefono = contacto.telefono rescue 'Sin contacto'
+        contacto_email = contacto.email rescue 'Sin contacto'
     
-        data = [[t[:company],cliente.razon_social],
-                [t[:attention],contacto.nombre],
-                [t[:company_address],"#{cliente.calle_num} Col. #{cliente.colonia} C.P. #{cliente.cp}"],
-                [t[:phone],contacto.telefono],
-                [t[:email],contacto.email],
-                [t[:rfc],cliente.rfc]]
+        data = [ [t[:company],         cliente.razon_social],
+                 [t[:attention],       contacto_nombre],
+                 [t[:company_address], "#{cliente.calle_num} #{cliente.colonia} C.P. #{cliente.cp}"],
+                 [t[:phone],           contacto_telefono],
+                 [t[:email],           contacto_email],
+                 [t[:rfc],             cliente.rfc]]
         x = 15
         y = y - 25
         data.each do |d|
           pdf.text_box d[0], :at=> [x,y], :width => 50, :height => 11,:valign=> :top, :align => :left, :size=> 10
-          pdf.text_box d[1], :at=> [x + 50,y], :width => 200, :height => 11,:valign=> :top, :align => :left, :size=> 10
+          if d[1]
+            pdf.text_box d[1], :at=> [x + 50,y], :width => 200, :height => 11,:valign=> :top, :align => :left, :size=> 10
+          end
           y = y - 10
         end
 

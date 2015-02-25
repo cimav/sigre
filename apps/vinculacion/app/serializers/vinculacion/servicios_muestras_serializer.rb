@@ -1,8 +1,8 @@
 module Vinculacion
   class ServiciosMuestrasSerializer < ActiveModel::Serializer
-  	embed :ids 
+    embed :ids 
     attributes :id
-    belongs_to :servicio
-    belongs_to :muestra
+    has_one :servicio
+    has_one :muestra
   end
 end
