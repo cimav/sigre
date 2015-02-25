@@ -108,6 +108,10 @@ App.SolicitudEditController = Ember.ObjectController.extend({
     if (this.get('model') != null) {
       // TODO no funciona del todo bien
       this.get('model').send('becomeDirty');
+
+      // asigna el servicioBitacora del controllador al modelo
+      this.get('model').set('servicioBitacora', this.get('servicioBitacora'));
+
     }
   }.observes('servicioBitacora').on('init')
 
