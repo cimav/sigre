@@ -10,7 +10,6 @@ class BitacoraSubscriptions
 
     attributes['servicios'].each do |s|
 
-      puts "Recibir costeo #{s['bitacora_id']}: #{s['nombre_servicio']}"
 
       costeo = ::Vinculacion::Costeo.new
       costeo.bitacora_id     = s['bitacora_id']
@@ -21,7 +20,6 @@ class BitacoraSubscriptions
 
       # PERSONAL
       s['personal'].each do |p|
-        puts "Agregando #{p['detalle']}"
         item = costeo.costeo_detalle.new
         item.tipo = 1
         item.descripcion     = p['detalle']
@@ -32,7 +30,6 @@ class BitacoraSubscriptions
 
       # EQUIPO
       s['equipos'].each do |p|
-        puts "Agregando #{p['detalle']}"
         item = costeo.costeo_detalle.new
         item.tipo = 2
         item.descripcion     = p['detalle']
@@ -41,20 +38,8 @@ class BitacoraSubscriptions
         item.save
       end
 
-      # CONSUMIBLES
-      s['consumibles'].each do |p|
-        puts "Agregando #{p['detalle']}"
-        item = costeo.costeo_detalle.new
-        item.tipo = 3
-        item.descripcion     = p['detalle']
-        item.cantidad        = p['cantidad']
-        item.precio_unitario = p['precio_unitario']
-        item.save
-      end
-
       # OTROS
       s['otros'].each do |p|
-        puts "Agregando #{p['detalle']}"
         item = costeo.costeo_detalle.new
         item.tipo = 4
         item.descripcion     = p['detalle']
@@ -74,15 +59,7 @@ class BitacoraSubscriptions
   def recibir_reporte(attributes)
 
     cedula = ::Vinculacion::Cedula.where(:solicitud_id => attributes['system_request_id'], :servicio_id => attributes['system_id']).first
-    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-    puts "Recibir reporte para cedula: #{cedula.codigo}"
-    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-
-    puts "--------------"
-    puts "Participantes."
-    puts "--------------"
     attributes['participaciones'].each do |p|
-      puts "Agregando participante #{p['email']} con #{p['porcentaje']}%"
       if empleado = ::Vinculacion::Empleado.where(:email => p['email']).first
         remanente = cedula.remanentes.new
         remanente.porcentaje_participacion = p['porcentaje']
@@ -93,16 +70,11 @@ class BitacoraSubscriptions
       end
     end
 
-    puts "-----------------"
-    puts "Costos variables."
-    puts "-----------------"
     attributes['servicios'].each do |s|
 
-      puts "Servicio #{s['bitacora_id']}: #{s['nombre_servicio']}"
 
       # PERSONAL
       s['personal'].each do |p|
-        puts "Agregando #{p['detalle']}"
         item = cedula.costo_variable.new
         item.tipo = 1 
         if p['cantidad'].to_f > 1
@@ -116,7 +88,6 @@ class BitacoraSubscriptions
 
       # EQUIPO
       s['equipos'].each do |p|
-        puts "Agregando #{p['detalle']}"
         item = cedula.costo_variable.new
         item.tipo = 2 
         if p['cantidad'].to_f > 1
@@ -144,7 +115,6 @@ class BitacoraSubscriptions
 
       # OTROS
       s['otros'].each do |p|
-        puts "Agregando #{p['detalle']}"
         item = cedula.costo_variable.new
         item.tipo = 4 
         if p['cantidad'].to_f > 1
