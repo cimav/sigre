@@ -20,6 +20,7 @@
 //= require vinculacion/ember-easyForm
 //= require vinculacion/bootstrap
 //= require vinculacion/moment.min
+//= require vinculacion/momentjs-extensions
 //= require select2
 
 var inflector = Ember.Inflector.inflector;

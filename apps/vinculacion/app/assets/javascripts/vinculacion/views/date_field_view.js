@@ -1,8 +1,8 @@
 Ember.Handlebars.registerBoundHelper('format-date', function(format, date) {
-  return moment(date).format(format);
+  return moment(date).locale('es').format(format);
 });
 
-// TODO App.DateField le fata cambiar a español y a dd/mm/yyyy
+// TODO App.DateField le falta cambiar a español y a dd/mm/yyyy
 
 App.DateField = Ember.TextField.extend({
   // http://discuss.emberjs.com/t/example-building-a-date-input-field/674/3

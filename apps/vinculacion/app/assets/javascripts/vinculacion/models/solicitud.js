@@ -69,10 +69,11 @@ App.Solicitud = DS.Model.extend({
   }.property('status'),
 
   duracion : function() {
-    moment.lang('es');
+    //moment.lang('es');
     var inicio  = moment(this.get('fecha_inicio'));
     var termino = moment(this.get('fecha_termino'));
-    var result = termino.diff(inicio, 'days');
+    //var result = termino.diff(inicio, 'days');
+    var result = termino.businessDiff(inicio);
     return result;
   }.property('fecha_inicio','fecha_termino'),
 
