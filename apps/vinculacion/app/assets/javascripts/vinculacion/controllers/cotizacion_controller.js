@@ -84,8 +84,12 @@ App.CotizacionController = Ember.ObjectController.extend({
 
   pdf_url: function() {
     return '/vinculacion/cotizacion/' + this.get('id') + '/pdf';
-  }.property('model.id')
-  
+  }.property('model.id'),
+
+  disablePDFCotizacion: function() {
+    var result = this.get('isEdicion') || this.get('isDescuentoSolicitado') || this.get('isDescuentoRechazado');
+    return result;
+  }.property('status')
 
 });
 

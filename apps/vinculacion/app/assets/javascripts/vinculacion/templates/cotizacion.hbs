@@ -193,7 +193,7 @@
 
   {{#if showCotizacion}}
     <div id="pdf-link">
-      <a class="btn btn-default btn-sm" {{bind-attr href='pdf_url'}}><span class="glyphicon glyphicon-file"></span> Descargar PDF</a>
+      <a class="btn btn-default btn-sm" {{bind-attr href='pdf_url' disabled=this.disablePDFCotizacion}}><span class="glyphicon glyphicon-file"></span> Descargar PDF</a>
     </div>
   {{/if}}
 
