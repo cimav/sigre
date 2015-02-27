@@ -253,7 +253,7 @@ module Vinculacion
         
         ##  COSTOS INDIRECTOS
         pdf.text "\n"
-        pdf.text "Costos Indirectos", :size=> 15,:style=> :bold
+        pdf.text "Personal", :size=> 15,:style=> :bold
         data = []
         data += [[ {:content=>"#{title_spaces} <b>Horas hombre</b> ",:colspan=>2}  ]]
         data += data_hhombre
