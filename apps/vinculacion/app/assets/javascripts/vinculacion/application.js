@@ -20,7 +20,7 @@
 //= require vinculacion/ember-easyForm
 //= require vinculacion/bootstrap
 //= require vinculacion/moment.min
-//= require vinculacion/momentjs-extensions
+//= require vinculacion/moment-with-locales.min
 //= require select2
 
 var inflector = Ember.Inflector.inflector;
@@ -61,6 +61,10 @@ App = Ember.Application.create({
 Ember.Application.initializer({
   name: 'currentUser',
   initialize: function(container) {
+
+    // set default local format time
+//    moment.locale('es'); // TODO .format('LL');
+
     var attributes, controller, store, user;
     store = container.lookup('store:main');
     attributes = $('meta[name="current-user"]').attr('content');

@@ -15,6 +15,7 @@ App.Solicitud = DS.Model.extend({
   orden_compra: DS.attr('string'),
   fecha_inicio: DS.attr('date'),
   fecha_termino: DS.attr('date'),
+  duracion: DS.attr('number'),
   cedulas: DS.hasMany('cedula'),
   responsable_presupuestal: DS.belongsTo('empleado'),
 
@@ -68,14 +69,19 @@ App.Solicitud = DS.Model.extend({
     return this.get('status') == this.get('Status.en_proceso');
   }.property('status'),
 
-  duracion : function() {
-    //moment.lang('es');
-    var inicio  = moment(this.get('fecha_inicio'));
-    var termino = moment(this.get('fecha_termino'));
-    //var result = termino.diff(inicio, 'days');
-    var result = termino.businessDiff(inicio);
-    return result;
-  }.property('fecha_inicio','fecha_termino'),
+  setFechaTermino: function() {
+    var f_termino = this.addBusinessDay(this.get('fecha_inicio'), parseInt(this.get('duracion')));
+    this.set('fecha_termino', f_termino);
+  }.observes('duracion', 'fecha_inicio'),
+
+  addBusinessDay: function(f_inicio, daysToAdd) {
+    var f_termino = new Date(f_inicio);
+    while(daysToAdd > 0) {
+      f_termino.setTime( f_termino.getTime() + 24 * 3600 * 1000 ); // add one day
+      if ( f_termino.getDay() != 0 && f_termino.getDay() != 6 ) --daysToAdd;
+    }
+    return f_termino;
+  },
 
   hasMuestras: function() {
     return this.get('muestras.length') > 0;

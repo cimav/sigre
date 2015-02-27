@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225200725) do
+ActiveRecord::Schema.define(version: 20150226230933) do
 
   create_table "estados", force: true do |t|
     t.string   "nombre"
@@ -336,6 +336,7 @@ ActiveRecord::Schema.define(version: 20150225200725) do
     t.date     "fecha_termino"
     t.integer  "responsable_presupuestal_id"
     t.boolean  "is_coordinado"
+    t.integer  "duracion",                               default: 1
   end
 
   create_table "vinculacion_tamanos_empresa", force: true do |t|

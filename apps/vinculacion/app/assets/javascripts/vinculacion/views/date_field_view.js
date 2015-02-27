@@ -1,5 +1,6 @@
 Ember.Handlebars.registerBoundHelper('format-date', function(format, date) {
-  return moment(date).locale('es').format(format);
+  return moment(date).utc().locale('es').format(format);
+
 });
 
 // TODO App.DateField le falta cambiar a español y a dd/mm/yyyy

@@ -288,7 +288,8 @@ module Vinculacion
                                 :orden_compra,
                                 :fecha_inicio,
                                 :fecha_termino,
-                                :is_coordinado
+                                :is_coordinado,
+                                :duracion
 
       )
     end
