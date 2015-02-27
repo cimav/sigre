@@ -21,8 +21,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.0.3"
 
   s.add_dependency 'active_model_serializers'
-  s.add_dependency 'ember-rails', '~>0.15'
-  s.add_dependency 'ember-source', '~>1.1.2'
+  s.add_dependency 'ember-rails', '~>0.16.3'
+  s.add_dependency 'ember-source', '~>1.10'
   s.add_dependency 'select2-rails', '~>3.5.4'
   s.add_dependency 'jquery-rails'
   s.add_dependency 'haml'
