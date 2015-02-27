@@ -11,7 +11,7 @@ App.SolicitudBusqueda = DS.Model.extend({
   servicios_length: DS.attr('string'),
   ultima_cotizacion: DS.attr('string'),
   status_text: DS.attr('string'),
-  is_coordinado:  DS.attr('boolean'),
+  tipo:  DS.attr('number'),
  
   getDescripcion: function() {
     size =  this.get('descripcion.length');
@@ -21,6 +21,11 @@ App.SolicitudBusqueda = DS.Model.extend({
       data =  data + '...';
     }
     return data;
-  }.property('descripcion')
+  }.property('descripcion'),
+
+  isTipoI: function() {
+    return this.get('tipo') == 1;
+  }.property('tipo')
+
 
 });

@@ -32,13 +32,17 @@
       {{input descripcion as="text" label="Descripción"}}
 
       <div class="form-group">
-        <label for="unknown" class="col-sm-2 control-label">Coordinado</label>
-        <div class="col-sm-2">
-          {{view Ember.Checkbox checkedBinding="content.is_coordinado"}}
+        <label for="unknown" class="col-sm-2 control-label">Tipo</label>
+        <div class="col-sm-6" id="solicitud-new-tipos">
+          {{#view App.RadioButtonGroup group="tipo-option" valueBinding="tipo"}}
+            <div class="col-sm-2">{{view App.RadioButtonField title="Tipo I" value=1}}</div>
+            <div class="col-sm-2">{{view App.RadioButtonField title="Tipo II" value=2 disable=true}}</div>
+            <div class="col-sm-2">{{view App.RadioButtonField title="Tipo II" value=3}}</div>
+          {{/view}}
         </div>
       </div>
 
-      {{#if is_coordinado}}
+      {{#unless isTipoI}}
 
         <div class="form-group">
           <label for="unknown" class="col-sm-2 control-label">Responsable</label>
@@ -84,7 +88,7 @@
           </div>
         </div>
 
-      {{/if}}
+      {{/unless}}
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-7">

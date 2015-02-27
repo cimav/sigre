@@ -5,9 +5,9 @@ App.SolicitudEditRoute = Ember.Route.extend({
 
   afterModel: function(solicitud, transition) {
 
-    if (!solicitud.get('is_coordinado')) {
+    if (solicitud.get('tipo') == 1) {
 
-      // precarga la new-muestra si es Solicitud No-Coordinado
+      // precarga la new-muestra si es Solicitud Tipo I
       var newMuestra = solicitud.get('muestras').get('firstObject');
       if (newMuestra == null) {
         newMuestra = this.store.createRecord('muestra');
@@ -16,7 +16,7 @@ App.SolicitudEditRoute = Ember.Route.extend({
       }
       this.controllerFor("solicitud_edit").set("newMuestra", newMuestra);
 
-      // precarga el new-servicio es es No-Coordinado
+      // precarga el new-servicio es Tipo I
       var newServicio = solicitud.get('servicios').get('firstObject');
       var servicioBitacora = null;
       if (newServicio != null) {

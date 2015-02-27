@@ -31,8 +31,8 @@ App.SolicitudEditController = Ember.ObjectController.extend({
 
       solicitud.save().then(onSuccess, onFail);
 
-      if (noErrors && !solicitud.get('is_coordinado')) {
-        // si no hubo errores y es Servicio No-Coordinado
+      if (noErrors && (solicitud.get('tipo') == 1)) {
+        // si no hubo errores y es Servicio Tipo 1
 
         // salva la muestra
         var newMuestra = self.get('newMuestra');

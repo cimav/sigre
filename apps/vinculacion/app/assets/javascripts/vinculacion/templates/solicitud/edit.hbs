@@ -26,7 +26,7 @@
 
     {{input descripcion as="text" label="Descripción"}}
 
-    {{#if is_coordinado}}
+    {{#unless isTipoI}}
 
       <div class="form-group">
         <label for="unknown" class="col-sm-2 control-label">Responsable</label>
@@ -72,9 +72,9 @@
         </div>
       </div>
 
-    {{/if}}
+    {{/unless}}
 
-    {{#unless is_coordinado}}
+    {{#if isTipoI}}
 
       <div class="form-group">
         <label for="unknown" class="col-sm-2 control-label">Muestra</label>
@@ -107,7 +107,7 @@
         </div>
       </div>
 
-    {{/unless}}
+    {{/if}}
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-7">

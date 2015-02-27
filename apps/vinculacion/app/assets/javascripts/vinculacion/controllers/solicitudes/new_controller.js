@@ -11,10 +11,10 @@ App.SolicitudesNewController = Ember.ObjectController.extend({
         // recarga la lista de solicitud_busqueda
         self.get('controllers.solicitudes').send('reloadModel');
 
-        if(solicitud.get('is_coordinado')) {
-          self.transitionToRoute('solicitud', solicitud);
-        } else {
+        if(solicitud.get('tipo') == 1) {
           self.transitionToRoute('solicitud.edit', solicitud); // directo a editar
+        } else {
+          self.transitionToRoute('solicitud', solicitud);
         }
         self.get('controllers.application').notify('Se agrego nueva solicitud');
       };
@@ -25,5 +25,6 @@ App.SolicitudesNewController = Ember.ObjectController.extend({
 
       solicitud.save().then(onSuccess, onFail);
     }
+
   }
 });

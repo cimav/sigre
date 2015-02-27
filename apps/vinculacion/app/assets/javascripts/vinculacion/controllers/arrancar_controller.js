@@ -50,10 +50,10 @@ App.ArrancarController = Ember.ObjectController.extend({
     notificar_arranque: function(solicitud) {
       // notificar el arranque a bitacora a través del request bus
       self = this;
-      if (solicitud.get('is_coordinado')) {
-        url = '/vinculacion/solicitudes/' + self.get('id') + '/notificar_arranque'; // url del controlador en rails
-      } else {
+      if (solicitud.get('tipo') == 1) {
         url = '/vinculacion/solicitudes/' + self.get('id') + '/notificar_arranque_no_coordinado'; // url del controlador en rails
+      } else {
+        url = '/vinculacion/solicitudes/' + self.get('id') + '/notificar_arranque'; // url del controlador en rails
       }
       $.post(url).then(function(response) {
         if (!response.error) {

@@ -14,6 +14,7 @@ App.SolicitudesNewRoute = Ember.Route.extend({
     newSolicitud.set('proyecto', proyecto)
     newSolicitud.set('sede', sede);
     newSolicitud.set('prioridad', 1);
+    newSolicitud.set('tipo', 1);
 
     return newSolicitud;
   },

@@ -14,12 +14,12 @@
 <div id="op-options-panel">
   <ul class="nav nav-pills nav-stacked">
     {{#link-to 'solicitud.index' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-ok"></span> Solicitud</a>{{/link-to}}
-    {{#if is_coordinado}}
+    {{#unless isTipoI}}
       {{#link-to 'muestras' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-th"></span> Muestras <span class="badge badge-muestras">{{muestrasCount}}</span></a>{{/link-to}}
       {{#if muestrasCount}}
         {{#link-to 'servicios' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-list"></span> Servicios <span class="badge badge-servicios">{{serviciosCount}}</span></a>{{/link-to}}
       {{/if}}
-    {{/if}}
+    {{/unless}}
     {{#link-to 'cotizaciones' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-usd"></span> Cotizaciones <span class="badge badge-cotizaciones">{{this.lastCotizacion.consecutivo}}</span></a>{{/link-to}}
     {{#link-to 'arrancar' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-flash"></span> Arrancar </a>{{/link-to}}
     {{#link-to 'cedulas' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-list-alt"></span> Cédulas <span class="badge badge-cedulas">{{this.cedulas.length}}</span></a>{{/link-to}}

@@ -25,7 +25,7 @@ App.Solicitud = DS.Model.extend({
   status_text:       DS.attr('string'),
   relation_string: DS.attr('string'),
 
-  is_coordinado: DS.attr('boolean'),
+  tipo: DS.attr('number'),
 
 //  servicio_bitacora: null,
 
@@ -97,6 +97,10 @@ App.Solicitud = DS.Model.extend({
 
   servicioNoCoordinado: function() {
     return this.get('servicios').get('firstObject');
-  }.property('servicios')
+  }.property('servicios'),
+
+  isTipoI: function() {
+    return this.get('tipo') == 1;
+  }.property('tipo')
 
 });

@@ -9,7 +9,7 @@
 
   <div id="solicitud-index-datos">
 
-    {{#if is_coordinado}}
+    {{#unless isTipoI}}
       <div class="header">Responsable presupuestal</div>
       <div class="dato">{{responsable_presupuestal.apellido_paterno}} {{responsable_presupuestal.apellido_materno}}, {{responsable_presupuestal.nombre}}</div>
       <div class="header">Proyecto</div>
@@ -19,17 +19,17 @@
       <div class="dato">{{sede.nombre}}</div>
       <div class="header">Descripción</div>
       <div class="dato">{{descripcion}}</div>
-    {{/if}}
+    {{/unless}}
     <div class="header">Cliente</div>
     <div class="dato">{{cliente.razon_social}}</div>
     <div class="header">Contacto</div>
     <div class="dato">{{contacto.nombre}} </div>
     <div class="dato">{{contacto.email}}</div>
     <div class="dato">{{contacto.telefono}}</div>
-    {{#if is_coordinado}}
+    {{#unless isTipoI}}
       <div class="header">Prioridad</div>
       <div class="dato">{{#view App.EnumView  items=controllers.application.prioridades index=prioridad}}{{view.item.descripcion}}{{/view}}</div>
-    {{/if}}
+    {{/unless}}
     <div class="header">Orden compra</div>
     <div class="dato">{{orden_compra}}</div>
 
@@ -53,7 +53,7 @@
       </table>
     </div>
 
-    {{#unless is_coordinado}}
+    {{#if isTipoI}}
 
       <div class="header">Muestra</div>
       <div class="dato">
@@ -115,7 +115,7 @@
         {{/if}}
       </div>
 
-    {{/unless}}
+    {{/if}}
 
     {{#if isCancelada}}
       <div class="header"><span class="label label-default">{{status_text}}</span></div>
