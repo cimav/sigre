@@ -11,7 +11,7 @@ module Vinculacion
     after_create :add_cedula
     after_update :check_solicitud_status
 
-    has_one :servicio_bitacora
+    belongs_to :servicio_bitacora
 
     INICIAL             = 1
     ESPERANDO_COSTEO    = 2

@@ -70,6 +70,8 @@ module Vinculacion
       solicitud = Solicitud.find(params[:id])
       servicio = solicitud.servicios[0]
 
+      bitacoraId = servicio.servicio_bitacora.bitacora_id rescue 0
+
       # notificar a Bitacora
       puts "Notificar arranque no coordinado"
       ResqueBus.redis = '127.0.0.1:6379' # TODO: Mover a config
@@ -80,7 +82,7 @@ module Vinculacion
                         'agente_email'          => solicitud.usuario.email,      #  del usuario que da de alta el servicio.
                         'carpeta_codigo'        => solicitud.codigo,
                         'servicio_codigo'       => servicio.codigo,
-                        'servicio_bitacora_id'  => servicio.servicio_bitacora_id,
+                        'servicio_bitacora_id'  => bitacoraId,
                         'nombre'                => servicio.nombre,
                         'cliente_id'            => solicitud.cliente_id,
                         'cliente_nombre'        => solicitud.cliente.razon_social,
