@@ -160,9 +160,9 @@
     }
   }
   #md-items-list {
-    overflow-y: scroll;
+    overflow-y: auto;
     position: absolute;
-    //bottom: 32px;
+    bottom: 0px;
     top: 50px;
     width: 100%;
     .md-item {
