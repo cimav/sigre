@@ -28,7 +28,7 @@
         <tbody>
           {{#each controllers.solicitud.muestras itemController="new_child"}}
             <tr>
-              <td>{{input type="checkbox" name=codigo classNames="form-control" checkedBinding="selected"}}</td>
+              <td>{{input type="checkbox" name=codigo checkedBinding="selected"}}</td>
               <td class="numero">{{codigo}}</td>
               <td>{{identificacion}}</td>
               <td>{{cantidad}}</td>
