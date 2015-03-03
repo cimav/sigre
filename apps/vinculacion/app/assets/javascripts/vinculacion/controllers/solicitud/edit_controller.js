@@ -7,11 +7,10 @@ App.SolicitudEditController = Ember.ObjectController.extend({
   actions: {
 
     submit: function () {
-      solicitud = this.get('model');
-      self = this;
+      var solicitud = this.get('model');
+      var self = this;
       var noErrors = true;
-
-      //TODO falta validar
+      var validation_errors = [];
 
       var onSuccess = function (solicitud) {
 
@@ -29,13 +28,30 @@ App.SolicitudEditController = Ember.ObjectController.extend({
         noErrors = false;
       };
 
+      // get muestra
+      var newMuestra = self.get('newMuestra');
+
+      if ((newMuestra.get('identificacion') === null) || (newMuestra.get('identificacion') === undefined) || (newMuestra.get('identificacion').trim() == '')) {
+        validation_errors.push('Se debe especificar la identificación de la muestra');
+      }
+      if ((newMuestra.get('cantidad') === null) || (newMuestra.get('cantidad') === undefined) || (newMuestra.get('cantidad') <= 0)) {
+        validation_errors.push('Se debe especificar una cantidad mayor que 0');
+      }
+      if (validation_errors.length > 0) {
+        var error_msg = "Existen errores:\n"
+        validation_errors.forEach(function(e) {
+          error_msg += e + "\n";
+        });
+        alert(error_msg);
+        return;
+      }
+
       solicitud.save().then(onSuccess, onFail);
 
       if (noErrors && (solicitud.get('tipo') == 1)) {
         // si no hubo errores y es Servicio Tipo 1
 
         // salva la muestra
-        var newMuestra = self.get('newMuestra');
         if (solicitud.get('muestras').get('length') == 0) {
           // si no habia sido capturada
           solicitud.get('muestras').pushObject(newMuestra);
