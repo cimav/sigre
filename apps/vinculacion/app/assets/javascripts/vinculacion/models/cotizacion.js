@@ -38,12 +38,8 @@ App.Cotizacion = DS.Model.extend({
   }.property('cotizacion_detalles.@each.cantidad', 'cotizacion_detalles.@each.precio_unitario'),
 
   subtotal_calculado: function(){
-    var dets = this.get('cotizacion_detalles');
-    var ret = 0;
-    dets.forEach(function(d){
-      ret += d.get("total");
-    });
-    this.set('subtotal', ret);
+
+    var ret = this.get('subtotal_calculado_normal');
 
     // Normal * 1, Urgente * 2, Express * 3
     var tiempo_entrega = this.get('solicitud.tiempo_entrega');
@@ -53,7 +49,7 @@ App.Cotizacion = DS.Model.extend({
     ret = ret * tiempo_entrega;
 
     return ret;
-  }.property('cotizacion_detalles.@each.cantidad', 'cotizacion_detalles.@each.precio_unitario'),
+  }.property('subtotal_calculado_normal'),
 
   tiempo_entrega_txt: function() {
     var tiempo_entrega = this.get('solicitud.tiempo_entrega');
