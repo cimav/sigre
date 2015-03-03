@@ -115,7 +115,12 @@ module Vinculacion
 
         ## ALGUNOS SALTOS DE LINEA PARA BAJAR LA TABLA
         pdf.text "\n\n\n\n\n\n"
-        
+
+        analisis = cotizacion.solicitud.descripcion rescue "desarrollo de servicio"
+        analisis = analisis.length <= 0 ? "desarrollo de servicio" : analisis
+        leyenda = "En respuesta a su solicitud de #{analisis} y agradeciendo su preferencia, ponemos a su consideración la siguiente propuesta económica:"
+        pdf.text leyenda, :size=> 9
+
         ## CABECERA
         data = [[t[:amount],t[:description],t[:unit_cost], t[:subtotal]]]
         ## REITERATIVOS
@@ -153,18 +158,33 @@ module Vinculacion
 
         pdf.text "\n"
         #OBSERVACIONES
-        
-        
-        data = [[t[:legal],t[:observacion]]]
+
+
+       # data = [[t[:legal],t[:observacion]]]
+        notes = cotizacion.notas
+        data = [[t[:legal],notes]]
         pdf.table(data,:header=> false,:width=>505, :column_widths=>[405,100], :cell_style=> {:align=>:left,:valign=>:top,:padding=>3,:borders=>[]}) do
           row(0).column(0).style(:size=> size - 4,:inline_format=>true)
           row(0).column(1).style(:borders=>[:top,:bottom,:left,:right],:size=> size - 3)
             
         end
 
+        pdf.text "\n\n"
+        pdf.text "Notas:
+- Esta cotización tiene una vigencia de 30 días hábiles.
+- La programación de la medición es 8 días hábiles posteriores a la recepción del comprobante de pago, el tiempo de entrega del informe de resultados es 30 días naturales.
+- Se consideran días hábiles de lunes a viernes en un horario de 9:00 -14:00 y 16:00 -19:00 h.
+- El cliente aprueba el procedimiento técnico y la realización de las pruebas o calibraciónes en su material o equipo al autorizar el servicio.
+- En caso de autorizar el servicio, deberá hacernos llegar mediante este mismo medio la orden de trabajo que autorice los estudios a realizar y los materiales e información técnica de los mismos.
+- Si no se encuentra registrado en nuestro catalogó de cliente deberá pagar el costo del servicio para poder comenzar con el mismo,  a la cuenta Banorte 0127370266 clabe 072150001273702669
+- Una vez finalizado el servicio, el cliente cuenta con 30 días para recoger sus muestras; transcurrido este tiempo se desechan.
+- Para los servicios de calibración, si en un período preliminar de calibración el LABORATORIO DE METROLOGÍA observa que el instrumento está dañado se suspenderá el proceso de calibración, se le notificará  al cliente. Se entenderá que la  calibración solicitada ya no se efectuará. Queda establecido que el LABORATORIO DE METROLOGÍA no será responsable de los equipos que se hayan presentado dañados, con vicios ocultos o cualquier irregularidad. La fecha de entrega del instrumento aplica siempre y cuando el instrumento no requiera ajustes, ya que en este último caso (si se cuenta con todo lo necesario para llevar a cabo el ajuste), el tiempo puede extenderse. Si al instrumento le falta algún aditamento para realizar la calibración la fecha de recepción comenzará a contar a partir de que dicho elemento sea entregado al laboratorio. La recolección del instrumento en las instalaciones del laboratorio corre a cargo del cliente, excepto cuando se haya estipulado en la cotización su envío por mensajería.. El servicio de calibración no incluye ajuste o reparación de los instrumentos. Si se requiere la verificación de los resultados contra una tolerancia específica, ésta debe ser proporcionada por el solicitante. El informe de calibración se emitirá independientemente de que el instrumento no cumpla con la norma de referencia o especificaciones de tolerancias dadas. El  cliente puede definir cómo se expresarán los resultados (en que unidades, etc.), de no hacerlo, el LABORATORIO DE METROLOGÍA expresará los resultados según lo marque el procedimiento de calibración utilizado. (8). El cliente podrá especificar los puntos en los cuáles se calibrará el instrumento, de no hacerlo, el LABORATORIO DE METROLOGÍA escogerá los puntos según lo marque el procedimiento de calibración utilizado. Para su calibración los instrumentos deberán ser entregados en buenas condiciones de funcionamiento y limpios. En caso contrario no se realizará el servicio. El cliente proporcionará la información necesaria y dará todas las facilidades para el desarrollo del servicio. Para servicios de calibración, el LABORATORIO DE METROLOGÍA únicamente garantiza que el equipo del solicitante funciona en el lugar que se efectuó la calibración ya que durante el traslado a su lugar de origen cualquier movimiento brusco o falta de cuidado del transportador puede afectar la calibración.",
+:size=>7
+
+
         # NOTAS
         pdf.text "\n"
-        pdf.text cotizacion.notas,:size=>size
+      #  pdf.text cotizacion.notas,:size=>size
         ## FOOTER
         y = -35
         pdf.repeat :all do

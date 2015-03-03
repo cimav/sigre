@@ -16,6 +16,7 @@ es:
             phone:           "Teléfono:"
             email:           "Email:"
             rfc:             "RFC:"
+            legend:          "En respuesta a su solicitud de análisisl y agradeciendo su preferencia, ponemos a su consideración la siguiente propuesta económica:"
             amount:          "Cantidad"
             description:     "Descripción"
             unit_cost:       "Costo Unitario"
