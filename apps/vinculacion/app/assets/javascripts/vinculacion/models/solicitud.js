@@ -26,6 +26,7 @@ App.Solicitud = DS.Model.extend({
   relation_string: DS.attr('string'),
 
   tipo: DS.attr('number'),
+  tiempo_entrega: DS.attr('number'),
 
 //  servicio_bitacora: null,
 
@@ -100,7 +101,12 @@ App.Solicitud = DS.Model.extend({
   }.property('servicios'),
 
   isTipoI: function() {
-    return this.get('tipo') == 1;
-  }.property('tipo')
+    var result = this.get('tipo') == 1;
+    if (!result) {
+      // para Tipo II y III, tiempo_entrega = Normal
+      this.set('tiempo_entrega', 1);
+    }
+    return result;
+  }.property('tipo'),
 
 });

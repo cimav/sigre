@@ -153,10 +153,16 @@
                 <td class="det-total text-right">{{formatCurrency total}}</td>
               </tr>
             {{/each}}
+
             <tr>
               <td class="text-right totales" colspan="3">Subtotal</td>
+              <td class="text-right totales">{{formatCurrency subtotal_calculado_normal}}</td>
+            </tr>
+            <tr>
+              <td class="text-right totales" colspan="3">{{tiempo_entrega_txt}}</td>
               <td class="text-right totales">{{formatCurrency subtotal_calculado}}</td>
             </tr>
+
             <tr>
               <td class="det-descuento text-right" colspan="3">Descuento {{descuento_porcentaje}}%</td>
               <td class="text-right totales">{{formatCurrency descuento_calculado}}</td>

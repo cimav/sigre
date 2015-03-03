@@ -21,26 +21,42 @@
       <div class="form-group">
         <label for="unknown" class="col-sm-2 control-label">Contacto</label>
 
-        <div class="col-sm-7">
+        <div class="col-sm-7" id="solicitud-new-agregar-contacto">
           {{view App.Select2View contentBinding="cliente.contactos"
-          optionLabelPath="content.nombre"
-          optionValuePath="content.id"
-          selectionBinding="contacto"}}
+            optionLabelPath="content.nombre"
+            optionValuePath="content.id"
+            selectionBinding="contacto"
+          }}
+          <button class="btn btn-default btn-sm" {{action "agregarContacto" this target='controller'}} ><span class="glyphicon glyphicon-plus" title="Agregar nuevo contacto"></span></button>
         </div>
+
       </div>
 
       {{input descripcion as="text" label="Descripción"}}
 
       <div class="form-group">
         <label for="unknown" class="col-sm-2 control-label">Tipo</label>
-        <div class="col-sm-6" id="solicitud-new-tipos">
+        <div class="col-sm-8" id="solicitud-new-tipos">
           {{#view App.RadioButtonGroup group="tipo-option" valueBinding="tipo"}}
-            <div class="col-sm-2">{{view App.RadioButtonField title="Tipo I" value=1}}</div>
-            <div class="col-sm-2">{{view App.RadioButtonField title="Tipo II" value=2 disable=true}}</div>
-            <div class="col-sm-2">{{view App.RadioButtonField title="Tipo II" value=3}}</div>
+            <div class="col-sm-3">{{view App.RadioButtonField title="Tipo I" value=1}}</div>
+            <div class="col-sm-3">{{view App.RadioButtonField title="Tipo II" value=2 disabled=true}}</div>
+            <div class="col-sm-3">{{view App.RadioButtonField title="Tipo III" value=3}}</div>
           {{/view}}
         </div>
       </div>
+
+    {{#if isTipoI}}
+        <div class="form-group">
+          <label for="unknown" class="col-sm-2 control-label">Tiempo entrega</label>
+          <div class="col-sm-8" id="solicitud-new-tipos">
+            {{#view App.RadioButtonGroup group="tiempo-entrega-option" valueBinding="tiempo_entrega" }}
+              <div class="col-sm-3">{{view App.RadioButtonField title="Normal" value=1 }}</div>
+              <div class="col-sm-3">{{view App.RadioButtonField title="Urgente" value=2 }}</div>
+              <div class="col-sm-3">{{view App.RadioButtonField title="Express" value=3 }}</div>
+            {{/view}}
+          </div>
+        </div>
+    {{/if}}
 
       {{#unless isTipoI}}
 

@@ -291,7 +291,8 @@ module Vinculacion
                                 :fecha_inicio,
                                 :fecha_termino,
                                 :tipo,
-                                :duracion
+                                :duracion,
+                                :tiempo_entrega
 
       )
     end

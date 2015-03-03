@@ -341,6 +341,12 @@
   #muestra-cantidad {
     padding-bottom: 10px;
   }
+  #solicitud-new-agregar-contacto {
+    display: inline-flex;
+    a {
+      margin-left: 2px;
+    }
+  }
   #solicitud-new-tipos {
     label {
       margin-bottom: 0;

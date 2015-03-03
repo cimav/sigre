@@ -27,7 +27,7 @@ App.Cotizacion = DS.Model.extend({
 
   cotizacion_detalles: DS.hasMany('cotizacion_detalle'),
 
-  subtotal_calculado: function(){
+  subtotal_calculado_normal: function(){
     var dets = this.get('cotizacion_detalles');
     var ret = 0;
     dets.forEach(function(d){
@@ -36,6 +36,34 @@ App.Cotizacion = DS.Model.extend({
     this.set('subtotal', ret);
     return ret;
   }.property('cotizacion_detalles.@each.cantidad', 'cotizacion_detalles.@each.precio_unitario'),
+
+  subtotal_calculado: function(){
+    var dets = this.get('cotizacion_detalles');
+    var ret = 0;
+    dets.forEach(function(d){
+      ret += d.get("total");
+    });
+    this.set('subtotal', ret);
+
+    // Normal * 1, Urgente * 2, Express * 3
+    var tiempo_entrega = this.get('solicitud.tiempo_entrega');
+    if (tiempo_entrega < 1 || tiempo_entrega > 3) {
+      tiempo_entrega = 1;
+    }
+    ret = ret * tiempo_entrega;
+
+    return ret;
+  }.property('cotizacion_detalles.@each.cantidad', 'cotizacion_detalles.@each.precio_unitario'),
+
+  tiempo_entrega_txt: function() {
+    var tiempo_entrega = this.get('solicitud.tiempo_entrega');
+    switch(tiempo_entrega) {
+      case 1: return 'Normal';
+      case 2: return 'Urgente';
+      case 3: return 'Express';
+      default: return 'Normal';
+      }
+  }.property(),
 
   descuento_calculado: function() {
     return this.get('subtotal_calculado') * this.get('descuento_porcentaje') / 100;
