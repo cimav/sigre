@@ -32,6 +32,11 @@ App.CotizacionDetalleController = Ember.ObjectController.extend({
     }
   },
 
+  disableFirstItem: function() {
+    var solicitud = this.get('controllers.cotizacion').get('model').get('solicitud');
+    return solicitud.get('tipo') == 1;
+  }.property('model.id'),
+
   autoSave: function() {
     Ember.run.debounce(this, this.saveDetalle, 1000); 
   }.observes('content.isDirty')
