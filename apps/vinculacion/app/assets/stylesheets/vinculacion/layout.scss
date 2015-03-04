@@ -147,6 +147,24 @@ html, body, .application-view {
         color: $left-panel-nav-text;
       }
 
+      #left-panel-bottom {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+
+        height: 48px;
+        border-top: 1px solid $left-panel-inner-line;
+        color: $white;
+        text-align: center;
+        h3 {
+          font-size: 130%;
+          margin-top: 14px;
+          font-weight: normal;
+        }
+
+      }
+
+
     }
 
     #main-panel {
