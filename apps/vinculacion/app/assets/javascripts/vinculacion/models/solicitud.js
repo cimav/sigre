@@ -73,7 +73,7 @@ App.Solicitud = DS.Model.extend({
   setFechaTermino: function() {
     var f_termino = this.addBusinessDay(this.get('fecha_inicio'), parseInt(this.get('duracion')));
     this.set('fecha_termino', f_termino);
-  }.observes('duracion', 'fecha_inicio'),
+  }.property('duracion', 'fecha_inicio'),
 
   addBusinessDay: function(f_inicio, daysToAdd) {
     var f_termino = new Date(f_inicio);

@@ -219,6 +219,6 @@ App.ArrancarController = Ember.ObjectController.extend({
 
   pdf_url: function(){
     return '/vinculacion/estimacion_costos/' + this.get('id');
-  }.property('model.id')
+  }.property('model.id'),
 
 });
