@@ -117,6 +117,11 @@
 
     {{/if}}
 
+    <div class="header">Usuario</div>
+    <div class="dato">{{usuario.usuario}}</div>
+    <div class="dato">{{usuario.nombre}} {{usuario.apellidos}}</div>
+    <div class="dato">{{usuario.sede.descripcion}}</div>
+
     {{#if isCancelada}}
       <div class="header"><span class="label label-default">{{status_text}}</span></div>
       <div class="dato">{{motivo_status}}</div>

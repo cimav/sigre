@@ -18,6 +18,7 @@ App.Solicitud = DS.Model.extend({
   duracion: DS.attr('number'),
   cedulas: DS.hasMany('cedula'),
   responsable_presupuestal: DS.belongsTo('empleado'),
+  usuario: DS.belongsTo('usuario'),
 
   precio_venta: DS.attr('number'),
   costo_interno: DS.attr('number'),
