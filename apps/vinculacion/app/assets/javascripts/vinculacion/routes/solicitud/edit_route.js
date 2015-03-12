@@ -17,8 +17,8 @@ App.SolicitudEditRoute = Ember.Route.extend({
       this.controllerFor("solicitud_edit").set("newMuestra", newMuestra);
 
       // precarga el new-servicio es Tipo I
-      var newServicio = solicitud.get('servicios').get('firstObject');
       var servicioBitacora = null;
+      var newServicio = solicitud.get('servicios').get('firstObject');
       if (newServicio != null) {
         servicioBitacora = newServicio.get('servicio_bitacora');
       } else {
@@ -26,8 +26,23 @@ App.SolicitudEditRoute = Ember.Route.extend({
       }
       solicitud.set("servicioBitacora", servicioBitacora);
 
+/*
+      // transforma el servicioBitacora a servicioBitacoraSelection
+      var seleccion = Ember.Object.create({
+        id: servicioBitacora.get('id'),
+        text: servicioBitacora.get('nombre')
+      });
+      solicitud.set("seleccion", seleccion);
+*/
     }
 
+  },
+
+  setupController: function(controller, model) {
+    controller.set('model', model);
+
+    // asignar el servicioBitacora del modelo al controlador
+    controller.set('servicioBitacora', model.get('servicioBitacora'));
   }
 
 });
