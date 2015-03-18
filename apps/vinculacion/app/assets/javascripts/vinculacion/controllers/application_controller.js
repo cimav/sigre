@@ -107,6 +107,12 @@ App.ApplicationController = Ember.Controller.extend({
       new_contacto.save();
       solicitud.set('contacto', new_contacto); // seleccionarlo
       // TODO refresh la seleccion del select2view
+
+      // clear data
+      self.set('nombre', '');
+      self.set('telefono', '');
+      self.set('email', '');
+
     }
 
   }
