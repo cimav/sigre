@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302223722) do
+ActiveRecord::Schema.define(version: 20150309194160) do
 
   create_table "estados", force: true do |t|
     t.string   "nombre"
@@ -255,6 +255,11 @@ ActiveRecord::Schema.define(version: 20150302223722) do
     t.datetime "updated_at"
   end
 
+  create_table "vinculacion_laboratorios_bitacora", force: true do |t|
+    t.integer "id_lab_bitacora"
+    t.string  "nombre"
+  end
+
   create_table "vinculacion_muestras", force: true do |t|
     t.integer  "solicitud_id"
     t.integer  "consecutivo"
@@ -301,12 +306,14 @@ ActiveRecord::Schema.define(version: 20150302223722) do
     t.integer  "bitacora_id"
     t.string   "nombre"
     t.string   "descripcion"
-    t.decimal  "precio_venta",  precision: 10, scale: 2, default: 0.0
-    t.integer  "status",                                 default: 0
+    t.decimal  "precio_venta",            precision: 10, scale: 2, default: 0.0
+    t.integer  "status",                                           default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "costo_interno", precision: 10, scale: 2, default: 0.0
+    t.decimal  "costo_interno",           precision: 10, scale: 2, default: 0.0
     t.integer  "empleado_id"
+    t.integer  "sede_id"
+    t.integer  "laboratorio_bitacora_id"
   end
 
   create_table "vinculacion_servicios_muestras", id: false, force: true do |t|

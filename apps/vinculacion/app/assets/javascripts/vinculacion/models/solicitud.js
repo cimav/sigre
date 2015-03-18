@@ -29,8 +29,6 @@ App.Solicitud = DS.Model.extend({
   tipo: DS.attr('number'),
   tiempo_entrega: DS.attr('number'),
 
-//  servicio_bitacora: null,
-
   Status: {
     inicial: 1,
     en_cotizacion: 2,

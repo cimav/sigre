@@ -41,7 +41,8 @@ App.ApplicationController = Ember.Controller.extend({
       this.store.find('contacto'),
       this.store.find('pais'),
       this.store.find('estado'),
-      this.store.find('servicio_bitacora')
+      this.store.find('servicio_bitacora'),
+      this.store.find('laboratorio_bitacora')
     ]).then(function(values){
       self.set('empleadosCache', values[0]);
       self.set('proyectosCache', values[1]);
@@ -51,7 +52,31 @@ App.ApplicationController = Ember.Controller.extend({
       self.set('paises', values[5]);
       self.set('estados', values[6]);
       self.set('servicios_bitacora', values[7]);
+      self.set('laboratorios_bitacora', values[8]);
+
+      /* armar data para options de Servicios_Bitacora */
+      var serviciosBitacoraOptions = Ember.A();
+      values[2].forEach(function(sede) {
+        var servicios = Ember.A();
+        sede.get('servicios_bitacora').forEach(function(srv) {
+          var abr = srv.get('sede').get('id') == 1 ? 'CHI' : 'MTY';
+          var child = {
+            id: srv,
+            text: srv.get('nombre'),
+            description: abr
+          };
+          servicios.push(child);
+        });
+        var parent = {
+          text: sede.get('nombre'),
+          children: servicios
+        };
+        serviciosBitacoraOptions.push(parent)
+      });
+      self.set('serviciosBitacoraOptions', serviciosBitacoraOptions);
+
       return values;
+
     }, function(reason){
       console.log('Promises fail: ' + reason);
     });
@@ -66,5 +91,24 @@ App.ApplicationController = Ember.Controller.extend({
     notification_type = typeof notification_type !== 'undefined' ? notification_type : 'alert-success';
     this.set('notification_type', notification_type);
     this.set('notification', notification);
+  },
+
+  actions: {
+    agregar_contacto: function() {
+      var self = this;
+      var solicitud = self.controllerFor('solicitudes.new').get('model');
+      var cliente = solicitud.get('cliente');
+      var new_contacto = self.store.createRecord('contacto', {
+        nombre: self.get('nombre'),
+        telefono: self.get('telefono'),
+        email: self.get('email'),
+        cliente: cliente // al definirle cliente, no requiere push
+      });
+      new_contacto.save();
+      solicitud.set('contacto', new_contacto); // seleccionarlo
+      // TODO refresh la seleccion del select2view
+    }
+
   }
+
 });

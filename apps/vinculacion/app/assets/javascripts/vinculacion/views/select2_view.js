@@ -19,7 +19,7 @@ App.Select2View = Ember.Select.extend({
       }
     });
   }.observes('controller.content.isLoaded'),
- 
+
 
   willDestroyElement: function () {
     this.$().select2("destroy");

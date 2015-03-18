@@ -5,5 +5,6 @@ module Vinculacion
 
     #belongs_to :solicitud
 
+    has_many :servicio_bitacora
   end
 end

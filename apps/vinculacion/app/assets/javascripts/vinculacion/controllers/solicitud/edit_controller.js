@@ -2,7 +2,7 @@ App.SolicitudEditController = Ember.ObjectController.extend({
   needs: ['application', 'solicitudes', 'servicios'],
   isNotDirty: Ember.computed.not('content.isDirty'),
   newMuestra: null,
-  servicioBitacora: null,
+  servicioBitacoraSeleccion: null,
 
   actions: {
 
@@ -119,17 +119,26 @@ App.SolicitudEditController = Ember.ObjectController.extend({
     }
   }.observes('newMuestra.identificacion', 'newMuestra.cantidad', 'newMuestra.descripcion').on('init'),
 
+  /*
   servicioBitacoraChanged: function() {
     // cualquier cambio en el servicio, pone Dirty a la solicitud
-    if (this.get('model') != null) {
+    var solicitud = this.get('model');
+    if (solicitud != null) {
       // TODO no funciona del todo bien
-      this.get('model').send('becomeDirty');
+      solicitud.send('becomeDirty');
 
       // asigna el servicioBitacora del controllador al modelo
-      this.get('model').set('servicioBitacora', this.get('servicioBitacora'));
+      solicitud.set('servicioBitacora', this.servicioBitacoraSeleccion);
 
     }
-  }.observes('servicioBitacora').on('init')
+  }.observes('servicioBitacoraSeleccion').on('init'),
+*/
+
+  servicioBitacoraSeleccionChanged: function() {
+    // asigna el servicioBitacora del controllador al modelo
+    this.get('model').set('servicioBitacora', this.servicioBitacoraSeleccion);
+  }.observes('servicioBitacoraSeleccion')
+
 
 
 });

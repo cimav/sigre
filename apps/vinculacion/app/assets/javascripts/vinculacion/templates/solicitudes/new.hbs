@@ -3,6 +3,7 @@
     {{#link-to 'solicitudes' tagName="button" classNames="btn"}}<span title="Regresar a solicitudes" class="glyphicon glyphicon-chevron-left"></span>{{/link-to}}
 </div>
 <div id="wide-panel">
+
   <div id="solicitud-new">
     {{#form-for controller}}
       <h3>Solicitud</h3>
@@ -27,7 +28,7 @@
             optionValuePath="content.id"
             selectionBinding="contacto"
           }}
-          <button class="btn btn-default btn-sm" {{action "agregarContacto" this target='controller'}} ><span class="glyphicon glyphicon-plus" title="Agregar nuevo contacto"></span></button>
+          <button class="btn btn-default btn-sm" {{action 'showModal' 'contactos/contacto-modal' model.cliente}} ><span class="glyphicon glyphicon-plus" title="Agregar nuevo contacto"></span></button>
         </div>
 
       </div>

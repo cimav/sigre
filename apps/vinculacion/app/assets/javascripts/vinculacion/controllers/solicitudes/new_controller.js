@@ -2,6 +2,7 @@ App.SolicitudesNewController = Ember.ObjectController.extend({
   needs: ["application", 'cotizaciones', 'solicitudes'],
   isNotDirty: Ember.computed.not('content.isDirty'),
   actions: {
+
     submit: function() {
       var solicitud = this.get('model');
       var self = this;
@@ -27,10 +28,6 @@ App.SolicitudesNewController = Ember.ObjectController.extend({
       solicitud.save().then(onSuccess, onFail);
     }
 
-  },
-
-  agregarContacto: function() {
-    console.log('Agregando contacto...');
   }
 
 });

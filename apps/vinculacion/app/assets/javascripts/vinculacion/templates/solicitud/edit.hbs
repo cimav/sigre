@@ -97,13 +97,16 @@
       </div>
 
       <div class="form-group">
-        <label for="unknown" class="col-sm-2 control-label">Servicio</label>
-
+        <label for="unknown" class="col-sm-2 control-label">Select3Component</label>
         <div class="col-sm-7">
-          {{view App.Select2View contentBinding="controllers.application.servicios_bitacora"
-          optionLabelPath="content.nombre"
-          optionValuePath="content.id"
-          selectionBinding="servicioBitacora" }}
+          {{view App.Select2Component
+          content=controllers.application.serviciosBitacoraOptions
+          optionValuePath="id"
+          optionLabelPath="text"
+          optionDescriptionPath="description"
+          value=servicioBitacoraSeleccion
+          placeholder="Servicio bitácora..."
+          }}
         </div>
       </div>
 

@@ -36,6 +36,8 @@ inflector.irregular('estado', 'estados');
 inflector.irregular('costo_variable', 'costos_variables');
 inflector.irregular('servicio_bitacora', 'servicios_bitacora');
 inflector.irregular('servicioBitacora', 'serviciosBitacora'); //requerido para los Promises
+inflector.irregular('laboratorio_bitacora', 'laboratorios_bitacora');
+inflector.irregular('laboratorioBitacora', 'laboratoriosBitacora'); //requerido para los Promises
 
 // console.log("test");
 // console.log(inflector.pluralize('servicio_bitacora'));    //servicios_bitacora
