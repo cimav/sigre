@@ -96,7 +96,8 @@ App.ApplicationController = Ember.Controller.extend({
   actions: {
     agregar_contacto: function() {
       var self = this;
-      var solicitud = self.controllerFor('solicitudes.new').get('model');
+      var rutaSolicitud = self.currentRouteName; // "solicitudes.new" o "solicitud.edit"
+      var solicitud = self.controllerFor(rutaSolicitud).get('model');
       var cliente = solicitud.get('cliente');
       var new_contacto = self.store.createRecord('contacto', {
         nombre: self.get('nombre'),
