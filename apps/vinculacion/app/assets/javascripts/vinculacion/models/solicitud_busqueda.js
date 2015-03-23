@@ -12,7 +12,9 @@ App.SolicitudBusqueda = DS.Model.extend({
   ultima_cotizacion: DS.attr('string'),
   status_text: DS.attr('string'),
   tipo:  DS.attr('number'),
- 
+  datos_usuario: DS.attr('string'),
+  created_at: DS.attr('date'),
+
   getDescripcion: function() {
     size =  this.get('descripcion.length');
     data =  this.get('descripcion')

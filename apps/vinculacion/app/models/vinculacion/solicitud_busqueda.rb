@@ -9,6 +9,7 @@ module Vinculacion
     belongs_to  :proyecto
     belongs_to  :cliente
     belongs_to  :contacto
+    belongs_to :usuario
 
     def status_text
       Solicitud::STATUS[status.to_i]
@@ -40,6 +41,10 @@ module Vinculacion
 
     def ultima_cotizacion
       self.cotizaciones.last.consecutivo rescue '-'
+    end
+
+    def datos_usuario
+      self.usuario.usuario rescue 'sin usuario'
     end
 
   end

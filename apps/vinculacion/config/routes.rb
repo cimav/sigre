@@ -30,6 +30,8 @@ Vinculacion::Engine.routes.draw do
   resources :remanentes
   resources :cedulas
 
+  resources :usuarios
+
   root :to => 'assets#index'
   get "assets/index"
 

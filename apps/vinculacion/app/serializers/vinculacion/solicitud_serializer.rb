@@ -2,8 +2,8 @@ module Vinculacion
   class SolicitudSerializer < ActiveModel::Serializer
   	embed :ids, :include => true
     attributes :id
-    attributes :usuario_id
-    attributes :consecutivo, :codigo, :prioridad, :descripcion, :status, :motivo_status, :razon_cancelacion, :orden_compra, :fecha_inicio, :fecha_termino, :tipo, :duracion, :tiempo_entrega
+    attributes :consecutivo, :codigo, :prioridad, :descripcion, :status, :motivo_status, :razon_cancelacion, :orden_compra, :fecha_inicio, :fecha_termino
+    attributes :tipo, :duracion, :tiempo_entrega, :created_at
     attributes :relation_string
     attributes :status_text
 
@@ -16,7 +16,7 @@ module Vinculacion
     # has_one :sede
     # has_one :cliente
     # has_one :contacto
-    attributes :proyecto_id, :sede_id, :cliente_id, :contacto_id
+    attributes :proyecto_id, :sede_id, :cliente_id, :contacto_id, :usuario_id
 
     has_many :cedulas
 

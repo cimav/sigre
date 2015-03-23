@@ -212,6 +212,15 @@
               .descripcion {
                 font-weight: normal;
               }
+              .etiqueta {
+                font-weight: normal;
+                padding-right: 4px;
+                margin-top: 12px;
+                color: #777;
+                span {
+                  color: #999;
+                }
+              }
             }
             .columna-proyecto {
               width: 50%;

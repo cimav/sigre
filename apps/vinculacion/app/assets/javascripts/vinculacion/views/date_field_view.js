@@ -1,5 +1,5 @@
 Ember.Handlebars.registerBoundHelper('format-date', function(format, date) {
-  return moment(date).utc().locale('es').format(format);
+  return moment(date).utc().locale('es').format(format).capitalize();
 
 });
 
