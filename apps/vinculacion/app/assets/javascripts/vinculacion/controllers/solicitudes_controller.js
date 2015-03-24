@@ -5,8 +5,10 @@ App.SolicitudesController = Ember.ArrayController.extend({
 
   searchChange: function() {
     console.log(this.searchText);
-    results = this.store.find('solicitudBusqueda', { q: this.searchText });
-    this.set('content', results);
+    var self = this;
+    self.set('content', '');
+    var results = self.store.find('solicitudBusqueda', { q: this.searchText });
+    self.set('content', results);
   }.observes('searchText'),
 
   sortProperties: ['codigo:desc'],
