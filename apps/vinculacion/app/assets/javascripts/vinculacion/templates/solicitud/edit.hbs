@@ -77,6 +77,17 @@
 
     {{#if isTipoI}}
 
+        <div class="form-group">
+          <label for="unknown" class="col-sm-2 control-label">Tiempo entrega</label>
+          <div class="col-sm-8" id="solicitud-edit-tipos">
+            {{#view App.RadioButtonGroup group="tiempo-entrega-option" valueBinding="tiempo_entrega" }}
+              <div class="col-sm-3">{{view App.RadioButtonField title="Normal" value=1 }}</div>
+              <div class="col-sm-3">{{view App.RadioButtonField title="Urgente" value=2 }}</div>
+              <div class="col-sm-3">{{view App.RadioButtonField title="Express" value=3 }}</div>
+            {{/view}}
+          </div>
+        </div>
+
       <div class="form-group">
         <label for="unknown" class="col-sm-2 control-label">Muestra</label>
 

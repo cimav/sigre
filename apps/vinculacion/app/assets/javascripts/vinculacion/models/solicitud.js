@@ -114,4 +114,22 @@ App.Solicitud = DS.Model.extend({
     return result;
   }.property('tipo'),
 
+  tipoText: function() {
+    switch (this.get('tipo')) {
+      case 1: return 'Tipo I';
+      case 2: return 'Tipo II';
+      case 3: return 'Tipo III';
+    }
+    return 'Sin tipo';
+  }.property('tipo'),
+
+  tiempoEntregaText: function() {
+    switch (this.get('tiempo_entrega')) {
+      case 1: return 'Normal';
+      case 2: return 'Urgente';
+      case 3: return 'Express';
+    }
+    return 'Sin tiempo de entrega';
+  }.property('tiempo_entrega')
+
 });

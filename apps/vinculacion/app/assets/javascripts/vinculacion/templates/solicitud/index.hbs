@@ -9,6 +9,8 @@
 
   <div id="solicitud-index-datos">
 
+    <div class="header">Tipo</div>
+    <div class="dato">{{tipoText}}</div>
     {{#unless isTipoI}}
       <div class="header">Responsable presupuestal</div>
       <div class="dato">{{responsable_presupuestal.apellido_paterno}} {{responsable_presupuestal.apellido_materno}}, {{responsable_presupuestal.nombre}}</div>
@@ -118,6 +120,9 @@
           No tiene servicio capturado
         {{/if}}
       </div>
+
+      <div class="header">Tiempo entrega</div>
+      <div class="dato">{{tiempoEntregaText}}</div>
 
     {{/if}}
 

@@ -378,6 +378,20 @@
       margin-left: 2px;
     }
   }
+  #solicitud-edit-tipos {
+    label {
+      margin-bottom: 0;
+      margin-top: 5px;
+    }
+    input {
+      margin-right: 3px;
+    }
+    #tipo_ii {
+      color: #ccc;
+      font-style: italic;
+    }
+  }
+
 }
 
 
