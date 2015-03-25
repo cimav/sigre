@@ -17,6 +17,17 @@ App.ArrancarController = Ember.ObjectController.extend({
       self = this;
       var onSuccess = function(solicitud) {
         self.get('controllers.application').notify('Se actualizó check-list');
+
+        /*
+          BUG: en el modelo, setFechaTermino con observers('duracion', 'fecha_inicio') provoca que
+          el modelo se ponga en Dirty aun cuando los cambios son guardados.
+          Workaround: Las 3 lineas siguientes devuelven el modelo a clean.
+          info: http://stackoverflow.com/questions/13342250/how-to-manually-set-an-object-state-to-clean-saved-using-ember-data
+        */
+        solicitud.send('willCommit');
+        solicitud.set('_attributes', {});
+        solicitud.send('didCommit');
+
       };
       var onFail = function(solicitud) {
         self.get('controllers.application').notify('Error al actualizar check-list', 'alert-danger');

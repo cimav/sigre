@@ -88,7 +88,7 @@
         <div class="fecha-duracion">
           <strong>Duración</strong><br>
           <div id="fecha-duracion-dias">
-            {{view App.NumberField value=duracion min="1"}}
+            {{view App.NumberField value=duracion min="1" disabled=this.isNotEnabledToEdit}}
           </div>
           <div class="clearfix"></div>
         </div>
