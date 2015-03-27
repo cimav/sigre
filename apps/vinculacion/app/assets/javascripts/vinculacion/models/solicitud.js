@@ -40,10 +40,12 @@ App.Solicitud = DS.Model.extend({
   },
 
   selectsChanges: function () {
-    // Hack: belongsTo no cambian a Dirty
-    // Info de porque no cambian: https://github.com/emberjs/data/issues/1188
-    s = [this.get('proyecto.id'), this.get('sede.id'), this.get('cliente.id'), this.get('contacto.id')].join(',');
-    this.set('relation_string', s);
+    if (!this.get('isDeleted')) {
+      // Hack: belongsTo no cambian a Dirty
+      // Info de porque no cambian: https://github.com/emberjs/data/issues/1188
+      s = [this.get('proyecto.id'), this.get('sede.id'), this.get('cliente.id'), this.get('contacto.id')].join(',');
+      this.set('relation_string', s);
+    }
   }.observes('cliente','contacto','sede','proyecto'),
 
   clienteChanges: function() {
@@ -117,6 +119,11 @@ App.Solicitud = DS.Model.extend({
     }
     return 'Sin tipo';
   }.property('tipo'),
+
+  isNormal: function() {
+    var result = this.get('tiempo_entrega') == 1;
+    return result;
+  }.property('tiempo_entrega'),
 
   tiempoEntregaText: function() {
     switch (this.get('tiempo_entrega')) {

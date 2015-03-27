@@ -9,23 +9,21 @@ App.SolicitudEditController = Ember.ObjectController.extend({
     submit: function () {
       var solicitud = this.get('model');
       var self = this;
-      var noErrors = true;
       var validation_errors = [];
 
       var onSuccess = function (solicitud) {
 
-        // despues de guardar una nueva solicitud
-        // recarga la lista de solicitud_busqueda
-        self.get('controllers.solicitudes').send('reloadModel');
+        if (solicitud.get('tipo') == 1) {
+          // después de persitir la solicitud, ajustar la muestra, el servicios y los detalles de la cotización
+          self.postSaveTipoI(solicitud);
+        }
 
         self.transitionToRoute('solicitud', solicitud);
         self.get('controllers.application').notify('Se actualizó solicitud');
-
-       };
+      };
 
       var onFail = function (solicitud) {
         self.get('controllers.application').notify('Error al actualizar solicitud', 'alert-danger');
-        noErrors = false;
       };
 
       // get muestra
@@ -46,69 +44,87 @@ App.SolicitudEditController = Ember.ObjectController.extend({
         return;
       }
 
+      // Guardar solicitud
       solicitud.save().then(onSuccess, onFail);
 
-      if (noErrors && (solicitud.get('tipo') == 1)) {
-        // si no hubo errores y es Servicio Tipo 1
-
-        // salva la muestra
-        if (solicitud.get('muestras').get('length') == 0) {
-          // si no habia sido capturada
-          solicitud.get('muestras').pushObject(newMuestra);
-        }
-        newMuestra.save();
-
-        // salva el servicio
-        var servicioBitacora = solicitud.get('servicioBitacora');
-        if (servicioBitacora == null) {
-          servicioBitacora = this.get('controllers.Application.servicios_bitacora').get('firstObject');
-          solicitud.set('servicioBitacora',servicioBitacora);
-        }
-        var servicio = solicitud.get('servicios').get('firstObject');
-        if (servicio == null) {
-          // insertion -- esto debería ocurrir sólo cuando es nueva solicitud (la 1era vez que se edita)
-          servicio = self.store.createRecord('servicio');
-          var srvStatusEsperandoArranque = this.get('controllers.servicios.Status.esperando_arranque');
-          servicio.set('status', srvStatusEsperandoArranque);
-          servicio.set('servicio_bitacora', servicioBitacora);
-          servicio.set('nombre', servicioBitacora.get('nombre'));
-          servicio.set('descripcion', servicioBitacora.get('descripcion'));
-          servicio.set('empleado', servicioBitacora.get('empleado'));
-          solicitud.get('servicios').pushObject(servicio);
-          servicio.save();
-
-          // la 1era vez, le inyecta el servicio a la cotizacion como concepto
-          var cotizacion = solicitud.get('cotizaciones').get('firstObject');
-          if (cotizacion != null) {
-            // no debería tener detalle
-            var cotizacion_detalle = self.store.createRecord('cotizacion_detalle');
-            cotizacion_detalle.set('cantidad', newMuestra.get('cantidad'));
-            cotizacion_detalle.set('concepto', servicio.get('nombre'));
-            cotizacion_detalle.set('precio_unitario', servicioBitacora.get('precio_venta'));
-            // empuja detalle a cotizaciones
-            cotizacion.get('cotizacion_detalles').pushObject(cotizacion_detalle);
-            cotizacion_detalle.set('cotizacion', cotizacion); // seguridad
-            cotizacion_detalle.save();
-
-            Ember.run.later(function(){
-              // para que muestre el detalle en la cotización
-              solicitud.reload();
-            }, 1000);
-          }
-
-        } else if (servicio.get('servicio_bitacora') != servicioBitacora) {
-          // update
-          servicio.set('solicitud', solicitud); // <-- requerido
-          servicio.set('servicio_bitacora', servicioBitacora);
-          servicio.set('nombre', servicioBitacora.get('nombre'));
-          servicio.set('descripcion', servicioBitacora.get('descripcion'));
-          servicio.set('empleado', servicioBitacora.get('empleado'));
-          servicio.save();
-        }
-
-      }
-
     }
+  },
+
+  postSaveTipoI: function (solicitud) {
+    var self = this;
+
+    // No requieres tumbar la muestra ????
+//    // agrega la muestra a la solicitud que solo debe tener una muestra
+//    solicitud.get('muestras').forEach(function (mst) {
+//      //solicitud.get('muestras').removeObject(muestra);
+//      //mst.destroyRecord();
+//    });
+
+    // salva la muestra capturada (nueva o editada)
+    var newMuestra = self.get('newMuestra');
+    solicitud.get('muestras').pushObject(newMuestra);
+    newMuestra.save();
+
+    // servicioBitacora
+    var servicioBitacoraCapturado = solicitud.get('servicioBitacora');
+    if (servicioBitacoraCapturado == null) {
+      // se asegura tener un servicioBitacora capturado
+      servicioBitacoraCapturado = this.get('controllers.Application.servicios_bitacora').get('firstObject');
+      solicitud.set('servicioBitacora', servicioBitacoraCapturado);
+    }
+
+    // recupera el servicio de la solicitud (corresponde al 1er servicio de la collection)
+    var firstServicio = solicitud.get('servicios').get('firstObject'); // debería ser un solo servicio
+    if (firstServicio === undefined || firstServicio === null) {
+      // si aun no existe, lo crea
+      firstServicio = self.store.createRecord('servicio');
+      // y lo agrega a la solicitud
+      solicitud.get('servicios').pushObject(firstServicio);
+    }
+    // le asigna los valores del servicioBitacora capturado
+    var srvStatusEsperandoArranque = this.get('controllers.servicios.Status.esperando_arranque');
+    firstServicio.set('status', srvStatusEsperandoArranque);
+    firstServicio.set('servicio_bitacora', servicioBitacoraCapturado);
+    firstServicio.set('nombre', servicioBitacoraCapturado.get('nombre'));
+    firstServicio.set('descripcion', servicioBitacoraCapturado.get('descripcion'));
+    firstServicio.set('empleado', servicioBitacoraCapturado.get('empleado'));
+
+    // lo persiste (create o update)
+    firstServicio.save();
+
+    // optiene la ultima cotizacion
+    var lastCotizacion = solicitud.get('cotizaciones').get('lastObject');
+    if (lastCotizacion != null) {
+
+      // obtener el 1er detalle (corresponde al servicio)
+      var firstDetalle = lastCotizacion.get('cotizacion_detalles').get('firstObject');
+      if (firstDetalle === undefined || firstDetalle === null) {
+        // si no existe crearlo
+        firstDetalle = self.store.createRecord('cotizacion_detalle');
+        lastCotizacion.get('cotizacion_detalles').pushObject(firstDetalle);
+      }
+      // asignarle valores de la muestra y el servicio
+      firstDetalle.set('cantidad', newMuestra.get('cantidad'));
+      firstDetalle.set('concepto', firstServicio.get('nombre'));
+      firstDetalle.set('cotizacion', lastCotizacion); // asignarle la cotización
+      // precio depende del tiempo_entrega
+      var precio_venta = solicitud.get('tiempo_entrega') * servicioBitacoraCapturado.get('precio_venta');
+      firstDetalle.set('precio_unitario', precio_venta);
+
+      // persistir detalle
+      firstDetalle.save();
+
+      // No requiere persitir cotizacion
+      // No requiere re-persistir solicitud
+    }
+
+    Ember.run.later(function () {
+      // para que muestre el detalle en la cotización
+      solicitud.reload();
+      // recarga la lista de solicitud_busqueda
+      self.get('controllers.solicitudes').send('reloadModel');
+    }, 1000);
+
   },
 
   newMuestraChanged: function() {

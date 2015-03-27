@@ -96,7 +96,12 @@
         </div>
       </div>
       <div class="col-sm-3">
-        <div id="cotizacion-codigo">{{codigo}}</div>
+        <div id="cotizacion-codigo-data">
+          <div id="codigo">{{codigo}}</div>
+          {{#unless model.solicitud.isNormal}}
+            <div id="tiempo-entrega"><span class="label label-default">{{model.solicitud.tiempoEntregaText}}</span></div>
+          {{/unless}}
+        </div>
       </div>
     </div>
     {{#if showCotizacion}}
@@ -153,16 +158,10 @@
                 <td class="det-total text-right">{{formatCurrency total}}</td>
               </tr>
             {{/each}}
-
             <tr>
               <td class="text-right totales" colspan="3">Subtotal</td>
-              <td class="text-right totales">{{formatCurrency subtotal_calculado_normal}}</td>
-            </tr>
-            <tr>
-              <td class="text-right totales" colspan="3"><span title="Tiempo de entrega">{{tiempo_entrega_txt}}</span></td>
               <td class="text-right totales">{{formatCurrency subtotal_calculado}}</td>
             </tr>
-
             <tr>
               <td class="det-descuento text-right" colspan="3">Descuento {{descuento_porcentaje}}%</td>
               <td class="text-right totales">{{formatCurrency descuento_calculado}}</td>

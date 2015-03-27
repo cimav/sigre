@@ -65,10 +65,16 @@
   
   background: lighten($light-grey,2%);
 
-  #cotizacion-codigo {
+  #cotizacion-codigo-data {
     float: right;
     color: $dark-grey;
-    font-size: 150%;
+    #codigo {
+      font-size: 150%;
+    }
+    span {
+      float: right;
+      font-size: 100%;
+    }
   }
 
   .cotizacion-cliente-data {

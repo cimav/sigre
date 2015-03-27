@@ -16,10 +16,12 @@ App.Servicio = DS.Model.extend({
   servicio_bitacora: DS.belongsTo('servicio_bitacora'),
 
   selectsChanges: function () {
-    // Hack: belongsTo no cambian a Dirty
-    // Info de porque no cambian: https://github.com/emberjs/data/issues/1188
-    s = [this.get('empleado.id'), this.get('solicitud.id')].join(',');
-    this.set('relation_string', s);
+    if (!this.get('isDeleted')) {
+      // Hack: belongsTo no cambian a Dirty
+      // Info de porque no cambian: https://github.com/emberjs/data/issues/1188
+      s = [this.get('empleado.id'), this.get('solicitud.id')].join(',');
+      this.set('relation_string', s);
+    }
   }.observes('empleado','solicitud')
 
 });

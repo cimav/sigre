@@ -34,7 +34,14 @@ App.CotizacionDetalleController = Ember.ObjectController.extend({
 
   disableFirstItem: function() {
     var solicitud = this.get('controllers.cotizacion').get('model').get('solicitud');
-    return solicitud.get('tipo') == 1;
+    var isTipoI = solicitud.get('tipo') == 1;
+    if (!isTipoI) {
+      return false;
+    }
+    var lastCotizacion = solicitud.get('cotizaciones').get('lastObject');
+    var firstDetalle = lastCotizacion.get('cotizacion_detalles').get('firstObject');
+    var isFirst = this.get('model') === firstDetalle;
+    return isFirst
   }.property('model.id'),
 
   autoSave: function() {
