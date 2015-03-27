@@ -22,6 +22,7 @@ App.Cotizacion = DS.Model.extend({
   motivo_status: DS.attr('string'),
   motivo_descuento: DS.attr('string'),
   duracion: DS.attr('number'),
+  tiempo_entrega: DS.attr('number'),
 
   solicitud: DS.belongsTo('solicitud'),
 
@@ -37,15 +38,20 @@ App.Cotizacion = DS.Model.extend({
     return ret;
   }.property('cotizacion_detalles.@each.cantidad', 'cotizacion_detalles.@each.precio_unitario'),
 
+  isNormal: function() {
+    var result = this.get('tiempo_entrega') == 1;
+    return result;
+  }.property('tiempo_entrega'),
+
   tiempo_entrega_txt: function() {
-    var tiempo_entrega = this.get('solicitud.tiempo_entrega');
+    var tiempo_entrega = this.get('tiempo_entrega');
     switch(tiempo_entrega) {
       case 1: return 'Normal';
       case 2: return 'Urgente';
       case 3: return 'Express';
       default: return 'Normal';
       }
-  }.property(),
+  }.property('tiempo_entrega'),
 
   descuento_calculado: function() {
     return this.get('subtotal_calculado') * this.get('descuento_porcentaje') / 100;

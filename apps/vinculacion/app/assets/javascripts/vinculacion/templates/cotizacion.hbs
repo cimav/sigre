@@ -98,8 +98,8 @@
       <div class="col-sm-3">
         <div id="cotizacion-codigo-data">
           <div id="codigo">{{codigo}}</div>
-          {{#unless model.solicitud.isNormal}}
-            <div id="tiempo-entrega"><span class="label label-default">{{model.solicitud.tiempoEntregaText}}</span></div>
+          {{#unless isNormal}}
+            <div id="tiempo-entrega"><span class="label label-default">{{tiempo_entrega_txt}}</span></div>
           {{/unless}}
         </div>
       </div>

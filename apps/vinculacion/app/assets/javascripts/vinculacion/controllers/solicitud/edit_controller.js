@@ -96,6 +96,9 @@ App.SolicitudEditController = Ember.ObjectController.extend({
     var lastCotizacion = solicitud.get('cotizaciones').get('lastObject');
     if (lastCotizacion != null) {
 
+      // copiar tiempo_entrega
+      lastCotizacion.set('tiempo_entrega', solicitud.get('tiempo_entrega'));
+
       // obtener el 1er detalle (corresponde al servicio)
       var firstDetalle = lastCotizacion.get('cotizacion_detalles').get('firstObject');
       if (firstDetalle === undefined || firstDetalle === null) {
@@ -113,8 +116,8 @@ App.SolicitudEditController = Ember.ObjectController.extend({
 
       // persistir detalle
       firstDetalle.save();
-
-      // No requiere persitir cotizacion
+      // persitir cotizacion
+      lastCotizacion.save();
       // No requiere re-persistir solicitud
     }
 

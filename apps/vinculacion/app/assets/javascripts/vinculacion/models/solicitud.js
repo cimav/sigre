@@ -120,11 +120,6 @@ App.Solicitud = DS.Model.extend({
     return 'Sin tipo';
   }.property('tipo'),
 
-  isNormal: function() {
-    var result = this.get('tiempo_entrega') == 1;
-    return result;
-  }.property('tiempo_entrega'),
-
   tiempoEntregaText: function() {
     switch (this.get('tiempo_entrega')) {
       case 1: return 'Normal';

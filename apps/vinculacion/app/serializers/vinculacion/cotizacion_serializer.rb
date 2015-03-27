@@ -4,7 +4,7 @@ module Vinculacion
     attributes :id
     attributes :solicitud_id
     attributes :consecutivo, :fecha_notificacion, :condicion, :idioma, :divisa, :comentarios, :observaciones, :notas, :subtotal, :iva
-    attributes :precio_venta, :precio_unitario, :descuento_porcentaje, :status, :msg_notificacion, :motivo_status, :motivo_descuento, :duracion
+    attributes :precio_venta, :precio_unitario, :descuento_porcentaje, :status, :msg_notificacion, :motivo_status, :motivo_descuento, :duracion, :tiempo_entrega
     attributes :codigo
     attributes :status_text
     has_many  :cotizacion_detalle

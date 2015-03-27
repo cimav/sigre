@@ -70,6 +70,7 @@ consideración la siguiente propuesta económica:"
         self.motivo_descuento = ''
         self.duracion = 0
         self.fecha_notificacion = Time.now
+        self.tiempo_entrega = solicitud.tiempo_entrega
       else
         self.consecutivo = ultima_cotizacion.consecutivo.next
         # Clonar cotizacion anterior.
@@ -86,6 +87,7 @@ consideración la siguiente propuesta económica:"
         self.precio_unitario = ultima_cotizacion.precio_unitario
         self.descuento_porcentaje = ultima_cotizacion.descuento_porcentaje
         self.fecha_notificacion = Time.now # la fecha actual, no la clonada
+        self.tiempo_entrega = ultima_cotizacion.tiempo_entrega
 
         # Clonar detalle
         ultima_cotizacion.cotizacion_detalle.each do |detalle|

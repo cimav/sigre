@@ -272,7 +272,8 @@ module Vinculacion
           :msg_notificacion,
           :motivo_status,
           :motivo_descuento,
-          :duracion
+          :duracion,
+          :tiempo_entrega
       )
     end
   end

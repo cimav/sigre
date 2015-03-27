@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309194160) do
+ActiveRecord::Schema.define(version: 20150327191833) do
 
   create_table "estados", force: true do |t|
     t.string   "nombre"
@@ -243,6 +243,7 @@ ActiveRecord::Schema.define(version: 20150309194160) do
     t.decimal  "iva",                  precision: 10, scale: 2, default: 15.0
     t.text     "motivo_descuento"
     t.integer  "status",                                        default: 1
+    t.integer  "tiempo_entrega",                                default: 1
   end
 
   create_table "vinculacion_cotizaciones_detalle", force: true do |t|
