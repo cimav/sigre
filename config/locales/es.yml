@@ -8,7 +8,7 @@ es:
             center:          "Centro de Investigación en\n Materiales Avanzados S.C." 
             address0:        "Miguel de Cervantes 120, \nComplejo Industrial Chihuahua\n Chihuahua, Chihuahua. México. C.P. 31109\n Tel. (614) 439 11 00"
             address1:        "Alianza Norte 202\n Parque de inovación Tecnológica\n Autopista Monterrey-Aereopuerto\n Km. 10 Apodaca NL. \n Tel. (81) 1156 08 00 "
-            address2:        "Oficina de Representación\n Cd. Juárez, Chihuahua \n (656) 629 39 80"
+            address2:        "Oficina de Representación\n Cd. Juárez, Chihuahua \n (656) 199 74 38"
             quote:           "Número de cotización:"
             company:         "Cliente:"
             attention:       "Atención:"
@@ -21,17 +21,17 @@ es:
             description:     "Descripción"
             unit_cost:       "Costo Unitario"
             subtotal:        "Subtotal"
-            legal:           "La información contenida en el informe será manejada con la debida confidencialidad, de conformidad con:\n
-                             i) los artículos 16,17,18 y 19 de la <b>Ley Federal de Transparencia y Acceso a la información\n
-                             Pública</b> ii) 26 del reglamento de dicho ordenamiento, iii) 36 de los <b>Lineamientos Generales\n
-                             para la clasificación y desclasificación de la información de las dependencias y entidades\n
-                             de la Administración Pública Federal expedidos por el Instituto Federal de Acceso a la\n
-                             Información Pública</b>; en su caso, iv) los artóculos 82,83 y 84 de la <b>Ley de Propiedad Industrial</b>\n
-                             siempre que dicha información tenga o pudiera llegar a tener el carácter de sercerto industrial; así como , v) el\n
+            legal:           "La información contenida en el informe será manejada con la debida confidencialidad, de conformidad con:
+                             i) los artículos 16,17,18 y 19 de la <b>Ley Federal de Transparencia y Acceso a la información
+                             Pública</b> ii) 26 del reglamento de dicho ordenamiento, iii) 36 de los <b>Lineamientos Generales
+                             para la clasificación y desclasificación de la información de las dependencias y entidades
+                             de la Administración Pública Federal expedidos por el Instituto Federal de Acceso a la
+                             Información Pública</b>; en su caso, iv) los artóculos 82,83 y 84 de la <b>Ley de Propiedad Industrial</b>
+                             siempre que dicha información tenga o pudiera llegar a tener el carácter de sercerto industrial; así como , v) el
                              <b>convenio de solicitud de servicios</b> que dará origen al informe"
             observacion:     "Observaciones: Esta cotizacion tiene vigencia de 30 días hábiles"
             gratitude:       "Gracias por considerarnos..."
-            version:         "VN01F03-01"
+            version:         "VN01F03-05"
         solicitudes:
           cedula:
             center:        "Centro de Investigación en Materiales Avanzados, S.C." 
