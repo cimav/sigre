@@ -138,7 +138,7 @@ module Vinculacion
         solicitud_title = "#{solicitud.codigo}"
         x = x + 10
         pdf.text_box "Proyecto:", :at=> [x,y -20], :width => 55, :height => 13,:valign=> :top, :align => :left, :size=> 12
-        pdf.text_box proyecto_title, :at=> [x + 90,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        pdf.text_box proyecto_title, :at=> [x + 90,y -20], :width => 400, :height => 13,:valign=> :top, :align => :left, :size=> 12
         y = y - 15
         pdf.text_box "Solicitud:", :at=> [x,y -20], :width => 55, :height => 13,:valign=> :top, :align => :left, :size=> 12
         pdf.text_box solicitud_title, :at=> [x + 90,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12

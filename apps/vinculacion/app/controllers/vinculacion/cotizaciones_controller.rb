@@ -75,7 +75,7 @@ module Vinculacion
         con          = cotizacion.solicitud.consecutivo
         c_solicitud  = "%04d" % con.to_i
         c_cotizacion = cotizacion.consecutivo
-        folio        = "#{anyof}#{c_solicitud}-#{c_cotizacion}"
+        folio        = "#{anyof}/#{c_solicitud}-#{c_cotizacion}"
         fecha        = "#{dia} de #{mes} del #{anyo}"
         coin         = Moneda.find(cotizacion.divisa) rescue ""
         t_cambio     = "Tipo de cambio: #{coin.codigo} (#{coin.nombre})"
@@ -136,7 +136,6 @@ module Vinculacion
         counter   = 0
         subtotalf = 0
 
-=begin
         cotizacion.cotizacion_detalle.each do |cd|
           subtotal = cd.precio_unitario * cd.cantidad
           r = [[cd.cantidad,cd.concepto,"$#{cd.precio_unitario.to_s}","$#{subtotal.to_s}"]]
@@ -144,9 +143,9 @@ module Vinculacion
           counter = counter + 1
           subtotalf += subtotal
         end
-=end
 
         ## Descomentar para desarrollo, comentar el ciclo de arriba
+=begin
         15.times do |cd|
           subtotal = 0
           r = [["1","cosa #{counter}","$100.00","$100.00"]]
@@ -154,6 +153,7 @@ module Vinculacion
           counter = counter + 1
           subtotalf += subtotal
         end
+=end
 
         ## CALCULANDO EL IVA
         iva = (subtotalf * cotizacion.iva)/100
