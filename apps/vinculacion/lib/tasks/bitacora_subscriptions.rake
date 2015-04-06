@@ -1,12 +1,14 @@
 require 'resque-bus'
 # FIXME: Usar constantes en lugar de números mágicos
 class BitacoraSubscriptions
-  include ResqueBus::Subscriber
+  include QueueBus::Subscriber
 
   subscribe :recibir_costeo
   subscribe :recibir_reporte
 
   def recibir_costeo(attributes)
+
+    puts "SIGRE: RECIBIR COSTEO"
 
     attributes['servicios'].each do |s|
 
@@ -57,6 +59,8 @@ class BitacoraSubscriptions
 
 
   def recibir_reporte(attributes)
+
+    puts "SIGRE: RECIBIR REPORTE"
 
     cedula = ::Vinculacion::Cedula.where(:solicitud_id => attributes['system_request_id'], :servicio_id => attributes['system_id']).first
     attributes['participaciones'].each do |p|

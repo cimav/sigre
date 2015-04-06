@@ -44,8 +44,7 @@ module Vinculacion
       solicitud = Solicitud.find(params[:id])
 
       # notificar a Bitacora
-      ResqueBus.redis = '127.0.0.1:6379' # TODO: Mover a config
-      ResqueBus.publish('notificar_cancelacion',
+      QueueBus.publish('notificar_cancelacion',
                         'solicitud_id' => solicitud.id,
                         'agente_id'      => solicitud.usuario.id,
                         'agente_email'   => solicitud.usuario.email)  #  del usuario que da de alta el servicio.
@@ -57,8 +56,7 @@ module Vinculacion
       solicitud = Solicitud.find(params[:id])
 
       # notificar a Bitacora
-      ResqueBus.redis = '127.0.0.1:6379' # TODO: Mover a config
-      ResqueBus.publish('notificar_arranque',
+      QueueBus.publish('notificar_arranque',
                         'solicitud_id' => solicitud.id,
                         'agente_id'      => solicitud.usuario.id,
                         'agente_email'   => solicitud.usuario.email)  #  del usuario que da de alta el servicio.
@@ -74,8 +72,7 @@ module Vinculacion
 
       # notificar a Bitacora
       puts "Notificar arranque no coordinado"
-      ResqueBus.redis = '127.0.0.1:6379' # TODO: Mover a config
-      ResqueBus.publish('notificar_arranque_no_coordinado',
+      QueueBus.publish('notificar_arranque_no_coordinado',
                         'id'                    => servicio.id,
                         'solicitud_id'          => solicitud.id,
                         'agente_id'             => solicitud.usuario.id,
@@ -292,9 +289,7 @@ module Vinculacion
                                 :fecha_termino,
                                 :tipo,
                                 :duracion,
-                                :tiempo_entrega,
-                                :created_at
-
+                                :tiempo_entrega
       )
     end
   end

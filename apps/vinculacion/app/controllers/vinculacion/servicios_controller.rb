@@ -15,8 +15,7 @@ module Vinculacion
     def solicitar_costeo
       servicio = Servicio.find(params[:id])
 
-      ResqueBus.redis = '127.0.0.1:6379' # TODO: Mover a config
-      ResqueBus.publish('solicitar_costeo', 'id'             => servicio.id, 
+      QueueBus.publish('solicitar_costeo', 'id'             => servicio.id, 
                                             'solicitud_id'   => servicio.solicitud_id,
                                             'codigo'         => servicio.codigo,
                                             'nombre'         => servicio.nombre,
