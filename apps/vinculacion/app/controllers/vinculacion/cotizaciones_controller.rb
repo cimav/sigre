@@ -127,7 +127,8 @@ module Vinculacion
 
         analisis = cotizacion.solicitud.descripcion rescue "desarrollo de servicio"
         analisis = analisis.length <= 0 ? "desarrollo de servicio" : analisis
-        leyenda = "En respuesta a su solicitud de #{analisis} y agradeciendo su preferencia, ponemos a su consideración la siguiente propuesta económica:"
+        leyenda  = cotizacion.comentarios
+        #leyenda = "En respuesta a su solicitud de #{analisis} y agradeciendo su preferencia, ponemos a su consideración la siguiente propuesta económica:"
         pdf.text leyenda, :size=> 9
 
         ## CABECERA
@@ -172,25 +173,25 @@ module Vinculacion
 
         pdf.text "\n\n"
         #OBSERVACIONES
+        x = 0
+        y = 420
+        a = 360
+        b = 60
+        #pdf.bounding_box([x,y], :width=>a, :height=>b) do
+        #  pdf.stroke_color '000000'
+        #  pdf.stroke_bounds
+        #end
+        pdf.text_box t[:legal], :at=>[x,y], :width=>a, :height=>b, :align=>:justify, :valign=>:center, :inline_format=>true, :size=> size - 5
+        c_notas = nil
+        cotizacion.notas.split("\n").each do |n|
+          if !n.empty?
+            c_notas = "#{c_notas} - #{n}\n"
+          end
+        end
 
-        pdf.text t[:legal], :inline_format=>true, :size=> size - 4
-
-        pdf.text "\n"
         pdf.text "Notas:
-- Esta cotización tiene una vigencia de 30 días hábiles.
-#{cotizacion.notas}
-- Se consideran días hábiles de lunes a viernes en un horario de 9:00 -14:00 y 16:00 -19:00 h.
-- El cliente aprueba el procedimiento técnico y la realización de las pruebas o calibraciónes en su material o equipo al autorizar el servicio.
-- En caso de autorizar el servicio, deberá hacernos llegar mediante este mismo medio la orden de trabajo que autorice los estudios a realizar y los materiales e información técnica de los mismos.
-- Si no se encuentra registrado en nuestro catálogo de cliente deberá pagar el costo del servicio para poder comenzar con el mismo,  a la cuenta Banorte 0127370266 clabe 072150001273702669 si el servicio corresponde a CIMAV Chihuahua y a la cuenta BANORTE 0252602458 clabe 072 150 00252602458 5 para servicios de CIMAV Monterrey.
-- Una vez finalizado el servicio, el cliente cuenta con 30 días para recoger sus muestras; transcurrido este tiempo se desechan.
-- Para los servicios de calibración, si en un período preliminar de calibración el LABORATORIO DE METROLOGÍA observa que el instrumento está dañado se suspenderá el proceso de calibración, se le notificará  al cliente. Se entenderá que la  calibración solicitada ya no se efectuará. Queda establecido que el LABORATORIO DE METROLOGÍA no será responsable de los equipos que se hayan presentado dañados, con vicios ocultos o cualquier irregularidad. La fecha de entrega del instrumento aplica siempre y cuando el instrumento no requiera ajustes, ya que en este último caso (si se cuenta con todo lo necesario para llevar a cabo el ajuste), el tiempo puede extenderse. Si al instrumento le falta algún aditamento para realizar la calibración la fecha de recepción comenzará a contar a partir de que dicho elemento sea entregado al laboratorio. La recolección del instrumento en las instalaciones del laboratorio corre a cargo del cliente, excepto cuando se haya estipulado en la cotización su envío por mensajería.. El servicio de calibración no incluye ajuste o reparación de los instrumentos. Si se requiere la verificación de los resultados contra una tolerancia específica, ésta debe ser proporcionada por el solicitante. El informe de calibración se emitirá independientemente de que el instrumento no cumpla con la norma de referencia o especificaciones de tolerancias dadas. El  cliente puede definir cómo se expresarán los resultados (en que unidades, etc.), de no hacerlo, el LABORATORIO DE METROLOGÍA expresará los resultados según lo marque el procedimiento de calibración utilizado. (8). El cliente podrá especificar los puntos en los cuáles se calibrará el instrumento, de no hacerlo, el LABORATORIO DE METROLOGÍA escogerá los puntos según lo marque el procedimiento de calibración utilizado. Para su calibración los instrumentos deberán ser entregados en buenas condiciones de funcionamiento y limpios. En caso contrario no se realizará el servicio. El cliente proporcionará la información necesaria y dará todas las facilidades para el desarrollo del servicio. Para servicios de calibración, el LABORATORIO DE METROLOGÍA únicamente garantiza que el equipo del solicitante funciona en el lugar que se efectuó la calibración ya que durante el traslado a su lugar de origen cualquier movimiento brusco o falta de cuidado del transportador puede afectar la calibración.",
-:size=>7
-
-
-        # NOTAS
+- Esta cotización tiene una vigencia de 30 días hábiles.\n#{c_notas}- Se consideran días hábiles de lunes a viernes en un horario de 9:00 -14:00 y 16:00 -19:00 h.\n- El cliente aprueba el procedimiento técnico y la realización de las pruebas o calibraciónes en su material o equipo al autorizar el servicio.\n- En caso de autorizar el servicio, deberá hacernos llegar mediante este mismo medio la orden de trabajo que autorice los estudios a realizar y los materiales e información técnica de los mismos.\n- Si no se encuentra registrado en nuestro catálogo de cliente deberá pagar el costo del servicio para poder comenzar con el mismo,  a la cuenta Banorte 0127370266 clabe 072150001273702669 si el servicio corresponde a CIMAV Chihuahua y a la cuenta BANORTE 0252602458 clabe 072 150 00252602458 5 para servicios de CIMAV Monterrey.\n- Una vez finalizado el servicio, el cliente cuenta con 30 días para recoger sus muestras; transcurrido este tiempo se desechan.\n- Para los servicios de calibración, si en un período preliminar de calibración el LABORATORIO DE METROLOGÍA observa que el instrumento está dañado se suspenderá el proceso de calibración, se le notificará  al cliente. Se entenderá que la  calibración solicitada ya no se efectuará. Queda establecido que el LABORATORIO DE METROLOGÍA no será responsable de los equipos que se hayan presentado dañados, con vicios ocultos o cualquier irregularidad. La fecha de entrega del instrumento aplica siempre y cuando el instrumento no requiera ajustes, ya que en este último caso (si se cuenta con todo lo necesario para llevar a cabo el ajuste), el tiempo puede extenderse. Si al instrumento le falta algún aditamento para realizar la calibración la fecha de recepción comenzará a contar a partir de que dicho elemento sea entregado al laboratorio. La recolección del instrumento en las instalaciones del laboratorio corre a cargo del cliente, excepto cuando se haya estipulado en la cotización su envío por mensajería.. El servicio de calibración no incluye ajuste o reparación de los instrumentos. Si se requiere la verificación de los resultados contra una tolerancia específica, ésta debe ser proporcionada por el solicitante. El informe de calibración se emitirá independientemente de que el instrumento no cumpla con la norma de referencia o especificaciones de tolerancias dadas. El  cliente puede definir cómo se expresarán los resultados (en que unidades, etc.), de no hacerlo, el LABORATORIO DE METROLOGÍA expresará los resultados según lo marque el procedimiento de calibración utilizado. (8). El cliente podrá especificar los puntos en los cuáles se calibrará el instrumento, de no hacerlo, el LABORATORIO DE METROLOGÍA escogerá los puntos según lo marque el procedimiento de calibración utilizado. Para su calibración los instrumentos deberán ser entregados en buenas condiciones de funcionamiento y limpios. En caso contrario no se realizará el servicio. El cliente proporcionará la información necesaria y dará todas las facilidades para el desarrollo del servicio. Para servicios de calibración, el LABORATORIO DE METROLOGÍA únicamente garantiza que el equipo del solicitante funciona en el lugar que se efectuó la calibración ya que durante el traslado a su lugar de origen cualquier movimiento brusco o falta de cuidado del transportador puede afectar la calibración.\n",:align=>:justify,:size=>7
         pdf.text "\n"
-      #  pdf.text cotizacion.notas,:size=>size
         ## FOOTER
         y = -35
           ## Firmas
@@ -212,9 +213,10 @@ module Vinculacion
           ## USUARIO
           x = 0
           y1 = y + 30
-          w = 100
+          w = 350
           h = 10
-          pdf.text_box current_user.usuario, :at=>[x,y1], :width => w, :height=> h, :size=>9, :align=> :left, :valign=> :bottom
+          full_name = "#{current_user.nombre} #{current_user.apellidos}"
+          pdf.text_box full_name, :at=>[x,y1], :width => w, :height=> h, :size=>9, :align=> :left, :valign=> :bottom
         
           ## LINE 2
           x = 0
