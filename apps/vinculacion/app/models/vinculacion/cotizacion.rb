@@ -30,12 +30,12 @@ module Vinculacion
       STATUS[status.to_i]
     end
     
-    COMENTARIOS = "En respuesta a su solicitud para traducción de informe y agradeciendo su preferencia, ponemos a su
+    MENSAJE = "En respuesta a su solicitud para SOLICITUD_DESCRIPCION y agradeciendo su preferencia, ponemos a su
 consideración la siguiente propuesta económica:"
 
     OBSERVACIONES = ""
 
-    NOTAS = "Esta cotización tiene una vigencia de 30 días hábiles.\nLa duración del servicio es de 30 días hábiles posteriores a la recepción de la orden de compra."
+    NOTAS = "La duración del servicio es de 30 días hábiles posteriores a la recepción de la orden de compra."
 
     after_create :set_extra
     before_update :update_fecha_notificacion
@@ -59,7 +59,7 @@ consideración la siguiente propuesta económica:"
         self.condicion = 1
         self.idioma = 1
         self.divisa = 1
-        self.comentarios = COMENTARIOS
+        self.comentarios = MENSAJE.gsub("SOLICITUD_DESCRIPCION", self.solicitud.descripcion)
         self.observaciones = OBSERVACIONES
         self.notas = NOTAS
         self.subtotal = 0.00
