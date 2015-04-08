@@ -59,7 +59,7 @@ consideración la siguiente propuesta económica:"
         self.condicion = 1
         self.idioma = 1
         self.divisa = 1
-        if self.solicitud.descripcion.nil? || !self.solicitud.descripcion.empty
+        if self.solicitud.descripcion.nil? || !self.solicitud.descripcion.empty?
           self.comentarios = MENSAJE
         else
           self.comentarios = MENSAJE.gsub("SOLICITUD_DESCRIPCION", self.solicitud.descripcion)
