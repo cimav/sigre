@@ -128,7 +128,6 @@ module Vinculacion
         analisis = cotizacion.solicitud.descripcion rescue "desarrollo de servicio"
         analisis = analisis.length <= 0 ? "desarrollo de servicio" : analisis
         leyenda  = cotizacion.comentarios
-        #leyenda = "En respuesta a su solicitud de #{analisis} y agradeciendo su preferencia, ponemos a su consideración la siguiente propuesta económica:"
         pdf.text leyenda, :size=> 9
 
         ## CABECERA
@@ -160,28 +159,20 @@ module Vinculacion
         iva = (subtotalf * cotizacion.iva)/100
 
         ## SUBTOTALES
-        data +=[["","",t[:subtotal],"$#{subtotalf}"],["","","Iva","$#{iva}"],["","","Total","$#{(subtotalf + iva).to_s}"]]
-        pdf.table(data,:header=> true,:width=>505,:column_widths=>[50,255,100,100],:cell_style=> {:valign=>:center,:size=>size - 2,:padding=>3,:border_width=>0.5}) do
-          rows(1..counter).columns(0..3).borders = [:left,:right,:bottom]
-          rows(1..counter).border_bottom_width= 0.1
-          row(counter + 1).column(0..2).style(:borders=>[:top])
-          row(counter + 2).column(0..2).style(:borders=>[])
-          row(counter + 3).column(0..2).style(:borders=>[])
-          column(0).style :align=>:center
-          column(2..3).style :align=>:right
-        end
+        data +=[
+        [{:content=>"<font size='6'>#{t[:legal]}</font>",:colspan=>2,:rowspan=>3,:align=>:justify,:inline_format=>true},
+         {:content=>t[:subtotal]},
+         {:content=>"$#{subtotalf}"}],
+        ["Iva","$#{iva}"],
+        ["Total","$#{(subtotalf + iva).to_s}"]]
 
+        tabla = pdf.make_table(data,:header=> false,:width=>505,:column_widths=>[50,255,100,100],:cell_style=> {:valign=>:center,:size=>size - 2,:padding=>3,:border_width=>0.5})
+        tabla.rows(1..counter).border_bottom_width= 0.1
+        tabla.row(counter + 1).column(0).borders = [:right]
+        tabla.row(counter + 1).column(0).padding = 5
+        tabla.draw
         pdf.text "\n\n"
         #OBSERVACIONES
-        x = 0
-        y = 420
-        a = 360
-        b = 60
-        #pdf.bounding_box([x,y], :width=>a, :height=>b) do
-        #  pdf.stroke_color '000000'
-        #  pdf.stroke_bounds
-        #end
-        pdf.text_box t[:legal], :at=>[x,y], :width=>a, :height=>b, :align=>:justify, :valign=>:center, :inline_format=>true, :size=> size - 5
         c_notas = nil
         cotizacion.notas.split("\n").each do |n|
           if !n.empty?
