@@ -27,6 +27,14 @@ App.SolicitudBusqueda = DS.Model.extend({
 
   isTipoI: function() {
     return this.get('tipo') == 1;
+  }.property('tipo'),
+
+  isTipoII: function() {
+    return this.get('tipo') == 2;
+  }.property('tipo'),
+
+  isTipoIII: function() {
+    return this.get('tipo') == 3;
   }.property('tipo')
 
 

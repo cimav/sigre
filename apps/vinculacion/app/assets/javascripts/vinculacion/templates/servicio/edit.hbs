@@ -1,46 +1,82 @@
 <div id="servicio-editar">
-{{#form-for controller}}
-  {{input nombre}}
+  {{#form-for controller}}
 
-  <div class="form-group">
-    <label for="unknown" class="col-sm-2 control-label">Responsable</label>
-    <div class="col-sm-7">
-      {{view App.Select2View contentBinding="controllers.application.empleadosCache"  
-                             optionLabelPath="content.nombre_completo" 
-                             optionValuePath="content.id"
-                             selectionBinding="empleado"}}
-    </div>
-  </div>
-  
-  {{input descripcion as="text"}}
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-7">
-      <table class="table table-striped servicio-muestras">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Número</th>
-            <th>Identificación</th>
-            <th>Cantidad</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each controllers.solicitud.muestras itemController="edit_child"}}
+    {{#if isTipoII}}
+
+      <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Muestra</label>
+
+        <div class="col-sm-7">
+          {{view App.Select2View contentBinding="controllers.solicitud.muestras"
+          optionLabelPath="content.descripcionLarga"
+          optionValuePath="content.id"
+          selectionBinding="muestraTipoII"}}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Servicio</label>
+
+        <div class="col-sm-7">
+          {{view App.Select2Component
+          content=controllers.application.serviciosBitacoraOptions
+          optionValuePath="id"
+          optionLabelPath="text"
+          optionDescriptionPath="description"
+          value=servicioBitacoraTipoII
+          placeholder="Servicio bitácora..."
+          }}
+        </div>
+      </div>
+
+    {{else}}
+
+      {{input nombre}}
+
+      <div class="form-group">
+        <label for="unknown" class="col-sm-2 control-label">Responsable</label>
+        <div class="col-sm-7">
+          {{view App.Select2View contentBinding="controllers.application.empleadosCache"
+          optionLabelPath="content.nombre_completo"
+          optionValuePath="content.id"
+          selectionBinding="empleado"}}
+        </div>
+      </div>
+
+      {{input descripcion as="text"}}
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-7">
+          <table class="table table-striped servicio-muestras">
+            <thead>
             <tr>
-              <td>{{input type="checkbox" name=codigo classNames="form-control" checkedBinding="selected"}}</td>
-              <td class="numero">{{codigo}}</td>
-              <td>{{identificacion}}</td>
-              <td>{{cantidad}}</td>
+              <th></th>
+              <th>Número</th>
+              <th>Identificación</th>
+              <th>Cantidad</th>
             </tr>
-          {{/each}}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+            {{#each controllers.solicitud.muestras itemController="edit_child"}}
+              <tr>
+                <td>{{input type="checkbox" name=codigo classNames="form-control" checkedBinding="selected"}}</td>
+                <td class="numero">{{codigo}}</td>
+                <td>{{identificacion}}</td>
+                <td>{{cantidad}}</td>
+              </tr>
+            {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    {{/if}}
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-7">
+        {{save-button item=this}}
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-7">
-      {{save-button item=this}}
-    </div>
-  </div>
-{{/form-for}}
+
+  {{/form-for}}
 </div>

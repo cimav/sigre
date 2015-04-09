@@ -25,11 +25,17 @@
               <table class="tabla-solicitudes">
                 <tr>
                   {{#if isTipoI}}
-                    <td class="columna-logo-coordinado">
+                    <td class="columna-logo-tipo-i">
                       <span class="glyphicon glyphicon-folder-close"></span>
                     </td>
-                  {{else}}
-                    <td class="columna-logo">
+                  {{/if}}
+                  {{#if isTipoII}}
+                    <td class="columna-logo-tipo-ii">
+                      <span class="glyphicon glyphicon-folder-close"></span>
+                    </td>
+                  {{/if}}
+                  {{#if isTipoIII}}
+                    <td class="columna-logo-tipo-iii">
                       <span class="glyphicon glyphicon-folder-close"></span>
                     </td>
                   {{/if}}

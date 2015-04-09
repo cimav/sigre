@@ -60,7 +60,11 @@ App.ServicioController = Ember.ObjectController.extend({
 
   canEdit: function () {
     var solicitud = this.get('controllers.solicitud');
-    return this.get('model.status') == 1 && solicitud.get('model.status')!=solicitud.get('model.Status.cancelada');
+    if (solicitud.get('tipo') == 2) {
+      return this.get('model.status') <= 3 && solicitud.get('model.status') != solicitud.get('model.Status.cancelada');
+    } else {
+      return this.get('model.status') == 1 && solicitud.get('model.status') != solicitud.get('model.Status.cancelada');
+    }
   }.property('model.status'),
 
   actions: {
