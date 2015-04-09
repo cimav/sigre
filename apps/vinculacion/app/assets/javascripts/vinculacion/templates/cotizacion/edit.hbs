@@ -70,13 +70,13 @@
         <tbody>
           {{#each cotizacion_detalles itemController="cotizacion_detalle"}}
             <tr>
-              <td class="det-cantidad text-right">{{input-field cantidad disabled=disableFirstItem}}</td>
-              <td class="det-concepto">{{input-field concepto  disabled=disableFirstItem}}</td>
-              <td class="det-precio-unitario text-right">{{input-field precio_unitario disabled=disableFirstItem}}</td>
-              <td class="det-total text-right">{{formatCurrency total disabled=disableFirstItem}}</td>
+              <td class="det-cantidad text-right">{{input-field cantidad disabled=disableItem}}</td>
+              <td class="det-concepto">{{input-field concepto  disabled=disableItem}}</td>
+              <td class="det-precio-unitario text-right">{{input-field precio_unitario disabled=disableItem}}</td>
+              <td class="det-total text-right">{{formatCurrency total disabled=disableItem}}</td>
               <td class="det-accion" {{bind-attr dirty=isDirty}}>
                 {{#if isNotDirty}}
-                  {{#if disableFirstItem}}
+                  {{#if disableItem}}
                     <span class="glyphicon glyphicon-remove-circle"></span>
                   {{else}}
                     <span {{action 'deleteDetalle' this}} class="glyphicon glyphicon-remove"></span>

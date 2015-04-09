@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150327191833) do
-
-  create_table "costo_hora", id: false, force: true do |t|
-    t.integer "uh"
-    t.text    "nombre"
-    t.decimal "costo",  precision: 10, scale: 2
-  end
+ActiveRecord::Schema.define(version: 20150409161612) do
 
   create_table "estados", force: true do |t|
     t.string   "nombre"
@@ -211,7 +205,7 @@ ActiveRecord::Schema.define(version: 20150327191833) do
     t.integer  "costeo_id"
     t.integer  "tipo"
     t.string   "descripcion"
-    t.integer  "cantidad"
+    t.decimal  "cantidad",        precision: 10, scale: 2, default: 0.0
     t.decimal  "precio_unitario", precision: 10, scale: 2
     t.integer  "status",                                   default: 1
     t.datetime "created_at"
@@ -260,6 +254,8 @@ ActiveRecord::Schema.define(version: 20150327191833) do
     t.integer  "cotizacion_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "inmutable",                                default: false
+    t.integer  "servicio_id"
   end
 
   create_table "vinculacion_laboratorios_bitacora", force: true do |t|

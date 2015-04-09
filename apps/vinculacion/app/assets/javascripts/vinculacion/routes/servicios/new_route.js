@@ -8,5 +8,9 @@ App.ServiciosNewRoute = Ember.Route.extend({
   },
   setupController: function(controller, model) {
     controller.set('content', model);
-  },
+
+    var muestra = model.get('muestras').get('firstObject');
+    controller.set('muestraTipoII', null);
+    controller.set('servicioBitacoraTipoII', null);
+  }
 });

@@ -59,7 +59,11 @@ consideración la siguiente propuesta económica:"
         self.condicion = 1
         self.idioma = 1
         self.divisa = 1
-        self.comentarios = MENSAJE.gsub("SOLICITUD_DESCRIPCION", self.solicitud.descripcion)
+        if self.solicitud.descripcion.nil? || self.solicitud.descripcion.empty?
+          self.comentarios = MENSAJE
+        else
+          self.comentarios = MENSAJE.gsub("SOLICITUD_DESCRIPCION", self.solicitud.descripcion)
+        end
         self.observaciones = OBSERVACIONES
         self.notas = NOTAS
         self.subtotal = 0.00
@@ -91,13 +95,14 @@ consideración la siguiente propuesta económica:"
 
         # Clonar detalle
         ultima_cotizacion.cotizacion_detalle.each do |detalle|
-          # TODO Checkar orden
           CotizacionDetalle.create(
               :cotizacion_id => self.id,
               :cantidad => detalle.cantidad,
               :concepto => detalle.concepto,
               :precio_unitario => detalle.precio_unitario,
-              :status => detalle.status)
+              :servicio_id => detalle.servicio_id,
+              :inmutable => detalle.inmutable
+          )
         end
 
       end

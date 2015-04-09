@@ -6,5 +6,11 @@ App.Muestra = DS.Model.extend({
   solicitud_id:      DS.attr('number'),
   solicitud:         DS.belongsTo('solicitud'),
   servicio:          DS.belongsTo('servicio'),
-  status:            DS.attr('number')
+  status:            DS.attr('number'),
+
+  descripcionLarga: function() {
+    //return Ember.String.htmlSafe("<h1>" + this.get('codigo') + "</h1>" + "<h4>" + this.get('identificacion') + "</h4>");
+    return this.get('codigo') + ' ' + this.get('identificacion') + ' ' + this.get('descripcion');
+  }.property('codigo')
+
 });

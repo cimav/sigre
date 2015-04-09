@@ -184,18 +184,25 @@
               vertical-align: top;
             }
 
-            .columna-logo {
+            .columna-logo-tipo-i {
               width: 48px;
               font-size: 48px;
               .glyphicon-folder-close {
-                color: $folder-color;
+                color: $folder-color-tipo-i;
               }
             }
-            .columna-logo-coordinado {
+            .columna-logo-tipo-ii {
               width: 48px;
               font-size: 48px;
               .glyphicon-folder-close {
-                color: $folder-color-coordinado;
+                color: $folder-color-tipo-ii;
+              }
+            }
+            .columna-logo-tipo-iii {
+              width: 48px;
+              font-size: 48px;
+              .glyphicon-folder-close {
+                color: $folder-color-tipo-iii;
               }
             }
 

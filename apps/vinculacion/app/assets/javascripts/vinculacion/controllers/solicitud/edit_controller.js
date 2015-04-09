@@ -107,6 +107,7 @@ App.SolicitudEditController = Ember.ObjectController.extend({
         lastCotizacion.get('cotizacion_detalles').pushObject(firstDetalle);
       }
       // asignarle valores de la muestra y el servicio
+      firstDetalle.set('inmutable', true);
       firstDetalle.set('cantidad', newMuestra.get('cantidad'));
       firstDetalle.set('concepto', firstServicio.get('nombre'));
       firstDetalle.set('cotizacion', lastCotizacion); // asignarle la cotización

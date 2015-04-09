@@ -30,7 +30,9 @@ module Vinculacion
           :cantidad,
           :concepto,
           :precio_unitario,
-          :status
+          :status,
+          :inmutable,
+          :servicio_id
       )
     end
   end
