@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408211621) do
+ActiveRecord::Schema.define(version: 20150409161612) do
 
   create_table "estados", force: true do |t|
     t.string   "nombre"
@@ -205,7 +205,7 @@ ActiveRecord::Schema.define(version: 20150408211621) do
     t.integer  "costeo_id"
     t.integer  "tipo"
     t.string   "descripcion"
-    t.integer  "cantidad"
+    t.decimal  "cantidad",        precision: 10, scale: 2, default: 0.0
     t.decimal  "precio_unitario", precision: 10, scale: 2
     t.integer  "status",                                   default: 1
     t.datetime "created_at"
