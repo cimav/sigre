@@ -111,6 +111,11 @@ App.Solicitud = DS.Model.extend({
     return result;
   }.property('tipo'),
 
+  isTipoIII: function() {
+    var result = this.get('tipo') == 3;
+    return result;
+  }.property('tipo'),
+
   tipoText: function() {
     switch (this.get('tipo')) {
       case 1: return 'Tipo I';
