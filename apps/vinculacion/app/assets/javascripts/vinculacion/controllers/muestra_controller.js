@@ -12,7 +12,10 @@ App.MuestraController = Ember.ObjectController.extend({
   
   canEdit: function(){
     var solicitud = this.get('controllers.solicitud');
-    return this.get('model.status') == this.get('Status.inicial') && solicitud.get('model.status') != solicitud.get('model.Status.cancelada');
+    // se puede editar la muestra mientras la solicitud no llegue a proceso, ni finalizada y ni cancelada
+    return solicitud.get('model.status') < solicitud.get('model.Status.en_proceso');
+
+    //return this.get('model.status') == this.get('Status.inicial') && solicitud.get('model.status') != solicitud.get('model.Status.cancelada');
   }.property('model.status'),
 
   actions: {
