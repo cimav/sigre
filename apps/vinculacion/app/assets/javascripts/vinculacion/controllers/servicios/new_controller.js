@@ -25,6 +25,12 @@ App.ServiciosNewController = Ember.ObjectController.extend({
         self.get('controllers.application').notify('Error al agregar servicio', 'alert-danger');
       };
 
+      if (self.get('isTipoIII')) {
+        if (self.get('nombre') === null || self.get('nombre') === undefined) {
+          alert("Requiere capturar nombre del servicio");
+          return;
+        }
+      }
       if (self.get('isTipoII')) {
 
         if (self.muestraTipoII === null || self.muestraTipoII === undefined) {
@@ -103,6 +109,11 @@ App.ServiciosNewController = Ember.ObjectController.extend({
     }
 
   },
+
+  isTipoIII: function() {
+    var result = this.get('controllers.solicitud.tipo') == 3;
+    return result;
+  }.property('controllers.solicitud.tipo'),
 
   isTipoII: function() {
     var result = this.get('controllers.solicitud.tipo') == 2;
