@@ -13,7 +13,9 @@ App.ServicioEditController = Ember.ObjectController.extend({
 
       var onSuccess = function(servicio) {
 
-        self.postSaveTipoII(solicitud, servicio);
+        if (self.get('isTipoII')) {
+          self.postSaveTipoII(solicitud, servicio);
+        }
 
         self.transitionToRoute('servicio', servicio);
         self.get('controllers.application').notify('Servicio actualizado');
@@ -24,6 +26,16 @@ App.ServicioEditController = Ember.ObjectController.extend({
       };
 
       if (self.get('isTipoII')) {
+
+        if (self.muestraTipoII === null || self.muestraTipoII === undefined) {
+          alert("Requiere capturar muestra");
+          return;
+        }
+        if (self.servicioBitacoraTipoII === null || self.servicioBitacoraTipoII === undefined) {
+          alert("Requiere capturar servicio");
+          return;
+        }
+
         self.preSaveTipoII(servicio);
       }
 
@@ -34,14 +46,6 @@ App.ServicioEditController = Ember.ObjectController.extend({
 
   preSaveTipoII: function(servicio) {
     var self = this;
-    if (self.muestraTipoII === null || self.muestraTipoII === undefined) {
-      alert("Requiere capturar muestra");
-      return;
-    }
-    if (self.servicioBitacoraTipoII === null || self.servicioBitacoraTipoII === undefined) {
-      alert("Requiere capturar servicio");
-      return;
-    }
 
     // asignar la muestra como unica del servicio
     var muestras = [self.muestraTipoII];

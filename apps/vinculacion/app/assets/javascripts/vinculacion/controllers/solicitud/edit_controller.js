@@ -26,15 +26,18 @@ App.SolicitudEditController = Ember.ObjectController.extend({
         self.get('controllers.application').notify('Error al actualizar solicitud', 'alert-danger');
       };
 
-      // get muestra
-      var newMuestra = self.get('newMuestra');
+      if (solicitud.get('tipo') == 1) {
+        // get muestra
+        var newMuestra = self.get('newMuestra');
 
-      if ((newMuestra.get('identificacion') === null) || (newMuestra.get('identificacion') === undefined) || (newMuestra.get('identificacion').trim() == '')) {
-        validation_errors.push('Se debe especificar la identificación de la muestra');
+        if ((newMuestra.get('identificacion') === null) || (newMuestra.get('identificacion') === undefined) || (newMuestra.get('identificacion').trim() == '')) {
+          validation_errors.push('Se debe especificar la identificación de la muestra');
+        }
+        if ((newMuestra.get('cantidad') === null) || (newMuestra.get('cantidad') === undefined) || (newMuestra.get('cantidad') <= 0)) {
+          validation_errors.push('Se debe especificar una cantidad mayor que 0');
+        }
       }
-      if ((newMuestra.get('cantidad') === null) || (newMuestra.get('cantidad') === undefined) || (newMuestra.get('cantidad') <= 0)) {
-        validation_errors.push('Se debe especificar una cantidad mayor que 0');
-      }
+
       if (validation_errors.length > 0) {
         var error_msg = "Existen errores:\n"
         validation_errors.forEach(function(e) {
