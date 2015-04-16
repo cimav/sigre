@@ -26,18 +26,18 @@ App.ServiciosNewController = Ember.ObjectController.extend({
       };
 
       if (self.get('isTipoIII')) {
-        if (self.get('nombre') === null || self.get('nombre') === undefined) {
+        if (Ember.empty(self.get('nombre'))) {
           alert("Requiere capturar nombre del servicio");
           return;
         }
       }
       if (self.get('isTipoII')) {
 
-        if (self.muestraTipoII === null || self.muestraTipoII === undefined) {
+        if (Ember.empty(self.muestraTipoII)) {
           alert("Requiere capturar muestra");
           return;
         }
-        if (self.servicioBitacoraTipoII === null || self.servicioBitacoraTipoII === undefined) {
+        if (Ember.empty(self.servicioBitacoraTipoII)) {
           alert("Requiere capturar servicio");
           return;
         }
@@ -110,7 +110,7 @@ App.ServiciosNewController = Ember.ObjectController.extend({
 
   },
 
-  isTipoIII: function() {
+ isTipoIII: function() {
     var result = this.get('controllers.solicitud.tipo') == 3;
     return result;
   }.property('controllers.solicitud.tipo'),
@@ -119,6 +119,7 @@ App.ServiciosNewController = Ember.ObjectController.extend({
     var result = this.get('controllers.solicitud.tipo') == 2;
     return result;
   }.property('controllers.solicitud.tipo')
+
 
 });
 

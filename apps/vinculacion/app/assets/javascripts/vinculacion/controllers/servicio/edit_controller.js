@@ -25,13 +25,20 @@ App.ServicioEditController = Ember.ObjectController.extend({
         self.get('controllers.application').notify('Error al actualizar servicio', 'alert-danger');
       };
 
+      if (self.get('isTipoIII')) {
+        if (Ember.empty(self.get('nombre'))) {
+          alert("Requiere capturar nombre del servicio");
+          return;
+        }
+      }
+
       if (self.get('isTipoII')) {
 
-        if (self.muestraTipoII === null || self.muestraTipoII === undefined) {
+        if (Ember.empty(self.muestraTipoII)) {
           alert("Requiere capturar muestra");
           return;
         }
-        if (self.servicioBitacoraTipoII === null || self.servicioBitacoraTipoII === undefined) {
+        if (Ember.empty(self.servicioBitacoraTipoII)) {
           alert("Requiere capturar servicio");
           return;
         }
@@ -104,6 +111,11 @@ App.ServicioEditController = Ember.ObjectController.extend({
 
   isTipoII: function() {
     var result = this.get('controllers.solicitud.tipo') == 2;
+    return result;
+  }.property('controllers.solicitud.tipo'),
+
+  isTipoIII: function() {
+    var result = this.get('controllers.solicitud.tipo') == 3;
     return result;
   }.property('controllers.solicitud.tipo'),
 
