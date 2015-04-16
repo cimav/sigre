@@ -5,7 +5,7 @@ es:
       controllers:
         cotizaciones:
           document:
-            center:          "Centro de Investigación en\n Materiales Avanzados S.C." 
+            center:          "Centro de Investigación en Materiales Avanzados S.C." 
             address0:        "Miguel de Cervantes 120, \nComplejo Industrial Chihuahua\n Chihuahua, Chihuahua. México. C.P. 31109\n Tel. (614) 439 11 00"
             address1:        "Alianza Norte 202\n Parque de inovación Tecnológica\n Autopista Monterrey-Aereopuerto\n Km. 10 Apodaca NL. \n Tel. (81) 1156 08 00 "
             address2:        "Oficina de Representación\n Cd. Juárez, Chihuahua \n (656) 199 74 38"

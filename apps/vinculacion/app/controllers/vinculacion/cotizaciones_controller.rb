@@ -35,7 +35,7 @@ module Vinculacion
         image = "#{Rails.root}/private/images/logo_cimav_100.png" 
         pdf.image image, :position => :left, :height => 50
         x = 100
-        y = 640
+        y = 635 #640
         w = 350
         h = 28
         size = 11
@@ -43,7 +43,7 @@ module Vinculacion
 
         
         ## DIRECCIONES
-        y = y - 30
+        y = y -  15 #30
         h = 40
         pdf.text_box t[:address0], :at=> [x,y], :width => w, :height => h,:valign=> :top, :align => :left, :size=> 5
         x = x + 110
@@ -53,7 +53,7 @@ module Vinculacion
 
         ## LINE
         x = 0
-        y = y - 35 
+        y = y - 47
         pdf.stroke_color= "000000"
         pdf.line_width= 3
         pdf.stroke_line [x,y],[400,y]
@@ -96,16 +96,17 @@ module Vinculacion
         cliente  = cotizacion.solicitud.cliente      
         contacto = cotizacion.solicitud.contacto
  
-        contacto_nombre = contacto.nombre rescue 'Sin contacto'
+        contacto_nombre   = contacto.nombre rescue 'Sin contacto'
         contacto_telefono = contacto.telefono rescue 'Sin contacto'
-        contacto_email = contacto.email rescue 'Sin contacto'
+        contacto_email    = contacto.email.downcase rescue 'Sin contacto'
+        cliente_rfc       = cliente.rfc.upcase rescue 'N.D'
     
         data = [ [t[:company],         cliente.razon_social],
                  [t[:attention],       contacto_nombre],
                  [t[:company_address], "#{cliente.calle_num} #{cliente.colonia} C.P. #{cliente.cp}"],
                  [t[:phone],           contacto_telefono],
                  [t[:email],           contacto_email],
-                 [t[:rfc],             cliente.rfc]]
+                 [t[:rfc],             cliente_rfc]]
         x = 15
         y = y - 25
         data.each do |d|
@@ -161,15 +162,18 @@ module Vinculacion
         ## SUBTOTALES
         data +=[
         [{:content=>"<font size='6'>#{t[:legal]}</font>",:colspan=>2,:rowspan=>3,:align=>:justify,:inline_format=>true},
-         {:content=>t[:subtotal]},
+         {:content=>t[:subtotal],:align=>:right},
          {:content=>"$#{subtotalf}"}],
-        ["Iva","$#{iva}"],
-        ["Total","$#{(subtotalf + iva).to_s}"]]
+        [{:content=>"IVA"   ,:align=>:right},"$#{iva}"],
+        [{:content=>"Total" ,:align=>:right},"$#{(subtotalf + iva).to_s}"]]
 
         tabla = pdf.make_table(data,:header=> false,:width=>505,:column_widths=>[50,255,100,100],:cell_style=> {:valign=>:center,:size=>size - 2,:padding=>3,:border_width=>0.5})
         tabla.rows(1..counter).border_bottom_width= 0.1
-        tabla.row(counter + 1).column(0).borders = [:right]
+        #tabla.row(counter + 1).column(0).borders = [:right]
+        tabla.row(counter + 1).column(0).borders = []
         tabla.row(counter + 1).column(0).padding = 5
+        #tabla.row(counter + 1).column(2).borders = []
+        tabla.rows(counter+1..counter+3).column(2).borders = []
         tabla.draw
         pdf.text "\n\n"
         #OBSERVACIONES
