@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409161612) do
+ActiveRecord::Schema.define(version: 20150423211956) do
 
   create_table "estados", force: true do |t|
     t.string   "nombre"
@@ -248,7 +248,7 @@ ActiveRecord::Schema.define(version: 20150409161612) do
 
   create_table "vinculacion_cotizaciones_detalle", force: true do |t|
     t.integer  "cantidad",                                 default: 1
-    t.string   "concepto"
+    t.text     "concepto"
     t.decimal  "precio_unitario", precision: 10, scale: 2, default: 0.0
     t.integer  "status",                                   default: 0
     t.integer  "cotizacion_id"
