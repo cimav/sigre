@@ -21,7 +21,9 @@ App.ClientesNewController = Ember.ObjectController.extend({
 
       if (cliente.get('isValid')) {
 
-        cliente.set('rfc', cliente.get('rfc').toUpperCase());
+        if (!Ember.isEmpty(cliente.get('rfc'))) {
+          cliente.set('rfc', cliente.get('rfc').toUpperCase());
+        }
 
         cliente.save().then(onSuccess, onFail);
       }
