@@ -63,11 +63,6 @@ App.SolicitudEditController = Ember.ObjectController.extend({
 //      //mst.destroyRecord();
 //    });
 
-    // salva la muestra capturada (nueva o editada)
-    var newMuestra = self.get('newMuestra');
-    solicitud.get('muestras').pushObject(newMuestra);
-    newMuestra.save();
-
     // servicioBitacora
     var servicioBitacoraCapturado = solicitud.get('servicioBitacora');
     if (servicioBitacoraCapturado == null) {
@@ -84,6 +79,7 @@ App.SolicitudEditController = Ember.ObjectController.extend({
       // y lo agrega a la solicitud
       solicitud.get('servicios').pushObject(firstServicio);
     }
+
     // le asigna los valores del servicioBitacora capturado
     var srvStatusEsperandoArranque = this.get('controllers.servicios.Status.esperando_arranque');
     firstServicio.set('status', srvStatusEsperandoArranque);
@@ -91,6 +87,11 @@ App.SolicitudEditController = Ember.ObjectController.extend({
     firstServicio.set('nombre', servicioBitacoraCapturado.get('nombre'));
     firstServicio.set('descripcion', servicioBitacoraCapturado.get('descripcion'));
     firstServicio.set('empleado', servicioBitacoraCapturado.get('empleado'));
+
+    // salva la muestra capturada (nueva o editada)
+    var newMuestra = self.get('newMuestra');
+    solicitud.get('muestras').pushObject(newMuestra);
+    newMuestra.save();
 
     // lo persiste (create o update)
     firstServicio.save();
@@ -120,6 +121,7 @@ App.SolicitudEditController = Ember.ObjectController.extend({
 
       // persistir detalle
       firstDetalle.save();
+
       // persitir cotizacion
       lastCotizacion.save();
       // No requiere re-persistir solicitud
@@ -128,6 +130,15 @@ App.SolicitudEditController = Ember.ObjectController.extend({
     Ember.run.later(function () {
       // para que muestre el detalle en la cotización
       solicitud.reload();
+
+      // asignar la muestra como unica del servicio.
+      // aqui para que tengan id
+      var muestras = [newMuestra];
+      firstServicio.set('muestras', muestras);
+      var selected_muestras = muestras.map(function(el) { return el.id}).toArray().join();
+      firstServicio.set('muestras_string', selected_muestras);
+      firstServicio.save(); // re-persiste para obligar el hack de servicios-muestras
+
       // recarga la lista de solicitud_busqueda
       self.get('controllers.solicitudes').send('reloadModel');
     }, 1000);

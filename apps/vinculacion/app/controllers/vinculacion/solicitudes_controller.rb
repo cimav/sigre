@@ -66,26 +66,32 @@ module Vinculacion
 
     def notificar_arranque_no_coordinado
       solicitud = Solicitud.find(params[:id])
-      servicio = solicitud.servicios[0]
 
-      bitacoraId = servicio.servicio_bitacora.bitacora_id rescue 0
+      solicitud.servicios.each do |servicio|
+        bitacoraId = servicio.servicio_bitacora.bitacora_id rescue 0
 
-      # notificar a Bitacora
-      puts "Notificar arranque no coordinado"
-      QueueBus.publish('notificar_arranque_no_coordinado',
-                        'id'                    => servicio.id,
-                        'solicitud_id'          => solicitud.id,
-                        'agente_id'             => solicitud.usuario.id,
-                        'agente_email'          => solicitud.usuario.email,      #  del usuario que da de alta el servicio.
-                        'carpeta_codigo'        => solicitud.codigo,
-                        'servicio_codigo'       => servicio.codigo,
-                        'servicio_bitacora_id'  => bitacoraId,
-                        'nombre'                => servicio.nombre,
-                        'cliente_id'            => solicitud.cliente_id,
-                        'cliente_nombre'        => solicitud.cliente.razon_social,
-                        'descripcion'           => solicitud.descripcion,
-                        'muestra'               => solicitud.muestras[0]
-      )
+        servicio_muestra = ServiciosMuestras.where(servicio_id: servicio.id).first
+        muestra = Muestra.find(servicio_muestra.muestra_id)
+
+        # notificar a Bitacora
+        puts "Notificar arranque no coordinado"
+        QueueBus.publish('notificar_arranque_no_coordinado',
+                         'id'                    => servicio.id,
+                         'solicitud_id'          => solicitud.id,
+                         'agente_id'             => solicitud.usuario.id,
+                         'agente_email'          => solicitud.usuario.email,      #  del usuario que da de alta el servicio.
+                         'carpeta_codigo'        => solicitud.codigo,
+                         'servicio_codigo'       => servicio.codigo,
+                         'servicio_bitacora_id'  => bitacoraId,
+                         'nombre'                => servicio.nombre,
+                         'cliente_id'            => solicitud.cliente_id,
+                         'cliente_nombre'        => solicitud.cliente.razon_social,
+                         'descripcion'           => solicitud.descripcion,
+                         'muestra'               => muestra
+        )
+
+      end
+
       render json: solicitud
     end
 

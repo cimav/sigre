@@ -60,11 +60,14 @@ App.ArrancarController = Ember.ObjectController.extend({
 
     notificar_arranque: function(solicitud) {
       // notificar el arranque a bitacora a través del request bus
-      self = this;
+      var self = this;
+      var url = ""; // url del controlador en rails
       if (solicitud.get('tipo') == 1) {
-        url = '/vinculacion/solicitudes/' + self.get('id') + '/notificar_arranque_no_coordinado'; // url del controlador en rails
+        url = '/vinculacion/solicitudes/' + self.get('id') + '/notificar_arranque_no_coordinado';
+      } else if (solicitud.get('tipo') == 2) {
+        url = '/vinculacion/solicitudes/' + self.get('id') + '/notificar_arranque_no_coordinado';
       } else {
-        url = '/vinculacion/solicitudes/' + self.get('id') + '/notificar_arranque'; // url del controlador en rails
+        url = '/vinculacion/solicitudes/' + self.get('id') + '/notificar_arranque';
       }
       $.post(url).then(function(response) {
         if (!response.error) {
@@ -83,7 +86,7 @@ App.ArrancarController = Ember.ObjectController.extend({
   isNotReadyForSave: function () {
     var isDirty = this.get('content.isDirty');
     var isDuracionValida = this.get('isDuracionValida');
-    result = isDirty && isDuracionValida;
+    var result = isDirty && isDuracionValida;
     return !result;
   }.property('content.isDirty', 'model.duracion'),
 
@@ -93,7 +96,7 @@ App.ArrancarController = Ember.ObjectController.extend({
     var hasOrdenCompra = this.get('hasOrdenCompra');
     var hasAllServicios = this.get('isAllServiciosReady');
     var isDuracionValida = this.get('isDuracionValida');
-    result = isNotDirty && isDuracionValida && hasOrdenCompra && isCotizaAceptada && hasAllServicios;
+    var result = isNotDirty && isDuracionValida && hasOrdenCompra && isCotizaAceptada && hasAllServicios;
     return !result;
   }.property('content.isDirty', 'model.duracion', 'model.orden_compra', 'model.isAceptada'),
 
@@ -103,7 +106,7 @@ App.ArrancarController = Ember.ObjectController.extend({
     var finalizada = this.get('model.Status.finalizada');
     var cancelada = this.get('model.Status.cancelada');
     var statusSol = this.get('model.status');
-    result = statusSol == enProceso || statusSol == finalizada || statusSol == cancelada;
+    var result = statusSol == enProceso || statusSol == finalizada || statusSol == cancelada;
     return result;
   }.property('model.status'),
 
@@ -111,7 +114,7 @@ App.ArrancarController = Ember.ObjectController.extend({
     var enProceso = this.get('model.Status.en_proceso');
     var finalizada = this.get('model.Status.finalizada');
     var statusSol = this.get('model.status');
-    result = statusSol == enProceso || statusSol == finalizada;
+    var result = statusSol == enProceso || statusSol == finalizada;
     return !result;
   }.property('model.status'),
 
@@ -149,7 +152,7 @@ App.ArrancarController = Ember.ObjectController.extend({
     var enProceso = this.get('model.Status.en_proceso');
     var finalizada = this.get('model.Status.finalizada');
     var statusSol = this.get('model.status');
-    result = statusSol == enProceso || statusSol == finalizada;
+    var result = statusSol == enProceso || statusSol == finalizada;
     if (result) {
       this.set('colorAuto', this.get('colorChecked'));
     } else {
@@ -161,7 +164,7 @@ App.ArrancarController = Ember.ObjectController.extend({
   hasOrdenCompra: function() {
     var oc = this.get('model.orden_compra');
     oc = !oc ? "" : oc.trim();
-    result = oc.length > 0;
+    var result = oc.length > 0;
     if (result) {
       this.set('colorOrdenCompra', this.get('colorChecked'));
     } else {
@@ -194,7 +197,7 @@ App.ArrancarController = Ember.ObjectController.extend({
   isDuracionValida: function() {
     // la duración debe ser mayor a 0
     var duracion = this.get('model.duracion');
-    result = !isNaN(duracion) && duracion > 0;
+    var result = !isNaN(duracion) && duracion > 0;
     if (result) {
       this.set('colorFechas', this.get('colorChecked'));
     } else {
