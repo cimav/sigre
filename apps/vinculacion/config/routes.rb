@@ -14,6 +14,7 @@ Vinculacion::Engine.routes.draw do
   post '/solicitudes/:id/notificar_cancelacion', to: 'solicitudes#notificar_cancelacion'
   post '/solicitudes/:id/notificar_arranque', to: 'solicitudes#notificar_arranque'
   post '/solicitudes/:id/notificar_arranque_no_coordinado', to: 'solicitudes#notificar_arranque_no_coordinado'
+  post '/solicitudes/:id/notificar_arranque_tipo_2', to: 'solicitudes#notificar_arranque_tipo_2'
   get '/solicitudes/:id/estado_actual', to: 'solicitudes#estado_actual'
 
 

@@ -65,7 +65,7 @@ App.ArrancarController = Ember.ObjectController.extend({
       if (solicitud.get('tipo') == 1) {
         url = '/vinculacion/solicitudes/' + self.get('id') + '/notificar_arranque_no_coordinado';
       } else if (solicitud.get('tipo') == 2) {
-        url = '/vinculacion/solicitudes/' + self.get('id') + '/notificar_arranque_no_coordinado';
+        url = '/vinculacion/solicitudes/' + self.get('id') + '/notificar_arranque_tipo_2';
       } else {
         url = '/vinculacion/solicitudes/' + self.get('id') + '/notificar_arranque';
       }
