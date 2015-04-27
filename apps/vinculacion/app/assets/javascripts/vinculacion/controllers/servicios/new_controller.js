@@ -26,18 +26,18 @@ App.ServiciosNewController = Ember.ObjectController.extend({
       };
 
       if (self.get('isTipoIII')) {
-        if (Ember.empty(self.get('nombre'))) {
+        if (Ember.isEmpty(self.get('nombre'))) {
           alert("Requiere capturar nombre del servicio");
           return;
         }
       }
       if (self.get('isTipoII')) {
 
-        if (Ember.empty(self.muestraTipoII)) {
+        if (Ember.isEmpty(self.muestraTipoII)) {
           alert("Requiere capturar muestra");
           return;
         }
-        if (Ember.empty(self.servicioBitacoraTipoII)) {
+        if (Ember.isEmpty(self.servicioBitacoraTipoII)) {
           alert("Requiere capturar servicio");
           return;
         }
