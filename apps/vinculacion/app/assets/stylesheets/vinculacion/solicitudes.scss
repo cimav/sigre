@@ -45,24 +45,52 @@
 }
 
 #solicitud-header {
-  #solicitud-header-codigo {
-    h3 {
-      margin-top: 0px;
-      margin-bottom: 0px;
+  margin-left: 20px;
+
+  .tabla-solicitud-header {
+    .columna-logo-tipo-i {
+      width: 48px;
+      font-size: 48px;
+      .glyphicon-folder-close {
+        color: $folder-color-tipo-i;
+      }
     }
-    span {
-      font-size: 100%;
-      margin-right: 10px;
-      margin-top: 24px;
-      font-weight: normal;
-      float: right;
+    .columna-logo-tipo-ii {
+      width: 48px;
+      font-size: 48px;
+      .glyphicon-folder-close {
+        color: $folder-color-tipo-ii;
+      }
+    }
+    .columna-logo-tipo-iii {
+      width: 48px;
+      font-size: 48px;
+      .glyphicon-folder-close {
+        color: $folder-color-tipo-iii;
+      }
+    }
+    .columna-titulo {
+      width: 100%;
+      h3 {
+        margin-left: 10px !important;
+        margin-top: 8px !important;
+        margin-bottom: 0 !important;
+      }
+      .columna-titulo-proyecto {
+        margin-left: 10px;
+        margin-top: 0;
+        color: #999;
+      }
+    }
+    .columna-status{
+      span {
+        margin: 10px;
+        font-size: 100%;
+        font-weight: normal;
+      }
     }
   }
-  #solicitud-header-proyecto {
-    margin-left: 20px;
-    color: #888888;
-    font-size: 80%;
-  }
+
 }
 
 #cotizacion-header {

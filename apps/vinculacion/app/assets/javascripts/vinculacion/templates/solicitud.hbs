@@ -1,16 +1,35 @@
 <div id="screen-name">
   <div id="solicitud-header">
-    <div id="solicitud-header-codigo">
-      <h3>Solicitud <strong>{{codigo}}</strong></h3>
-      <span class="label label-default">{{status_text}}</span>
-      <div class="clearfix"></div>
-    </div>
-    <div id="solicitud-header-proyecto">
-      {{proyecto.codigo}} {{proyecto.nombre}}
-      <div class="clearfix"></div>
-    </div>
+  <table class="tabla-solicitud-header">
+    <tr>
+      {{#if isTipoI}}
+        <td class="columna-logo-tipo-i">
+          <span class="glyphicon glyphicon-folder-close"></span>
+        </td>
+      {{/if}}
+      {{#if isTipoII}}
+        <td class="columna-logo-tipo-ii">
+          <span class="glyphicon glyphicon-folder-close"></span>
+        </td>
+      {{/if}}
+      {{#if isTipoIII}}
+        <td class="columna-logo-tipo-iii">
+          <span class="glyphicon glyphicon-folder-close"></span>
+        </td>
+      {{/if}}
+      <td class="columna-titulo">
+          <h3>Solicitud <strong>{{codigo}}</strong></h3>
+          <div class="clearfix"></div>
+          <p class="columna-titulo-proyecto">{{proyecto.codigo}} {{proyecto.nombre}}</p>
+      </td>
+      <td class="columna-status">
+        <span class="label label-default">{{status_text}}</span>
+      </td>
+    </tr>
+  </table>
   </div>
 </div>
+
 <div id="op-options-panel">
   <ul class="nav nav-pills nav-stacked">
     {{#link-to 'solicitud.index' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-ok"></span> Solicitud</a>{{/link-to}}
