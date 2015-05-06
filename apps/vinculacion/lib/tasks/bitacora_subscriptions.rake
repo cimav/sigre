@@ -5,6 +5,7 @@ class BitacoraSubscriptions
 
   subscribe :recibir_costeo
   subscribe :recibir_reporte
+  subscribe :recibir_reporte_tipo_2
 
   def recibir_costeo(attributes)
 
@@ -62,6 +63,7 @@ class BitacoraSubscriptions
 
     puts "SIGRE: RECIBIR REPORTE"
 
+
     cedula = ::Vinculacion::Cedula.where(:solicitud_id => attributes['system_request_id'], :servicio_id => attributes['system_id']).first
     attributes['participaciones'].each do |p|
       if empleado = ::Vinculacion::Empleado.where(:email => p['email']).first
@@ -103,20 +105,6 @@ class BitacoraSubscriptions
         item.save
       end
 
-      # # CONSUMIBLES
-      # s['consumibles'].each do |p|
-      #   puts "Agregando #{p['detalle']}"
-      #   item = cedula.costo_variable.new
-      #   item.tipo = 3 
-      #   if p['cantidad'].to_f > 1
-      #     item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
-      #   else   
-      #     item.descripcion = p['detalle'] 
-      #   end      
-      #   item.costo = p['cantidad'].to_f * p['precio_unitario'].to_f
-      #   item.save
-      # end
-
       # OTROS
       s['otros'].each do |p|
         item = cedula.costo_variable.new
@@ -137,4 +125,73 @@ class BitacoraSubscriptions
      
 
   end
+
+
+  def recibir_reporte_tipo_2(attributes)
+
+    puts "SIGRE: RECIBIR REPORTE TIPO 2 v2"
+
+    cedula = ::Vinculacion::Cedula.where(:solicitud_id => attributes['system_request_id']).first
+    attributes['participaciones'].each do |p|
+      if empleado = ::Vinculacion::Empleado.where(:email => p['email']).first
+        remanente = cedula.remanentes.new
+        remanente.porcentaje_participacion = p['porcentaje']
+        remanente.empleado_id = empleado.id
+        remanente.save
+      else
+        puts "Error: Empleado no existe"
+      end
+    end
+
+    attributes['servicios'].each do |s|
+
+
+      # PERSONAL
+      s['personal'].each do |p|
+        item = cedula.costo_variable.new
+        item.tipo = 1 
+        if p['cantidad'].to_f > 1
+          item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
+        else   
+          item.descripcion = p['detalle'] 
+        end        
+        item.costo        = p['cantidad'].to_f * p['precio_unitario'].to_f
+        item.save
+      end
+
+      # EQUIPO
+      s['equipos'].each do |p|
+        item = cedula.costo_variable.new
+        item.tipo = 2 
+        if p['cantidad'].to_f > 1
+          item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
+        else   
+          item.descripcion = p['detalle'] 
+        end        
+        item.costo        = p['cantidad'].to_f * p['precio_unitario'].to_f
+        item.save
+      end
+
+      # OTROS
+      s['otros'].each do |p|
+        item = cedula.costo_variable.new
+        item.tipo = 4 
+        if p['cantidad'].to_f > 1
+          item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
+        else   
+          item.descripcion = p['detalle'] 
+        end        
+        item.costo = p['cantidad'].to_f * p['precio_unitario'].to_f
+        item.save
+      end
+    end
+
+    servicios = ::Vinculacion::Servicio.where(:solicitud_id => attributes['system_request_id'])
+    servicios.each do |servicio|
+      servicio.status = ::Vinculacion::Servicio::FINALIZADO
+      servicio.save
+    end
+
+  end
+
 end

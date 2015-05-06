@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409161612) do
+ActiveRecord::Schema.define(version: 20150506215810) do
+
+  create_table "costo_hora", id: false, force: true do |t|
+    t.integer "uh"
+    t.text    "nombre"
+    t.decimal "costo",  precision: 10, scale: 2
+  end
 
   create_table "estados", force: true do |t|
     t.string   "nombre"
@@ -197,7 +203,7 @@ ActiveRecord::Schema.define(version: 20150409161612) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "bitacora_id"
-    t.string   "nombre_servicio"
+    t.text     "nombre_servicio"
     t.integer  "muestra_id"
   end
 
@@ -248,7 +254,7 @@ ActiveRecord::Schema.define(version: 20150409161612) do
 
   create_table "vinculacion_cotizaciones_detalle", force: true do |t|
     t.integer  "cantidad",                                 default: 1
-    t.string   "concepto"
+    t.text     "concepto"
     t.decimal  "precio_unitario", precision: 10, scale: 2, default: 0.0
     t.integer  "status",                                   default: 0
     t.integer  "cotizacion_id"

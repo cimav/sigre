@@ -72,6 +72,10 @@ App.Solicitud = DS.Model.extend({
     return this.get('status') == this.get('Status.en_proceso');
   }.property('status'),
 
+  mostrarCedulas: function() {
+    return this.get('status') >= this.get('Status.en_proceso');
+  }.property('status'),
+
   setFechaTermino: function() {
     var f_termino = this.addBusinessDay(this.get('fecha_inicio'), parseInt(this.get('duracion')));
     this.set('fecha_termino', f_termino);

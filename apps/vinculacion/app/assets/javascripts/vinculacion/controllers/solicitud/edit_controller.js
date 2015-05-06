@@ -56,17 +56,8 @@ App.SolicitudEditController = Ember.ObjectController.extend({
   postSaveTipoI: function (solicitud) {
     var self = this;
 
-    // No requieres tumbar la muestra ????
-//    // agrega la muestra a la solicitud que solo debe tener una muestra
-//    solicitud.get('muestras').forEach(function (mst) {
-//      //solicitud.get('muestras').removeObject(muestra);
-//      //mst.destroyRecord();
-//    });
-
-    // salva la muestra capturada (nueva o editada)
-    var newMuestra = self.get('newMuestra');
-    solicitud.get('muestras').pushObject(newMuestra);
-    newMuestra.save();
+    // No requiere tumbar la muestra
+    // el hack de servicios-muestras en rails lo hace
 
     // servicioBitacora
     var servicioBitacoraCapturado = solicitud.get('servicioBitacora');
@@ -84,6 +75,7 @@ App.SolicitudEditController = Ember.ObjectController.extend({
       // y lo agrega a la solicitud
       solicitud.get('servicios').pushObject(firstServicio);
     }
+
     // le asigna los valores del servicioBitacora capturado
     var srvStatusEsperandoArranque = this.get('controllers.servicios.Status.esperando_arranque');
     firstServicio.set('status', srvStatusEsperandoArranque);
@@ -92,46 +84,67 @@ App.SolicitudEditController = Ember.ObjectController.extend({
     firstServicio.set('descripcion', servicioBitacoraCapturado.get('descripcion'));
     firstServicio.set('empleado', servicioBitacoraCapturado.get('empleado'));
 
-    // lo persiste (create o update)
-    firstServicio.save();
+    // salva la muestra capturada (nueva o editada)
+    var newMuestra = self.get('newMuestra');
+    solicitud.get('muestras').pushObject(newMuestra);
+    newMuestra.save().then( function() {
+      // espera hasta que la muestra tenga Id
 
-    // optiene la ultima cotizacion
-    var lastCotizacion = solicitud.get('cotizaciones').get('lastObject');
-    if (lastCotizacion != null) {
+      // asignar la muestra como unica del servicio.
+      // aqui para que tengan id
+      var muestras = [newMuestra];
+      firstServicio.set('muestras', muestras);
+      var selected_muestras = muestras.map(function(el) { return el.id}).toArray().join();
+      firstServicio.set('muestras_string', selected_muestras);
 
-      // copiar tiempo_entrega
-      lastCotizacion.set('tiempo_entrega', solicitud.get('tiempo_entrega'));
+      // lo persiste (create o update)
+      firstServicio.save().then(function(){
+        // espera hasta que el servicio tenga Id
 
-      // obtener el 1er detalle (corresponde al servicio)
-      var firstDetalle = lastCotizacion.get('cotizacion_detalles').get('firstObject');
-      if (firstDetalle === undefined || firstDetalle === null) {
-        // si no existe crearlo
-        firstDetalle = self.store.createRecord('cotizacion_detalle');
-        lastCotizacion.get('cotizacion_detalles').pushObject(firstDetalle);
-      }
-      // asignarle valores de la muestra y el servicio
-      firstDetalle.set('inmutable', true);
-      firstDetalle.set('cantidad', newMuestra.get('cantidad'));
-      firstDetalle.set('concepto', firstServicio.get('nombre'));
-      firstDetalle.set('cotizacion', lastCotizacion); // asignarle la cotización
-      // precio depende del tiempo_entrega
-      var precio_venta = solicitud.get('tiempo_entrega') * servicioBitacoraCapturado.get('precio_venta');
-      firstDetalle.set('precio_unitario', precio_venta);
+        // con la muestra y el servicios guardados se dispara el hack de servicios-muestras en rails
 
-      // persistir detalle
-      firstDetalle.save();
-      // persitir cotizacion
-      lastCotizacion.save();
-      // No requiere re-persistir solicitud
-    }
+        // optiene la ultima cotizacion
+        var lastCotizacion = solicitud.get('cotizaciones').get('lastObject');
+        if (lastCotizacion != null) {
 
-    Ember.run.later(function () {
-      // para que muestre el detalle en la cotización
-      solicitud.reload();
-      // recarga la lista de solicitud_busqueda
-      self.get('controllers.solicitudes').send('reloadModel');
-    }, 1000);
+          // copiar tiempo_entrega
+          lastCotizacion.set('tiempo_entrega', solicitud.get('tiempo_entrega'));
 
+          // obtener el 1er detalle (corresponde al servicio)
+          var firstDetalle = lastCotizacion.get('cotizacion_detalles').get('firstObject');
+          if (firstDetalle === undefined || firstDetalle === null) {
+            // si no existe crearlo
+            firstDetalle = self.store.createRecord('cotizacion_detalle');
+            lastCotizacion.get('cotizacion_detalles').pushObject(firstDetalle);
+          }
+          // asignarle valores de la muestra y el servicio
+          firstDetalle.set('inmutable', true);
+          firstDetalle.set('cantidad', newMuestra.get('cantidad'));
+          firstDetalle.set('concepto', firstServicio.get('nombre'));
+          firstDetalle.set('cotizacion', lastCotizacion); // asignarle la cotización
+          // precio depende del tiempo_entrega
+          var precio_venta = solicitud.get('tiempo_entrega') * servicioBitacoraCapturado.get('precio_venta');
+          firstDetalle.set('precio_unitario', precio_venta);
+
+          // persistir detalle
+          firstDetalle.save();
+
+          // persitir cotizacion
+          lastCotizacion.save();
+
+          // No requiere re-persistir solicitud
+        }
+
+        Ember.run.later(function () {
+          // para que muestre el detalle en la cotización
+          solicitud.reload();
+
+          // recarga la lista de solicitud_busqueda
+          self.get('controllers.solicitudes').send('reloadModel');
+        }, 750);
+
+      });
+    });
   },
 
   newMuestraChanged: function() {
