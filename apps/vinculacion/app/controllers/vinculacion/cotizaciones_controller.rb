@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 require_dependency "vinculacion/application_controller"
 
 module Vinculacion
@@ -25,6 +25,7 @@ module Vinculacion
     end
 
     def document
+      r_root = Rails.root.to_s
       type = params[:type]
       cotizacion=  Cotizacion.find(params[:id])
       ## Load locale config
@@ -34,6 +35,15 @@ module Vinculacion
       Prawn::Document.new(:top_margin => 50.0, :bottom_margin=> 100.0, :left_margin=>70.0, :right_margin=>45.0) do |pdf|
         image = "#{Rails.root}/private/images/logo_cimav_100.png" 
         pdf.image image, :position => :left, :height => 50
+       
+        pdf.font_families.update("Arial" => {
+          :bold        => "#{r_root}/private/fonts/arial/arialbd.ttf",
+          :italic      => "#{r_root}/private/fonts/arial/ariali.ttf",
+          :bold_italic => "#{r_root}/private/fonts/arial/arialbi.ttf",
+          :normal      => "#{r_root}/private/fonts/arial/arial.ttf"
+        })
+        pdf.font "Arial"
+
         x = 100
         y = 635 #640
         w = 350
