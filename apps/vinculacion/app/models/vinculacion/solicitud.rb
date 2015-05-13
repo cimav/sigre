@@ -22,6 +22,17 @@ module Vinculacion
     attr_accessor :ultima_cotizacion
     attr_accessor :precio_venta
 
+
+    TIEMPO_NORMAL = 1
+    TIEMPO_URGENTE = 2
+    TIEMPO_EXPRESS = 3
+
+    TIEMPO = {
+      TIEMPO_NORMAL  => 'Normal',
+      TIEMPO_URGENTE => 'Urgente',
+      TIEMPO_EXPRESS => 'Express'
+    }
+
     STATUS_INICIAL        = 1
     STATUS_EN_COTIZACION  = 2
     STATUS_ACEPTADA       = 3
@@ -40,6 +51,10 @@ module Vinculacion
 
     def status_text
       STATUS[status.to_i]
+    end
+
+    def tiempo_text
+      TIEMPO[tiempo_entrega.to_i]
     end
 
     def init_status

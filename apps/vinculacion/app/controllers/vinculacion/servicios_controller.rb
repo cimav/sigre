@@ -15,18 +15,25 @@ module Vinculacion
     def solicitar_costeo
       servicio = Servicio.find(params[:id])
 
-      QueueBus.publish('solicitar_costeo', 'id'             => servicio.id, 
-                                            'solicitud_id'   => servicio.solicitud_id,
-                                            'codigo'         => servicio.codigo,
-                                            'nombre'         => servicio.nombre,
-                                            'empleado_id'    => servicio.empleado_id,
-                                            'empleado_email' => servicio.empleado.email,
-                                            'agente_id'      => servicio.solicitud.usuario.id,
-                                            'agente_email'   => servicio.solicitud.usuario.email,  #  del usuario que da de alta el servicio.
-                                            'cliente_id'     => servicio.solicitud.cliente_id,
-                                            'cliente_nombre' => servicio.solicitud.cliente.razon_social,
-                                            'descripcion'    => servicio.descripcion,
-                                            'muestras'       => servicio.muestras)
+      cliente_contacto = servicio.solicitud.contacto.nombre   rescue '-'
+      cliente_email    = servicio.solicitud.contacto.email    rescue '-'
+      cliente_telefono = servicio.solicitud.contacto.telefono rescue '-'
+
+      QueueBus.publish('solicitar_costeo',  'id'               => servicio.id, 
+                                            'solicitud_id'     => servicio.solicitud_id,
+                                            'codigo'           => servicio.codigo,
+                                            'nombre'           => servicio.nombre,
+                                            'empleado_id'      => servicio.empleado_id,
+                                            'empleado_email'   => servicio.empleado.email,
+                                            'agente_id'        => servicio.solicitud.usuario.id,
+                                            'agente_email'     => servicio.solicitud.usuario.email,  #  del usuario que da de alta el servicio.
+                                            'cliente_id'       => servicio.solicitud.cliente_id,
+                                            'cliente_nombre'   => servicio.solicitud.cliente.razon_social,
+                                            'cliente_contacto' => cliente_contacto,
+                                            'cliente_email'    => cliente_email,
+                                            'cliente_telefono' => cliente_telefono,
+                                            'descripcion'      => servicio.descripcion,
+                                            'muestras'         => servicio.muestras)
 
       servicio.status = Servicio::ESPERANDO_COSTEO
       servicio.save

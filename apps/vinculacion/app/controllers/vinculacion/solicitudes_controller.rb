@@ -45,7 +45,11 @@ module Vinculacion
 
       # notificar a Bitacora
       QueueBus.publish('notificar_cancelacion',
-                        'solicitud_id' => solicitud.id,
+                        'solicitud_id'   => solicitud.id,
+                        'fecha_inicio'   => solicitud.fecha_inicio,
+                        'fecha_termino'  => solicitud.fecha_termino,
+                        'duracion'       => solicitud.duracion,
+                        'tiempo_entrega' => solicitud.tiempo_text,
                         'agente_id'      => solicitud.usuario.id,
                         'agente_email'   => solicitud.usuario.email)  #  del usuario que da de alta el servicio.
 
@@ -59,6 +63,10 @@ module Vinculacion
       QueueBus.publish('notificar_arranque',
                         'solicitud_id' => solicitud.id,
                         'agente_id'      => solicitud.usuario.id,
+                        'fecha_inicio'   => solicitud.fecha_inicio,
+                        'fecha_termino'  => solicitud.fecha_termino,
+                        'duracion'       => solicitud.duracion,
+                        'tiempo_entrega' => solicitud.tiempo_text,
                         'agente_email'   => solicitud.usuario.email)  #  del usuario que da de alta el servicio.
 
       render json: solicitud
@@ -67,6 +75,9 @@ module Vinculacion
     def notificar_arranque_no_coordinado
       solicitud = Solicitud.find(params[:id])
       servicio = solicitud.servicios[0]
+      cliente_contacto = solicitud.contacto.nombre   rescue '-'
+      cliente_email    = solicitud.contacto.email    rescue '-'
+      cliente_telefono = solicitud.contacto.telefono rescue '-'
 
       bitacoraId = servicio.servicio_bitacora.bitacora_id rescue 0
 
@@ -75,6 +86,10 @@ module Vinculacion
       QueueBus.publish('notificar_arranque_no_coordinado',
                         'id'                    => servicio.id,
                         'solicitud_id'          => solicitud.id,
+                        'fecha_inicio'          => solicitud.fecha_inicio,
+                        'fecha_termino'         => solicitud.fecha_termino,
+                        'duracion'              => solicitud.duracion,
+                        'tiempo_entrega'        => solicitud.tiempo_text,
                         'agente_id'             => solicitud.usuario.id,
                         'agente_email'          => solicitud.usuario.email,      #  del usuario que da de alta el servicio.
                         'carpeta_codigo'        => solicitud.codigo,
@@ -83,6 +98,9 @@ module Vinculacion
                         'nombre'                => servicio.nombre,
                         'cliente_id'            => solicitud.cliente_id,
                         'cliente_nombre'        => solicitud.cliente.razon_social,
+                        'cliente_contacto'      => cliente_contacto,
+                        'cliente_email'         => cliente_email,
+                        'cliente_telefono'      => cliente_telefono,
                         'descripcion'           => solicitud.descripcion,
                         'muestra'               => solicitud.muestras[0]
       )
@@ -116,15 +134,26 @@ module Vinculacion
         servicios << servicio_item
       end
 
+      cliente_contacto = solicitud.contacto.nombre   rescue '-'
+      cliente_email    = solicitud.contacto.email    rescue '-'
+      cliente_telefono = solicitud.contacto.telefono rescue '-'
+
       # notificar a Bitacora
       QueueBus.publish('notificar_arranque_tipo_2',
                        'solicitud_id'          => solicitud.id,
                        'agente_id'             => solicitud.usuario.id,
+                       'fecha_inicio'          => solicitud.fecha_inicio,
+                       'fecha_termino'         => solicitud.fecha_termino,
+                       'duracion'              => solicitud.duracion,
+                       'tiempo_entrega'        => solicitud.tiempo_text,
                        'agente_email'          => solicitud.usuario.email,      #  del usuario que da de alta el servicio.
                        'responsable_email'     => solicitud.responsable_presupuestal.email,
                        'carpeta_codigo'        => solicitud.codigo,
                        'cliente_id'            => solicitud.cliente_id,
                        'cliente_nombre'        => solicitud.cliente.razon_social,
+                       'cliente_contacto'      => cliente_contacto,
+                       'cliente_email'         => cliente_email,
+                       'cliente_telefono'      => cliente_telefono,
                        'descripcion'           => solicitud.descripcion,
                        'muestras'              => muestras,
                        'servicios'             => servicios
