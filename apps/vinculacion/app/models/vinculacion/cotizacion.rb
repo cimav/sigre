@@ -30,8 +30,10 @@ module Vinculacion
       STATUS[status.to_i]
     end
     
-    MENSAJE = "En respuesta a su solicitud para SOLICITUD_DESCRIPCION y agradeciendo su preferencia, ponemos a su
+    MENSAJE = "En respuesta a su solicitud de SOLICITUD_DESCRIPCION y agradeciendo su preferencia, ponemos a su
 consideración la siguiente propuesta económica:"
+
+    MENSAJE_DE_SERVICIO = "servicio"
 
     OBSERVACIONES = ""
 
@@ -60,7 +62,7 @@ consideración la siguiente propuesta económica:"
         self.idioma = 1
         self.divisa = 1
         if self.solicitud.descripcion.nil? || self.solicitud.descripcion.empty?
-          self.comentarios = MENSAJE
+          self.comentarios = MENSAJE.gsub("SOLICITUD_DESCRIPCION", MENSAJE_DE_SERVICIO)
         else
           self.comentarios = MENSAJE.gsub("SOLICITUD_DESCRIPCION", self.solicitud.descripcion)
         end
