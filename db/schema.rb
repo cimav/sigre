@@ -13,12 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150506215810) do
 
-  create_table "costo_hora", id: false, force: true do |t|
-    t.integer "uh"
-    t.text    "nombre"
-    t.decimal "costo",  precision: 10, scale: 2
-  end
-
   create_table "estados", force: true do |t|
     t.string   "nombre"
     t.string   "codigo"
