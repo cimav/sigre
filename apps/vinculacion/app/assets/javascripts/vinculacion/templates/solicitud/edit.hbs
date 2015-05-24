@@ -9,7 +9,9 @@
         {{view App.Select2View contentBinding="controllers.application.clientes"
         optionLabelPath="content.razon_social"
         optionValuePath="content.id"
-        selectionBinding="cliente"}}
+        selectionBinding="cliente"
+        prompt="seleccione cliente..."
+        }}
       </div>
     </div>
 
@@ -20,7 +22,9 @@
         {{view App.Select2View contentBinding="cliente.contactos"
         optionLabelPath="content.nombre"
         optionValuePath="content.id"
-        selectionBinding="contacto"}}
+        selectionBinding="contacto"
+        prompt="seleccione contacto..."
+        }}
         <button class="btn btn-default btn-sm" {{action 'showModal' 'contactos/contacto-modal' model.cliente}} ><span class="glyphicon glyphicon-plus" title="Agregar nuevo contacto"></span></button>
       </div>
     </div>
