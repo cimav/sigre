@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150521165034) do
+ActiveRecord::Schema.define(version: 20150521215654) do
 
   create_table "costo_hora", id: false, force: true do |t|
     t.integer "uh"
@@ -307,8 +307,9 @@ ActiveRecord::Schema.define(version: 20150521165034) do
     t.integer  "empleado_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "status",                                default: 1
+    t.integer  "status",                                                         default: 1
     t.integer  "servicio_bitacora_id"
+    t.decimal  "precio_sugerido",                       precision: 10, scale: 2, default: 0.0
   end
 
   create_table "vinculacion_servicios_bitacora", force: true do |t|

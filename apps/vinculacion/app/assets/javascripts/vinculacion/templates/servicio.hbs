@@ -25,45 +25,65 @@
         </div>
       </div>
       <p>{{descripcion}}</p>
+      <h4>Precio de Venta Sugerido: {{formatCurrency precio_sugerido}}</h4>
 
+      
       {{#each servicio_datos.muestras}}
+
         <div class="muestra-servicios">
+          <table>
+          <tr>
+          <td style="vertical-align:top;">
           <div class="muestra-item">
             <div class="muestra-codigo">{{codigo}} <span class="badge badge-muestras">{{cantidad}}</span></div>
             <div class="muestra-info">
               <div class="muestra-identificacion">{{identificacion}}</div>
             </div>
           </div>
+          </td>
+          <td>
           <div class="muestra-servicios-detalles">
             {{#unless costeos}}
-              <div class="no-costeos">No existen costeos.</div>
+              <div class="no-costeos">No existen costos.</div>
             {{/unless}}
-            <table class="table">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
               {{#each costeos}}
-                <tr>
-                  <th colspan="4">{{nombre_servicio}}</th>
-                  <th>{{formatCurrency total}}</th>
-                </tr>
-                <tr>
-                  <th></th>
-                  <th>Concepto</th>
-                  <th>Cantidad</th>
-                  <th>Precio Unitario</th>
-                  <th>Subtotal</th>
-                </tr>
-                {{#each costeo_detalle itemController='CosteoDetalle'}}
-                  <tr>
-                    <td><span {{bind-attr class='tipo_class'}}></span></td>
-                    <td>{{descripcion}}</td>
-                    <td>{{cantidad}}</td>
-                    <td>{{formatCurrency precio_unitario}}</td>
-                    <td>{{formatCurrency subtotal}}</td>
-                  </tr>
-                {{/each}}
-
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" {{bind-attr id="head_id"}}>
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" {{bind-attr href="href_id"}} aria-expanded="true"  {{bind-attr aria-controls="collapse_id"}}>
+                        {{nombre_servicio}} {{formatCurrency total}}
+                      </a>
+                    </h4>
+                  </div>
+                  <div  {{bind-attr id="collapse_id"}} class="panel-collapse collapse" role="tabpanel" {{bind-attr aria-labelledby="head_id"}}>
+                    <div class="panel-body">
+                      <table class="table">
+                      <tr>
+                        <th></th>
+                        <th>Concepto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Subtotal</th>
+                      </tr>
+                      {{#each costeo_detalle itemController='CosteoDetalle'}}
+                        <tr>
+                          <td><span {{bind-attr class='tipo_class'}}></span></td>
+                          <td>{{descripcion}}</td>
+                          <td>{{cantidad}}</td>
+                          <td>{{formatCurrency precio_unitario}}</td>
+                          <td>{{formatCurrency subtotal}}</td>
+                        </tr>
+                      {{/each}}
+                      </table>
+                    </div>
+                  </div>
+                </div>
               {{/each}}
-            </table>
+            </div>
+
           </div>
+          </tr></tr></table>
         </div>
         <div class="clearfix"></div>
       {{/each}}
