@@ -4,5 +4,14 @@ App.Costeo = DS.Model.extend({
   muestra:         DS.belongsTo('muestra'),
   servicio:        DS.belongsTo('servicio'),
   costeo_detalle:  DS.hasMany('costeo_detalle'),
-  status:          DS.attr('number')
+  status:          DS.attr('number'),
+  head_id: function() {
+    return "costeo_heading" + this.get('id');
+  }.property('id'),
+  collapse_id: function() {
+    return "costeo_collapse" + this.get('id');
+  }.property('id'),
+  href_id: function() {
+    return "#costeo_collapse" + this.get('id');
+  }.property('id')
 });
