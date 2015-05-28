@@ -87,6 +87,12 @@ module Vinculacion
         end
         
         pdf.text "\n\n\n"
+=begin
+        pdf.text_box "00/0000",    :at=> [380,y - 25], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 15, :style=> :bold
+        pdf.text_box "",    :at=> [366,y - 43], :width => 100, :height => 30,:valign=> :top, :align => :left, :size=> 9
+        pdf.text_box "Tipo de cambio: ", :at=> [366,y - 56], :width => 135, :height => 30,:valign=> :top, :align => :left, :size=> 9
+        pdf.text_box "",:at=> [380,y - 80], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 9
+=end
         pdf.text_box folio,    :at=> [380,y - 25], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 15, :style=> :bold
         pdf.text_box fecha,    :at=> [366,y - 43], :width => 100, :height => 30,:valign=> :top, :align => :left, :size=> 9
         pdf.text_box t_cambio, :at=> [366,y - 56], :width => 135, :height => 30,:valign=> :top, :align => :left, :size=> 9
@@ -94,19 +100,29 @@ module Vinculacion
 
         ## DATOS GENERALES
         cliente  = cotizacion.solicitud.cliente      
+        cliente.cp = "C.P. #{cliente.cp}"
         contacto = cotizacion.solicitud.contacto
- 
         contacto_nombre   = contacto.nombre rescue 'Sin contacto'
         contacto_telefono = contacto.telefono rescue 'Sin contacto'
         contacto_email    = contacto.email.downcase rescue 'Sin contacto'
-        cliente_rfc       = cliente.rfc.upcase rescue 'N.D'
+        #cliente_rfc       = cliente.rfc.upcase rescue 'N.D'
+=begin
+        cliente  = cotizacion.solicitud.cliente      
+        cliente.razon_social  = nil
+        cliente.calle_num = nil
+        cliente.colonia = nil
+        cliente.cp = ""
+        contacto = ""
+        contacto_nombre   = ""
+        contacto_telefono = ""
+        contacto_email    = ""
+=end
     
         data = [ [t[:company],         cliente.razon_social],
                  [t[:attention],       contacto_nombre],
-                 [t[:company_address], "#{cliente.calle_num} #{cliente.colonia} C.P. #{cliente.cp}"],
+                 [t[:company_address], "#{cliente.calle_num} #{cliente.colonia} #{cliente.cp}"],
                  [t[:phone],           contacto_telefono],
-                 [t[:email],           contacto_email],
-                 [t[:rfc],             cliente_rfc]]
+                 [t[:email],           contacto_email]]
         x = 15
         y = y - 25
         data.each do |d|
@@ -130,6 +146,7 @@ module Vinculacion
         analisis = analisis.length <= 0 ? "desarrollo de servicio" : analisis
         leyenda  = cotizacion.comentarios
         pdf.text leyenda, :size=> 9
+        #pdf.text "En respuesta a su solicitud para ...", :size=> 9
 
         ## CABECERA
         data = [[t[:amount],t[:description],t[:unit_cost], t[:subtotal]]]
@@ -139,17 +156,24 @@ module Vinculacion
 
         cotizacion.cotizacion_detalle.each do |cd|
           subtotal = cd.precio_unitario * cd.cantidad
-          r = [[cd.cantidad,cd.concepto,"$#{cd.precio_unitario.to_s}","$#{subtotal.to_s}"]]
+          if cd.cantidad.modulo(1).eql? 0
+            cd_cantidad = cd.cantidad.to_i
+          else
+            cd_cantidad = cd.cantidad
+          end
+          r = [[cd_cantidad,cd.concepto,{:content=>"$#{'%.2f' % cd.precio_unitario.to_s}",:align=>:right},{:content=>"$#{'%.2f' % subtotal.to_s}",:align=>:right}]]
           data += r
           counter = counter + 1
           subtotalf += subtotal
         end
 
-        ## Descomentar para desarrollo, comentar el ciclo de arriba
 =begin
-        15.times do |cd|
-          subtotal = 0
-          r = [["1","cosa #{counter}","$100.00","$100.00"]]
+        ## Descomentar para desarrollo, comentar el ciclo de arriba
+        1.times do |cd|
+          cantidad = 0
+          subtotal = 1 * cantidad
+          r = [["1","cosa #{counter}",{:content=>"$#{'%.2f' % cantidad}",:align=>:right},{:content=>"$#{'%.2f' % subtotal}",:align=>:right}]]
+          #r = [["1","",{:content=>"$#{'%.2f' % cantidad}",:align=>:right},{:content=>"$#{'%.2f' % subtotal}",:align=>:right}]]
           data += r
           counter = counter + 1
           subtotalf += subtotal
@@ -163,11 +187,11 @@ module Vinculacion
         data +=[
         [{:content=>"<font size='6'>#{t[:legal]}</font>",:colspan=>2,:rowspan=>3,:align=>:justify,:inline_format=>true},
          {:content=>t[:subtotal],:align=>:right},
-         {:content=>"$#{subtotalf}"}],
-        [{:content=>"IVA"   ,:align=>:right},"$#{iva}"],
-        [{:content=>"Total" ,:align=>:right},"$#{(subtotalf + iva).to_s}"]]
+         {:content=>"$#{'%.2f' % subtotalf}", :align=>:right}],
+        [{:content=>"IVA"   ,:align=>:right},{:content=>"$#{'%.2f' % iva}",:align=>:right}],
+        [{:content=>"Total" ,:align=>:right},{:content=>"$#{'%.2f' % (subtotalf + iva)}",:align=>:right}]]
 
-        tabla = pdf.make_table(data,:header=> false,:width=>505,:column_widths=>[50,255,100,100],:cell_style=> {:valign=>:center,:size=>size - 2,:padding=>3,:border_width=>0.5})
+        tabla = pdf.make_table(data,:header=> false,:width=>505,:column_widths=>[50,305,75,75],:cell_style=> {:valign=>:center,:size=>size - 2,:padding=>3,:border_width=>0.5})
         tabla.rows(1..counter).border_bottom_width= 0.1
         #tabla.row(counter + 1).column(0).borders = [:right]
         tabla.row(counter + 1).column(0).borders = []
@@ -211,6 +235,7 @@ module Vinculacion
           w = 350
           h = 10
           full_name = "#{current_user.nombre} #{current_user.apellidos}"
+          #full_name = ""
           pdf.text_box full_name, :at=>[x,y1], :width => w, :height=> h, :size=>9, :align=> :left, :valign=> :bottom
         
           ## LINE 2
