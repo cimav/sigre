@@ -190,16 +190,35 @@ module Vinculacion
         end
 =end
 
-        ## CALCULANDO EL IVA
-        iva = (subtotalf * cotizacion.iva)/100
+        ## DESCUENTO
+        descuento = 0
+        if cotizacion.descuento_porcentaje > 0
+          descuento = (subtotalf * cotizacion.descuento_porcentaje)/100
+          subtotaldescuento = subtotalf - descuento
+          iva = (subtotaldescuento * cotizacion.iva)/100
+        else
+          iva = (subtotalf * cotizacion.iva)/100
+        end
 
         ## SUBTOTALES
-        data +=[
-        [{:content=>"<font size='6'>#{t[:legal]}</font>",:colspan=>2,:rowspan=>3,:align=>:justify,:inline_format=>true},
-         {:content=>t[:subtotal],:align=>:right},
-         {:content=>"$#{'%.2f' % subtotalf}", :align=>:right}],
-        [{:content=>"IVA"   ,:align=>:right},{:content=>"$#{'%.2f' % iva}",:align=>:right}],
-        [{:content=>"Total" ,:align=>:right},{:content=>"$#{'%.2f' % (subtotalf + iva)}",:align=>:right}]]
+        if descuento <= 0
+          data +=[
+          [{:content=>"<font size='6'>#{t[:legal]}</font>",:colspan=>2,:rowspan=>3,:align=>:justify,:inline_format=>true},
+           {:content=>t[:subtotal],:align=>:right},
+           {:content=>"$#{'%.2f' % subtotalf}", :align=>:right}],
+          [{:content=>"IVA"   ,:align=>:right},{:content=>"$#{'%.2f' % iva}",:align=>:right}],
+          [{:content=>"Total" ,:align=>:right},{:content=>"$#{'%.2f' % (subtotalf + iva)}",:align=>:right}]]
+        else
+          data +=[
+          [{:content=>"<font size='6'>#{t[:legal]}</font>",:colspan=>2,:rowspan=>5,:align=>:justify,:inline_format=>true},
+           {:content=>t[:subtotal],:align=>:right},
+           {:content=>"$#{'%.2f' % subtotalf}", :align=>:right}],
+          [{:content=>"Descuento #{cotizacion.descuento_porcentaje}"   ,:align=>:right},{:content=>"$#{'%.2f' % descuento}",:align=>:right}],
+          [{:content=>"Precio Venta",:align=>:right},{:content=>"$#{'%.2f' % subtotaldescuento}",:align=>:right}],
+          [{:content=>"IVA"   ,:align=>:right},{:content=>"$#{'%.2f' % iva}",:align=>:right}],
+          [{:content=>"Total" ,:align=>:right},{:content=>"$#{'%.2f' % (subtotaldescuento + iva)}",:align=>:right}]]
+        end
+
 
         tabla = pdf.make_table(data,:header=> false,:width=>505,:column_widths=>[50,305,75,75],:cell_style=> {:valign=>:center,:size=>size - 2,:padding=>3,:border_width=>0.5})
         tabla.rows(1..counter).border_bottom_width= 0.1
@@ -207,7 +226,7 @@ module Vinculacion
         tabla.row(counter + 1).column(0).borders = []
         tabla.row(counter + 1).column(0).padding = 5
         #tabla.row(counter + 1).column(2).borders = []
-        tabla.rows(counter+1..counter+3).column(2).borders = []
+        tabla.rows(counter+1..counter+5).column(2).borders = []
         tabla.draw
         pdf.text "\n\n"
         #OBSERVACIONES

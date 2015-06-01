@@ -12,9 +12,9 @@ App.Contacto = DS.Model.extend(Ember.Validations.Mixin, {
 //    telefono: {
 //      format: { with: /^\+?\d{1,3}?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/, allowBlank: true, message: 'debe cumplir con el estaándar de teléfonos'  }
 //    },
-    email: {
-      format: { with: /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/, allowBlank: true, message: 'debe cumplir con el estándar de email'  }
-    }
+//    email: {
+//      format: { with: /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/, allowBlank: true, message: 'debe cumplir con el estándar de email'  }
+//    }
   }
 
 });
