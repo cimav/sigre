@@ -254,7 +254,7 @@ module Vinculacion
               if ssccd.tipo.to_i.eql? 1 then ## HORAS HOMBRE
                 subtotal_hhombre = ssccd.precio_unitario * cantidad
                 if data_hhombre.empty?
-                  data_hhombre += [["#{ssccd_spaces} #{ssccd.descripcion}","$#{'%.2f' % subtotal_hhombre}"]]
+                  data_hhombre += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_hhombre]]
                 else
                   counter = 0
                   data_hhombre.each do |dhh|
@@ -262,7 +262,7 @@ module Vinculacion
                        data_hhombre[counter][1] = dhh[1] + subtotal_hhombre
                        break;
                     else
-                      data_hhombre += [["#{ssccd_spaces} #{ssccd.descripcion}","$#{'%.2f' % subtotal_hhombre}"]]
+                      data_hhombre += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_hhombre]]
                       break;
                     end
                     counter= counter + 1
@@ -272,7 +272,7 @@ module Vinculacion
               elsif ssccd.tipo.to_i.eql? 3 then
                 subtotal_consumibles = ssccd.precio_unitario * cantidad
                 if data_consumibles.empty? then
-                  data_consumibles += [["#{ssccd_spaces}  #{ssccd.descripcion}","$#{'%.2f' % subtotal_consumibles}"]]
+                  data_consumibles += [["#{ssccd_spaces}  #{ssccd.descripcion}",subtotal_consumibles]]
                 else
                   counter = 0
                   data_consumibles.each do |dt|
@@ -280,7 +280,7 @@ module Vinculacion
                        data_consumibles[counter][1] = dt[1] + subtotal_consumibles   
                        break;
                     else
-                       data_consumibles += [["#{ssccd_spaces} #{ssccd.descripcion}","$#{'%.2f' % subtotal_consumibles}"]]
+                       data_consumibles += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_consumibles]]
                        break;
                     end
                     counter= counter + 1
@@ -290,7 +290,7 @@ module Vinculacion
               elsif ssccd.tipo.to_i.eql? 4 then  #OTROS
                 subtotal_otros = ssccd.precio_unitario * cantidad
                 if data_otros.empty? then
-                  data_otros += [["#{ssccd_spaces} #{ssccd.descripcion}","$#{'%.2f' % subtotal_otros}"]] 
+                  data_otros += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_otros]] 
                 else
                   counter = 0
                   data_otros.each do |dot|
@@ -298,7 +298,7 @@ module Vinculacion
                       data_otros[counter][1] = dot[1] + subtotal_otros
                       break;
                     else
-                      data_otros += [["#{ssccd_spaces} #{ssccd.descripcion}","$#{'%.2f' % subtotal_otros}"]] 
+                      data_otros += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_otros]] 
                       break;
                     end
                     counter = counter + 1
@@ -310,6 +310,20 @@ module Vinculacion
           end
         end
         
+        ## COLOCANDO SIGNO DE DINERO A CADA UNO
+        data_hhombre.each do |dhh|
+          dhh[1] = "$#{'%.2f' % dhh[1]}"
+        end
+
+        data_consumibles.each do |dc|
+          dc[1] = "$#{'%.2f' % dc[1]}"
+        end
+
+        data_otros.each do |dot|
+          dot[1] = "$#{'%.2f' % dot[1]}"
+        end
+
+
         title_spaces = "#{Prawn::Text::NBSP * 2}"
         ## INSUMOS
         data += [[ {:content=>"#{title_spaces} <b>Insumos</b> ",:colspan=>2}  ]]
