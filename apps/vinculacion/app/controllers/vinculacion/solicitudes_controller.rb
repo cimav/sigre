@@ -81,6 +81,18 @@ module Vinculacion
 
       bitacoraId = servicio.servicio_bitacora.bitacora_id rescue 0
 
+      muestraId = solicitud.muestras[0].id rescue 0
+
+      servicio_item = {
+          'id'                    => servicio.id,
+          'servicio_codigo'       => servicio.codigo,
+          'servicio_bitacora_id'  => bitacoraId,
+          'nombre'                => servicio.nombre,
+          'muestra_id'            => muestraId
+      }
+
+      jalar_costeos_bitacora(servicio_item)
+
       # notificar a Bitacora
       puts "Notificar arranque no coordinado"
       QueueBus.publish('notificar_arranque_no_coordinado',
@@ -123,15 +135,19 @@ module Vinculacion
 
         servicio_muestra = ServiciosMuestras.where(servicio_id: servicio.id).first
         muestra = Muestra.find(servicio_muestra.muestra_id)
+        muestraId = muestras.id rescue 0
 
         servicio_item = {
            'id'                    => servicio.id,
            'servicio_codigo'       => servicio.codigo,
            'servicio_bitacora_id'  => bitacoraId,
            'nombre'                => servicio.nombre,
-           'muestra_codigo'        => muestra.codigo
+           'muestra_id'            => muestraId
         }
         servicios << servicio_item
+
+        jalar_costeos_bitacora(servicio_item)
+
       end
 
       cliente_contacto = solicitud.contacto.nombre   rescue '-'
@@ -162,6 +178,82 @@ module Vinculacion
       render json: solicitud
     end
 
+    def jalar_costeos_bitacora(servicio_item)
+
+      ## Para tipos I y II
+      ## Jala los costeos de la Bitacora dado el Id del Servicio Bitacora
+      ## y los inyecta en costeos de vinculacion
+
+      servicio_bitacora_id = servicio_item['servicio_bitacora_id']
+
+      sql = "SELECT id FROM bitacora_development.requested_services WHERE laboratory_service_id = #{servicio_bitacora_id} AND number = 'TEMPLATE';"
+      @servicios = ActiveRecord::Base.connection.execute(sql);
+      @servicios.each(:as => :hash) do |row|
+        servicio_id = row["id"]
+
+        costeo = ::Vinculacion::Costeo.new
+        costeo.bitacora_id     = servicio_bitacora_id
+        costeo.servicio_id     = servicio_item['id']
+        costeo.nombre_servicio = servicio_item['nombre']
+        costeo.muestra_id      = servicio_item['muestra_id']
+        costeo.save
+
+
+        # personal
+        sql = "SELECT * FROM bitacora_development.requested_service_technicians WHERE requested_service_id = #{servicio_id};"
+        @technicians = ActiveRecord::Base.connection.execute(sql);
+        @technicians.each(:as => :hash) do |row|
+
+            userId = row['user_id']
+            sql = "SELECT first_name, last_name FROM bitacora_development.users WHERE id = #{userId};"
+            empleado = ActiveRecord::Base.connection.exec_query(sql).first
+            nombre = empleado['first_name'] + ' ' + empleado['last_name'] rescue "SIN NOMBRE"
+
+            item = costeo.costeo_detalle.new
+            item.tipo = 1
+            item.descripcion     = nombre
+            item.cantidad        = row['hours']
+            item.precio_unitario = row['hourly_wage']
+            item.save
+
+        end
+
+        # equipos
+        sql = "SELECT * FROM bitacora_development.requested_service_equipments WHERE requested_service_id = #{servicio_id};"
+        @equipments = ActiveRecord::Base.connection.execute(sql);
+        @equipments.each(:as => :hash) do |row|
+
+          equipmentId = row['equipment_id']
+          sql = "SELECT name FROM bitacora_development.equipment WHERE id = #{equipmentId};"
+          equipment = ActiveRecord::Base.connection.exec_query(sql).first
+          nombre = equipment['name']
+
+          item = costeo.costeo_detalle.new
+          item.tipo = 2
+          item.descripcion     = nombre
+          item.cantidad        = row['hours']
+          item.precio_unitario = row['hourly_rate']
+          item.save
+
+        end
+
+        # otros
+        sql = "SELECT * FROM bitacora_development.requested_service_others WHERE requested_service_id = #{servicio_id};"
+        @others = ActiveRecord::Base.connection.execute(sql);
+        @others.each(:as => :hash) do |row|
+
+          item = costeo.costeo_detalle.new
+          item.tipo = 4
+          item.descripcion     = row['concept']
+          item.cantidad        = 1
+          item.precio_unitario = row['price']
+          item.save
+
+        end
+
+      end
+
+    end
 
     def estimacion_costos
       type      = params[:type]
