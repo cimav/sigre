@@ -18,6 +18,15 @@ module Vinculacion
       cliente_contacto = servicio.solicitud.contacto.nombre   rescue '-'
       cliente_email    = servicio.solicitud.contacto.email    rescue '-'
       cliente_telefono = servicio.solicitud.contacto.telefono rescue '-'
+      cliente_calle    = servicio.solicitud.cliente.calle_num rescue '--'
+      cliente_colonia  = servicio.solicitud.cliente.colonia   rescue '--'
+      cliente_ciudad   = servicio.solicitud.cliente.ciudad    rescue '--'
+      cliente_estado   = servicio.solicitud.cliente.estado.nombre rescue '--'
+      cliente_pais     = servicio.solicitud.cliente.pais.nombre   rescue '--'
+      cliente_cp       = servicio.solicitud.cliente.cp            rescue '--'
+
+
+      calle_num, colonia, ciudad, estados.nombre, paises.nombre, cp
 
       QueueBus.publish('solicitar_costeo',  'id'               => servicio.id, 
                                             'solicitud_id'     => servicio.solicitud_id,
@@ -32,6 +41,13 @@ module Vinculacion
                                             'cliente_contacto' => cliente_contacto,
                                             'cliente_email'    => cliente_email,
                                             'cliente_telefono' => cliente_telefono,
+                                            'cliente_calle'    => cliente_calle,
+                                            'cliente_colonia'  => cliente_colonia,
+                                            'cliente_ciudad'   => cliente_ciudad,
+                                            'cliente_estado'   => cliente_estado,
+                                            'cliente_pais'     => cliente_pais,
+                                            'cliente_cp'       => cliente_cp,
+
                                             'descripcion'      => servicio.descripcion,
                                             'muestras'         => servicio.muestras)
 

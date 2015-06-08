@@ -78,6 +78,12 @@ module Vinculacion
       cliente_contacto = solicitud.contacto.nombre   rescue '-'
       cliente_email    = solicitud.contacto.email    rescue '-'
       cliente_telefono = solicitud.contacto.telefono rescue '-'
+      cliente_calle    = servicio.solicitud.cliente.calle_num rescue '--'
+      cliente_colonia  = servicio.solicitud.cliente.colonia   rescue '--'
+      cliente_ciudad   = servicio.solicitud.cliente.ciudad    rescue '--'
+      cliente_estado   = servicio.solicitud.cliente.estado.nombre rescue '--'
+      cliente_pais     = servicio.solicitud.cliente.pais.nombre   rescue '--'
+      cliente_cp       = servicio.solicitud.cliente.cp            rescue '--'
 
       bitacoraId = servicio.servicio_bitacora.bitacora_id rescue 0
 
@@ -101,6 +107,12 @@ module Vinculacion
                         'cliente_contacto'      => cliente_contacto,
                         'cliente_email'         => cliente_email,
                         'cliente_telefono'      => cliente_telefono,
+                        'cliente_calle'         => cliente_calle,
+                        'cliente_colonia'       => cliente_colonia,
+                        'cliente_ciudad'        => cliente_ciudad,
+                        'cliente_estado'        => cliente_estado,
+                        'cliente_pais'          => cliente_pais,
+                        'cliente_cp'            => cliente_cp,
                         'descripcion'           => solicitud.descripcion,
                         'muestra'               => solicitud.muestras[0]
       )
@@ -137,6 +149,12 @@ module Vinculacion
       cliente_contacto = solicitud.contacto.nombre   rescue '-'
       cliente_email    = solicitud.contacto.email    rescue '-'
       cliente_telefono = solicitud.contacto.telefono rescue '-'
+      cliente_calle    = servicio.solicitud.cliente.calle_num rescue '--'
+      cliente_colonia  = servicio.solicitud.cliente.colonia   rescue '--'
+      cliente_ciudad   = servicio.solicitud.cliente.ciudad    rescue '--'
+      cliente_estado   = servicio.solicitud.cliente.estado.nombre rescue '--'
+      cliente_pais     = servicio.solicitud.cliente.pais.nombre   rescue '--'
+      cliente_cp       = servicio.solicitud.cliente.cp            rescue '--'
 
       # notificar a Bitacora
       QueueBus.publish('notificar_arranque_tipo_2',
@@ -154,6 +172,12 @@ module Vinculacion
                        'cliente_contacto'      => cliente_contacto,
                        'cliente_email'         => cliente_email,
                        'cliente_telefono'      => cliente_telefono,
+                       'cliente_calle'         => cliente_calle,
+                       'cliente_colonia'       => cliente_colonia,
+                       'cliente_ciudad'        => cliente_ciudad,
+                       'cliente_estado'        => cliente_estado,
+                       'cliente_pais'          => cliente_pais,
+                       'cliente_cp'            => cliente_cp,
                        'descripcion'           => solicitud.descripcion,
                        'muestras'              => muestras,
                        'servicios'             => servicios
