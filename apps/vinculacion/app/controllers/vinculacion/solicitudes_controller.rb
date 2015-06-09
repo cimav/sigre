@@ -483,9 +483,119 @@ module Vinculacion
         ### ENVIANDO EL PDF
         send_data pdf.render, type: "application/pdf", disposition: "inline"
       end
-
-      
     end
+
+    def recepcion_muestras
+      solicitud = Solicitud.find(params[:id])
+      t = t(:apps)[:vinculacion][:controllers][:cotizaciones][:document]
+      Prawn::Document.new(:top_margin => 50.0, :bottom_margin=> 100.0, :left_margin=>70.0, :right_margin=>45.0) do |pdf|
+        image = "#{Rails.root}/private/images/logo_cimav_100.png" 
+        pdf.image image, :position => :left, :height => 50
+        x = 100
+        y = 635
+        w = 350
+        h = 28
+        size = 11
+        pdf.text_box t[:center], :at=> [x,y], :width => w, :height => h,  :valign=> :top, :align => :left, :size=> 13
+        
+        ## DIRECCIONES
+        y = y - 15
+        h = 40
+        pdf.text_box t[:address0], :at=> [x,y], :width => w, :height => h,:valign=> :top, :align => :left, :size=> 5
+        x = x + 110
+        pdf.text_box t[:address1], :at=> [x,y], :width => w, :height => h,:valign=> :top, :align => :left, :size=> 5
+        x = x + 90
+        pdf.text_box t[:address2], :at=> [x,y], :width => w, :height => h,:valign=> :top, :align => :left, :size=> 5
+        
+        ## LINE
+        x = 0
+        y = y - 43 
+        pdf.stroke_color= "000000"
+        pdf.line_width= 3
+        pdf.stroke_line [x,y],[513,y]
+        pdf.line_width= 1
+        pdf.stroke_line [x,y - 3],[513,y - 3]
+        ## FECHA 
+        tday  = Date.today
+        dia   = tday.day
+        mes   = t(:date)[:month_names][tday.month]
+        anyo  = tday.year
+        ## CALCULANDO FOLIO
+        anyof        = anyo.to_s[2,4]
+        con          = solicitud.consecutivo
+        c_solicitud  = "%04d" % con.to_i
+        folio        = "#{anyof}/#{c_solicitud}"
+        fecha        = "#{dia} de #{mes} del #{anyo}"
+        pdf.text "\n\n\n"
+        pdf.text_box folio,    :at=> [380,y - 25], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 15, :style=> :bold
+        pdf.text_box fecha,    :at=> [380,y - 43], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 9
+        
+        ## DATOS GENERALES
+        cliente              = solicitud.cliente   
+        cliente_razon_social = cliente.razon_social rescue ''
+        cliente_calle_num    = cliente.calle_num rescue ''
+        cliente_colonia      = cliente.colonia rescue ''
+        cliente_cp           = cliente.cp rescue ''
+        if !cliente_cp.empty?
+          cliente_cp= "C.P. #{cliente_cp}"
+        end
+        contacto             = solicitud.contacto
+        contacto_nombre      = contacto.nombre rescue ''
+        contacto_telefono    = contacto.telefono rescue ''
+        contacto_email       = contacto.email.downcase rescue ''
+        
+        
+        data = [ [t[:company],         cliente_razon_social],
+                 [t[:attention],       contacto_nombre],
+                 [t[:company_address], "#{cliente_calle_num} #{cliente_colonia} #{cliente_cp}"],
+                 [t[:phone],           contacto_telefono],
+                 [t[:email],           contacto_email]]
+        x = 15
+        y = y - 25
+        data.each do |d|
+          pdf.text_box d[0], :at=> [x,y], :width => 50, :height => 11,:valign=> :top, :align => :left, :size=> 10
+          if d[1]
+            pdf.text_box d[1], :at=> [x + 50,y], :width => 200, :height => 11,:valign=> :top, :align => :left, :size=> 10
+          end
+          y = y - 10
+        end
+
+        ## RODEAMOS
+        y = 560
+        pdf.line_width= 0.1
+        pdf.stroke_rounded_rectangle([0,y], 350, 80, 10)
+        pdf.stroke_rounded_rectangle([360,y], 145, 80, 10)
+
+        pdf.text "\n\n\n\n\n\n"
+        
+        data=[
+          [{:content=>"Descripción del instrumento de medición y/o muestreos",:colspan=>2,:align=>:center,:size=>size + 2}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+         ]
+        tabla = pdf.make_table(data,:header=>false,:width=>505,:column_widths=>[395,110],:cell_style=>{:padding=>4,:border_width=>0.5})
+        tabla.draw       
+        pdf.text "\n\n"
+        pdf.text "* La revisión del equipo solo es visual, cualquier anomalia de funcionamiento se detectará por el laboratorio.\n * Resguardo, a las instalaciones del CIMAV, localizadas en Miguel de Cervantes N° 120, Complejo Industrial Chihuahua, Chih.\n * El CIMAV solo mantendrá en resguardo las muestras en un periodo máximo de cinco días contados a partir de finalizado el servicio de laboratorio solicitado por la Empresa; posteriormente dichas muestras serán destruidas.\n * En el caso de que la muestra sea enviada a confinamiento por medidas de seguridad, los gastos en que se incurra serán cubiertos por la empresa o persona que requiera los servicios de laboratorio CIMAV.\n ",:align=>:justify,:size=>7
+        pdf.text "\n\n\n"
+        pdf.text "_________________________",:align=>:center
+        pdf.text "Firma del Cliente",:align=>:center
+        pdf.stroke_rectangle [425,-42],71,15 
+        pdf.text_box "VN01F06-01", :at=> [427,-45], :width => 70, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        
+        ### ENVIANDO EL PDF
+        send_data pdf.render, type: "application/pdf", disposition: "inline"
+      end
+    end
+
 
     protected
     def solicitud
