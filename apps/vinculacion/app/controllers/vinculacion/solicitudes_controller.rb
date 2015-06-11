@@ -78,8 +78,26 @@ module Vinculacion
       cliente_contacto = solicitud.contacto.nombre   rescue '-'
       cliente_email    = solicitud.contacto.email    rescue '-'
       cliente_telefono = solicitud.contacto.telefono rescue '-'
+      cliente_calle    = servicio.solicitud.cliente.calle_num rescue '--'
+      cliente_colonia  = servicio.solicitud.cliente.colonia   rescue '--'
+      cliente_ciudad   = servicio.solicitud.cliente.ciudad    rescue '--'
+      cliente_estado   = servicio.solicitud.cliente.estado.nombre rescue '--'
+      cliente_pais     = servicio.solicitud.cliente.pais.nombre   rescue '--'
+      cliente_cp       = servicio.solicitud.cliente.cp            rescue '--'
 
       bitacoraId = servicio.servicio_bitacora.bitacora_id rescue 0
+
+      muestraId = solicitud.muestras[0].id rescue 0
+
+      servicio_item = {
+          'id'                    => servicio.id,
+          'servicio_codigo'       => servicio.codigo,
+          'servicio_bitacora_id'  => bitacoraId,
+          'nombre'                => servicio.nombre,
+          'muestra_id'            => muestraId
+      }
+
+      jalar_costeos_bitacora(servicio_item)
 
       # notificar a Bitacora
       puts "Notificar arranque no coordinado"
@@ -101,6 +119,12 @@ module Vinculacion
                         'cliente_contacto'      => cliente_contacto,
                         'cliente_email'         => cliente_email,
                         'cliente_telefono'      => cliente_telefono,
+                        'cliente_calle'         => cliente_calle,
+                        'cliente_colonia'       => cliente_colonia,
+                        'cliente_ciudad'        => cliente_ciudad,
+                        'cliente_estado'        => cliente_estado,
+                        'cliente_pais'          => cliente_pais,
+                        'cliente_cp'            => cliente_cp,
                         'descripcion'           => solicitud.descripcion,
                         'muestra'               => solicitud.muestras[0]
       )
@@ -123,20 +147,30 @@ module Vinculacion
 
         servicio_muestra = ServiciosMuestras.where(servicio_id: servicio.id).first
         muestra = Muestra.find(servicio_muestra.muestra_id)
+        muestraId = muestras.id rescue 0
 
         servicio_item = {
            'id'                    => servicio.id,
            'servicio_codigo'       => servicio.codigo,
            'servicio_bitacora_id'  => bitacoraId,
            'nombre'                => servicio.nombre,
-           'muestra_codigo'        => muestra.codigo
+           'muestra_id'            => muestraId
         }
         servicios << servicio_item
+
+        jalar_costeos_bitacora(servicio_item)
+
       end
 
       cliente_contacto = solicitud.contacto.nombre   rescue '-'
       cliente_email    = solicitud.contacto.email    rescue '-'
       cliente_telefono = solicitud.contacto.telefono rescue '-'
+      cliente_calle    = servicio.solicitud.cliente.calle_num rescue '--'
+      cliente_colonia  = servicio.solicitud.cliente.colonia   rescue '--'
+      cliente_ciudad   = servicio.solicitud.cliente.ciudad    rescue '--'
+      cliente_estado   = servicio.solicitud.cliente.estado.nombre rescue '--'
+      cliente_pais     = servicio.solicitud.cliente.pais.nombre   rescue '--'
+      cliente_cp       = servicio.solicitud.cliente.cp            rescue '--'
 
       # notificar a Bitacora
       QueueBus.publish('notificar_arranque_tipo_2',
@@ -154,6 +188,12 @@ module Vinculacion
                        'cliente_contacto'      => cliente_contacto,
                        'cliente_email'         => cliente_email,
                        'cliente_telefono'      => cliente_telefono,
+                       'cliente_calle'         => cliente_calle,
+                       'cliente_colonia'       => cliente_colonia,
+                       'cliente_ciudad'        => cliente_ciudad,
+                       'cliente_estado'        => cliente_estado,
+                       'cliente_pais'          => cliente_pais,
+                       'cliente_cp'            => cliente_cp,
                        'descripcion'           => solicitud.descripcion,
                        'muestras'              => muestras,
                        'servicios'             => servicios
@@ -162,6 +202,82 @@ module Vinculacion
       render json: solicitud
     end
 
+    def jalar_costeos_bitacora(servicio_item)
+
+      ## Para tipos I y II
+      ## Jala los costeos de la Bitacora dado el Id del Servicio Bitacora
+      ## y los inyecta en costeos de vinculacion
+
+      servicio_bitacora_id = servicio_item['servicio_bitacora_id']
+
+      sql = "SELECT id FROM bitacora_development.requested_services WHERE laboratory_service_id = #{servicio_bitacora_id} AND number = 'TEMPLATE';"
+      @servicios = ActiveRecord::Base.connection.execute(sql);
+      @servicios.each(:as => :hash) do |row|
+        servicio_id = row["id"]
+
+        costeo = ::Vinculacion::Costeo.new
+        costeo.bitacora_id     = servicio_bitacora_id
+        costeo.servicio_id     = servicio_item['id']
+        costeo.nombre_servicio = servicio_item['nombre']
+        costeo.muestra_id      = servicio_item['muestra_id']
+        costeo.save
+
+
+        # personal
+        sql = "SELECT * FROM bitacora_development.requested_service_technicians WHERE requested_service_id = #{servicio_id};"
+        @technicians = ActiveRecord::Base.connection.execute(sql);
+        @technicians.each(:as => :hash) do |row|
+
+            userId = row['user_id']
+            sql = "SELECT first_name, last_name FROM bitacora_development.users WHERE id = #{userId};"
+            empleado = ActiveRecord::Base.connection.exec_query(sql).first
+            nombre = empleado['first_name'] + ' ' + empleado['last_name'] rescue "SIN NOMBRE"
+
+            item = costeo.costeo_detalle.new
+            item.tipo = 1
+            item.descripcion     = nombre
+            item.cantidad        = row['hours']
+            item.precio_unitario = row['hourly_wage']
+            item.save
+
+        end
+
+        # equipos
+        sql = "SELECT * FROM bitacora_development.requested_service_equipments WHERE requested_service_id = #{servicio_id};"
+        @equipments = ActiveRecord::Base.connection.execute(sql);
+        @equipments.each(:as => :hash) do |row|
+
+          equipmentId = row['equipment_id']
+          sql = "SELECT name FROM bitacora_development.equipment WHERE id = #{equipmentId};"
+          equipment = ActiveRecord::Base.connection.exec_query(sql).first
+          nombre = equipment['name']
+
+          item = costeo.costeo_detalle.new
+          item.tipo = 2
+          item.descripcion     = nombre
+          item.cantidad        = row['hours']
+          item.precio_unitario = row['hourly_rate']
+          item.save
+
+        end
+
+        # otros
+        sql = "SELECT * FROM bitacora_development.requested_service_others WHERE requested_service_id = #{servicio_id};"
+        @others = ActiveRecord::Base.connection.execute(sql);
+        @others.each(:as => :hash) do |row|
+
+          item = costeo.costeo_detalle.new
+          item.tipo = 4
+          item.descripcion     = row['concept']
+          item.cantidad        = 1
+          item.precio_unitario = row['price']
+          item.save
+
+        end
+
+      end
+
+    end
 
     def estimacion_costos
       type      = params[:type]
@@ -367,9 +483,119 @@ module Vinculacion
         ### ENVIANDO EL PDF
         send_data pdf.render, type: "application/pdf", disposition: "inline"
       end
-
-      
     end
+
+    def recepcion_muestras
+      solicitud = Solicitud.find(params[:id])
+      t = t(:apps)[:vinculacion][:controllers][:cotizaciones][:document]
+      Prawn::Document.new(:top_margin => 50.0, :bottom_margin=> 100.0, :left_margin=>70.0, :right_margin=>45.0) do |pdf|
+        image = "#{Rails.root}/private/images/logo_cimav_100.png" 
+        pdf.image image, :position => :left, :height => 50
+        x = 100
+        y = 635
+        w = 350
+        h = 28
+        size = 11
+        pdf.text_box t[:center], :at=> [x,y], :width => w, :height => h,  :valign=> :top, :align => :left, :size=> 13
+        
+        ## DIRECCIONES
+        y = y - 15
+        h = 40
+        pdf.text_box t[:address0], :at=> [x,y], :width => w, :height => h,:valign=> :top, :align => :left, :size=> 5
+        x = x + 110
+        pdf.text_box t[:address1], :at=> [x,y], :width => w, :height => h,:valign=> :top, :align => :left, :size=> 5
+        x = x + 90
+        pdf.text_box t[:address2], :at=> [x,y], :width => w, :height => h,:valign=> :top, :align => :left, :size=> 5
+        
+        ## LINE
+        x = 0
+        y = y - 43 
+        pdf.stroke_color= "000000"
+        pdf.line_width= 3
+        pdf.stroke_line [x,y],[513,y]
+        pdf.line_width= 1
+        pdf.stroke_line [x,y - 3],[513,y - 3]
+        ## FECHA 
+        tday  = Date.today
+        dia   = tday.day
+        mes   = t(:date)[:month_names][tday.month]
+        anyo  = tday.year
+        ## CALCULANDO FOLIO
+        anyof        = anyo.to_s[2,4]
+        con          = solicitud.consecutivo
+        c_solicitud  = "%04d" % con.to_i
+        folio        = "#{anyof}/#{c_solicitud}"
+        fecha        = "#{dia} de #{mes} del #{anyo}"
+        pdf.text "\n\n\n"
+        pdf.text_box folio,    :at=> [380,y - 25], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 15, :style=> :bold
+        pdf.text_box fecha,    :at=> [380,y - 43], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 9
+        
+        ## DATOS GENERALES
+        cliente              = solicitud.cliente   
+        cliente_razon_social = cliente.razon_social rescue ''
+        cliente_calle_num    = cliente.calle_num rescue ''
+        cliente_colonia      = cliente.colonia rescue ''
+        cliente_cp           = cliente.cp rescue ''
+        if !cliente_cp.empty?
+          cliente_cp= "C.P. #{cliente_cp}"
+        end
+        contacto             = solicitud.contacto
+        contacto_nombre      = contacto.nombre rescue ''
+        contacto_telefono    = contacto.telefono rescue ''
+        contacto_email       = contacto.email.downcase rescue ''
+        
+        
+        data = [ [t[:company],         cliente_razon_social],
+                 [t[:attention],       contacto_nombre],
+                 [t[:company_address], "#{cliente_calle_num} #{cliente_colonia} #{cliente_cp}"],
+                 [t[:phone],           contacto_telefono],
+                 [t[:email],           contacto_email]]
+        x = 15
+        y = y - 25
+        data.each do |d|
+          pdf.text_box d[0], :at=> [x,y], :width => 50, :height => 11,:valign=> :top, :align => :left, :size=> 10
+          if d[1]
+            pdf.text_box d[1], :at=> [x + 50,y], :width => 200, :height => 11,:valign=> :top, :align => :left, :size=> 10
+          end
+          y = y - 10
+        end
+
+        ## RODEAMOS
+        y = 560
+        pdf.line_width= 0.1
+        pdf.stroke_rounded_rectangle([0,y], 350, 80, 10)
+        pdf.stroke_rounded_rectangle([360,y], 145, 80, 10)
+
+        pdf.text "\n\n\n\n\n\n"
+        
+        data=[
+          [{:content=>"Descripción del instrumento de medición y/o muestreos",:colspan=>2,:align=>:center,:size=>size + 2}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+          ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
+         ]
+        tabla = pdf.make_table(data,:header=>false,:width=>505,:column_widths=>[395,110],:cell_style=>{:padding=>4,:border_width=>0.5})
+        tabla.draw       
+        pdf.text "\n\n"
+        pdf.text "* La revisión del equipo solo es visual, cualquier anomalia de funcionamiento se detectará por el laboratorio.\n * Resguardo, a las instalaciones del CIMAV, localizadas en Miguel de Cervantes N° 120, Complejo Industrial Chihuahua, Chih.\n * El CIMAV solo mantendrá en resguardo las muestras en un periodo máximo de cinco días contados a partir de finalizado el servicio de laboratorio solicitado por la Empresa; posteriormente dichas muestras serán destruidas.\n * En el caso de que la muestra sea enviada a confinamiento por medidas de seguridad, los gastos en que se incurra serán cubiertos por la empresa o persona que requiera los servicios de laboratorio CIMAV.\n ",:align=>:justify,:size=>7
+        pdf.text "\n\n\n"
+        pdf.text "_________________________",:align=>:center
+        pdf.text "Firma del Cliente",:align=>:center
+        pdf.stroke_rectangle [425,-42],71,15 
+        pdf.text_box "VN01F06-01", :at=> [427,-45], :width => 70, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        
+        ### ENVIANDO EL PDF
+        send_data pdf.render, type: "application/pdf", disposition: "inline"
+      end
+    end
+
 
     protected
     def solicitud

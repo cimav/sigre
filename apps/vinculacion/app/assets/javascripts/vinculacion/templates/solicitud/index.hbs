@@ -132,6 +132,14 @@
     <div class="dato">{{usuario.usuario}}</div>
     <div class="dato">{{usuario.nombre}} {{usuario.apellidos}}</div>
     <div class="dato">{{usuario.sede.descripcion}}</div>
+    
+    <div class="header">Formatos</div>
+    <div id="pdf-link">
+      <a class="btn btn-default btn-sm" {{bind-attr href='pdf_url'}} target="_blank">
+        <span class="glyphicon glyphicon-file"></span>
+        Recepción de muestras
+        </a>
+    </div>
 
     {{#if isCancelada}}
       <div class="header"><span class="label label-default">{{status_text}}</span></div>

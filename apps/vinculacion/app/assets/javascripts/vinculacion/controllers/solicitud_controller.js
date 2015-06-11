@@ -18,7 +18,11 @@ App.SolicitudController = Ember.ObjectController.extend({
     var aceptada = this.get('model.Status.aceptada');
     var status = this.get('model.status');
     return status == inicial || status == en_cotizacion || status == aceptada;
-  }.property('model.status')
+  }.property('model.status'),
+  
+  pdf_url: function() {
+    return '/vinculacion/recepcion_muestras/' + this.get('id')
+  }.property('model.id')
 
 });
 

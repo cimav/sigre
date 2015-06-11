@@ -6,7 +6,8 @@ App.Usuario = DS.Model.extend({
   role:       DS.attr('string'),
   status:     DS.attr('number'),
   sede:       DS.belongsTo('sede'),
-  proyecto:   DS.belongsTo('proyecto')
+  proyecto:   DS.belongsTo('proyecto'),
+  avatar_url: DS.attr('string')
 
 });
 

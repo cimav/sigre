@@ -38,4 +38,5 @@ Vinculacion::Engine.routes.draw do
 
   get "cotizacion/:id/:type" => 'cotizaciones#document' 
   get "estimacion_costos/:id" => 'solicitudes#estimacion_costos' 
+  get "recepcion_muestras/:id" => 'solicitudes#recepcion_muestras' 
 end
