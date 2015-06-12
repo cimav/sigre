@@ -53,6 +53,7 @@ App.ApplicationController = Ember.Controller.extend({
       self.set('estados', values[6]);
       self.set('servicios_bitacora', values[7]);
       self.set('laboratorios_bitacora', values[8]);
+    
 
       /* armar data para options de Servicios_Bitacora */
       var serviciosBitacoraOptions = Ember.A();

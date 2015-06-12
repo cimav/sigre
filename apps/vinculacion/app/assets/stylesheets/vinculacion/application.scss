@@ -22,3 +22,10 @@
 @import 'vinculacion/clientes';
 @import 'vinculacion/solicitudes';
 @import 'vinculacion/cedulas';
+
+#loading {
+  margin-top: 200px;
+  font-size: 48px;
+  color: #999;
+  text-align: center;
+}
