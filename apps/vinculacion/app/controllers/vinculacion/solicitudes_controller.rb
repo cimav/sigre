@@ -536,7 +536,7 @@ module Vinculacion
         cliente_calle_num    = cliente.calle_num rescue ''
         cliente_colonia      = cliente.colonia rescue ''
         cliente_cp           = cliente.cp rescue ''
-        if !cliente_cp.empty?
+        if cliente_cp != ''
           cliente_cp= "C.P. #{cliente_cp}"
         end
         contacto             = solicitud.contacto
