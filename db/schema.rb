@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150521215654) do
+ActiveRecord::Schema.define(version: 20150615220644) do
 
   create_table "costo_hora", id: false, force: true do |t|
     t.integer "uh"
@@ -135,6 +135,16 @@ ActiveRecord::Schema.define(version: 20150521215654) do
     t.datetime "updated_at"
   end
 
+  create_table "tmp_clientes", id: false, force: true do |t|
+    t.integer "id",        default: 0, null: false
+    t.string  "calle_num"
+    t.string  "colonia"
+    t.string  "ciudad"
+    t.string  "estado"
+    t.string  "pais"
+    t.string  "cp"
+  end
+
   create_table "usuarios", force: true do |t|
     t.string   "usuario",                 null: false
     t.string   "email",                   null: false
@@ -147,6 +157,7 @@ ActiveRecord::Schema.define(version: 20150521215654) do
     t.string   "role"
     t.integer  "sede_id"
     t.integer  "proyecto_id"
+    t.string   "avatar_url"
   end
 
   add_index "usuarios", ["email"], name: "index_usuarios_on_email", using: :btree
@@ -162,6 +173,28 @@ ActiveRecord::Schema.define(version: 20150521215654) do
   end
 
   create_table "vinculacion_clientes", force: true do |t|
+    t.string   "rfc"
+    t.string   "razon_social"
+    t.integer  "num_empleados"
+    t.string   "calle_num"
+    t.string   "colonia"
+    t.string   "cp"
+    t.string   "telefono"
+    t.string   "fax"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "tamano_empresa"
+    t.integer  "sector"
+    t.integer  "pais_id"
+    t.integer  "estado_id"
+    t.string   "ciudad"
+    t.string   "clave"
+    t.string   "nombre"
+  end
+
+  create_table "vinculacion_clientes_old", id: false, force: true do |t|
+    t.integer  "id",             default: 0, null: false
     t.string   "rfc"
     t.string   "razon_social"
     t.integer  "num_empleados"
@@ -253,14 +286,14 @@ ActiveRecord::Schema.define(version: 20150521215654) do
   end
 
   create_table "vinculacion_cotizaciones_detalle", force: true do |t|
-    t.integer  "cantidad",                                                  default: 1
-    t.text     "concepto",        limit: 16777215
-    t.decimal  "precio_unitario",                  precision: 10, scale: 2, default: 0.0
-    t.integer  "status",                                                    default: 0
+    t.integer  "cantidad",                                 default: 1
+    t.text     "concepto"
+    t.decimal  "precio_unitario", precision: 10, scale: 2, default: 0.0
+    t.integer  "status",                                   default: 0
     t.integer  "cotizacion_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "inmutable",                                                 default: false
+    t.boolean  "inmutable",                                default: false
     t.integer  "servicio_id"
   end
 
@@ -310,6 +343,7 @@ ActiveRecord::Schema.define(version: 20150521215654) do
     t.integer  "status",                                                         default: 1
     t.integer  "servicio_bitacora_id"
     t.decimal  "precio_sugerido",                       precision: 10, scale: 2, default: 0.0
+    t.integer  "tiempo_estimado",                                                default: 0
   end
 
   create_table "vinculacion_servicios_bitacora", force: true do |t|

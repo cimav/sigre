@@ -8,6 +8,7 @@ App.Servicio = DS.Model.extend({
   status: DS.attr('number'),
   muestras: DS.hasMany('muestra'),
   precio_sugerido: DS.attr('number'),
+  tiempo_estimado: DS.attr('number'),
   costeos: DS.hasMany('costeo'),
 
   status_text: DS.attr('string'),

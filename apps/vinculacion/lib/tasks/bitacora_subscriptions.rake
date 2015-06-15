@@ -54,6 +54,7 @@ class BitacoraSubscriptions
 
     servicio = ::Vinculacion::Servicio.find(attributes['system_id'])
     servicio.precio_sugerido = attributes['precio_sugerido']
+    servicio.tiempo_estimado = attributes['tiempo_estimado']
     servicio.status = ::Vinculacion::Servicio::ESPERANDO_ARRANQUE
 
     servicio.save

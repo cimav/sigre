@@ -147,13 +147,14 @@ module Vinculacion
 
         servicio_muestra = ServiciosMuestras.where(servicio_id: servicio.id).first
         muestra = Muestra.find(servicio_muestra.muestra_id)
-        muestraId = muestras.id rescue 0
+        muestraId = muestra.id rescue 0
 
         servicio_item = {
            'id'                    => servicio.id,
            'servicio_codigo'       => servicio.codigo,
            'servicio_bitacora_id'  => bitacoraId,
            'nombre'                => servicio.nombre,
+           'muestra_codigo'        => muestra.codigo,
            'muestra_id'            => muestraId
         }
         servicios << servicio_item
@@ -210,7 +211,7 @@ module Vinculacion
 
       servicio_bitacora_id = servicio_item['servicio_bitacora_id']
 
-      sql = "SELECT id FROM bitacora_development.requested_services WHERE laboratory_service_id = #{servicio_bitacora_id} AND number = 'TEMPLATE';"
+      sql = "SELECT id FROM bitacora_production.requested_services WHERE laboratory_service_id = #{servicio_bitacora_id} AND number = 'TEMPLATE';"
       @servicios = ActiveRecord::Base.connection.execute(sql);
       @servicios.each(:as => :hash) do |row|
         servicio_id = row["id"]
@@ -224,12 +225,12 @@ module Vinculacion
 
 
         # personal
-        sql = "SELECT * FROM bitacora_development.requested_service_technicians WHERE requested_service_id = #{servicio_id};"
+        sql = "SELECT * FROM bitacora_production.requested_service_technicians WHERE requested_service_id = #{servicio_id};"
         @technicians = ActiveRecord::Base.connection.execute(sql);
         @technicians.each(:as => :hash) do |row|
 
             userId = row['user_id']
-            sql = "SELECT first_name, last_name FROM bitacora_development.users WHERE id = #{userId};"
+            sql = "SELECT first_name, last_name FROM bitacora_production.users WHERE id = #{userId};"
             empleado = ActiveRecord::Base.connection.exec_query(sql).first
             nombre = empleado['first_name'] + ' ' + empleado['last_name'] rescue "SIN NOMBRE"
 
@@ -243,12 +244,12 @@ module Vinculacion
         end
 
         # equipos
-        sql = "SELECT * FROM bitacora_development.requested_service_equipments WHERE requested_service_id = #{servicio_id};"
+        sql = "SELECT * FROM bitacora_production.requested_service_equipments WHERE requested_service_id = #{servicio_id};"
         @equipments = ActiveRecord::Base.connection.execute(sql);
         @equipments.each(:as => :hash) do |row|
 
           equipmentId = row['equipment_id']
-          sql = "SELECT name FROM bitacora_development.equipment WHERE id = #{equipmentId};"
+          sql = "SELECT name FROM bitacora_production.equipment WHERE id = #{equipmentId};"
           equipment = ActiveRecord::Base.connection.exec_query(sql).first
           nombre = equipment['name']
 
@@ -262,7 +263,7 @@ module Vinculacion
         end
 
         # otros
-        sql = "SELECT * FROM bitacora_development.requested_service_others WHERE requested_service_id = #{servicio_id};"
+        sql = "SELECT * FROM bitacora_production.requested_service_others WHERE requested_service_id = #{servicio_id};"
         @others = ActiveRecord::Base.connection.execute(sql);
         @others.each(:as => :hash) do |row|
 
@@ -323,6 +324,9 @@ module Vinculacion
         pdf.text "\n\n\n\n\n"
         proyecto_title  = "#{solicitud.proyecto.cuenta} #{solicitud.proyecto.descripcion}"
         solicitud_title = "#{solicitud.codigo}"
+        inicio_title = "#{solicitud.fecha_inicio}"
+        termino_title = "#{solicitud.fecha_termino}"
+
         x = x + 10
         pdf.text_box "Proyecto:", :at=> [x,y -20], :width => 55, :height => 13,:valign=> :top, :align => :left, :size=> 12
         pdf.text_box proyecto_title, :at=> [x + 90,y -20], :width => 400, :height => 13,:valign=> :top, :align => :left, :size=> 12
@@ -330,6 +334,14 @@ module Vinculacion
         pdf.text_box "Solicitud:", :at=> [x,y -20], :width => 55, :height => 13,:valign=> :top, :align => :left, :size=> 12
         pdf.text_box solicitud_title, :at=> [x + 90,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12
         y = y - 15
+
+        pdf.text_box "Inicio:", :at=> [x,y -20], :width => 55, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        pdf.text_box inicio_title, :at=> [x + 90,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        y = y - 15
+        pdf.text_box "Termino:", :at=> [x,y -20], :width => 55, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        pdf.text_box termino_title, :at=> [x + 90,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        y = y - 15
+
         rp = "#{solicitud.responsable_presupuestal.nombre rescue "Sin"} #{solicitud.responsable_presupuestal.apellido_paterno rescue "Asignar"} #{solicitud.responsable_presupuestal.apellido_materno rescue ""}"
         pdf.text_box "Responsable:", :at=> [x,y -20], :width => 95, :height => 13,:valign=> :top, :align => :left, :size=> 12
         pdf.text_box rp, :at=> [x + 90,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12
@@ -337,11 +349,14 @@ module Vinculacion
         ## RODEAMOS
         y = 560
         pdf.line_width= 0.1
-        pdf.stroke_rounded_rectangle([0,y], 500, 50, 10)
+        pdf.stroke_rounded_rectangle([0,y], 500, 80, 10)
         #pdf.stroke_rounded_rectangle([360,y], 145, 80, 10)
+
+
+
         
         #### PRESUPUESTO PROGRAMADO
-        pdf.text "\n\n"
+        pdf.text "\n\n\n\n"
         pdf.text "Presupuesto Programado", :size=> 15,:style=> :bold
         data = []
         subtotal_consumibles = 0
@@ -536,7 +551,7 @@ module Vinculacion
         cliente_calle_num    = cliente.calle_num rescue ''
         cliente_colonia      = cliente.colonia rescue ''
         cliente_cp           = cliente.cp rescue ''
-        if !cliente_cp.empty?
+        if cliente_cp != ''
           cliente_cp= "C.P. #{cliente_cp}"
         end
         contacto             = solicitud.contacto

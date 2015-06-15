@@ -25,9 +25,6 @@ module Vinculacion
       cliente_pais     = servicio.solicitud.cliente.pais.nombre   rescue '--'
       cliente_cp       = servicio.solicitud.cliente.cp            rescue '--'
 
-
-      calle_num, colonia, ciudad, estados.nombre, paises.nombre, cp
-
       QueueBus.publish('solicitar_costeo',  'id'               => servicio.id, 
                                             'solicitud_id'     => servicio.solicitud_id,
                                             'codigo'           => servicio.codigo,
@@ -35,7 +32,7 @@ module Vinculacion
                                             'empleado_id'      => servicio.empleado_id,
                                             'empleado_email'   => servicio.empleado.email,
                                             'agente_id'        => servicio.solicitud.usuario.id,
-                                            'agente_email'     => servicio.solicitud.usuario.email,  #  del usuario que da de alta el servicio.
+                                            'agente_email'     => servicio.solicitud.usuario.email,  
                                             'cliente_id'       => servicio.solicitud.cliente_id,
                                             'cliente_nombre'   => servicio.solicitud.cliente.razon_social,
                                             'cliente_contacto' => cliente_contacto,
