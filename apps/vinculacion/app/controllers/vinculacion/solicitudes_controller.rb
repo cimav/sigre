@@ -147,13 +147,14 @@ module Vinculacion
 
         servicio_muestra = ServiciosMuestras.where(servicio_id: servicio.id).first
         muestra = Muestra.find(servicio_muestra.muestra_id)
-        muestraId = muestras.id rescue 0
+        muestraId = muestra.id rescue 0
 
         servicio_item = {
            'id'                    => servicio.id,
            'servicio_codigo'       => servicio.codigo,
            'servicio_bitacora_id'  => bitacoraId,
            'nombre'                => servicio.nombre,
+           'muestra_codigo'        => muestra.codigo,
            'muestra_id'            => muestraId
         }
         servicios << servicio_item
@@ -210,7 +211,7 @@ module Vinculacion
 
       servicio_bitacora_id = servicio_item['servicio_bitacora_id']
 
-      sql = "SELECT id FROM bitacora_development.requested_services WHERE laboratory_service_id = #{servicio_bitacora_id} AND number = 'TEMPLATE';"
+      sql = "SELECT id FROM bitacora_production.requested_services WHERE laboratory_service_id = #{servicio_bitacora_id} AND number = 'TEMPLATE';"
       @servicios = ActiveRecord::Base.connection.execute(sql);
       @servicios.each(:as => :hash) do |row|
         servicio_id = row["id"]
@@ -224,12 +225,12 @@ module Vinculacion
 
 
         # personal
-        sql = "SELECT * FROM bitacora_development.requested_service_technicians WHERE requested_service_id = #{servicio_id};"
+        sql = "SELECT * FROM bitacora_production.requested_service_technicians WHERE requested_service_id = #{servicio_id};"
         @technicians = ActiveRecord::Base.connection.execute(sql);
         @technicians.each(:as => :hash) do |row|
 
             userId = row['user_id']
-            sql = "SELECT first_name, last_name FROM bitacora_development.users WHERE id = #{userId};"
+            sql = "SELECT first_name, last_name FROM bitacora_production.users WHERE id = #{userId};"
             empleado = ActiveRecord::Base.connection.exec_query(sql).first
             nombre = empleado['first_name'] + ' ' + empleado['last_name'] rescue "SIN NOMBRE"
 
@@ -243,12 +244,12 @@ module Vinculacion
         end
 
         # equipos
-        sql = "SELECT * FROM bitacora_development.requested_service_equipments WHERE requested_service_id = #{servicio_id};"
+        sql = "SELECT * FROM bitacora_production.requested_service_equipments WHERE requested_service_id = #{servicio_id};"
         @equipments = ActiveRecord::Base.connection.execute(sql);
         @equipments.each(:as => :hash) do |row|
 
           equipmentId = row['equipment_id']
-          sql = "SELECT name FROM bitacora_development.equipment WHERE id = #{equipmentId};"
+          sql = "SELECT name FROM bitacora_production.equipment WHERE id = #{equipmentId};"
           equipment = ActiveRecord::Base.connection.exec_query(sql).first
           nombre = equipment['name']
 
@@ -262,7 +263,7 @@ module Vinculacion
         end
 
         # otros
-        sql = "SELECT * FROM bitacora_development.requested_service_others WHERE requested_service_id = #{servicio_id};"
+        sql = "SELECT * FROM bitacora_production.requested_service_others WHERE requested_service_id = #{servicio_id};"
         @others = ActiveRecord::Base.connection.execute(sql);
         @others.each(:as => :hash) do |row|
 
