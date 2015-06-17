@@ -1,5 +1,5 @@
 App.ApplicationView = Ember.View.extend({
-  classNames: ['application-view']
+  classNames: ['application-view'],
   willInsertElement: function() {
     $("#loading").remove();
   }
