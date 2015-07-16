@@ -82,9 +82,10 @@ GEM
     coffee-script-source (1.9.1.1)
     ember-data-source (1.0.0.beta.5)
       ember-source
-    ember-handlebars-template (0.1.5)
+    ember-handlebars-template (0.2.1)
       barber (>= 0.9.0)
-      sprockets (>= 2.1, < 3.1)
+      sprockets (>= 2.1, < 3.2)
+      tilt
     ember-rails (0.18.2)
       active_model_serializers
       ember-data-source (>= 1.0.0.beta.5)
@@ -195,7 +196,7 @@ GEM
       redis (~> 3.0)
       resque (~> 1.25)
       rufus-scheduler (~> 3.0)
-    rufus-scheduler (3.1.1)
+    rufus-scheduler (3.1.2)
     sass (3.2.19)
     sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)

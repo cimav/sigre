@@ -33,6 +33,8 @@ Vinculacion::Engine.routes.draw do
 
   resources :usuarios
 
+  resources :muestras_detalle, path: 'muestra_detalle'
+
   root :to => 'assets#index'
   get "assets/index"
 
