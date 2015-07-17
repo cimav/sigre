@@ -589,6 +589,9 @@ html, body, .application-view {
     .muestra-edit-form {
       display: none;
     }
+    .muestra-edit-detalle-form {
+      display: none;
+    }
 
     .muestra-codigo {
       position: relative;
@@ -618,6 +621,13 @@ html, body, .application-view {
     .muestra-edit {
       position: absolute;
       right: 10px;
+      top: 170px;
+      cursor: pointer;
+      display: block;
+    }
+    .muestra-detalle {
+      position: absolute;
+      right: 60px;
       top: 170px;
       cursor: pointer;
       display: block;
@@ -691,6 +701,9 @@ html, body, .application-view {
     }
   }
   .muestra-edit-form {
+    width: 450px;
+  }
+  .muestra-edit-detalle-form {
     width: 450px;
   }
 }

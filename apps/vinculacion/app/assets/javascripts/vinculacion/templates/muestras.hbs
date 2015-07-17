@@ -7,6 +7,7 @@
         <span class="badge badge-muestras">{{cantidad}}</span>
       </div>
       <div class="muestra-info">
+        <span {{action 'editMuestraDetalle' this}} class="glyphicon glyphicon-check muestra-detalle"></span>
         {{#if canEdit}}
           <span {{action 'editMuestra' this}} class="glyphicon glyphicon-edit muestra-edit"></span>
         {{else}}
@@ -15,6 +16,7 @@
         <div class="muestra-identificacion">{{identificacion}}</div>
         <div class="muestra-descripcion">{{descripcion}}</div>
       </div>
+
       <div class="muestra-edit-form">
         <form {{action 'updateMuestra' this on="submit"}}>
           <div class="muestra-identificacion">
@@ -34,6 +36,38 @@
           <div class="muestra-eliminar"><button {{action 'deleteMuestra' this}} class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button></div>
         </form>
       </div>
+
+      <div class="muestra-edit-detalle-form">
+        <div id="muestras">
+          <!-- >sortedDetalles <h3>consecutivo - status - cliente_identificacion</h3>-->
+
+          <div class="row">
+            <div class="col-sm-12">
+              <table class="table" id="tabla-edicion-cotizacion-detalle">
+                <thead>
+                <tr>
+                  <th class="detalle-consecutivo">Cons.</th>
+                  <th class="detalle-cliente-identificacion">Identificación</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each sortedDetalles }} <!-- itemController="cotizacion_detalle" -->
+                <tr>
+                  <td class="detalle-cantidad text-right">{{consecutivo}}</td>
+                  <td class="detalle-identificacion">{{input-field cliente_identificacion as="text"}}</td>
+                </tr>
+                {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+        <div class="muestra-guardar">
+          <button class="btn btn-success" {{action 'updateMuestraDetalle' this target="controller"}}  {{bind-attr disabled=this.hasNotDirtyDetalles}} >Actualizar</button>
+        </div>
+      </div>
+
     </div>
   {{/each}}
   {{#if allowAddMuestras}}

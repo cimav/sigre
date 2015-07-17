@@ -16,6 +16,7 @@ App.MuestrasController = Ember.ArrayController.extend({
     el = $('#muestra_' + muestra.get('id'));
     $('#muestra_' + muestra.get('id') + ' .close').hide();
     el.find('.muestra-edit-form').fadeOut(100);
+    el.find('.muestra-edit-detalle-form').fadeOut(100);
     el.animate({width: "220px"}, 200, function() {
       el.find('.muestra-info').fadeIn(100);
     });
