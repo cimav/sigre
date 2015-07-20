@@ -23,25 +23,26 @@ module Vinculacion
       self.consecutivo = con
       self.codigo = "#{self.solicitud.codigo}-#{consecutivo}"
       self.status = Muestra::INICIAL
+
       self.save(:validate => false)
     end
 
     def update_detalles
       if self.cantidad_changed?
-        if self.cantidad_was > self.cantidad_change[1]
-          n = self.cantidad_was - self.cantidad_change[1]
+        from = self.cantidad_was === nil ? 0 : self.cantidad_was # was es nil cuando es creacion de la muestra
+        to = self.cantidad_change[1]
+        if from > to
+          n = from - to
           # eliminar los ultimos n registros
           detalles = MuestraDetalle.where("muestra_id = #{self.id}").order("consecutivo desc").limit(n)
           detalles.destroy_all
         else
-          n = self.cantidad_change[1] - self.cantidad_was
           # insertar n registros al final
-          for con in self.cantidad_was+1..self.cantidad_change[1]
-            detalle = MuestraDetalle.create(:muestra_id => self.id, :consecutivo => con, :cliente_identificacion => self.identificacion, :status=> n )
+          for con in from+1..to
+            detalle = MuestraDetalle.create(:muestra_id => self.id, :consecutivo => con, :cliente_identificacion => self.identificacion, :status=> 1 )
           end
         end
 
-        puts "fin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "
       end
     end
 

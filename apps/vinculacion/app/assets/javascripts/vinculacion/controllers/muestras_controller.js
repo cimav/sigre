@@ -1,8 +1,18 @@
 App.MuestrasController = Ember.ArrayController.extend({
-  needs: ["application", "solicitud"],
+  needs: ["application", "solicitud", "muestra"],
   itemController: 'muestra',
   prev_muestra: null,
-  allowAddMuestras: Ember.computed.alias('controllers.solicitud.allowAddServicios'), 
+  //allowAddMuestras: Ember.computed.alias('controllers.solicitud.allowAddServicios'),
+
+  allowAddMuestras: function() {
+    var result = this.get('controllers.solicitud.allowAddServicios');// && !this.get('controllers.solicitud.isTipoI');
+    if (this.get('controllers.solicitud.isTipoI')) {
+      // si es Tipo 1, permite agregar una sola muestra
+      result = result && (this.get('length') <= 0);
+    }
+    return result;
+  }.property('length'),
+
   closeEdit: function() {
     if ($('#nueva-muestra').hasClass('new-muestra-open')) return true; 
     var muestra = this.get('prev_muestra');

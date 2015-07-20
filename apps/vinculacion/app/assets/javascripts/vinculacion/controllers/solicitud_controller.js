@@ -18,8 +18,7 @@ App.SolicitudController = Ember.ObjectController.extend({
     var aceptada = this.get('model.Status.aceptada');
     var status = this.get('model.status');
     var result = status == inicial || status == en_cotizacion || status == aceptada;
-    // y que no sea del Tipo 1
-    return result && !this.get('model.isTipoI');
+    return result;
   }.property('model.status'),
   
   pdf_url: function() {
