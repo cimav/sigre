@@ -15,6 +15,19 @@ module Vinculacion
     def solicitar_costeo
       servicio = Servicio.find(params[:id])
 
+      array_muestras = []
+      servicio.muestras.each do |muestra|
+          array_detalles = []
+          muestra.muestra_detalle.each do |detalle|
+              array_detalles << detalle
+          end
+          muestra_item = {
+              'muestra'  => muestra,
+              'detalles' => array_detalles
+          }
+          array_muestras << muestra_item
+      end
+
       cliente_contacto = servicio.solicitud.contacto.nombre   rescue '-'
       cliente_email    = servicio.solicitud.contacto.email    rescue '-'
       cliente_telefono = servicio.solicitud.contacto.telefono rescue '-'
@@ -25,7 +38,7 @@ module Vinculacion
       cliente_pais     = servicio.solicitud.cliente.pais.nombre   rescue '--'
       cliente_cp       = servicio.solicitud.cliente.cp            rescue '--'
 
-      QueueBus.publish('solicitar_costeo',  'id'               => servicio.id, 
+      QueueBus.publish('solicitar_costeo',  'id'               => servicio.id,
                                             'solicitud_id'     => servicio.solicitud_id,
                                             'codigo'           => servicio.codigo,
                                             'nombre'           => servicio.nombre,
@@ -44,9 +57,9 @@ module Vinculacion
                                             'cliente_estado'   => cliente_estado,
                                             'cliente_pais'     => cliente_pais,
                                             'cliente_cp'       => cliente_cp,
-
                                             'descripcion'      => servicio.descripcion,
-                                            'muestras'         => servicio.muestras)
+                                            'muestras'         => array_muestras
+      )
 
       servicio.status = Servicio::ESPERANDO_COSTEO
       servicio.save

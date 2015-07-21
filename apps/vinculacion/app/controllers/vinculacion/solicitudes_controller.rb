@@ -96,17 +96,12 @@ module Vinculacion
         end
       end
 
-      #muestra_item = {
-      #    'muestra_id'  => muestraId,
-      #    'detalles'    => detalles
-      #}
       servicio_item = {
           'id'                    => servicio.id,
           'servicio_codigo'       => servicio.codigo,
           'servicio_bitacora_id'  => bitacoraId,
           'nombre'                => servicio.nombre,
-          'muestra_id'            => muestraId,
-          'muestra_detalles'      => detalles
+          'muestra_id'            => muestraId
       }
 
       jalar_costeos_bitacora(servicio_item)
@@ -138,7 +133,8 @@ module Vinculacion
                         'cliente_pais'          => cliente_pais,
                         'cliente_cp'            => cliente_cp,
                         'descripcion'           => solicitud.descripcion,
-                        'muestra'               => solicitud.muestras[0]
+                        'muestra'               => solicitud.muestras[0],
+                        'muestra_detalles'      => detalles
       )
       render json: solicitud
     end
@@ -147,16 +143,19 @@ module Vinculacion
       solicitud = Solicitud.find(params[:id])
 
       muestras = []
-      muestras_detalle = []
       servicios = []
 
       # Muestras
       solicitud.muestras.each do |muestra|
-        muestras << muestra
-        muestra.muestras_detalle do |detalle|
-          puts detalle
+        muestras_detalle = []
+        muestra.muestra_detalle.each do |detalle|
           muestras_detalle << detalle
         end
+        muestra_item = {
+            'muestra'  => muestra,
+            'detalles' => muestras_detalle
+        }
+        muestras << muestra_item
       end
 
       solicitud.servicios.each do |servicio|
