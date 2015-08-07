@@ -1,5 +1,5 @@
 App.MuestrasController = Ember.ArrayController.extend({
-  needs: ["application", "solicitud", "muestra"],
+  needs: ["application", "solicitud", "muestra", "muestras"],
   itemController: 'muestra',
   prev_muestra: null,
   //allowAddMuestras: Ember.computed.alias('controllers.solicitud.allowAddServicios'),
@@ -64,6 +64,9 @@ App.MuestrasController = Ember.ArrayController.extend({
         self.get('controllers.application').notify('Se agrego nueva muestra');
         self.set('newMuestra', self.store.createRecord('muestra'));
         self.closeNewMuestra(true);
+
+        self.get('controllers.muestras').send('reloadModel');
+
       };
 
       var onFail = function(muestra) {

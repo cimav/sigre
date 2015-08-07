@@ -9,6 +9,13 @@ App.MuestrasRoute = Ember.Route.extend({
   actions: {
     delete: function(muestra) {
       muestra.destroyRecord();
+    },
+    reloadModel: function () {
+      var controller = this.controller;
+      var sol_id = this.modelFor('solicitud').get('id');
+      this.store.find('muestra', {solicitud_id : sol_id} ).then(function (muestras) {
+        controller.set('content', muestras);
+      });
     }
   }
 });

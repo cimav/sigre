@@ -11,6 +11,7 @@ App.Router.map(function () {
         this.resource('muestra', {path: '/:muestra_id'}, function () {
           this.route('edit', {path: '/editar'});
         });
+        this.resource('muestra', { path: '/:solicitud_id' });
       });
       
       this.resource('servicios', function () {

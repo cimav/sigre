@@ -46,14 +46,14 @@
               <table class="table" id="tabla-edicion-cotizacion-detalle">
                 <thead>
                 <tr>
-                  <th class="detalle-consecutivo">Cons.</th>
-                  <th class="detalle-cliente-identificacion">Identificación</th>
+                  <th class="detalle-consecutivo">Id Cimav</th>
+                  <th class="detalle-cliente-identificacion">Id Cliente</th>
                 </tr>
                 </thead>
                 <tbody>
                 {{#each sortedDetalles }} <!-- itemController="cotizacion_detalle" -->
                 <tr>
-                  <td class="detalle-cantidad text-right">{{consecutivo}}</td>
+                  <td class="detalle-cantidad text-right">{{id_cimav}}</td>
                   <td class="detalle-identificacion">{{input-field cliente_identificacion }}</td>
                 </tr>
                 {{/each}}

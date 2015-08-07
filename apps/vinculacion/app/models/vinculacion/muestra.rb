@@ -43,6 +43,17 @@ module Vinculacion
           end
         end
 
+        # reordenar en un solo consecutivo todo los detalles de todas las muestras
+        muestras = Muestra.where(:solicitud_id => self.solicitud_id).order("id")
+        con = 1
+        muestras.each do |muestra|
+          detalles = MuestraDetalle.where("muestra_id = #{muestra.id}")
+          detalles.each do |detalle|
+            detalle.consecutivo = con
+            detalle.save
+            con += 1
+          end
+        end
       end
     end
 

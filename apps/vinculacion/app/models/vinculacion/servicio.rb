@@ -54,22 +54,22 @@ module Vinculacion
 
       if self.solicitud.tipo ==1 || self.solicitud.tipo == 3 
         cedula = self.solicitud.cedulas.new
-        cedula.servicio = self;
-        cedula.solicitud = self.solicitud;
+        cedula.servicio = self
+        cedula.solicitud = self.solicitud
         cod = self.codigo
         cod["S"] = "C"
         cedula.codigo = cod
-        cedula.status = 1;
+        cedula.status = 1
         cedula.save
       else
         if self.solicitud.cedulas.first == nil
           cedula = self.solicitud.cedulas.new
-          cedula.servicio = nil;
-          cedula.solicitud = self.solicitud;
+          cedula.servicio = nil
+          cedula.solicitud = self.solicitud
           cod = self.codigo
           cod["S"] = "C"
           cedula.codigo = cod
-          cedula.status = 1;
+          cedula.status = 1
           cedula.save
         end
       end

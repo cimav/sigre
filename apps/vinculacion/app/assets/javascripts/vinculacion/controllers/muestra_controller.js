@@ -44,7 +44,7 @@ App.MuestraController = Ember.ObjectController.extend({
       });
     },
     updateMuestra: function(muestra) {
-      var self = this
+      var self = this;
       var appController = this.get('controllers.application');
       var onSuccess = function(muestra) {
         appController.notify('Muestra actualizada');
@@ -54,6 +54,8 @@ App.MuestraController = Ember.ObjectController.extend({
           $('#muestra_' + muestra_id).removeClass('muestra-editing');
           $('#muestra_' + muestra.get('id') + ' .muestra-info').fadeIn(100);
         });
+
+        self.get('controllers.muestras').send('reloadModel');
       };
 
       var onFail = function(muestra) {
