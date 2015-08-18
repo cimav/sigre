@@ -59,6 +59,20 @@ module Vinculacion
     def notificar_arranque
       solicitud = Solicitud.find(params[:id])
 
+      # Muestras
+      muestras = []
+      solicitud.muestras.each do |muestra|
+        muestras_detalle = []
+        muestra.muestra_detalle.each do |detalle|
+          muestras_detalle << detalle
+        end
+        muestra_item = {
+            'muestra'  => muestra,
+            'detalles' => muestras_detalle
+        }
+        muestras << muestra_item
+      end
+
       # notificar a Bitacora
       QueueBus.publish('notificar_arranque',
                         'solicitud_id' => solicitud.id,
@@ -67,7 +81,9 @@ module Vinculacion
                         'fecha_termino'  => solicitud.fecha_termino,
                         'duracion'       => solicitud.duracion,
                         'tiempo_entrega' => solicitud.tiempo_text,
-                        'agente_email'   => solicitud.usuario.email)  #  del usuario que da de alta el servicio.
+                        'agente_email'   => solicitud.usuario.email,
+                        'muestras'       => muestras
+                        )  #  del usuario que da de alta el servicio.
 
       render json: solicitud
     end

@@ -13,6 +13,12 @@
 
 ActiveRecord::Schema.define(version: 20150716151732) do
 
+  create_table "costo_hora", id: false, force: true do |t|
+    t.integer "uh"
+    t.text    "nombre"
+    t.decimal "costo",  precision: 10, scale: 2
+  end
+
   create_table "estados", force: true do |t|
     t.string   "nombre"
     t.string   "codigo"
@@ -40,7 +46,7 @@ ActiveRecord::Schema.define(version: 20150716151732) do
 
   create_table "proyectos_fondos", force: true do |t|
     t.string   "nombre"
-    t.text     "descripcion"
+    t.text     "descripcion", limit: 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "recurso_id"
@@ -49,18 +55,18 @@ ActiveRecord::Schema.define(version: 20150716151732) do
   create_table "proyectos_proyectos", force: true do |t|
     t.string   "cuenta"
     t.string   "nombre"
-    t.text     "descripcion"
-    t.text     "impacto"
-    t.text     "resultado_esperado"
-    t.text     "objetivo_estrategico"
-    t.text     "alcance"
+    t.text     "descripcion",            limit: 16777215
+    t.text     "impacto",                limit: 16777215
+    t.text     "resultado_esperado",     limit: 16777215
+    t.text     "objetivo_estrategico",   limit: 16777215
+    t.text     "alcance",                limit: 16777215
     t.string   "referencia_externa"
     t.string   "convenio"
     t.string   "banco_cuenta"
     t.date     "fecha_inicio"
     t.date     "fecha_fin"
-    t.integer  "anio",                                            default: 0
-    t.decimal  "presupuesto_autorizado", precision: 10, scale: 2, default: 0.0
+    t.integer  "anio",                                                             default: 0
+    t.decimal  "presupuesto_autorizado",                  precision: 10, scale: 2, default: 0.0
     t.integer  "fondo_id"
     t.integer  "recurso_id"
     t.integer  "tipo_id"
@@ -75,7 +81,7 @@ ActiveRecord::Schema.define(version: 20150716151732) do
 
   create_table "proyectos_recursos", force: true do |t|
     t.string   "nombre"
-    t.text     "descripcion"
+    t.text     "descripcion", limit: 16777215
     t.integer  "tipo_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -129,6 +135,16 @@ ActiveRecord::Schema.define(version: 20150716151732) do
     t.datetime "updated_at"
   end
 
+  create_table "tmp_clientes", id: false, force: true do |t|
+    t.integer "id",        default: 0, null: false
+    t.string  "calle_num"
+    t.string  "colonia"
+    t.string  "ciudad"
+    t.string  "estado"
+    t.string  "pais"
+    t.string  "cp"
+  end
+
   create_table "usuarios", force: true do |t|
     t.string   "usuario",                 null: false
     t.string   "email",                   null: false
@@ -150,13 +166,35 @@ ActiveRecord::Schema.define(version: 20150716151732) do
   create_table "vinculacion_cedulas", force: true do |t|
     t.integer  "solicitud_id"
     t.integer  "servicio_id"
-    t.text     "codigo"
-    t.integer  "status",       default: 1
+    t.text     "codigo",       limit: 16777215
+    t.integer  "status",                        default: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "vinculacion_clientes", force: true do |t|
+    t.string   "rfc"
+    t.string   "razon_social"
+    t.integer  "num_empleados"
+    t.string   "calle_num"
+    t.string   "colonia"
+    t.string   "cp"
+    t.string   "telefono"
+    t.string   "fax"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "tamano_empresa"
+    t.integer  "sector"
+    t.integer  "pais_id"
+    t.integer  "estado_id"
+    t.string   "ciudad"
+    t.string   "clave"
+    t.string   "nombre"
+  end
+
+  create_table "vinculacion_clientes_old", id: false, force: true do |t|
+    t.integer  "id",             default: 0, null: false
     t.string   "rfc"
     t.string   "razon_social"
     t.integer  "num_empleados"
@@ -215,8 +253,8 @@ ActiveRecord::Schema.define(version: 20150716151732) do
 
   create_table "vinculacion_costos_variables", force: true do |t|
     t.integer  "tipo"
-    t.text     "descripcion"
-    t.decimal  "costo",       precision: 10, scale: 2, default: 0.0
+    t.text     "descripcion", limit: 16777215
+    t.decimal  "costo",                        precision: 10, scale: 2, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "cedula_id"
@@ -228,23 +266,23 @@ ActiveRecord::Schema.define(version: 20150716151732) do
     t.integer  "condicion"
     t.integer  "idioma"
     t.integer  "divisa"
-    t.text     "comentarios"
-    t.text     "observaciones"
-    t.text     "notas"
-    t.decimal  "subtotal",             precision: 10, scale: 2, default: 0.0
-    t.decimal  "precio_venta",         precision: 10, scale: 2, default: 0.0
-    t.decimal  "precio_unitario",      precision: 10, scale: 2, default: 0.0
-    t.decimal  "descuento_porcentaje", precision: 5,  scale: 2, default: 0.0
+    t.text     "comentarios",          limit: 16777215
+    t.text     "observaciones",        limit: 16777215
+    t.text     "notas",                limit: 16777215
+    t.decimal  "subtotal",                              precision: 10, scale: 2, default: 0.0
+    t.decimal  "precio_venta",                          precision: 10, scale: 2, default: 0.0
+    t.decimal  "precio_unitario",                       precision: 10, scale: 2, default: 0.0
+    t.decimal  "descuento_porcentaje",                  precision: 5,  scale: 2, default: 0.0
     t.integer  "solicitud_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "msg_notificacion"
-    t.text     "motivo_status"
+    t.text     "msg_notificacion",     limit: 16777215
+    t.text     "motivo_status",        limit: 16777215
     t.integer  "duracion"
-    t.decimal  "iva",                  precision: 10, scale: 2, default: 15.0
-    t.text     "motivo_descuento"
-    t.integer  "status",                                        default: 1
-    t.integer  "tiempo_entrega",                                default: 1
+    t.decimal  "iva",                                   precision: 10, scale: 2, default: 15.0
+    t.text     "motivo_descuento",     limit: 16777215
+    t.integer  "status",                                                         default: 1
+    t.integer  "tiempo_entrega",                                                 default: 1
   end
 
   create_table "vinculacion_cotizaciones_detalle", force: true do |t|
@@ -269,12 +307,12 @@ ActiveRecord::Schema.define(version: 20150716151732) do
     t.integer  "consecutivo"
     t.string   "codigo",         limit: 20
     t.string   "identificacion"
-    t.text     "descripcion"
+    t.text     "descripcion",    limit: 16777215
     t.integer  "cantidad"
     t.integer  "usuario_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "status",                    default: 1
+    t.integer  "status",                          default: 1
   end
 
   create_table "vinculacion_muestras_detalle", force: true do |t|
@@ -296,7 +334,7 @@ ActiveRecord::Schema.define(version: 20150716151732) do
 
   create_table "vinculacion_sectores_industrial", force: true do |t|
     t.string   "codigo",      limit: 20
-    t.text     "descripcion"
+    t.text     "descripcion", limit: 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -306,14 +344,14 @@ ActiveRecord::Schema.define(version: 20150716151732) do
     t.integer  "consecutivo"
     t.string   "codigo",               limit: 20
     t.string   "nombre"
-    t.text     "descripcion"
+    t.text     "descripcion",          limit: 16777215
     t.integer  "empleado_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "status",                                                   default: 1
+    t.integer  "status",                                                         default: 1
     t.integer  "servicio_bitacora_id"
-    t.decimal  "precio_sugerido",                 precision: 10, scale: 2, default: 0.0
-    t.integer  "tiempo_estimado",                                          default: 0
+    t.decimal  "precio_sugerido",                       precision: 10, scale: 2, default: 0.0
+    t.integer  "tiempo_estimado",                                                default: 0
   end
 
   create_table "vinculacion_servicios_bitacora", force: true do |t|
@@ -348,23 +386,23 @@ ActiveRecord::Schema.define(version: 20150716151732) do
     t.integer  "usuario_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "descripcion"
-    t.text     "motivo_status"
-    t.string   "razon_cancelacion",                                               default: "1"
-    t.integer  "status",                                                          default: 1
+    t.text     "descripcion",                 limit: 16777215
+    t.text     "motivo_status",               limit: 16777215
+    t.string   "razon_cancelacion",                                                     default: "1"
+    t.integer  "status",                                                                default: 1
     t.string   "orden_compra"
     t.date     "fecha_inicio"
     t.date     "fecha_termino"
     t.integer  "responsable_presupuestal_id"
-    t.integer  "duracion",                                                        default: 1
-    t.integer  "tipo",                                                            default: 1
-    t.integer  "tiempo_entrega",                                                  default: 1
-    t.decimal  "precio_sugerido",                        precision: 10, scale: 2, default: 0.0
+    t.integer  "duracion",                                                              default: 1
+    t.integer  "tipo",                                                                  default: 1
+    t.integer  "tiempo_entrega",                                                        default: 1
+    t.decimal  "precio_sugerido",                              precision: 10, scale: 2, default: 0.0
   end
 
   create_table "vinculacion_tamanos_empresa", force: true do |t|
     t.string   "codigo",      limit: 20
-    t.text     "descripcion"
+    t.text     "descripcion", limit: 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
   end
