@@ -17,6 +17,13 @@ module Vinculacion
     end
 
     def update
+      if params[:cotizacion][:status] == Cotizacion::STATUS_ACEPTADO
+        c = Cotizacion.find(params[:id])
+        pdf = create_document(params[:id])
+        filename = c.solicitud.codigo.gsub('/','_').concat('.pdf')
+        pdf.render_file File.join(Rails.root.to_s, "private/cotizaciones", filename)
+        puts "PDF Guardado"
+      end
       render json: Cotizacion.find(params[:id]).tap { |b| b.update_attributes(cotizacion) }
     end
 
@@ -24,10 +31,10 @@ module Vinculacion
       render json: Cotizacion.find(params[:id]).destroy
     end
 
-    def document
+    def create_document(id)
       r_root = Rails.root.to_s
       type = params[:type]
-      cotizacion=  Cotizacion.find(params[:id])
+      cotizacion=  Cotizacion.find(id)
       ## Load locale config
       t = t(:apps)[:vinculacion][:controllers][:cotizaciones][:document]
       ## Default Page Size Is Letter
@@ -301,10 +308,25 @@ module Vinculacion
                                             :align => :center,
                                             :size => 11}
 
-        # RENDER
-        send_data pdf.render, type: "application/pdf", disposition: "inline"
+        pdf
       end
     end
+
+    def document
+      pdf = create_document(params[:id])
+      send_data pdf.render, type: "application/pdf", disposition: "inline"
+    end
+
+    def download_document
+      if solicitud = Solicitud.where(vinculacion_hash: params[:vinculacion_hash]).first
+        cotizacion_id = solicitud.ultima_cotizacion.id
+        pdf = create_document(cotizacion_id)
+        filename = solicitud.codigo.gsub('/','_').concat('.pdf')
+        send_data pdf.render, type: "application/pdf", disposition: "attachment", :filename => "cotizacion-#{filename}"
+      else 
+        render :inline => 'INVALID HASH'
+      end
+    end    
 
     protected
     def cotizacion

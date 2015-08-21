@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150716151732) do
+ActiveRecord::Schema.define(version: 20150819010553) do
 
   create_table "costo_hora", id: false, force: true do |t|
     t.integer "uh"
@@ -398,6 +398,7 @@ ActiveRecord::Schema.define(version: 20150716151732) do
     t.integer  "tipo",                                                                  default: 1
     t.integer  "tiempo_entrega",                                                        default: 1
     t.decimal  "precio_sugerido",                              precision: 10, scale: 2, default: 0.0
+    t.string   "vinculacion_hash"
   end
 
   create_table "vinculacion_tamanos_empresa", force: true do |t|

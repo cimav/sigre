@@ -148,6 +148,7 @@ module Vinculacion
                         'cliente_estado'        => cliente_estado,
                         'cliente_pais'          => cliente_pais,
                         'cliente_cp'            => cliente_cp,
+                        'vinculacion_hash'      => solicitud.vinculacion_hash,
                         'descripcion'           => solicitud.descripcion,
                         'muestra'               => solicitud.muestras[0],
                         'muestra_detalles'      => detalles
@@ -227,6 +228,7 @@ module Vinculacion
                        'cliente_estado'        => cliente_estado,
                        'cliente_pais'          => cliente_pais,
                        'cliente_cp'            => cliente_cp,
+                       'vinculacion_hash'      => solicitud.vinculacion_hash,
                        'descripcion'           => solicitud.descripcion,
                        'muestras'              => muestras,
                        'servicios'             => servicios

@@ -78,6 +78,7 @@ module Vinculacion
       self.consecutivo = con
       year = Date.today.year.to_s.last(2)
       self.codigo = "#{year}/#{consecutivo}"
+      self.vinculacion_hash = SecureRandom.hex(8)
       self.save(:validate => false)
   	end
 
