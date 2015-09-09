@@ -111,7 +111,7 @@ module Vinculacion
         pdf.text_box "",:at=> [380,y - 80], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 9
 =end
         pdf.text_box folio,    :at=> [380,y - 25], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 15, :style=> :bold
-        pdf.text_box fecha,    :at=> [366,y - 43], :width => 100, :height => 30,:valign=> :top, :align => :left, :size=> 9
+        pdf.text_box fecha,    :at=> [366,y - 43], :width => 135, :height => 30,:valign=> :top, :align => :left, :size=> 9
         pdf.text_box t_cambio, :at=> [366,y - 56], :width => 135, :height => 30,:valign=> :top, :align => :left, :size=> 9
         pdf.text_box t_entrega,:at=> [380,y - 80], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 9
 
@@ -137,17 +137,20 @@ module Vinculacion
     
         data = [ [t[:company],         cliente.razon_social],
                  [t[:attention],       contacto_nombre],
-                 [t[:company_address], "#{cliente.calle_num} #{cliente.colonia} #{cliente.cp}"],
+                 [t[:company_address], "#{cliente.calle_num}"],
+                 [t[:company_address2], "#{cliente.colonia} #{cliente.cp}"],
                  [t[:phone],           contacto_telefono],
                  [t[:email],           contacto_email]]
         x = 15
-        y = y - 25
+        y = y - 20
         data.each do |d|
-          pdf.text_box d[0], :at=> [x,y], :width => 50, :height => 11,:valign=> :top, :align => :left, :size=> 10
-          if d[1]
-            pdf.text_box d[1], :at=> [x + 50,y], :width => 200, :height => 11,:valign=> :top, :align => :left, :size=> 10
+          if d[0]
+            pdf.text_box d[0], :at=> [x,y], :width => 50, :height => 11,:valign=> :top, :align => :left, :size=> 10
           end
-          y = y - 10
+          if d[1]
+            pdf.text_box d[1], :at=> [x + 50,y], :width => 320, :height => 11,:valign=> :top, :align => :left, :size=> 10
+          end
+          y = y - 12
         end
 
         ## RODEAMOS
