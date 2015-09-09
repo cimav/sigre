@@ -265,13 +265,17 @@ module Vinculacion
           pdf.fill_color "000000"
           pdf.text_box "Aceptó Cliente:", :at=>[x,y + 45], :width => w, :height=> h, :size=>9, :align=> :left, :valign=> :center
 
-          ## USUARIO
+          ## USUARIO ELABORO
           x = 0
           y1 = y + 30
           w = 350
           h = 10
-          full_name = "#{current_user.nombre} #{current_user.apellidos}"
-          #full_name = ""
+
+          if current_user
+            full_name = "#{current_user.nombre} #{current_user.apellidos}"
+          else
+            full_name = "#{cotizacion.solicitud.usuario.nombre} #{cotizacion.solicitud.usuario.apellidos}"
+          end
           pdf.text_box full_name, :at=>[x,y1], :width => w, :height=> h, :size=>9, :align=> :left, :valign=> :bottom
         
           ## LINE 2
