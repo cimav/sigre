@@ -199,12 +199,12 @@ module Vinculacion
       cliente_contacto = solicitud.contacto.nombre   rescue '-'
       cliente_email    = solicitud.contacto.email    rescue '-'
       cliente_telefono = solicitud.contacto.telefono rescue '-'
-      cliente_calle    = servicio.solicitud.cliente.calle_num rescue '--'
-      cliente_colonia  = servicio.solicitud.cliente.colonia   rescue '--'
-      cliente_ciudad   = servicio.solicitud.cliente.ciudad    rescue '--'
-      cliente_estado   = servicio.solicitud.cliente.estado.nombre rescue '--'
-      cliente_pais     = servicio.solicitud.cliente.pais.nombre   rescue '--'
-      cliente_cp       = servicio.solicitud.cliente.cp            rescue '--'
+      cliente_calle    = solicitud.cliente.calle_num rescue '--'
+      cliente_colonia  = solicitud.cliente.colonia   rescue '--'
+      cliente_ciudad   = solicitud.cliente.ciudad    rescue '--'
+      cliente_estado   = solicitud.cliente.estado.nombre rescue '--'
+      cliente_pais     = solicitud.cliente.pais.nombre   rescue '--'
+      cliente_cp       = solicitud.cliente.cp            rescue '--'
 
       # notificar a Bitacora
       QueueBus.publish('notificar_arranque_tipo_2',
