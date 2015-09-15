@@ -1,5 +1,5 @@
 App.MuestraController = Ember.ObjectController.extend({
-  needs: ["application", "muestras", "muestra","solicitud"],
+  needs: ["application", "cotizaciones", "muestras", "muestra","solicitud"],
   isNotDirty: Ember.computed.not('content.isDirty'),
 
   sortProperties: ['consecutivo:asc'],
@@ -18,8 +18,6 @@ App.MuestraController = Ember.ObjectController.extend({
     var solicitud = this.get('controllers.solicitud');
     // se puede editar la muestra mientras la solicitud no llegue a proceso, ni finalizada y ni cancelada
     return solicitud.get('model.status') < solicitud.get('model.Status.en_proceso');
-
-    //return this.get('model.status') == this.get('Status.inicial') && solicitud.get('model.status') != solicitud.get('model.Status.cancelada');
   }.property('model.status'),
 
   hasNotDirtyDetalles: function() {
@@ -56,6 +54,9 @@ App.MuestraController = Ember.ObjectController.extend({
         });
 
         self.get('controllers.muestras').send('reloadModel');
+
+        self.get('controllers.cotizaciones').send('reloadModel');
+
       };
 
       var onFail = function(muestra) {
@@ -105,26 +106,7 @@ App.MuestraController = Ember.ObjectController.extend({
     updateMuestraDetalle: function(muestra) {
       var appController = this.get('controllers.application');
 
-      /*
-      var onSuccess = function() {
-        appController.notify('Detalles de la muestra actualizados');
-        $('#muestra_' + muestra.get('id') + ' .close').hide();
-        $('#muestra_' + muestra.get('id') + ' .muestra-edit-detalle-form').fadeOut(100);
-        $('#muestra_' + muestra.get('id')).animate({width: "200px"}, 200, function() {
-          $('#muestra_' + muestra.get('id')).removeClass('muestra-editing');
-          $('#muestra_' + muestra.get('id') + ' .muestra-info').fadeIn(100);
-        });
-      };
-
-      var onFail = function() {
-        appController.notify('Error al actualizar detalles de la muestra', 'alert-danger');
-      };
-
-      muestra.get('muestras_detalle').filterBy('isDirty', true).save().then(onSuccess, onFail);
-      */
-
       muestra.get('muestras_detalle').filterBy('isDirty', true).forEach(function(det){
-        console.log(">>>>>>>>>>>>>>>>>>> " + det.get('id') + " >>> " + det.get('isDirty') + " >>> " + det.get('cliente_identificacion'));
         det.save();
       });
 
