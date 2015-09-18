@@ -43,6 +43,20 @@ module Vinculacion
           end
         end
 
+        # actualizar cantidad de cotizacion_detalle si existe servicio ligado a la muestra
+        # solo de la ultima cotizacion
+        ultima_cotizacion = Cotizacion.where("solicitud_id = :s_id", {:s_id => self.solicitud_id}).order('created_at').last
+        if !ultima_cotizacion.nil?
+          ultima_cotizacion.cotizacion_detalle.where("servicio_id IS NOT NULL").each do |detalle|
+            servicio_id = detalle.servicio_id
+            servicio_muestra = ServiciosMuestras.where("servicio_id = :srv_id AND muestra_id = :muestra_id", {:srv_id => servicio_id, :muestra_id => self.id})
+            if !servicio_muestra.nil?
+              detalle.cantidad = self.cantidad
+              detalle.save
+            end
+          end
+        end
+
         # reordenar en un solo consecutivo todo los detalles de todas las muestras
         muestras = Muestra.where(:solicitud_id => self.solicitud_id).order("id")
         con = 1
