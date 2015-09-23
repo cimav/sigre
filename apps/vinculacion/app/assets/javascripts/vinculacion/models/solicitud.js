@@ -85,7 +85,7 @@ App.Solicitud = DS.Model.extend({
     var f_termino = new Date(f_inicio);
     while(daysToAdd > 0) {
       f_termino.setTime( f_termino.getTime() + 24 * 3600 * 1000 ); // add one day
-      if ( f_termino.getDay() != 0 && f_termino.getDay() != 6 ) --daysToAdd;
+      if ( f_termino.getUTCDay() != 0 && f_termino.getUTCDay() != 6 ) --daysToAdd;
     }
     return f_termino;
   },
