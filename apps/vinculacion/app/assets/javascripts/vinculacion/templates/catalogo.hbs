@@ -1,0 +1,36 @@
+<div id="screen-name" class="header-catalogo">
+  <h3>Catálogo de Servicios</h3>
+</div>
+
+<div id="md-general-panel" class="main-catalogo">
+  <div id="md-search-box">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="input-group">
+          {{input type="text" value=searchText placeholder="Buscar servicio..." classNames="form-control"}}
+        </div>
+      </div>
+      <div class="col-sm-4 text-right" style="padding-top: 16px; padding-right: 20px;">
+        {{this.length}} servicios encontrados
+      </div>
+    </div>
+  </div>
+
+  <div id="md-items-list">
+    <table class="table table-striped table-bordered">
+      <tr>
+        <th>Nombre</th>
+        <th>Laboratorio</th>
+        <th>P.V.</th>
+      </tr>
+      {{#each sortedCatalogo}}
+        <tr>
+          <td>{{nombre}}</td>
+          <td>{{laboratorio_bitacora.nombre}}</td>
+          <td class="text-right">{{formatCurrency precio_venta}}</td>
+        </tr>
+      {{/each}}
+    </table>
+
+  </div>
+</div>        
