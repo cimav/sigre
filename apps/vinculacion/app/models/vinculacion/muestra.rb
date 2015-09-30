@@ -5,8 +5,9 @@ module Vinculacion
 
     has_many :muestra_detalle,  :dependent => :destroy
 
-    after_create :set_extra
-    after_update :update_detalles
+    after_create  :set_extra
+    after_update  :update_detalles
+    before_destroy :destroy_servicio
 
     INICIAL    = 1
     EN_USO     = 2
@@ -68,6 +69,22 @@ module Vinculacion
             con += 1
           end
         end
+      end
+    end
+
+    def destroy_servicio
+      # busca todos los servicios que usan la muestra
+      servicios_muestra_self = ServiciosMuestras.where("muestra_id = #{self.id}")
+      servicios_muestra_self.each do |s_m_self|
+        # comprueba que ninguna otra muestra utilize a la muestra
+        servicios_muestra_aux = ServiciosMuestras.where("servicio_id = #{s_m_self.servicio_id} AND muestra_id != #{self.id}")
+        if servicios_muestra_aux.empty?
+          # borra el Servicio
+          Servicio.find(s_m_self.servicio_id).destroy
+        end
+        # borrar su registro en servicios_muestra (lo borra por cascade)
+        # ServiciosMuestras.where("servicio_id = #{s_m_self.servicio_id} AND muestra_id = #{self.id}").destroy_all
+        # ServiciosMuestras.where(:servicio_id => s_m_self.servicio_id, :muestra_id => self.id).destroy_all
       end
     end
 
