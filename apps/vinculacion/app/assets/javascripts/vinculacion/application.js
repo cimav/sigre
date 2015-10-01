@@ -85,10 +85,6 @@ DS.RESTAdapter.reopen({
   namespace: "vinculacion"
 });
 
-App.LaboratorioBitacoraSerializer = DS.RESTSerializer.extend({
-  primaryKey: 'id_lab_bitacora'
-});
-
 // Add default classes to Ember form views:
 (function() {
   Ember.TextSupport.reopen({
@@ -115,4 +111,3 @@ App.computed.list_item = function(property) {
     })[0];
   }.property(property);
 };
-

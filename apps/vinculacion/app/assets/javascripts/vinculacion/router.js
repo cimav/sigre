@@ -51,9 +51,6 @@ App.Router.map(function () {
     });
   });
 
-  this.resource('catalogo', function () {
-  });
-
   this.resource('clientes', function () {
     this.route('new', {path: '/nuevo'});
     this.resource('cliente', {path: '/:cliente_id'}, function () {
@@ -64,6 +61,9 @@ App.Router.map(function () {
         });
       });
     });
+  });
+
+  this.resource('catalogo', function () {
   });
 
 });
