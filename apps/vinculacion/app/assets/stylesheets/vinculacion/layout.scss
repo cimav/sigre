@@ -593,6 +593,18 @@ html, body, .application-view {
       display: none;
     }
 
+    .lista-muestras {
+      padding-bottom: 10px;
+      .row {
+        padding: 10px;
+      }
+    }
+
+    #tabla-edicion-muestra-detalle {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
     .muestra-codigo {
       position: relative;
       padding: 5px;

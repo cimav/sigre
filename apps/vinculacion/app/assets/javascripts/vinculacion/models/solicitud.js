@@ -108,10 +108,10 @@ App.Solicitud = DS.Model.extend({
 
   isTipoI: function() {
     var result = this.get('tipo') == 1;
-    if (!result) {
-      // para Tipo II y III, tiempo_entrega = Normal
-      this.set('tiempo_entrega', 1);
-    }
+//    if (!result) {
+//      // para Tipo II y III, tiempo_entrega = Normal
+//      this.set('tiempo_entrega', 1);
+//    }
     return result;
   }.property('tipo'),
 

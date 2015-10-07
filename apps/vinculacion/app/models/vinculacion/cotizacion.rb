@@ -43,6 +43,7 @@ consideración la siguiente propuesta económica:"
     before_update :update_fecha_notificacion
     after_update :clone_cotizacion
     after_update :check_solicitud_status
+    after_update :update_tiempo_entrega_detalle
 
     def codigo
       "#{self.solicitud.codigo}-#{consecutivo}"
@@ -93,7 +94,8 @@ consideración la siguiente propuesta económica:"
         self.precio_unitario = ultima_cotizacion.precio_unitario
         self.descuento_porcentaje = ultima_cotizacion.descuento_porcentaje
         self.fecha_notificacion = Time.now # la fecha actual, no la clonada
-        self.tiempo_entrega = ultima_cotizacion.tiempo_entrega
+        # self.tiempo_entrega = ultima_cotizacion.tiempo_entrega
+        self.tiempo_entrega = solicitud.tiempo_entrega
 
         # Clonar detalle
         ultima_cotizacion.cotizacion_detalle.each do |detalle|
@@ -109,6 +111,22 @@ consideración la siguiente propuesta económica:"
 
       end
       self.save(:validate => false)
+    end
+
+    def update_tiempo_entrega_detalle
+      # Si el detalle de la cotización tiene un servicio, significa que es del tipo 1 o 2.
+      # Dicho servicio tiene un servicio_bitacora de donde se saca el precio_venta
+      if self.tiempo_entrega_changed?
+        self.cotizacion_detalle.where("servicio_id >= 0").each do |detalle|
+          srv_bit_id = Servicio.find(detalle.servicio_id).servicio_bitacora_id rescue 0
+          if !srv_bit_id.nil? and srv_bit_id > 0
+            srv_bit = ServicioBitacora.find(srv_bit_id)
+            precio_venta = srv_bit.nil? ? 0 : srv_bit.precio_venta
+            detalle.precio_unitario = self.tiempo_entrega * precio_venta
+            detalle.save
+          end
+        end
+      end
     end
 
     def update_fecha_notificacion

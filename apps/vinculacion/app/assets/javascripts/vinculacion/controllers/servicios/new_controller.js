@@ -98,7 +98,10 @@ App.ServiciosNewController = Ember.ObjectController.extend({
       detalle.set('concepto', servicio.get('nombre'));
       detalle.set('cotizacion', lastCotizacion); // asignarle la cotización
       // precio depende del tiempo_entrega
-      var precio_venta = solicitud.get('tiempo_entrega') * servicio.get('servicio_bitacora').get('precio_venta');
+      var precio_venta = servicio.get('servicio_bitacora').get('precio_venta');
+      if (!solicitud.get('isTipoIII')) { // no tipo 3 no se multiplican
+        precio_venta = precio_venta * solicitud.get('tiempo_entrega');
+      }
       detalle.set('precio_unitario', precio_venta);
 
       // persistir detalle
