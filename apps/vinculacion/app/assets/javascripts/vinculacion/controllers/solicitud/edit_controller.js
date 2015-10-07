@@ -16,6 +16,11 @@ App.SolicitudEditController = Ember.ObjectController.extend({
         if (solicitud.get('tipo') == 1) {
           // después de persitir la solicitud, ajustar la muestra, el servicios y los detalles de la cotización
           self.postSaveTipoI(solicitud);
+        } else {
+          // Para todos los tipos, reflejar el tiempo de entrega en la ultima cotizacion
+          var lastCotizacion = solicitud.get('cotizaciones').get('lastObject');
+          lastCotizacion.set('tiempo_entrega', solicitud.get('tiempo_entrega'));
+          lastCotizacion.save();
         }
 
         self.transitionToRoute('solicitud', solicitud);
@@ -123,7 +128,10 @@ App.SolicitudEditController = Ember.ObjectController.extend({
           firstDetalle.set('concepto', firstServicio.get('nombre'));
           firstDetalle.set('cotizacion', lastCotizacion); // asignarle la cotización
           // precio depende del tiempo_entrega
-          var precio_venta = solicitud.get('tiempo_entrega') * servicioBitacoraCapturado.get('precio_venta');
+          var precio_venta = servicioBitacoraCapturado.get('precio_venta');
+          if (!solicitud.get('isTipoIII')) { // tipo 3 no se multiplican
+            precio_venta = precio_venta * solicitud.get('tiempo_entrega');
+          }
           firstDetalle.set('precio_unitario', precio_venta);
 
           // persistir detalle
