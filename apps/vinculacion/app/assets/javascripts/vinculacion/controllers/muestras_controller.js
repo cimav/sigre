@@ -18,7 +18,7 @@ App.MuestrasController = Ember.ArrayController.extend({
     var muestra = this.get('prev_muestra');
     if (!muestra) return true;
 
-    if (muestra.get('isDirty') && !confirm("¿Desea descartar los cambios en la muestra " + muestra.get('codigo') + "?")) {
+    if (muestra.get('isDirty') && !confirm("¿Desea descartar los cambios en la(s) muestra(s) " + muestra.get('rango') + "?")) {
       return false;
     } else {
       muestra.rollback();

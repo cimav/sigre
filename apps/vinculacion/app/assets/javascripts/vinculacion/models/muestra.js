@@ -11,8 +11,18 @@ App.Muestra = DS.Model.extend({
   muestras_detalle: DS.hasMany('muestra_detalle'),
 
   descripcionLarga: function() {
-    //return Ember.String.htmlSafe("<h1>" + this.get('codigo') + "</h1>" + "<h4>" + this.get('identificacion') + "</h4>");
     return this.get('codigo') + ' ' + this.get('identificacion') + ' ' + this.get('descripcion');
-  }.property('codigo')
+  }.property('codigo'),
+
+  rango: function() {
+    var result = "Rango";
+    if(this.get('muestras_detalle.length') == 1) {
+      result = String("000" + this.get('muestras_detalle').get('firstObject').get('consecutivo')).slice(-3);
+    } else if(this.get('muestras_detalle.length') > 1) {
+      result = String("000" + this.get('muestras_detalle').get('firstObject').get('consecutivo')).slice(-3);
+      result = result + " - " + String("000" + this.get('muestras_detalle').get('lastObject').get('consecutivo')).slice(-3);
+    }
+    return result;
+  }.property('muestras_detalle.length')
 
 });
