@@ -10,6 +10,7 @@ module Vinculacion
     after_create :set_extra
     after_create :add_cedula
     after_update :check_solicitud_status
+    before_destroy :destroy_cotizacion
 
     belongs_to :servicio_bitacora
 
@@ -132,6 +133,13 @@ module Vinculacion
     
     def relation_string
       "#{empleado_id},#{solicitud_id}"
-    end 
+    end
+
+    def destroy_cotizacion
+      # al borrar un servicio, borrar los Detalles (de la ultima Cotizacion) que lo refieren
+      lastCotizaId = self.solicitud.ultima_cotizacion.id rescue 0
+      CotizacionDetalle.where("cotizacion_id = #{lastCotizaId} AND servicio_id = #{self.id}").destroy_all
+    end
+
   end
 end

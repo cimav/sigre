@@ -54,9 +54,7 @@ App.MuestraController = Ember.ObjectController.extend({
         });
 
         self.get('controllers.muestras').send('reloadModel');
-
         self.get('controllers.cotizaciones').send('reloadModel');
-
       };
 
       var onFail = function(muestra) {
@@ -74,10 +72,14 @@ App.MuestraController = Ember.ObjectController.extend({
       $('#muestra_' + muestra_id + ' .muestra-edit-detalle-form').fadeOut(100);
     },
     deleteMuestra: function(muestra) {
+      var self = this;
       var appController = this.get('controllers.application');
-      if (confirm("¿Desea eliminar la muestra " + muestra.get('codigo') + "?")) {
+      if (confirm("¿Desea eliminar la(s) muestra(s) " + muestra.get('rango') + "?")) { // + muestra.get('codigo') + "?")) {
         var onSuccess = function (muestra) {
           appController.notify('Se eliminó muestra');
+
+          self.get('controllers.muestras').send('reloadModel');
+          self.get('controllers.cotizaciones').send('reloadModel');
         };
         var onFail = function (muestra) {
           appController.notify('Error al eliminar muestra', 'alert-danger');

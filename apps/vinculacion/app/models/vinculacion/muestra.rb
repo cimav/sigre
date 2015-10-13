@@ -8,6 +8,7 @@ module Vinculacion
     after_create  :set_extra
     after_update  :update_detalles
     before_destroy :destroy_servicio
+    after_destroy :reordenar_detalles
 
     INICIAL    = 1
     EN_USO     = 2
@@ -58,10 +59,17 @@ module Vinculacion
           end
         end
 
-        # reordenar en un solo consecutivo todo los detalles de todas las muestras
-        muestras = Muestra.where(:solicitud_id => self.solicitud_id).order("id")
-        con = 1
-        muestras.each do |muestra|
+        reordenar_detalles
+
+      end
+    end
+
+    def reordenar_detalles
+      # reordenar en un solo consecutivo todos los detalles de todas las muestras
+      muestras = Muestra.where(:solicitud_id => self.solicitud_id).order("id")
+      con = 1
+      muestras.each do |muestra|
+        if !muestra.destroyed?
           detalles = MuestraDetalle.where("muestra_id = #{muestra.id}")
           detalles.each do |detalle|
             detalle.consecutivo = con
