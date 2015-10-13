@@ -624,7 +624,7 @@ module Vinculacion
         pdf.text "\n\n\n\n\n\n"
         
         data=[
-          [{:content=>"Descripción del instrumento de medición y/o muestreos",:colspan=>2,:align=>:center,:size=>size + 2}],
+          [{:content=>"Descripción del instrumento de medición y/o muestras",:colspan=>2,:align=>:center,:size=>size + 2}],
           ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
           ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
           ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
