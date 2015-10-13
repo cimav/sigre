@@ -143,24 +143,39 @@ module Vinculacion
                  [t[:email],           contacto_email]]
         x = 15
         y = y - 20
+        i = 0
         data.each do |d|
           if d[0]
             pdf.text_box d[0], :at=> [x,y], :width => 50, :height => 11,:valign=> :top, :align => :left, :size=> 10
           end
-          if d[1]
-            pdf.text_box d[1], :at=> [x + 50,y], :width => 320, :height => 11,:valign=> :top, :align => :left, :size=> 10
+
+          if i.eql? 3
+            h = 22
+          else
+            h = 11
           end
-          y = y - 12
+
+          if d[1]
+            pdf.text_box d[1], :at=> [x + 50,y], :width => 280, :height => h,:valign=> :top, :align => :left, :size=> 10
+          end
+         
+          if i.eql? 3
+            y = y - 24
+          else
+            y = y - 12
+          end
+
+          i = i + 1
         end
 
         ## RODEAMOS
         y = 560
         pdf.line_width= 0.1
-        pdf.stroke_rounded_rectangle([0,y], 350, 80, 10)
-        pdf.stroke_rounded_rectangle([360,y], 145, 80, 10)
+        pdf.stroke_rounded_rectangle([0,y], 350, 92, 10)
+        pdf.stroke_rounded_rectangle([360,y], 145, 92, 10)
 
         ## ALGUNOS SALTOS DE LINEA PARA BAJAR LA TABLA
-        pdf.text "\n\n\n\n\n\n"
+        pdf.text "\n\n\n\n\n\n\n"
 
         analisis = cotizacion.solicitud.descripcion rescue "desarrollo de servicio"
         analisis = analisis.length <= 0 ? "desarrollo de servicio" : analisis
@@ -304,6 +319,10 @@ module Vinculacion
           w = 90
           h = 12
           pdf.text_box t[:version], :at=>[0,y+5], :width => w, :height=> h, :size=>11, :align=> :left, :valign=> :bottom
+          
+          ## RESPONSABLE
+          w = 200
+          pdf.text_box t[:responsable], :at=>[325,y+5], :width => w, :height=> h, :size=>10, :align=> :left, :valign=> :bottom
         
        # pdf.repeat :all do
        # end
