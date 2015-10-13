@@ -73,13 +73,19 @@ App.MuestraController = Ember.ObjectController.extend({
     },
     deleteMuestra: function(muestra) {
       var self = this;
+      var muestras_controller = self.get('controllers.muestras');
+      var cotizaciones_controller = self.get('controllers.cotizaciones');
       var appController = this.get('controllers.application');
       if (confirm("¿Desea eliminar la(s) muestra(s) " + muestra.get('rango') + "?")) { // + muestra.get('codigo') + "?")) {
         var onSuccess = function (muestra) {
           appController.notify('Se eliminó muestra');
 
-          self.get('controllers.muestras').send('reloadModel');
-          self.get('controllers.cotizaciones').send('reloadModel');
+          if (muestras_controller !== undefined) {
+            muestras_controller.send('reloadModel');
+          }
+          if (cotizaciones_controller !== undefined) {
+            cotizaciones_controller.send('reloadModel');
+          }
         };
         var onFail = function (muestra) {
           appController.notify('Error al eliminar muestra', 'alert-danger');
