@@ -561,9 +561,15 @@ module Vinculacion
         y = y - 43 
         pdf.stroke_color= "000000"
         pdf.line_width= 3
-        pdf.stroke_line [x,y],[513,y]
+        pdf.stroke_line [x,y],[245,y]
         pdf.line_width= 1
-        pdf.stroke_line [x,y - 3],[513,y - 3]
+        pdf.stroke_line [x,y - 3],[245,y - 3]
+        pdf.text_box "RESGUARDO DE MUESTRAS Y/O EQUIPOS", :at=> [250,y + 3 ], :width => 230, :style => :bold_italic, :height => 13, :valign=> :top, :align => :center, :size=> 11
+        pdf.line_width= 3
+        pdf.stroke_line [485,y],[505,y]
+        pdf.line_width= 1
+        pdf.stroke_line [485,y - 3],[505,y - 3]
+
         ## FECHA 
         tday  = Date.today
         dia   = tday.day
@@ -637,8 +643,12 @@ module Vinculacion
         pdf.text "\n\n\n"
         pdf.text "_________________________",:align=>:center
         pdf.text "Firma del Cliente",:align=>:center
-        pdf.stroke_rectangle [425,-42],71,15 
-        pdf.text_box "VN01F06-01", :at=> [427,-45], :width => 70, :height => 13,:valign=> :top, :align => :left, :size=> 12
+       # pdf.stroke_line [0,-45],[500,-45]
+        pdf.text_box "VN01F06-02", :at=> [427,-45], :width => 70, :height => 12,:valign=> :top, :align => :left, :size=> 12
+        
+        h = 90 
+        w = 225
+        pdf.text_box t[:responsable], :at=>[0,33], :width => w, :height=> h, :size=>12, :align=> :left, :valign=> :bottom
         
         ### ENVIANDO EL PDF
         send_data pdf.render, type: "application/pdf", disposition: "inline"
