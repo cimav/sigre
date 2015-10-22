@@ -1,4 +1,7 @@
-<div id="servicio">
+<div {{bind-attr class=":servicio isCancelado"}}>
+  {{#if isCancelado}}
+    <div class="msg-cancelado">Servicio cancelado.</div>
+  {{/if}}
   <h3>
     <span class="consecutivo">{{consecutivo}}</span> 
     {{nombre}}
@@ -105,6 +108,11 @@
           <span class="servicio-msg-cotizacion">Para iniciar el servicio, primero debe aceptar la cotización</span>
         {{/if}}
       {{/if}}
+      
+      {{#if canCancel}}
+        <button {{action "cancelar" this}} class="btn btn-danger">Cancelar servicio</button>
+      {{/if}}
+
     </div>
 
   {{/if}}

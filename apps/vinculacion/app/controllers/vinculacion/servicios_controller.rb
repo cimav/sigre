@@ -12,6 +12,24 @@ module Vinculacion
       render json: Servicio.find(params[:id])
     end
 
+    def cancelar
+      servicio = Servicio.find(params[:id])
+      servicio.status = Servicio::CANCELADO
+
+      # Notificar a Bitacora cuando es Servicio III
+      if servicio.solicitud.tipo == 3 && servicio.status > Servicio::INICIAL
+        puts "Cancelar servicio solicitado #{servicio.id}"
+        QueueBus.publish('cancelar_servicio_solicitado',
+                          'id'   => servicio.id,
+                          'solicitud_id'  => servicio.solicitud_id,
+                          'agente_id'      => servicio.solicitud.usuario.id,
+                          'agente_email'   => servicio.solicitud.usuario.email)
+      end  
+
+      servicio.save
+      render json: servicio
+    end
+
     def solicitar_costeo
       servicio = Servicio.find(params[:id])
 

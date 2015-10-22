@@ -53,6 +53,10 @@ App.ServicioController = Ember.ObjectController.extend({
     return result;
   }.property('model.status'),
 
+  isCancelado: function() {
+    return this.get('model.status') == this.get('controllers.servicios.Status.cancelado');
+  }.property('model.status'),
+
   isNotReadyForSave: function () {
     var result = this.get('content.isDirty') == true && this.get('content.isValid') == true;
     return !result;
@@ -67,7 +71,34 @@ App.ServicioController = Ember.ObjectController.extend({
     }
   }.property('model.status'),
 
+  canCancel: function () {
+    // Solo se puede cancelar antes de arrancar.
+    var solicitud = this.get('controllers.solicitud');
+    return this.get('model.status') <= 3 && 
+           solicitud.get('model.status') != solicitud.get('model.Status.cancelada');    
+  }.property('model.status'),
+
   actions: {
+    cancelar: function(s) {
+      if (confirm("¿Desea cancelar el servicio " + s.get('consecutivo') + "?")) {
+        var self = this;
+
+        url = '/vinculacion/servicios/' + s.id + '/cancelar';
+
+        $.post(url).then(function(response) {
+          if (!response.error) {
+            self.get('controllers.application').notify('Se cancelo el servicio');
+            servicio.set('status', response.servicio.status); 
+            // XXX: En teoria no lo guardamos ya porque ya lo hizo /solicitar_costeo
+            //servicio.save();
+          } else {
+            console.log('ERROR');
+            console.log(response);
+            self.get('controllers.application').notify('Error al solicitar costeo', 'alert-danger');  
+          }
+        });
+      }
+    },
     solicitaCosteo: function() {
       servicio = this.get('model');
       var self = this

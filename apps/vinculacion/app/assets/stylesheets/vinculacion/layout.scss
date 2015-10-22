@@ -842,6 +842,16 @@ html, body, .application-view {
       font-size: 80%;
       display: table-cell;
     }
+    .consecutivo.is-cancelado {
+      text-decoration: line-through;
+      background: #999;
+      border: 1px solid #666;
+      color: $white;
+    }
+    .servicio-nombre.is-cancelado {
+      display: table-cell;
+      text-decoration: line-through;
+    }
     .servicio-nombre {
       display: table-cell;
     }
@@ -1094,3 +1104,23 @@ table.resumen {
     }
   }
 }
+
+.servicio.is-cancelado {
+  color: #888 !important;
+  a {
+    color: #888 !important;
+  }
+  .consecutivo {
+      background: #999;
+      border: 1px solid #666;
+      color: $white;
+  }
+  .msg-cancelado {
+    color: #e00;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 1em;
+  }
+}
+

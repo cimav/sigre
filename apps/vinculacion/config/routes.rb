@@ -11,6 +11,7 @@ Vinculacion::Engine.routes.draw do
   resources :servicios_bitacora
   resources :laboratorios_bitacora
   post '/servicios/:id/solicitar_costeo', to: 'servicios#solicitar_costeo'
+  post '/servicios/:id/cancelar', to: 'servicios#cancelar'
   post '/solicitudes/:id/notificar_cancelacion', to: 'solicitudes#notificar_cancelacion'
   post '/solicitudes/:id/notificar_arranque', to: 'solicitudes#notificar_arranque'
   post '/solicitudes/:id/notificar_arranque_no_coordinado', to: 'solicitudes#notificar_arranque_no_coordinado'
