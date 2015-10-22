@@ -1,7 +1,7 @@
 App.ServicioController = Ember.ObjectController.extend({
   needs: ["application", "solicitud", "servicios", "cotizacion"],
 
-  romano: function() {
+  solo_codigo: function() {
     var codigo = this.get('model.codigo') + "";
     var solicitud = this.get('controllers.solicitud');
     
@@ -89,14 +89,21 @@ App.ServicioController = Ember.ObjectController.extend({
     cancelar: function(s) {
       if (confirm("¿Desea cancelar el servicio " + s.get('consecutivo') + "?")) {
         var self = this;
+        var solicitud = self.get('controllers.solicitud');
 
         url = '/vinculacion/servicios/' + s.id + '/cancelar';
 
         $.post(url).then(function(response) {
           if (!response.error) {
+
             self.get('controllers.application').notify('Se cancelo el servicio');
-            servicio.set('status', response.servicio.status); 
-            // XXX: En teoria no lo guardamos ya porque ya lo hizo /solicitar_costeo
+            s.set('status', response.servicio.status); 
+
+            if (solicitud.get('tipo') == 2) {
+              self.postCancelTipoII(solicitud, s);
+            }
+
+            // XXX: En teoria no lo guardamos ya porque ya lo hizo /cancelar
             //servicio.save();
           } else {
             console.log('ERROR');
@@ -126,5 +133,25 @@ App.ServicioController = Ember.ObjectController.extend({
       });
    
     }
-  }
+  },
+
+  postCancelTipoII: function(solicitud, servicio) {
+
+    var self = this;
+    // optiene la ultima cotizacion
+    var lastCotizacion = solicitud.get('cotizaciones').get('lastObject');
+    if (lastCotizacion != null) {
+
+      // copiar tiempo_entrega
+      lastCotizacion.set('tiempo_entrega', solicitud.get('tiempo_entrega'));
+
+      // obtener detalle correspondiente al servicio
+      var detalle = lastCotizacion.get('cotizacion_detalles').findBy('servicio_id', Number(servicio.get('id')));
+      detalle.deleteRecord();
+      detalle.save();
+      lastCotizacion.save();
+      // No requiere re-persistir solicitud
+    }
+
+  },
 });

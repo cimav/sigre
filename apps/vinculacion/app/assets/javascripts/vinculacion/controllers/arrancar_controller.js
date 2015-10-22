@@ -179,10 +179,11 @@ App.ArrancarController = Ember.ObjectController.extend({
     var esperandoArranque = this.get('controllers.servicios.Status.esperando_arranque');
     var enProceso = this.get('controllers.servicios.Status.en_proceso');
     var finalizado = this.get('controllers.servicios.Status.finalizado');
+    var cancelado = this.get('controllers.servicios.Status.cancelado');
 
     var result = this.get('model.servicios').every(function (servicio) {
       var statusSrv = servicio.get('status');
-      return statusSrv == esperandoArranque || statusSrv == enProceso || statusSrv == finalizado;
+      return statusSrv == esperandoArranque || statusSrv == enProceso || statusSrv == finalizado || statusSrv == cancelado;
     });
 
     if (result) {
