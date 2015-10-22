@@ -2,7 +2,7 @@
    <ul class="nav nav-pills nav-stacked affix-top">
     {{#link-to 'servicios.resumen' tagName="li"}}<a href="#"><span class="resumen glyphicon glyphicon-list"></span> Resumen</a>{{/link-to}}
     {{#each itemController="servicio"}}
-      {{#link-to 'servicio' this tagName="li"}}<a href="#"><span {{bind-attr class=":consecutivo isCancelado"}}>{{consecutivo}}</span> <span {{bind-attr class=":servicio-nombre isCancelado"}}>{{nombre}}</span></a>{{/link-to}}
+      {{#link-to 'servicio' this tagName="li"}}<a href="#"><span {{bind-attr class=":consecutivo isCancelado"}}>{{romano}}</span> <span {{bind-attr class=":servicio-nombre isCancelado"}}>{{nombre}}</span></a>{{/link-to}}
     {{/each}}
      {{#if allowAddServicios}}
        {{#link-to 'servicios.new' tagName="li"}}<a href="#"><span class="add">+</span>Agregar servicio</a>{{/link-to}}

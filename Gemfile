@@ -52,6 +52,8 @@ gem 'prawn-table'
 
 gem 'omniauth-google-oauth2', '0.2.6'
 
+gem 'roman-numerals'
+
 gem 'rh', path: 'apps/rh'
 gem 'vinculacion', path: 'apps/vinculacion'
 gem 'proyectos', path: 'apps/proyectos'

@@ -1,6 +1,13 @@
 App.ServicioController = Ember.ObjectController.extend({
   needs: ["application", "solicitud", "servicios", "cotizacion"],
 
+  romano: function() {
+    var codigo = this.get('model.codigo') + "";
+    var solicitud = this.get('controllers.solicitud');
+    
+    return codigo.replace(solicitud.get("codigo") + "-", "");
+  }.property('model.codigo'),
+
   servicio_datos: function() {
     servicio = this.get('model');
 
