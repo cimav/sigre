@@ -61,7 +61,7 @@ module Vinculacion
         cedula.servicio = self
         cedula.solicitud = self.solicitud
         cod = self.codigo
-        cod = "C#{cod}"
+        cod = "C.#{cod}"
         cedula.codigo = cod
         cedula.status = 1
         cedula.save
@@ -71,7 +71,7 @@ module Vinculacion
           cedula.servicio = nil
           cedula.solicitud = self.solicitud
           cod = self.codigo
-          cod = "C#{cod}"
+          cod = "C.#{cod}"
           cedula.codigo = cod
           cedula.status = 1
           cedula.save
