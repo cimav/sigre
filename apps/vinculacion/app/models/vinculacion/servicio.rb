@@ -43,10 +43,7 @@ module Vinculacion
       end
       consecutivo = "%03d" % con
       self.consecutivo = con
-
-      romano = RomanNumerals.to_roman(con)
-      self.codigo = "#{self.solicitud.codigo}-#{romano}"
-
+      self.codigo = "#{self.solicitud.codigo}-S#{consecutivo}"
       self.save(:validate => false)
     end
 
@@ -61,7 +58,7 @@ module Vinculacion
         cedula.servicio = self
         cedula.solicitud = self.solicitud
         cod = self.codigo
-        cod = "C.#{cod}"
+        cod["S"] = "C"
         cedula.codigo = cod
         cedula.status = 1
         cedula.save
@@ -71,7 +68,7 @@ module Vinculacion
           cedula.servicio = nil
           cedula.solicitud = self.solicitud
           cod = self.codigo
-          cod = "C.#{cod}"
+          cod["S"] = "C"
           cedula.codigo = cod
           cedula.status = 1
           cedula.save
