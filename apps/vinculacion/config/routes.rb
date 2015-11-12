@@ -38,6 +38,7 @@ Vinculacion::Engine.routes.draw do
 
   root :to => 'assets#index'
   get "assets/index"
+  get '/seguimiento/:hash' => 'seguimiento#index'
 
   get "cotizacion/:id/:type" => 'cotizaciones#document' 
   get "descargar/cotizacion/:vinculacion_hash" => 'cotizaciones#download_document' 

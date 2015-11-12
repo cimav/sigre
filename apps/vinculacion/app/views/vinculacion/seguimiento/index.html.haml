@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    %title Vinculación
+    = stylesheet_link_tag "vinculacion/application", :media => "all"
+    = csrf_meta_tags
+  %body
+    .container
+      %h1= "Solicitud #{@solicitud.codigo}"
+      .row
+        .col-sm-3
+          %strong="Cliente: "
+        .col-sm-9= @solicitud.cliente.razon_social
+      .row
+        .col-sm-3
+          %strong= "Contacto: "
+        .col-sm-9
+          .contacto-nombre= @solicitud.contacto.nombre rescue ''
+          .contacto-email= @solicitud.contacto.telefono rescue ''
+          .contacto-telefono= @solicitud.contacto.email.downcase rescue ''
+      .row
+        .col-sm-3
+          %strong= "Dirección: "
+        .col-sm-9
+          .dir1= @solicitud.cliente.calle_num
+          .dir2= "#{@solicitud.cliente.colonia} #{@solicitud.cliente.cp}"
+      .row
+        .col-sm-3
+          %strong= "Cotización: "
+        .col-sm-9
+          %a{href: "http://sigre.cimav.edu.mx/vinculacion/descargar/cotizacion/#{@solicitud.vinculacion_hash}"}= @cotizacion.codigo
