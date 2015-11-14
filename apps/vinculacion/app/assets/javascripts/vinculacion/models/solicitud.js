@@ -20,6 +20,7 @@ App.Solicitud = DS.Model.extend({
   responsable_presupuestal: DS.belongsTo('empleado'),
   usuario: DS.belongsTo('usuario'),
   created_at: DS.attr('date'),
+  vinculacion_hash: DS.attr('string'),
 
   precio_venta: DS.attr('number'),
   costo_interno: DS.attr('number'),

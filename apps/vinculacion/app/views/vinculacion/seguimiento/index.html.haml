@@ -29,3 +29,21 @@
           %strong= "Cotización: "
         .col-sm-9
           %a{href: "http://sigre.cimav.edu.mx/vinculacion/descargar/cotizacion/#{@solicitud.vinculacion_hash}"}= @cotizacion.codigo
+      .row
+        .col-sm-3
+          %strong= "Duración: "
+        .col-sm-9= "Del #{@solicitud.fecha_inicio} al #{@solicitud.fecha_termino} (#{@solicitud.duracion} días habiles)"
+      .row
+        .col-sm-12{:style => "padding-top: 3em;"}
+          %table.table.table-bordered{:style => "max-width: 600px; font-size: 90%;"}
+            %tr
+              %th= "Mensaje"
+              %th= "Fecha"
+              %th= "Usuario"
+            - @logs.each do |k,item|
+              %tr
+                %td= item['message'].gsub('href="/', 'href="http://bitacora.cimav.edu.mx/').html_safe
+                %td{:style => "white-space: pre;"}= item['created_at'].strftime("%Y-%m-%d %H:%M:%S")
+                %td{:style => "white-space: pre;"}= item['name']
+
+                

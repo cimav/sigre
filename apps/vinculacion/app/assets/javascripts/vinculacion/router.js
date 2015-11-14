@@ -3,7 +3,7 @@ App.Router.map(function () {
   this.resource('solicitudes', function () {
     this.route('new', {path: '/nueva'});
     this.resource('solicitud', {path: '/:solicitud_id'}, function () {
-
+      this.route('seguimiento', {path: '/seguimiento'});
       this.route('edit', {path: '/editar'});
       this.route('cancelacion', {path: '/cancelacion'});
 

@@ -46,6 +46,9 @@
     {{#if mostrarCedulas}}
       {{#link-to 'cedulas' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-list-alt"></span> Cédulas <span class="badge badge-cedulas">{{this.cedulas.length}}</span></a>{{/link-to}}
     {{/if}}
+
+    {{#link-to 'solicitud.seguimiento' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-calendar"></span> Seguimiento</a>{{/link-to}}
+
   </ul>
   <div id="bottom-options">
     {{#link-to 'solicitud.cancelacion' this tagName="button" classNames="btn btn-danger btn-block btn-sm" disabled=this.isCancelada}}
