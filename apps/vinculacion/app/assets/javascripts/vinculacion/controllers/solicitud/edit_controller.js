@@ -181,9 +181,7 @@ App.SolicitudEditController = Ember.ObjectController.extend({
   servicioBitacoraSeleccionChanged: function() {
     // asigna el servicioBitacora del controllador al modelo
     this.get('model').set('servicioBitacora', this.servicioBitacoraSeleccion);
+    $("#alert-frame").attr("src",  "http://bitacora.cimav.edu.mx/laboratory_services/" + this.get('servicioBitacora.bitacora_id') + "/status");
   }.observes('servicioBitacoraSeleccion')
-
-
-
 });
 

@@ -113,8 +113,13 @@
               <td>{{formatCurrency servicioNoCoordinado.servicio_bitacora.precio_venta}}</td>
             </tr>
             <tr>
-              <td class="fechas-header">Status</td>
-              <td>{{servicioNoCoordinado.status_text}}</td>
+              <td class="fechas-header" style="vertical-align: top;">Status</td>
+              <td>
+                {{servicioNoCoordinado.status_text}}
+                <div class="alertas">
+                  <iframe width="640" height="48" id="alert-frame-t1" {{bind-attr src="alertUrl"}} allowtransparency="true" frameborder="0"></iframe>
+                </div>
+              </td>
             </tr>
             </tbody>
           </table>
