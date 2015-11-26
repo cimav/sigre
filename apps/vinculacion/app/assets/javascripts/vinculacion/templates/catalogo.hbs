@@ -25,7 +25,12 @@
       </tr>
       {{#each sortedCatalogo}}
         <tr>
-          <td>{{nombre}}</td>
+          <td>
+            {{nombre}}
+            <div class="alertas">
+              <iframe width="640" height="48" id="alert-frame-t1" {{bind-attr src="alert_url"}} allowtransparency="true" frameborder="0"></iframe>
+            </div>
+          </td>
           <td>{{laboratorio_bitacora.nombre}}</td>
           <td class="text-right">{{formatCurrency precio_venta}}</td>
         </tr>

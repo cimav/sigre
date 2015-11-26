@@ -38,20 +38,29 @@ App.ArrancarController = Ember.ObjectController.extend({
     arrancar: function() {
 
       var solicitud = this.get('model');
-      var servicios = solicitud.get('servicios');
       var srvStatusEnProceso = this.get('controllers.servicios.Status.en_proceso');
-
-      // poner todos los servicios en_proceso
-      servicios.forEach(function (servicio, index, enumerable) {
-        servicio.set('solicitud', solicitud); // se requiere debido a que el serializer no tiene el solicitud_id
-        servicio.set('status', srvStatusEnProceso);
-        servicio.save();
-      });
+      var srvStatusCancelado = this.get('controllers.servicios.Status.cancelado');
 
       // En rails. Si todos los servicios estan en_proceso, en automatico pone la solicitud en_proceso
       // a excepción de cuando no tiene servicios. Por eso poner la solicitud en_proceso explicitamente.
       solicitud.set('status', this.get('model.Status.en_proceso'));
       solicitud.save();
+
+      // REMOVE: Ahora se arranca a todos los servicios desde RAILS.
+      // solicitud.save().then(
+      //   function(solicitud) {
+      //     // poner todos los servicios en_proceso
+      //     var servicios = solicitud.get('servicios');
+      //     servicios.forEach(function (servicio, index) {
+      //       alert(servicio.get('id') + '**' + index + '**' + servicio.get('status') + servicio.get('nombre'));
+      //       if (servicio.get('status') != srvStatusCancelado) {
+      //         servicio.set('solicitud', solicitud); // se requiere debido a que el serializer no tiene el solicitud_id
+      //         servicio.set('status', srvStatusEnProceso);
+      //         servicio.save();  
+      //       } 
+      //     });
+      //   }
+      // );
 
       // Notificar el arranque a la Bitacora publicando el resque bus.
       this.send('notificar_arranque', solicitud);

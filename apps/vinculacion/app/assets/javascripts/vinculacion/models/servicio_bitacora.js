@@ -7,6 +7,9 @@ App.ServicioBitacora = DS.Model.extend({
   status:         DS.attr('number'),
   empleado:       DS.belongsTo('empleado'),
   sede:           DS.belongsTo('sede'),
-  laboratorio_bitacora:    DS.belongsTo('laboratorio_bitacora')
+  laboratorio_bitacora:    DS.belongsTo('laboratorio_bitacora'),
+  alert_url: function() {
+    return "http://bitacora.cimav.edu.mx/laboratory_services/" + this.get('bitacora_id') + "/status";
+  }.property('bitacora_id')
 
 });

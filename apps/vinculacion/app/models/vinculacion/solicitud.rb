@@ -111,6 +111,16 @@ module Vinculacion
 
       if self.status_changed?
 
+        if self.status == STATUS_EN_PROCESO
+          # Arrancar los servicios que no esten cancelados
+          self.servicios.each do |servicio|
+            if servicio.status == Servicio::ESPERANDO_ARRANQUE
+              servicio.status = Servicio::EN_PROCESO
+              servicio.save!
+            end
+          end
+        end
+
         if self.status == STATUS_CANCELADA
 
           # El controlador Notifica a Bitacora publicando cancelar_solicitud
