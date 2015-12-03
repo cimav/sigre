@@ -32,9 +32,10 @@ module Vinculacion
     end
 
     def create_document(id)
-      r_root = Rails.root.to_s
-      type = params[:type]
-      cotizacion=  Cotizacion.find(id)
+      r_root      = Rails.root.to_s
+      type        = params[:type]
+      blank_sheet = false
+      cotizacion  =  Cotizacion.find(id)
       ## Load locale config
       t = t(:apps)[:vinculacion][:controllers][:cotizaciones][:document]
       ## Default Page Size Is Letter
@@ -104,36 +105,37 @@ module Vinculacion
         end
         
         pdf.text "\n\n\n"
-=begin
-        pdf.text_box "00/0000",    :at=> [380,y - 25], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 15, :style=> :bold
-        pdf.text_box "",    :at=> [366,y - 43], :width => 100, :height => 30,:valign=> :top, :align => :left, :size=> 9
-        pdf.text_box "Tipo de cambio: ", :at=> [366,y - 56], :width => 135, :height => 30,:valign=> :top, :align => :left, :size=> 9
-        pdf.text_box "",:at=> [380,y - 80], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 9
-=end
-        pdf.text_box folio,    :at=> [380,y - 25], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 15, :style=> :bold
-        pdf.text_box fecha,    :at=> [366,y - 43], :width => 135, :height => 30,:valign=> :top, :align => :left, :size=> 9
-        pdf.text_box t_cambio, :at=> [366,y - 56], :width => 135, :height => 30,:valign=> :top, :align => :left, :size=> 9
-        pdf.text_box t_entrega,:at=> [380,y - 80], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 9
-
+        if blank_sheet
+          pdf.text_box "00/0000",    :at=> [380,y - 25], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 15, :style=> :bold
+          pdf.text_box "",    :at=> [366,y - 43], :width => 100, :height => 30,:valign=> :top, :align => :left, :size=> 9
+          pdf.text_box "Tipo de cambio: ", :at=> [366,y - 56], :width => 135, :height => 30,:valign=> :top, :align => :left, :size=> 9
+          pdf.text_box "",:at=> [380,y - 80], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 9
+        else
+          pdf.text_box folio,    :at=> [380,y - 25], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 15, :style=> :bold
+          pdf.text_box fecha,    :at=> [366,y - 43], :width => 135, :height => 30,:valign=> :top, :align => :left, :size=> 9
+          pdf.text_box t_cambio, :at=> [366,y - 56], :width => 135, :height => 30,:valign=> :top, :align => :left, :size=> 9
+          pdf.text_box t_entrega,:at=> [380,y - 80], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 9
+        end
         ## DATOS GENERALES
-        cliente  = cotizacion.solicitud.cliente      
-        cliente.cp = "C.P. #{cliente.cp}"
-        contacto = cotizacion.solicitud.contacto
-        contacto_nombre   = contacto.nombre rescue 'Sin contacto'
-        contacto_telefono = contacto.telefono rescue 'Sin contacto'
-        contacto_email    = contacto.email.downcase rescue 'Sin contacto'
-        #cliente_rfc       = cliente.rfc.upcase rescue 'N.D'
-=begin
-        cliente  = cotizacion.solicitud.cliente      
-        cliente.razon_social  = nil
-        cliente.calle_num = nil
-        cliente.colonia = nil
-        cliente.cp = ""
-        contacto = ""
-        contacto_nombre   = ""
-        contacto_telefono = ""
-        contacto_email    = ""
-=end
+        if blank_sheet
+          cliente  = cotizacion.solicitud.cliente      
+          cliente.razon_social  = nil
+          cliente.calle_num = nil
+          cliente.colonia = nil
+          cliente.cp = ""
+          contacto = ""
+          contacto_nombre   = ""
+          contacto_telefono = ""
+          contacto_email    = ""
+        else
+          cliente  = cotizacion.solicitud.cliente      
+          cliente.cp = "C.P. #{cliente.cp}"
+          contacto = cotizacion.solicitud.contacto
+          contacto_nombre   = contacto.nombre rescue 'Sin contacto'
+          contacto_telefono = contacto.telefono rescue 'Sin contacto'
+          contacto_email    = contacto.email.downcase rescue 'Sin contacto'
+          #cliente_rfc       = cliente.rfc.upcase rescue 'N.D'
+        end
     
         data = [ [t[:company],         cliente.razon_social],
                  [t[:attention],       contacto_nombre],
@@ -180,40 +182,42 @@ module Vinculacion
         analisis = cotizacion.solicitud.descripcion rescue "desarrollo de servicio"
         analisis = analisis.length <= 0 ? "desarrollo de servicio" : analisis
         leyenda  = cotizacion.comentarios
-        pdf.text leyenda, :size=> 9
-        #pdf.text "En respuesta a su solicitud para ...", :size=> 9
+        if blank_sheet
+          pdf.text "En respuesta a su solicitud para ...", :size=> 9
+        else
+          pdf.text leyenda, :size=> 9
+        end
 
         ## CABECERA
-        data = [[t[:amount],t[:description],t[:unit_cost], t[:subtotal]]]
+        data = [[t[:quantity],t[:description],t[:unit_cost], t[:amount]]]
         ## REITERATIVOS
         counter   = 0
         subtotalf = 0
 
-        cotizacion.cotizacion_detalle.each do |cd|
-          subtotal = cd.precio_unitario * cd.cantidad
-          if cd.cantidad.modulo(1).eql? 0
-            cd_cantidad = cd.cantidad.to_i
-          else
-            cd_cantidad = cd.cantidad
+        if blank_sheet
+          1.times do |cd|
+            cantidad = 0
+            subtotal = 1 * cantidad
+            r = [["","",{:content=>"$#{'%.2f' % cantidad}",:align=>:right},{:content=>"$#{'%.2f' % subtotal}",:align=>:right}]]
+            #r = [["1","",{:content=>"$#{'%.2f' % cantidad}",:align=>:right},{:content=>"$#{'%.2f' % subtotal}",:align=>:right}]]
+            data += r
+            counter = counter + 1
+            subtotalf += subtotal
           end
-          r = [[cd_cantidad,cd.concepto,{:content=>"$#{'%.2f' % cd.precio_unitario.to_s}",:align=>:right},{:content=>"$#{'%.2f' % subtotal.to_s}",:align=>:right}]]
-          data += r
-          counter = counter + 1
-          subtotalf += subtotal
+        else
+          cotizacion.cotizacion_detalle.each do |cd|
+            subtotal = cd.precio_unitario * cd.cantidad
+            if cd.cantidad.modulo(1).eql? 0
+              cd_cantidad = cd.cantidad.to_i
+            else
+              cd_cantidad = cd.cantidad
+            end
+            r = [[cd_cantidad,cd.concepto,{:content=>"$#{'%.2f' % cd.precio_unitario.to_s}",:align=>:right},{:content=>"$#{'%.2f' % subtotal.to_s}",:align=>:right}]]
+            data += r
+            counter = counter + 1
+            subtotalf += subtotal
+          end
         end
-
-=begin
-        ## Descomentar para desarrollo, comentar el ciclo de arriba
-        1.times do |cd|
-          cantidad = 0
-          subtotal = 1 * cantidad
-          r = [["1","cosa #{counter}",{:content=>"$#{'%.2f' % cantidad}",:align=>:right},{:content=>"$#{'%.2f' % subtotal}",:align=>:right}]]
-          #r = [["1","",{:content=>"$#{'%.2f' % cantidad}",:align=>:right},{:content=>"$#{'%.2f' % subtotal}",:align=>:right}]]
-          data += r
-          counter = counter + 1
-          subtotalf += subtotal
-        end
-=end
 
         ## DESCUENTO
         descuento = 0
@@ -263,7 +267,7 @@ module Vinculacion
         end
 
         pdf.text "Notas:
-- Esta cotización tiene una vigencia de 30 días hábiles.\n#{c_notas}- Se consideran días hábiles de lunes a viernes en un horario de 9:00 -14:00 y 16:00 -19:00 h.\n- El cliente aprueba el procedimiento técnico y la realización de las pruebas o calibraciónes en su material o equipo al autorizar el servicio.\n- En caso de autorizar el servicio, deberá hacernos llegar mediante este mismo medio la orden de trabajo que autorice los estudios a realizar y los materiales e información técnica de los mismos.\n- Si no se encuentra registrado en nuestro catálogo de cliente deberá pagar el costo del servicio para poder comenzar con el mismo,  a la cuenta Banorte 0127370266 clabe 072150001273702669 si el servicio corresponde a CIMAV Chihuahua y a la cuenta BANORTE 0252602458 clabe 072 150 00252602458 5 para servicios de CIMAV Monterrey.\n- Una vez finalizado el servicio, el cliente cuenta con 30 días para recoger sus muestras; transcurrido este tiempo se desechan.\n- Para los servicios de calibración, si en un período preliminar de calibración el LABORATORIO DE METROLOGÍA observa que el instrumento está dañado se suspenderá el proceso de calibración, se le notificará  al cliente. Se entenderá que la  calibración solicitada ya no se efectuará. Queda establecido que el LABORATORIO DE METROLOGÍA no será responsable de los equipos que se hayan presentado dañados, con vicios ocultos o cualquier irregularidad. La fecha de entrega del instrumento aplica siempre y cuando el instrumento no requiera ajustes, ya que en este último caso (si se cuenta con todo lo necesario para llevar a cabo el ajuste), el tiempo puede extenderse. Si al instrumento le falta algún aditamento para realizar la calibración la fecha de recepción comenzará a contar a partir de que dicho elemento sea entregado al laboratorio. La recolección del instrumento en las instalaciones del laboratorio corre a cargo del cliente, excepto cuando se haya estipulado en la cotización su envío por mensajería.. El servicio de calibración no incluye ajuste o reparación de los instrumentos. Si se requiere la verificación de los resultados contra una tolerancia específica, ésta debe ser proporcionada por el solicitante. El informe de calibración se emitirá independientemente de que el instrumento no cumpla con la norma de referencia o especificaciones de tolerancias dadas. El  cliente puede definir cómo se expresarán los resultados (en que unidades, etc.), de no hacerlo, el LABORATORIO DE METROLOGÍA expresará los resultados según lo marque el procedimiento de calibración utilizado. (8). El cliente podrá especificar los puntos en los cuáles se calibrará el instrumento, de no hacerlo, el LABORATORIO DE METROLOGÍA escogerá los puntos según lo marque el procedimiento de calibración utilizado. Para su calibración los instrumentos deberán ser entregados en buenas condiciones de funcionamiento y limpios. En caso contrario no se realizará el servicio. El cliente proporcionará la información necesaria y dará todas las facilidades para el desarrollo del servicio. Para servicios de calibración, el LABORATORIO DE METROLOGÍA únicamente garantiza que el equipo del solicitante funciona en el lugar que se efectuó la calibración ya que durante el traslado a su lugar de origen cualquier movimiento brusco o falta de cuidado del transportador puede afectar la calibración.\n",:align=>:justify,:size=>7
+- Esta cotización tiene una vigencia de 30 días hábiles.\n#{c_notas}- Se consideran días hábiles de lunes a viernes en un horario de 8:30 -13:30 y 14:00 - 16:30 h.\n- El cliente aprueba el procedimiento técnico y la realización de las pruebas o calibraciónes en su material o equipo al autorizar el servicio.\n- En caso de autorizar el servicio, el cliente deberá hacer llegar mediante este mismo medio la orden de trabajo que autorice los estudios a realizar y los materiales e información técnica de los mismos.\n- Si no se encuentra registrado en nuestro catálogo de cliente deberá pagar el costo del servicio para poder comenzar con el mismo,  a la cuenta Banorte 0127370266 clabe 072150001273702669 si el servicio corresponde a CIMAV Chihuahua y a la cuenta BANORTE 0252602458 clabe 072 150 00252602458 5 para servicios de CIMAV Monterrey. En caso de realizar deposito el cliente deberá hacer llegar por este mismo medio el comprobante de pago. \n- La orden de trabajo o comprobante de pago deberá contener el número de cotización autorizado. \n- Una vez finalizado el servicio, el cliente cuenta con 30 días para recoger sus muestras; transcurrido este tiempo se desechan.\n- Para los servicios de calibración, si en un período preliminar de calibración el LABORATORIO DE METROLOGÍA observa que el instrumento está dañado se suspenderá el proceso de calibración, se le notificará  al cliente. Se entenderá que la  calibración solicitada ya no se efectuará. Queda establecido que el LABORATORIO DE METROLOGÍA no será responsable de los equipos que se hayan presentado dañados, con vicios ocultos o cualquier irregularidad. La fecha de entrega del instrumento aplica siempre y cuando el instrumento no requiera ajustes, ya que en este último caso (si se cuenta con todo lo necesario para llevar a cabo el ajuste), el tiempo puede extenderse. Si al instrumento le falta algún aditamento para realizar la calibración la fecha de recepción comenzará a contar a partir de que dicho elemento sea entregado al laboratorio. La recolección del instrumento en las instalaciones del laboratorio corre a cargo del cliente, excepto cuando se haya estipulado en la cotización su envío por mensajería.. El servicio de calibración no incluye ajuste o reparación de los instrumentos. Si se requiere la verificación de los resultados contra una tolerancia específica, ésta debe ser proporcionada por el solicitante. El informe de calibración se emitirá independientemente de que el instrumento no cumpla con la norma de referencia o especificaciones de tolerancias dadas. El  cliente puede definir cómo se expresarán los resultados (en que unidades, etc.), de no hacerlo, el LABORATORIO DE METROLOGÍA expresará los resultados según lo marque el procedimiento de calibración utilizado. (8). El cliente podrá especificar los puntos en los cuáles se calibrará el instrumento, de no hacerlo, el LABORATORIO DE METROLOGÍA escogerá los puntos según lo marque el procedimiento de calibración utilizado. Para su calibración los instrumentos deberán ser entregados en buenas condiciones de funcionamiento y limpios. En caso contrario no se realizará el servicio. El cliente proporcionará la información necesaria y dará todas las facilidades para el desarrollo del servicio. Para servicios de calibración, el LABORATORIO DE METROLOGÍA únicamente garantiza que el equipo del solicitante funciona en el lugar que se efectuó la calibración ya que durante el traslado a su lugar de origen cualquier movimiento brusco o falta de cuidado del transportador puede afectar la calibración.\n",:align=>:justify,:size=>7
         pdf.text "\n"
         ## FOOTER
         y = -35
@@ -294,7 +298,9 @@ module Vinculacion
           else
             full_name = "#{cotizacion.solicitud.usuario.nombre} #{cotizacion.solicitud.usuario.apellidos}"
           end
-          pdf.text_box full_name, :at=>[x,y1], :width => w, :height=> h, :size=>9, :align=> :left, :valign=> :bottom
+          if !blank_sheet
+            pdf.text_box full_name, :at=>[x,y1], :width => w, :height=> h, :size=>9, :align=> :left, :valign=> :bottom
+          end
         
           ## LINE 2
           x = 0
@@ -318,11 +324,11 @@ module Vinculacion
           ## VERSION DOCUMENTO
           w = 90
           h = 12
-          pdf.text_box t[:version], :at=>[0,y+5], :width => w, :height=> h, :size=>11, :align=> :left, :valign=> :bottom
+          pdf.text_box t[:version], :at=>[415,y+5], :width => w, :height=> h, :size=>11, :align=> :right, :valign=> :bottom
           
           ## RESPONSABLE
           w = 200
-          pdf.text_box t[:responsable], :at=>[325,y+5], :width => w, :height=> h, :size=>10, :align=> :left, :valign=> :bottom
+          pdf.text_box t[:responsable], :at=>[0,y+5], :width => w, :height=> h, :size=>10, :align=> :left, :valign=> :bottom
         
        # pdf.repeat :all do
        # end
@@ -333,8 +339,6 @@ module Vinculacion
         pdf.number_pages "<page>/<total>",  {:at => [x,y4],
                                             :align => :center,
                                             :size => 11}
-
-        pdf
       end
     end
 

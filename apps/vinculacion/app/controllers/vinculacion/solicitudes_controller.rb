@@ -385,9 +385,6 @@ module Vinculacion
         pdf.line_width= 0.1
         pdf.stroke_rounded_rectangle([0,y], 500, 80, 10)
         #pdf.stroke_rounded_rectangle([360,y], 145, 80, 10)
-
-
-
         
         #### PRESUPUESTO PROGRAMADO
         pdf.text "\n\n\n\n"
@@ -535,6 +532,7 @@ module Vinculacion
     end
 
     def recepcion_muestras
+      blank_sheet = false
       solicitud = Solicitud.find(params[:id])
       t = t(:apps)[:vinculacion][:controllers][:cotizaciones][:document]
       Prawn::Document.new(:top_margin => 50.0, :bottom_margin=> 100.0, :left_margin=>70.0, :right_margin=>45.0) do |pdf|
@@ -579,26 +577,44 @@ module Vinculacion
         anyof        = anyo.to_s[2,4]
         con          = solicitud.consecutivo
         c_solicitud  = "%04d" % con.to_i
-        folio        = "#{anyof}/#{c_solicitud}"
-        fecha        = "#{dia} de #{mes} del #{anyo}"
+
+        if blank_sheet
+          folio = "00/0000"
+          fecha = "[fecha]"
+        else
+          folio        = "#{anyof}/#{c_solicitud}"
+          fecha        = "#{dia} de #{mes} del #{anyo}"
+        end
+
         pdf.text "\n\n\n"
         pdf.text_box folio,    :at=> [380,y - 25], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 15, :style=> :bold
         pdf.text_box fecha,    :at=> [380,y - 43], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 9
         
         ## DATOS GENERALES
-        cliente              = solicitud.cliente   
-        cliente_razon_social = cliente.razon_social rescue ''
-        cliente_calle_num    = cliente.calle_num rescue ''
-        cliente_colonia      = cliente.colonia rescue ''
-        cliente_cp           = cliente.cp rescue ''
-        if cliente_cp != ''
-          cliente_cp= "C.P. #{cliente_cp}"
+        if blank_sheet
+          cliente              = solicitud.cliente   
+          cliente_razon_social = ""
+          cliente_calle_num    = ""
+          cliente_colonia      = ""
+          cliente_cp           = ""
+          contacto             = solicitud.contacto
+          contacto_nombre      = ""
+          contacto_telefono    = ""
+          contacto_email       = ""
+        else
+          cliente              = solicitud.cliente   
+          cliente_razon_social = cliente.razon_social rescue ''
+          cliente_calle_num    = cliente.calle_num rescue ''
+          cliente_colonia      = cliente.colonia rescue ''
+          cliente_cp           = cliente.cp rescue ''
+          if cliente_cp != ''
+            cliente_cp= "C.P. #{cliente_cp}"
+          end
+          contacto             = solicitud.contacto
+          contacto_nombre      = contacto.nombre rescue ''
+          contacto_telefono    = contacto.telefono rescue ''
+          contacto_email       = contacto.email.downcase rescue ''
         end
-        contacto             = solicitud.contacto
-        contacto_nombre      = contacto.nombre rescue ''
-        contacto_telefono    = contacto.telefono rescue ''
-        contacto_email       = contacto.email.downcase rescue ''
-        
         
         data = [ [t[:company],         cliente_razon_social],
                  [t[:attention],       contacto_nombre],
