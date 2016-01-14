@@ -180,7 +180,7 @@ module Vinculacion
         pdf.text "\n\n\n\n\n\n\n"
 
         analisis = cotizacion.solicitud.descripcion rescue "desarrollo de servicio"
-        analisis = analisis.length <= 0 ? "desarrollo de servicio" : analisis
+        analisis = (analisis.length <= 0 ? "desarrollo de servicio" : analisis) rescue "desarrollo de servicio"
         leyenda  = cotizacion.comentarios
         if blank_sheet
           pdf.text "En respuesta a su solicitud para ...", :size=> 9
