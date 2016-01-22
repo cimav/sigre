@@ -82,18 +82,13 @@ module Vinculacion
         pdf.stroke_line [485,y],[505,y]
         pdf.line_width= 1
         pdf.stroke_line [485,y - 3],[505,y - 3]
-        
      
         ## FECHA 
         dia   = cotizacion.fecha_notificacion.day
         mes   = t(:date)[:month_names][cotizacion.fecha_notificacion.month]
-        anyo  = cotizacion.fecha_notificacion.year
-        ## CALCULANDO FOLIO
-        anyof        = anyo.to_s[2,4]
-        con          = cotizacion.solicitud.consecutivo
-        c_solicitud  = "%04d" % con.to_i
+        anyo  = cotizacion.solicitud.fecha_inicio.year
         c_cotizacion = cotizacion.consecutivo
-        folio        = "#{anyof}/#{c_solicitud}-#{c_cotizacion}"
+        folio = "#{cotizacion.solicitud.codigo}-#{c_cotizacion}"
         fecha        = "#{dia} de #{mes} del #{anyo}"
         coin         = Moneda.find(cotizacion.divisa) rescue ""
         t_cambio     = "Tipo de cambio: #{coin.codigo} (#{coin.nombre})"

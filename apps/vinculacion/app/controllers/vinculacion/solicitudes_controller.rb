@@ -572,17 +572,17 @@ module Vinculacion
         tday  = Date.today
         dia   = tday.day
         mes   = t(:date)[:month_names][tday.month]
-        anyo  = tday.year
+        anyo  = solicitud.fecha_inicio.year
         ## CALCULANDO FOLIO
         anyof        = anyo.to_s[2,4]
         con          = solicitud.consecutivo
-        c_solicitud  = "%04d" % con.to_i
+        c_solicitud  = solicitud.codigo
 
         if blank_sheet
           folio = "00/0000"
           fecha = "[fecha]"
         else
-          folio        = "#{anyof}/#{c_solicitud}"
+          folio        = c_solicitud
           fecha        = "#{dia} de #{mes} del #{anyo}"
         end
 
