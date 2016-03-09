@@ -105,12 +105,15 @@ module Vinculacion
 
       muestraId = solicitud.muestras[0].id rescue 0
       detalles = []
+      puts "-----------------------------------------------"
 
       if muestraId > 0
         solicitud.muestras[0].muestra_detalle.each do |detalle|
             detalles << detalle
         end
       end
+
+      puts detalles
 
       servicio_item = {
           'id'                    => servicio.id,
@@ -154,6 +157,7 @@ module Vinculacion
                         'muestra_detalles'      => detalles
       )
       render json: solicitud
+      puts "-----------------------------------------------"
     end
 
     def notificar_arranque_tipo_2
@@ -248,6 +252,7 @@ module Vinculacion
       sql = "SELECT id FROM bitacora_production.requested_services WHERE laboratory_service_id = #{servicio_bitacora_id} AND number = 'TEMPLATE';"
       @servicios = ActiveRecord::Base.connection.execute(sql);
       @servicios.each(:as => :hash) do |row|
+        puts row
         servicio_id = row["id"]
 
         costeo = ::Vinculacion::Costeo.new
@@ -262,6 +267,7 @@ module Vinculacion
         sql = "SELECT * FROM bitacora_production.requested_service_technicians WHERE requested_service_id = #{servicio_id};"
         @technicians = ActiveRecord::Base.connection.execute(sql);
         @technicians.each(:as => :hash) do |row|
+          puts row
 
             userId = row['user_id']
             sql = "SELECT first_name, last_name FROM bitacora_production.users WHERE id = #{userId};"
@@ -281,6 +287,7 @@ module Vinculacion
         sql = "SELECT * FROM bitacora_production.requested_service_equipments WHERE requested_service_id = #{servicio_id};"
         @equipments = ActiveRecord::Base.connection.execute(sql);
         @equipments.each(:as => :hash) do |row|
+          puts row
 
           equipmentId = row['equipment_id']
           sql = "SELECT name FROM bitacora_production.equipment WHERE id = #{equipmentId};"
@@ -300,6 +307,7 @@ module Vinculacion
         sql = "SELECT * FROM bitacora_production.requested_service_others WHERE requested_service_id = #{servicio_id};"
         @others = ActiveRecord::Base.connection.execute(sql);
         @others.each(:as => :hash) do |row|
+          puts row
 
           item = costeo.costeo_detalle.new
           item.tipo = 4
