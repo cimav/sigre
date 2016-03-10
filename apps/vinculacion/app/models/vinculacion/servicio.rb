@@ -79,7 +79,7 @@ module Vinculacion
 
 
     def check_solicitud_status
-
+      puts "CHECK SOLICITUD STATUS"
       # El Status de servicios depende de la agrupación de todos los servicios de la solicitud
 
       if self.status_changed?
@@ -112,21 +112,32 @@ module Vinculacion
           puts self.solicitud.status
 
         elsif self.status == FINALIZADO
-
+          puts "FINALIZANDO SERVICIO #{self.id}"
           # todos deben estar en FINALIZADO
           todosEnFinalizado = true
           self.solicitud.servicios.each do |servicio|
-            if servicio.status != FINALIZADO
+            puts "SERVICIO: #{servicio.id} ESTADO: #{servicio.status}"
+            if servicio.status != FINALIZADO && servicio.status != CANCELADO
               todosEnFinalizado = false
               break
             end
           end
+          puts todosEnFinalizado
+
           if todosEnFinalizado
+            puts "ACTUALIZANDO STATUS DE SOLICITUD #{self.solicitud.id}"
             self.solicitud.status = Solicitud::STATUS_FINALIZADA
-            self.solicitud.save
+            if self.solicitud.save!
+              puts "SOLICITUD ACTUALIZADA"
+            else
+              puts "ERROR AL ACTUALIZAR SOLICITUD"
+            end
+            
           end
+          
 
         end
+        
 
       end
     end

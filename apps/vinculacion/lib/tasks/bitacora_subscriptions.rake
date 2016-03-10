@@ -9,7 +9,7 @@ class BitacoraSubscriptions
 
   def recibir_costeo(attributes)
 
-    puts "SIGRE: RECIBIR COSTEO"
+    Rails.logger.debug "SIGRE: RECIBIR COSTEO"
 
     attributes['servicios'].each do |s|
 
@@ -64,18 +64,27 @@ class BitacoraSubscriptions
 
   def recibir_reporte(attributes)
 
-    puts "SIGRE: RECIBIR REPORTE"
+    Rails.logger.debug "SIGRE: RECIBIR REPORTE"
+
+    puts "---------------------------------------------------"
+    puts "RECIBE REPORTE #{attributes['system_id']}"
 
 
     cedula = ::Vinculacion::Cedula.where(:solicitud_id => attributes['system_request_id'], :servicio_id => attributes['system_id']).first
     attributes['participaciones'].each do |p|
+      puts "EMPLEADO #{p['email']}"
       if empleado = ::Vinculacion::Empleado.where(:email => p['email']).first
         remanente = cedula.remanentes.new
         remanente.porcentaje_participacion = p['porcentaje']
         remanente.empleado_id = empleado.id
-        remanente.save
+        if remanente.save
+          puts "REMANENTE GUARDADO"
+        else
+          puts "ERROR EN REMANENTE"
+        end
       else
-        puts "Error: Empleado no existe"
+        Rails.logger.debug "Error: Empleado no existe"
+        puts "EMPLEADO NO EXISTE"
       end
     end
 
@@ -92,7 +101,11 @@ class BitacoraSubscriptions
           item.descripcion = p['detalle'] 
         end        
         item.costo        = p['cantidad'].to_f * p['precio_unitario'].to_f
-        item.save
+        if item.save
+          puts "GUARDO PERSONAL #{p['detalle']} "
+        else
+          put "ERROR EN PERSONAL"
+        end
       end
 
       # EQUIPO
@@ -105,7 +118,12 @@ class BitacoraSubscriptions
           item.descripcion = p['detalle'] 
         end        
         item.costo        = p['cantidad'].to_f * p['precio_unitario'].to_f
-        item.save
+        
+        if item.save
+          puts "GUARDO EQUIPO #{p['detalle']}"
+        else
+          put "ERROR EN EQUIPO"
+        end
       end
 
       # OTROS
@@ -118,13 +136,23 @@ class BitacoraSubscriptions
           item.descripcion = p['detalle'] 
         end        
         item.costo = p['cantidad'].to_f * p['precio_unitario'].to_f
-        item.save
+        if item.save 
+          puts "GUARDO OTRO: #{p['detalle']}"
+        else
+          put "ERROR EN OTRO"
+        end
       end
     end
 
+    
     servicio = ::Vinculacion::Servicio.find(attributes['system_id'])
     servicio.status = ::Vinculacion::Servicio::FINALIZADO
-    servicio.save
+    if servicio.save
+      puts "GRABO SERVICIO"
+    else 
+      puts "ERROR AL GRABAR SERVICIO"
+    end
+
      
 
   end
@@ -132,7 +160,7 @@ class BitacoraSubscriptions
 
   def recibir_reporte_tipo_2(attributes)
 
-    puts "SIGRE: RECIBIR REPORTE TIPO 2 v2"
+    Rails.logger.debug "SIGRE: RECIBIR REPORTE TIPO 2 v2"
 
     cedula = ::Vinculacion::Cedula.where(:solicitud_id => attributes['system_request_id']).first
     attributes['participaciones'].each do |p|
@@ -142,7 +170,7 @@ class BitacoraSubscriptions
         remanente.empleado_id = empleado.id
         remanente.save
       else
-        puts "Error: Empleado no existe"
+        Rails.logger.debug "Error: Empleado no existe"
       end
     end
 

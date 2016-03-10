@@ -108,10 +108,12 @@ module Vinculacion
     end
 
     def check_status
+      puts "CHECK STATUS AFTER UPDATE SOLICITUD"
 
       if self.status_changed?
 
         if self.status == STATUS_EN_PROCESO
+          puts "PONER EN PROCESO"
           # Arrancar los servicios que no esten cancelados
           self.servicios.each do |servicio|
             if servicio.status == Servicio::ESPERANDO_ARRANQUE
@@ -122,7 +124,7 @@ module Vinculacion
         end
 
         if self.status == STATUS_CANCELADA
-
+          puts "CANCELANDO"
           # El controlador Notifica a Bitacora publicando cancelar_solicitud
 
           # cancelar ultima cotización
@@ -139,6 +141,7 @@ module Vinculacion
         end
 
       end
+      puts "FIN DE CHECK STATUS AFTER UPDATE SOLICITUD"
     end
 
   end

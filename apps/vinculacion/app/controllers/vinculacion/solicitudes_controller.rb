@@ -179,7 +179,7 @@ module Vinculacion
         muestras << muestra_item
       end
 
-      solicitud.servicios.each do |servicio|
+      solicitud.servicios.where.not(:status => Servicio::CANCELADO).each do |servicio|
         bitacoraId = servicio.servicio_bitacora.bitacora_id rescue 0
 
         servicio_muestra = ServiciosMuestras.where(servicio_id: servicio.id).first
