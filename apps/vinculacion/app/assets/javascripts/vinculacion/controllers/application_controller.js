@@ -38,7 +38,7 @@ App.ApplicationController = Ember.Controller.extend({
       this.store.find('proyecto'),
       this.store.find('sede'),
       this.store.find('cliente'),
-      this.store.find('contacto'),
+      //this.store.find('contacto'),
       this.store.find('pais'),
       this.store.find('estado'),
       this.store.find('servicio_bitacora'),

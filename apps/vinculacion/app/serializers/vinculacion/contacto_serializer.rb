@@ -1,6 +1,6 @@
 module Vinculacion
   class ContactoSerializer < ActiveModel::Serializer
-    embed :ids, :include => true
+    # embed :ids, :include => true
     attributes :id
     attributes :nombre, :telefono, :email
     attributes :cliente_id

@@ -17,9 +17,9 @@ App.SolicitudesController = Ember.ArrayController.extend({
     self.set('content', '');
     var results = self.store.find('solicitudBusqueda', { q: this.searchText });
     self.set('content', results);   
-  }, 'searchText', 500),
+  }, 'searchText', 500)
 
-  sortProperties: ['codigo:desc'],
-  sortedSolicitudes: Ember.computed.sort('model', 'sortProperties')
+  //sortProperties: ['codigo:desc'],
+  //sortedSolicitudes: Ember.computed.sort('model', 'sortProperties')
 
 });

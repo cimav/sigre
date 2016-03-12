@@ -3,8 +3,8 @@ require_dependency "vinculacion/application_controller"
 module Vinculacion
   class ClientesController < ApplicationController
     def index
-      results = Cliente.order(:razon_social)
-      render json: results
+      results = Cliente.includes(:pais,:estado, :contactos).order(:razon_social)
+      render json: results, include: 'contactos,pais,estado'
     end
 
     def show

@@ -3,7 +3,7 @@ require_dependency "vinculacion/application_controller"
 module Vinculacion
   class SolicitudBusquedaController < ApplicationController
     def index
-      results = SolicitudBusqueda.includes(:proyecto, :cliente, :usuario, :contacto).order(:id)
+      results = SolicitudBusqueda.includes(:proyecto, :cliente, :usuario, :contacto).order(id: :desc).limit(100)
       if !params[:q].blank?
         results = results.where("(vinculacion_solicitudes.descripcion LIKE :q OR
                                   vinculacion_solicitudes.codigo LIKE :q OR

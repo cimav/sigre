@@ -3,7 +3,11 @@ require_dependency "vinculacion/application_controller"
 module Vinculacion
   class ContactosController < ApplicationController
     def index
-      render json: Contacto.where(:cliente_id => params[:cliente_id])
+      results = Contacto.order(:cliente_id)
+      if !params[:cliente_id].blank?
+        results = results.where(:cliente_id => params[:cliente_id])
+      end
+      render json: results
     end
 
     def show
