@@ -48,11 +48,11 @@ App.ApplicationController = Ember.Controller.extend({
       self.set('proyectosCache', values[1]);
       self.set('sedesCache', values[2]);
       self.set('clientes', values[3]);
-      self.set('contactos', values[4]);
-      self.set('paises', values[5]);
-      self.set('estados', values[6]);
-      self.set('servicios_bitacora', values[7]);
-      self.set('laboratorios_bitacora', values[8]);
+      //self.set('contactos', values[4]);
+      self.set('paises', values[4]);
+      self.set('estados', values[5]);
+      self.set('servicios_bitacora', values[6]);
+      self.set('laboratorios_bitacora', values[7]);
     
 
       /* armar data para options de Servicios_Bitacora */
