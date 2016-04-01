@@ -50,7 +50,7 @@ gem 'jquery-ui-rails'
 gem 'prawn'
 gem 'prawn-table'
 
-gem 'omniauth-google-oauth2', '0.2.6'
+gem 'omniauth-google-oauth2'
 
 gem 'roman-numerals'
 
