@@ -5,15 +5,8 @@ development:
   database: sigre_development
   pool: 5
   username: root
-  password: 
+  password:
   socket: /usr/local/var/mysql/mysql.sock
-
-development_netmultix:
-  adapter: oracle_enhanced
-  database: //10.1.0.44:1521/cimavXDB.netmultix.cimav.edu.mx
-  username: almacen
-  password: afrika
-  pool: 10
 
 test:
   adapter: mysql2
