@@ -7,6 +7,12 @@ gem 'mysql2', '0.3.18'
 
 gem 'active_model_serializers', '0.9.3' # con 0.9.4 marca undefined method 'merge'
 
+# Use Oracle as the database
+# https://craig.io/setting-up-a-rails-development-environment-with-oracle/
+# http://www.rubydoc.info/github/kubo/ruby-oci8/master/file/docs/install-on-osx.md
+gem 'ruby-oci8', '~> 2.1.0'
+gem 'activerecord-oracle_enhanced-adapter', '~> 1.5.0'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
