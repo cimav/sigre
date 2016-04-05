@@ -5,6 +5,7 @@ module Vinculacion
     has_many :servicios
     has_many :cedulas
     has_many :cotizaciones
+    has_many :registros
 
     belongs_to :sede
     belongs_to :proyecto
