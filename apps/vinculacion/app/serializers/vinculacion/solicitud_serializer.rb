@@ -6,6 +6,8 @@ module Vinculacion
     attributes :tipo, :duracion, :tiempo_entrega, :created_at, :vinculacion_hash
     attributes :relation_string
     attributes :status_text
+    attributes :cliente_netmultix_id
+
 
     has_many :servicios
     has_many :muestras
@@ -17,6 +19,7 @@ module Vinculacion
     # has_one :cliente
     # has_one :contacto
     attributes :proyecto_id, :sede_id, :cliente_id, :contacto_id, :usuario_id
+    attributes :cliente_netmultix_id
 
     has_many :cedulas
 

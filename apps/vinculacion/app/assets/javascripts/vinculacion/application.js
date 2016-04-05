@@ -39,6 +39,8 @@ inflector.irregular('servicioBitacora', 'serviciosBitacora'); //requerido para l
 inflector.irregular('laboratorio_bitacora', 'laboratorios_bitacora');
 inflector.irregular('laboratorioBitacora', 'laboratoriosBitacora'); //requerido para los Promises
 inflector.irregular('muestra_detalle', 'muestras_detalle');
+inflector.irregular('cliente_netmultix', 'clientes_netmultix');
+inflector.irregular('clienteNetmultix', 'clientesNetmultix');
 
 // console.log("test");
 // console.log(inflector.pluralize('servicio_bitacora'));    //servicios_bitacora

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819010553) do
+ActiveRecord::Schema.define(version: 20160405180449) do
 
   create_table "BAK_vinculacion_servicios_bitacora", id: false, force: true do |t|
     t.integer  "id",                                               default: 0,   null: false
@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 20150819010553) do
     t.integer  "laboratorio_bitacora_id"
   end
 
+  create_table "bp1", id: false, force: true do |t|
+    t.string  "number",            limit: 20
+    t.string  "system_id"
+    t.integer "system_status",                default: 1
+    t.integer "system_request_id"
+  end
+
   create_table "corregir", id: false, force: true do |t|
     t.integer "cid",                    default: 0, null: false
     t.string  "codigo",      limit: 20
@@ -40,6 +47,19 @@ ActiveRecord::Schema.define(version: 20150819010553) do
     t.integer "uh"
     t.text    "nombre"
     t.decimal "costo",  precision: 10, scale: 2
+  end
+
+  create_table "cotizacion1600", id: false, force: true do |t|
+    t.integer  "id",                                       default: 0,     null: false
+    t.integer  "cantidad",                                 default: 1
+    t.text     "concepto"
+    t.decimal  "precio_unitario", precision: 10, scale: 2, default: 0.0
+    t.integer  "status",                                   default: 0
+    t.integer  "cotizacion_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "inmutable",                                default: false
+    t.integer  "servicio_id"
   end
 
   create_table "estados", force: true do |t|
@@ -123,6 +143,12 @@ ActiveRecord::Schema.define(version: 20150819010553) do
     t.datetime "updated_at"
   end
 
+  create_table "rescoti", id: false, force: true do |t|
+    t.integer "solicitud_id"
+    t.integer "cotizacion_id"
+    t.decimal "pv",            precision: 45, scale: 4
+  end
+
   create_table "rh_departamentos", force: true do |t|
     t.string   "nombre",          null: false
     t.string   "descripcion",     null: false
@@ -161,6 +187,49 @@ ActiveRecord::Schema.define(version: 20150819010553) do
     t.integer  "empleado_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "sb1", id: false, force: true do |t|
+    t.integer  "id",                                                                    default: 0,   null: false
+    t.integer  "consecutivo"
+    t.string   "codigo",                      limit: 20
+    t.integer  "proyecto_id"
+    t.integer  "sede_id"
+    t.integer  "prioridad"
+    t.integer  "cliente_id"
+    t.integer  "contacto_id"
+    t.integer  "usuario_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "descripcion",                 limit: 16777215
+    t.text     "motivo_status",               limit: 16777215
+    t.string   "razon_cancelacion",                                                     default: "1"
+    t.integer  "status",                                                                default: 1
+    t.string   "orden_compra"
+    t.date     "fecha_inicio"
+    t.date     "fecha_termino"
+    t.integer  "responsable_presupuestal_id"
+    t.integer  "duracion",                                                              default: 1
+    t.integer  "tipo",                                                                  default: 1
+    t.integer  "tiempo_entrega",                                                        default: 1
+    t.decimal  "precio_sugerido",                              precision: 10, scale: 2, default: 0.0
+    t.string   "vinculacion_hash"
+  end
+
+  create_table "sp2", id: false, force: true do |t|
+    t.datetime "updated_at"
+    t.integer  "id",                    default: 0, null: false
+    t.integer  "status",                default: 1
+    t.string   "number",     limit: 20
+    t.integer  "rel"
+  end
+
+  create_table "sp3", id: false, force: true do |t|
+    t.datetime "updated_at"
+    t.integer  "id",                    default: 0, null: false
+    t.integer  "status",                default: 1
+    t.string   "number",     limit: 20
+    t.integer  "rel"
   end
 
   create_table "tmp_clientes", id: false, force: true do |t|
@@ -371,7 +440,7 @@ ActiveRecord::Schema.define(version: 20150819010553) do
     t.integer  "solicitud_id"
     t.integer  "consecutivo"
     t.string   "codigo",               limit: 20
-    t.string   "nombre"
+    t.text     "nombre"
     t.text     "descripcion",          limit: 16777215
     t.integer  "empleado_id"
     t.datetime "created_at"
@@ -384,8 +453,8 @@ ActiveRecord::Schema.define(version: 20150819010553) do
 
   create_table "vinculacion_servicios_bitacora", force: true do |t|
     t.integer  "bitacora_id"
-    t.string   "nombre"
-    t.string   "descripcion"
+    t.text     "nombre"
+    t.text     "descripcion"
     t.decimal  "precio_venta",            precision: 10, scale: 2, default: 0.0
     t.integer  "status",                                           default: 0
     t.datetime "created_at"
@@ -427,6 +496,8 @@ ActiveRecord::Schema.define(version: 20150819010553) do
     t.integer  "tiempo_entrega",                                                        default: 1
     t.decimal  "precio_sugerido",                              precision: 10, scale: 2, default: 0.0
     t.string   "vinculacion_hash"
+    t.integer  "cliente_netmultix_id"
+    t.string   "cliente_netmultix_clave"
   end
 
   create_table "vinculacion_tamanos_empresa", force: true do |t|
@@ -434,6 +505,22 @@ ActiveRecord::Schema.define(version: 20150819010553) do
     t.text     "descripcion", limit: 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "vs1", id: false, force: true do |t|
+    t.integer  "id",                                                             default: 0,   null: false
+    t.integer  "solicitud_id"
+    t.integer  "consecutivo"
+    t.string   "codigo",               limit: 20
+    t.string   "nombre"
+    t.text     "descripcion",          limit: 16777215
+    t.integer  "empleado_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "status",                                                         default: 1
+    t.integer  "servicio_bitacora_id"
+    t.decimal  "precio_sugerido",                       precision: 10, scale: 2, default: 0.0
+    t.integer  "tiempo_estimado",                                                default: 0
   end
 
   create_table "xempleados", id: false, force: true do |t|

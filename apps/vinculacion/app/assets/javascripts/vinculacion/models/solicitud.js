@@ -31,6 +31,8 @@ App.Solicitud = DS.Model.extend({
   tipo: DS.attr('number'),
   tiempo_entrega: DS.attr('number'),
 
+  cliente_netmultix: DS.belongsTo('clienteNetmultix'),
+
   Status: {
     inicial: 1,
     en_cotizacion: 2,

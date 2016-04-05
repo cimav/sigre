@@ -133,10 +133,24 @@
     {{/if}}
 
     <div class="form-group">
+      <label for="unknown" class="col-sm-2 control-label">Cliente NetMultix</label>
+
+      <div class="col-sm-7">
+        {{view App.Select2View contentBinding="controllers.application.clientes_netmultix"
+        optionLabelPath="content.cl01_nombre"
+        optionValuePath="content.id"
+        selectionBinding="cliente_netmultix"
+        prompt="seleccione cliente netmultix..."
+        }}
+      </div>
+    </div>
+
+    <div class="form-group">
       <div class="col-sm-offset-2 col-sm-7">
         {{save-button item=this}}
       </div>
     </div>
+
 
   {{/form-for}}
 

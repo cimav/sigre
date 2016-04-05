@@ -63,6 +63,9 @@ App.Router.map(function () {
     });
   });
 
+  this.resource('clientes_netmultix', function () {
+  });
+
   this.resource('catalogo', function () {
   });
 

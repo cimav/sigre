@@ -13,6 +13,8 @@ module Vinculacion
     belongs_to :usuario
     belongs_to :responsable_presupuestal, class_name: "Empleado"
 
+    belongs_to :cliente_netmultix
+
     after_create :set_extra
     after_create :add_cotizacion
     before_create :init_status

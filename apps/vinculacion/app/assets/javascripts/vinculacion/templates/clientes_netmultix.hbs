@@ -1,0 +1,24 @@
+<div id="screen-name" class="header-catalogo">
+  <h3>Clientes de Netmultix <span class="badge badge-muestras">{{this.length}}</span></h3>
+</div>
+
+<div id="md-general-panel" class="main-catalogo">
+
+  <div id="md-items-list">
+    <table class="table table-striped table-bordered">
+      <tr>
+        <th>Clave</th>
+        <th>RFC</th>
+        <th>Nombre</th>
+      </tr>
+      {{#each}}
+        <tr>
+          <td>{{cl01_clave}}</td>
+          <td>{{cl01_rfc}}</td>
+          <td>{{cl01_nombre}}</td>
+        </tr>
+      {{/each}}
+    </table>
+
+  </div>
+</div>

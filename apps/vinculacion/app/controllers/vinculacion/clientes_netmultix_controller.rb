@@ -8,8 +8,12 @@ module Vinculacion
     end
 
     def show
-      clave = "#{params[:id]}".strip
-      render json: ClienteNetmultix.where("(cl01_clave = :q)", {:q => clave})
+
+      # render json: ClienteNetmultix.find(params[:id])
+
+      clave = "#{params[:id]}".strip.to_i
+      puts clave
+      render json: ClienteNetmultix.where("(cl01_clave = :q)", {:q => clave}).first
     end
 
   end

@@ -700,7 +700,8 @@ module Vinculacion
                                 :fecha_termino,
                                 :tipo,
                                 :duracion,
-                                :tiempo_entrega
+                                :tiempo_entrega,
+                                :cliente_netmultix_id,
       )
     end
   end
