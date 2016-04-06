@@ -4,7 +4,7 @@ module Vinculacion
   class ContactosNetmultixController < ApplicationController
 
     def index
-      render json: ContactoNetmultix.order(:cl06_clave)
+      render json: ContactoNetmultix.order(:cl06_clave), serializer: ContactoNetmultixSerializer
     end
 
     def show
