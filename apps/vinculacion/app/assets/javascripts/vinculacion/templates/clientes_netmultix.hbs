@@ -21,6 +21,24 @@
           <td>
             {{contactos_netmultix.length}}
           </td>
+          <td>
+
+          <table class="table table-striped table-bordered">
+            <tr>
+              <th>Clave</th>
+              <th>Contacto</th>
+              <th>Email</th>
+            </tr>
+            {{#each contactos_netmultix}}
+              <tr>
+                <td>{{cl06_clave}}</td>
+                <td>{{cl06_contacto}}</td>
+                <td>{{cl06_email}}</td>
+              </tr>
+            {{/each}}
+          </table>
+
+          </td>
         </tr>
       {{/each}}
     </table>

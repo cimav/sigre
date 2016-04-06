@@ -4,25 +4,30 @@ module Vinculacion
   class ClientesNetmultixController < ApplicationController
 
     def index
-      render json: ClienteNetmultix.order(:cl01_clave)#, serializer: ClienteNetmultixSerializer
+      clientes = ClienteNetmultix.order(:cl01_clave)
+
+      clientes.each do |cliente|
+        inject_id_to_conctactos cliente
+      end
+
+      render json: clientes
     end
 
     def show
       clave = "#{params[:id]}".strip.to_i
-      result = ClienteNetmultix.where("(cl01_clave = :q)", {:q => clave}).first
+      cliente = ClienteNetmultix.where("(cl01_clave = :q)", {:q => clave}).first
 
+      inject_id_to_conctactos cliente
+
+      render json: cliente, serializer: ClienteNetmultixSerializer # se requiere especificar el serializer a usar
+    end
+
+    def inject_id_to_conctactos(cliente)
       i = 1
-      result.contactos_netmultix.each do |contacto|
+      cliente.contactos_netmultix.each do |contacto|
         contacto.id =  i
         i=i+1
-        puts contacto.id
       end
-
-      result.contactos_netmultix.each do |contacto|
-        #puts contacto.id
-      end
-
-      render json: result, serializer: ClienteNetmultixSerializer # se requiere especificar el serializer a usar
     end
 
   end

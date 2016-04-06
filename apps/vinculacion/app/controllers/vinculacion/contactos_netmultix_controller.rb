@@ -9,7 +9,6 @@ module Vinculacion
 
     def show
       clave = "#{params[:id]}".strip.to_i
-      puts 'uno'
       result = ContactoNetmultix.where("(cl06_clave = :q)", {:q => clave})
       render json: result
     end
