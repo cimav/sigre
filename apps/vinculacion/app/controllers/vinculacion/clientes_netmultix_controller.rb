@@ -8,12 +8,9 @@ module Vinculacion
     end
 
     def show
-
-      # render json: ClienteNetmultix.find(params[:id])
-
       clave = "#{params[:id]}".strip.to_i
-      puts clave
-      render json: ClienteNetmultix.where("(cl01_clave = :q)", {:q => clave}).first
+      result = ClienteNetmultix.where("(cl01_clave = :q)", {:q => clave}).first
+      render json: result, serializer: ClienteNetmultixSerializer # se requiere especificar el serializer a usar
     end
 
   end
