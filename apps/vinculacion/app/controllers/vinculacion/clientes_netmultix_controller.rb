@@ -4,7 +4,7 @@ module Vinculacion
   class ClientesNetmultixController < ApplicationController
 
     def index
-      render json: ClienteNetmultix.order(:cl01_clave), serializer: ClienteNetmultixSerializer
+      render json: ClienteNetmultix.order(:cl01_clave)#, serializer: ClienteNetmultixSerializer
     end
 
     def show
