@@ -4,6 +4,7 @@ module Vinculacion
   class ClientesNetmultixController < ApplicationController
 
     def index
+      #clientes = ClienteNetmultix.where("(cl01_clave like '%36%')").order(:cl01_clave)
       clientes = ClienteNetmultix.order(:cl01_clave)
 
       clientes.each do |cliente|
