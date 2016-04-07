@@ -702,6 +702,7 @@ module Vinculacion
                                 :duracion,
                                 :tiempo_entrega,
                                 :cliente_netmultix_id,
+                                :contacto_netmultix_id
       )
     end
   end

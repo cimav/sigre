@@ -24,7 +24,7 @@ App.ClienteNetmultix = DS.Model.extend({
   }.observes('id').property('id'),
 
   telefono: function() {
-    return !this.get('cl01_lada').isEmpty ? "("+ this.get('cl01_lada') + ") " + this.get('cl01_telefono1') : this.get('cl01_telefono1');
+    return !Ember.isEmpty(this.get('cl01_lada'))  ? "("+ this.get('cl01_lada') + ") " + this.get('cl01_telefono1') : this.get('cl01_telefono1');
   }.property('cl01_lada')
 
 });
