@@ -5,14 +5,16 @@ App.ClienteNetmultix = DS.Model.extend({
 
   contactos_netmultix: DS.hasMany('contacto_netmultix'),
 
+  has_contactos: function () {
+    return this.get('contactos_netmultix').get('length') > 0;
+  }.observes('id').property('id'),
+
   collapsable_id: function() {
     var r = "collapse_" + this.get('id');
-    console.log(r);
     return r;
   }.observes('id').property('id'),
   collapsable_href: function() {
     var r = "#collapse_" + this.get('id');
-    console.log(r);
     return r;
   }.observes('id').property('id')
 
