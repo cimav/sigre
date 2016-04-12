@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405180449) do
+ActiveRecord::Schema.define(version: 20160412214627) do
 
   create_table "BAK_vinculacion_servicios_bitacora", id: false, force: true do |t|
     t.integer  "id",                                               default: 0,   null: false
@@ -497,7 +497,9 @@ ActiveRecord::Schema.define(version: 20160405180449) do
     t.decimal  "precio_sugerido",                              precision: 10, scale: 2, default: 0.0
     t.string   "vinculacion_hash"
     t.integer  "cliente_netmultix_id"
-    t.string   "cliente_netmultix_clave"
+    t.integer  "contacto_netmultix_id"
+    t.string   "contacto_netmultix_nombre"
+    t.string   "contacto_netmultix_email"
   end
 
   create_table "vinculacion_tamanos_empresa", force: true do |t|

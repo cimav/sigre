@@ -50,6 +50,7 @@ gem 'unicorn'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+# gem 'debugger' unless ENV["RM_INFO"]
 
 # gem 'haml'
 gem 'jquery-ui-rails'
@@ -65,3 +66,7 @@ gem 'roman-numerals'
 gem 'rh', path: 'apps/rh'
 gem 'vinculacion', path: 'apps/vinculacion'
 gem 'proyectos', path: 'apps/proyectos'
+
+# requeridos para debuger del rubymine
+gem 'ruby-debug-ide', '0.4.33'
+gem 'debase', '0.2.1'
