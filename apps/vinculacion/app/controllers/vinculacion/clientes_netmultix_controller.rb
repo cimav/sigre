@@ -8,7 +8,7 @@ module Vinculacion
       clientes = ClienteNetmultix.order(:cl01_clave)
 
       clientes.each do |cliente|
-        inject_id_to_conctactos cliente
+        inject_id_to_contactos cliente
       end
 
       render json: clientes
@@ -18,12 +18,12 @@ module Vinculacion
       clave = "#{params[:id]}".strip.to_i
       cliente = ClienteNetmultix.where("(cl01_clave = :q)", {:q => clave}).first
 
-      inject_id_to_conctactos cliente
+      inject_id_to_contactos cliente
 
       render json: cliente, serializer: ClienteNetmultixSerializer # se requiere especificar el serializer a usar
     end
 
-    def inject_id_to_conctactos(cliente)
+    def inject_id_to_contactos(cliente)
       i = 1
       cliente.contactos_netmultix.each do |contacto|
         contacto.id =  i
