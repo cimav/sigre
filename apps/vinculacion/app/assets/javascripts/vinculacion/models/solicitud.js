@@ -33,6 +33,8 @@ App.Solicitud = DS.Model.extend({
 
   cliente_netmultix: DS.belongsTo('clienteNetmultix'),
   contacto_netmultix: DS.belongsTo('contactoNetmultix'),
+  contacto_netmultix_email: DS.attr('string'),
+  contacto_netmultix_nombre: DS.attr('string'),
 
   Status: {
     inicial: 1,

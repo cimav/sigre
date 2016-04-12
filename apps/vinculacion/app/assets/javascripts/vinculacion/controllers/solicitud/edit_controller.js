@@ -52,6 +52,10 @@ App.SolicitudEditController = Ember.ObjectController.extend({
         return;
       }
 
+      // asignación manual a raíz de que contactos_netmultix no tiene un Id real.
+      this.set('contacto_netmultix_email', this.get('contacto_netmultix.cl06_email'));
+      this.set('contacto_netmultix_nombre', this.get('contacto_netmultix.cl06_contacto'));
+
       // Guardar solicitud
       solicitud.save().then(onSuccess, onFail);
 
