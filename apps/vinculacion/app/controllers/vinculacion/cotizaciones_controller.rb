@@ -111,31 +111,43 @@ module Vinculacion
           pdf.text_box t_cambio, :at=> [366,y - 56], :width => 135, :height => 30,:valign=> :top, :align => :left, :size=> 9
           pdf.text_box t_entrega,:at=> [380,y - 80], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 9
         end
+
         ## DATOS GENERALES
-        if blank_sheet
-          cliente  = cotizacion.solicitud.cliente      
-          cliente.razon_social  = nil
-          cliente.calle_num = nil
-          cliente.colonia = nil
-          cliente.cp = ""
-          contacto = ""
-          contacto_nombre   = ""
-          contacto_telefono = ""
-          contacto_email    = ""
+
+        cliente_razon_social = ""
+        contacto_nombre = ""
+        cliente_calle_num = ""
+        cliente_colonia_cp = ""
+        contacto_telefono = ""
+        contacto_email = ""
+
+        if !cotizacion.solicitud.cliente_netmultix.nil?
+          cliente_netmultix  = cotizacion.solicitud.cliente_netmultix
+
+          cliente_razon_social = cliente_netmultix.cl01_nombre
+          contacto_nombre   = cotizacion.solicitud.contacto_netmultix_nombre rescue 'Sin contacto'
+          cliente_calle_num = "#{cliente_netmultix.cl01_calle}"
+          cliente_colonia_cp = "#{cliente_netmultix.cl01_colonia}" #" C.P. #{cliente_netmultix.cl06_postal}"
+          contacto_telefono = cliente_netmultix.telefono  rescue 'Sin teléfono'
+          contacto_email    = cotizacion.solicitud.contacto_netmultix_email.downcase rescue 'Sin email'
         else
-          cliente  = cotizacion.solicitud.cliente      
-          cliente.cp = "C.P. #{cliente.cp}"
+          cliente  = cotizacion.solicitud.cliente
           contacto = cotizacion.solicitud.contacto
+
+          cliente_razon_social = cliente.razon_social
           contacto_nombre   = contacto.nombre rescue 'Sin contacto'
-          contacto_telefono = contacto.telefono rescue 'Sin contacto'
+          cliente_calle_num = "#{cliente.calle_num}"
+          cliente_colonia_cp = "#{cliente.colonia} C.P. #{cliente.cp}"
+          contacto_telefono = contacto.telefono  rescue 'Sin contacto'
           contacto_email    = contacto.email.downcase rescue 'Sin contacto'
+
           #cliente_rfc       = cliente.rfc.upcase rescue 'N.D'
         end
     
-        data = [ [t[:company],         cliente.razon_social],
+        data = [ [t[:company],         cliente_razon_social],
                  [t[:attention],       contacto_nombre],
-                 [t[:company_address], "#{cliente.calle_num}"],
-                 [t[:company_address2], "#{cliente.colonia} #{cliente.cp}"],
+                 [t[:company_address], cliente_calle_num],
+                 [t[:company_address2], cliente_colonia_cp],
                  [t[:phone],           contacto_telefono],
                  [t[:email],           contacto_email]]
         x = 15
