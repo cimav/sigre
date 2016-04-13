@@ -12,6 +12,9 @@
         <th>Nombre</th>
         <th>Teléfono</th>
         <th>Empleados</th>
+        <th>Ciudad</th>
+        <th>Estado</th>
+        <th>País</th>
       </tr>
       {{#each}}
         <tr>
@@ -26,9 +29,12 @@
           <td>{{cl01_nombre}}</td>
           <td>{{telefono}}</td>
           <td>{{cl01_empleados}}</td>
+          <td>{{ciudad}}</td>
+          <td>{{estado}}</td>
+          <td>{{pais}}</td>
         </tr>
         <tr>
-          <td colspan="3" class="td-panel-conceptos">
+          <td colspan="5" class="td-panel-conceptos">
             <div class="panel-group">
                 <div {{bind-attr id=this.collapsable_id}} class="panel-collapse collapse">
                   <div class="panel-body">

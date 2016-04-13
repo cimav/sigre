@@ -7,6 +7,9 @@ App.ClienteNetmultix = DS.Model.extend({
   cl01_tipo_cliente:  DS.attr('number'),
   cl01_tipo_empresa:  DS.attr('number'),
   cl01_empleados:     DS.attr('number'),
+  pais:               DS.attr('string'),
+  estado:             DS.attr('string'),
+  ciudad:             DS.attr('string'),
 
   contactos_netmultix: DS.hasMany('contacto_netmultix'),
 

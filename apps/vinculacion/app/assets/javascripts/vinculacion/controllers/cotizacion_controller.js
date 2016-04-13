@@ -88,6 +88,7 @@ App.CotizacionController = Ember.ObjectController.extend({
 
   disablePDFCotizacion: function() {
     var result = this.get('isEdicion') || this.get('isDescuentoSolicitado') || this.get('isDescuentoRechazado');
+    result = false;
     return result;
   }.property('status')
 
