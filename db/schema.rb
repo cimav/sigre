@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412214627) do
+ActiveRecord::Schema.define(version: 20160413175328) do
 
   create_table "BAK_vinculacion_servicios_bitacora", id: false, force: true do |t|
     t.integer  "id",                                               default: 0,   null: false
@@ -500,6 +500,9 @@ ActiveRecord::Schema.define(version: 20160412214627) do
     t.integer  "contacto_netmultix_id"
     t.string   "contacto_netmultix_nombre"
     t.string   "contacto_netmultix_email"
+    t.string   "pais_netmultix_nombre"
+    t.string   "estado_netmultix_nombre"
+    t.string   "ciudad_netmultix_nombre"
   end
 
   create_table "vinculacion_tamanos_empresa", force: true do |t|
