@@ -91,15 +91,32 @@ module Vinculacion
     def notificar_arranque_no_coordinado
       solicitud = Solicitud.find(params[:id])
       servicio = solicitud.servicios[0]
-      cliente_contacto = solicitud.contacto.nombre   rescue '-'
-      cliente_email    = solicitud.contacto.email    rescue '-'
-      cliente_telefono = solicitud.contacto.telefono rescue '-'
-      cliente_calle    = servicio.solicitud.cliente.calle_num rescue '--'
-      cliente_colonia  = servicio.solicitud.cliente.colonia   rescue '--'
-      cliente_ciudad   = servicio.solicitud.cliente.ciudad    rescue '--'
-      cliente_estado   = servicio.solicitud.cliente.estado.nombre rescue '--'
-      cliente_pais     = servicio.solicitud.cliente.pais.nombre   rescue '--'
-      cliente_cp       = servicio.solicitud.cliente.cp            rescue '--'
+
+      if !solicitud.cliente_netmultix.nil?
+        cliente_id = solicitud.cliente_netmultix.id
+        cliente_razon_social = solicitud.cliente_netmultix.cl01_nombre
+        cliente_contacto = solicitud.contacto_netmultix_nombre   rescue '-'
+        cliente_email    = solicitud.contacto_netmultix_email rescue '-'
+        cliente_telefono = solicitud.cliente_netmultix.telefono rescue '-'
+        cliente_calle    = servicio.solicitud.cliente_netmultix.cl01_calle rescue '--'
+        cliente_colonia  = servicio.solicitud.cliente_netmultix.cl01_colonia   rescue '--'
+        cliente_ciudad   = servicio.solicitud.cliente_netmultix.ciudad    rescue '--'
+        cliente_estado   = servicio.solicitud.cliente_netmultix.estado rescue '--'
+        cliente_pais     = servicio.solicitud.cliente_netmultix.pais   rescue '--'
+        cliente_cp       = servicio.solicitud.cliente_netmultix.cl01_postal            rescue '--'
+      else
+        cliente_id = solicitud.cliente_id
+        cliente_razon_social = solicitud.cliente.razon_social
+        cliente_contacto = solicitud.contacto.nombre   rescue '-'
+        cliente_email    = solicitud.contacto.email    rescue '-'
+        cliente_telefono = solicitud.contacto.telefono rescue '-'
+        cliente_calle    = servicio.solicitud.cliente.calle_num rescue '--'
+        cliente_colonia  = servicio.solicitud.cliente.colonia   rescue '--'
+        cliente_ciudad   = servicio.solicitud.cliente.ciudad    rescue '--'
+        cliente_estado   = servicio.solicitud.cliente.estado.nombre rescue '--'
+        cliente_pais     = servicio.solicitud.cliente.pais.nombre   rescue '--'
+        cliente_cp       = servicio.solicitud.cliente.cp            rescue '--'
+      end
 
       bitacoraId = servicio.servicio_bitacora.bitacora_id rescue 0
 
@@ -140,8 +157,8 @@ module Vinculacion
                         'servicio_codigo'       => servicio.codigo,
                         'servicio_bitacora_id'  => bitacoraId,
                         'nombre'                => servicio.nombre,
-                        'cliente_id'            => solicitud.cliente_id,
-                        'cliente_nombre'        => solicitud.cliente.razon_social,
+                        'cliente_id'            => cliente_id,
+                        'cliente_nombre'        => cliente_razon_social,
                         'cliente_contacto'      => cliente_contacto,
                         'cliente_email'         => cliente_email,
                         'cliente_telefono'      => cliente_telefono,
@@ -200,15 +217,31 @@ module Vinculacion
 
       end
 
-      cliente_contacto = solicitud.contacto.nombre   rescue '-'
-      cliente_email    = solicitud.contacto.email    rescue '-'
-      cliente_telefono = solicitud.contacto.telefono rescue '-'
-      cliente_calle    = solicitud.cliente.calle_num rescue '--'
-      cliente_colonia  = solicitud.cliente.colonia   rescue '--'
-      cliente_ciudad   = solicitud.cliente.ciudad    rescue '--'
-      cliente_estado   = solicitud.cliente.estado.nombre rescue '--'
-      cliente_pais     = solicitud.cliente.pais.nombre   rescue '--'
-      cliente_cp       = solicitud.cliente.cp            rescue '--'
+      if !solicitud.cliente_netmultix.nil?
+        cliente_id = solicitud.cliente_netmultix.id
+        cliente_razon_social = solicitud.cliente_netmultix.cl01_nombre
+        cliente_contacto = solicitud.contacto_netmultix_nombre   rescue '-'
+        cliente_email    = solicitud.contacto_netmultix_email rescue '-'
+        cliente_telefono = solicitud.cliente_netmultix.telefono rescue '-'
+        cliente_calle    = solicitud.cliente_netmultix.cl01_calle rescue '--'
+        cliente_colonia  = solicitud.cliente_netmultix.cl01_colonia   rescue '--'
+        cliente_ciudad   = solicitud.cliente_netmultix.ciudad    rescue '--'
+        cliente_estado   = solicitud.cliente_netmultix.estado rescue '--'
+        cliente_pais     = solicitud.cliente_netmultix.pais   rescue '--'
+        cliente_cp       = solicitud.cliente_netmultix.cl01_postal            rescue '--'
+      else
+        cliente_id = solicitud.cliente_id
+        cliente_razon_social = solicitud.cliente.razon_social
+        cliente_contacto = solicitud.contacto.nombre   rescue '-'
+        cliente_email    = solicitud.contacto.email    rescue '-'
+        cliente_telefono = solicitud.contacto.telefono rescue '-'
+        cliente_calle    = solicitud.cliente.calle_num rescue '--'
+        cliente_colonia  = solicitud.cliente.colonia   rescue '--'
+        cliente_ciudad   = solicitud.cliente.ciudad    rescue '--'
+        cliente_estado   = solicitud.cliente.estado.nombre rescue '--'
+        cliente_pais     = solicitud.cliente.pais.nombre   rescue '--'
+        cliente_cp       = solicitud.cliente.cp            rescue '--'
+      end
 
       # notificar a Bitacora
       QueueBus.publish('notificar_arranque_tipo_2',
@@ -221,8 +254,8 @@ module Vinculacion
                        'agente_email'          => solicitud.usuario.email,      #  del usuario que da de alta el servicio.
                        'responsable_email'     => solicitud.responsable_presupuestal.email,
                        'carpeta_codigo'        => solicitud.codigo,
-                       'cliente_id'            => solicitud.cliente_id,
-                       'cliente_nombre'        => solicitud.cliente.razon_social,
+                       'cliente_id'            => cliente_id,
+                       'cliente_nombre'        => cliente_razon_social,
                        'cliente_contacto'      => cliente_contacto,
                        'cliente_email'         => cliente_email,
                        'cliente_telefono'      => cliente_telefono,
