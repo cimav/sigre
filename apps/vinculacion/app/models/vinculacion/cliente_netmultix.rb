@@ -20,5 +20,7 @@ module Vinculacion
       telefono = lada + self.cl01_telefono1
     end
 
+    belongs_to :pais_netmultix#, foreign_key: :cl01_pais, primary_key: :cl12_pais
+
   end
 end
