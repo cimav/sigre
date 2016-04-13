@@ -55,9 +55,9 @@ module Vinculacion
         cliente_telefono = sol.cliente_netmultix.telefono         rescue '-'
         cliente_calle    = sol.cliente_netmultix.cl01_calle       rescue '--'
         cliente_colonia  = sol.cliente_netmultix.cl01_colonia     rescue '--'
-        cliente_ciudad   = sol.cliente_netmultix.ciudad           rescue '--'
-        cliente_estado   = sol.cliente_netmultix.estado           rescue '--'
-        cliente_pais     = sol.cliente_netmultix.pais             rescue '--'
+        cliente_ciudad   = sol.ciudad_netmultix_nombre    rescue '--'
+        cliente_estado   = sol.estado_netmultix_nombre rescue '--'
+        cliente_pais     = sol.pais_netmultix_nombre   rescue '--'
         cliente_cp       = sol.cliente_netmultix.cl01_postal      rescue '--'
       else
         cliente_id = servicio.solicitud.cliente_id

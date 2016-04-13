@@ -100,9 +100,9 @@ module Vinculacion
         cliente_telefono = solicitud.cliente_netmultix.telefono rescue '-'
         cliente_calle    = servicio.solicitud.cliente_netmultix.cl01_calle rescue '--'
         cliente_colonia  = servicio.solicitud.cliente_netmultix.cl01_colonia   rescue '--'
-        cliente_ciudad   = servicio.solicitud.cliente_netmultix.ciudad    rescue '--'
-        cliente_estado   = servicio.solicitud.cliente_netmultix.estado rescue '--'
-        cliente_pais     = servicio.solicitud.cliente_netmultix.pais   rescue '--'
+        cliente_ciudad   = servicio.solicitud.ciudad_netmultix_nombre    rescue '--'
+        cliente_estado   = servicio.solicitud.estado_netmultix_nombre rescue '--'
+        cliente_pais     = servicio.solicitud.pais_netmultix_nombre   rescue '--'
         cliente_cp       = servicio.solicitud.cliente_netmultix.cl01_postal            rescue '--'
       else
         cliente_id = solicitud.cliente_id
@@ -225,9 +225,9 @@ module Vinculacion
         cliente_telefono = solicitud.cliente_netmultix.telefono rescue '-'
         cliente_calle    = solicitud.cliente_netmultix.cl01_calle rescue '--'
         cliente_colonia  = solicitud.cliente_netmultix.cl01_colonia   rescue '--'
-        cliente_ciudad   = solicitud.cliente_netmultix.ciudad    rescue '--'
-        cliente_estado   = solicitud.cliente_netmultix.estado rescue '--'
-        cliente_pais     = solicitud.cliente_netmultix.pais   rescue '--'
+        cliente_ciudad   = solicitud.ciudad_netmultix_nombre    rescue '--'
+        cliente_estado   = solicitud.estado_netmultix_nombre rescue '--'
+        cliente_pais     = solicitud.pais_netmultix_nombre   rescue '--'
         cliente_cp       = solicitud.cliente_netmultix.cl01_postal            rescue '--'
       else
         cliente_id = solicitud.cliente_id
@@ -745,7 +745,10 @@ module Vinculacion
                                 :cliente_netmultix_id,
                                 :contacto_netmultix_id,
                                 :contacto_netmultix_email,
-                                :contacto_netmultix_nombre
+                                :contacto_netmultix_nombre,
+                                :pais_netmultix_nombre,
+                                :estado_netmultix_nombre,
+                                :ciudad_netmultix_nombre
       )
     end
   end

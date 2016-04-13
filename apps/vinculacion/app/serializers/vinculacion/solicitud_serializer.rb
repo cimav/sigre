@@ -18,7 +18,7 @@ module Vinculacion
     # has_one :contacto
     attributes :proyecto_id, :sede_id, :cliente_id, :contacto_id, :usuario_id
 
-    attributes :cliente_netmultix_id, :contacto_netmultix_id, :contacto_netmultix_email, :contacto_netmultix_nombre
+    attributes :cliente_netmultix_id, :contacto_netmultix_id, :contacto_netmultix_email, :contacto_netmultix_nombre, :pais_netmultix_nombre, :estado_netmultix_nombre, :ciudad_netmultix_nombre
 
     has_many :cedulas
 
