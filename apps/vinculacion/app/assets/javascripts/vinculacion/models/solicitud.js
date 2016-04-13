@@ -31,6 +31,14 @@ App.Solicitud = DS.Model.extend({
   tipo: DS.attr('number'),
   tiempo_entrega: DS.attr('number'),
 
+  cliente_netmultix: DS.belongsTo('clienteNetmultix'),
+  contacto_netmultix: DS.belongsTo('contactoNetmultix'),
+  contacto_netmultix_email: DS.attr('string'),
+  contacto_netmultix_nombre: DS.attr('string'),
+  pais_netmultix_nombre: DS.attr('string'),
+  estado_netmultix_nombre: DS.attr('string'),
+  ciudad_netmultix_nombre: DS.attr('string'),
+
   Status: {
     inicial: 1,
     en_cotizacion: 2,
@@ -44,10 +52,10 @@ App.Solicitud = DS.Model.extend({
     if (!this.get('isDeleted')) {
       // Hack: belongsTo no cambian a Dirty
       // Info de porque no cambian: https://github.com/emberjs/data/issues/1188
-      s = [this.get('proyecto.id'), this.get('sede.id'), this.get('cliente.id'), this.get('contacto.id')].join(',');
+      s = [this.get('proyecto.id'), this.get('sede.id'), this.get('cliente.id'), this.get('contacto.id'), this.get('cliente_netmultix.id'), this.get('contacto_netmultix.id')].join(',');
       this.set('relation_string', s);
     }
-  }.observes('cliente','contacto','sede','proyecto'),
+  }.observes('cliente','contacto','sede','proyecto', 'cliente_netmultix', 'contacto_netmultix'),
 
   clienteChanges: function() {
     // TODO pone en null al contacto pero no 'limpia' el select

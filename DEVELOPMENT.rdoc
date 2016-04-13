@@ -8,6 +8,7 @@ rails g controller Assets
 
 * Generate migrations:
 
+ rails  g migration  ....
 rake railties:install:migrations
 rake db:migrate:status
 

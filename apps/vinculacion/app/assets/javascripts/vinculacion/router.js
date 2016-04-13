@@ -63,6 +63,13 @@ App.Router.map(function () {
     });
   });
 
+  this.resource('clientes_netmultix', function () {
+    this.resource('cliente_netmultix', {path: '/:cliente_netmultix_id'}, function () {
+      this.resource('contactos_netmultix', function(){
+      });
+    });
+  });
+
   this.resource('catalogo', function () {
   });
 
