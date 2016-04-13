@@ -32,3 +32,10 @@ production:
   pool: 5
   username: root
   password: 
+
+production_netmultix:
+  adapter: oracle_enhanced
+  database: //10.1.0.44:1521/cimavXDB.netmultix.cimav.edu.mx
+  username: almacen
+  password: afrika
+  pool: 10
