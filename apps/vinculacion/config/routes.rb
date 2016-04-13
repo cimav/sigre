@@ -12,7 +12,6 @@ Vinculacion::Engine.routes.draw do
   resources :laboratorios_bitacora
   resources :clientes_netmultix
   resources :contactos_netmultix
-  resources :paises_netmultix
   post '/servicios/:id/solicitar_costeo', to: 'servicios#solicitar_costeo'
   post '/servicios/:id/cancelar', to: 'servicios#cancelar'
   post '/solicitudes/:id/notificar_cancelacion', to: 'solicitudes#notificar_cancelacion'
