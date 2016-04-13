@@ -599,18 +599,26 @@ module Vinculacion
         pdf.text_box fecha,    :at=> [380,y - 43], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 9
         
         ## DATOS GENERALES
-        if blank_sheet
-          cliente              = solicitud.cliente   
-          cliente_razon_social = ""
-          cliente_calle_num    = ""
-          cliente_colonia      = ""
-          cliente_cp           = ""
-          contacto             = solicitud.contacto
-          contacto_nombre      = ""
-          contacto_telefono    = ""
-          contacto_email       = ""
+
+        cliente_razon_social = ""
+        contacto_nombre = ""
+        cliente_calle_num = ""
+        cliente_colonia = ""
+        cliente_cp = ""
+        contacto_telefono = ""
+        contacto_email = ""
+
+        if !solicitud.cliente_netmultix.nil?
+          cliente_netmultix = solicitud.cliente_netmultix
+          cliente_razon_social = cliente_netmultix.cl01_nombre  rescue ''
+          contacto_nombre = solicitud.contacto_netmultix_nombre rescue ''
+          cliente_calle_num = cliente_netmultix.cl01_calle rescue ''
+          cliente_colonia = cliente_netmultix.cl01_colonia rescue ''
+          cliente_cp = cliente_netmultix.cl01_postal rescue ''
+          contacto_telefono = cliente_netmultix.telefono rescue ''
+          contacto_email = solicitud.contacto_netmultix_email.downcase rescue ''
         else
-          cliente              = solicitud.cliente   
+          cliente              = solicitud.cliente
           cliente_razon_social = cliente.razon_social rescue ''
           cliente_calle_num    = cliente.calle_num rescue ''
           cliente_colonia      = cliente.colonia rescue ''
@@ -623,7 +631,7 @@ module Vinculacion
           contacto_telefono    = contacto.telefono rescue ''
           contacto_email       = contacto.email.downcase rescue ''
         end
-        
+
         data = [ [t[:company],         cliente_razon_social],
                  [t[:attention],       contacto_nombre],
                  [t[:company_address], "#{cliente_calle_num} #{cliente_colonia} #{cliente_cp}"],

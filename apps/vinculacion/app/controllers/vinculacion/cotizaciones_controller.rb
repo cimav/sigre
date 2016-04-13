@@ -127,7 +127,7 @@ module Vinculacion
           cliente_razon_social = cliente_netmultix.cl01_nombre
           contacto_nombre   = cotizacion.solicitud.contacto_netmultix_nombre rescue 'Sin contacto'
           cliente_calle_num = "#{cliente_netmultix.cl01_calle}"
-          cliente_colonia_cp = "#{cliente_netmultix.cl01_colonia}" #" C.P. #{cliente_netmultix.cl06_postal}"
+          cliente_colonia_cp = "#{cliente_netmultix.cl01_colonia} C.P. #{cliente_netmultix.cl01_postal}"
           contacto_telefono = cliente_netmultix.telefono  rescue 'Sin teléfono'
           contacto_email    = cotizacion.solicitud.contacto_netmultix_email.downcase rescue 'Sin email'
         else
