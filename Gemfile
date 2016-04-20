@@ -5,6 +5,12 @@ gem 'rails', '4.2.6'
 
 gem 'mysql2', '0.3.18'
 
+# Use Oracle as the database
+# https://craig.io/setting-up-a-rails-development-environment-with-oracle/
+# http://www.rubydoc.info/github/kubo/ruby-oci8/master/file/docs/install-on-osx.md
+gem 'ruby-oci8', '~> 2.1.0'
+gem 'activerecord-oracle_enhanced-adapter', '~> 1.5.0'
+
 gem 'active_model_serializers', '0.9.3' # con 0.9.4 marca undefined method 'merge'
 
 # Use SCSS for stylesheets
@@ -44,6 +50,7 @@ gem 'unicorn'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+# gem 'debugger' unless ENV["RM_INFO"]
 
 # gem 'haml'
 gem 'jquery-ui-rails', '5.0.5'
@@ -60,3 +67,7 @@ gem 'roman-numerals'
 gem 'rh', path: 'apps/rh'
 gem 'vinculacion', path: 'apps/vinculacion'
 gem 'proyectos', path: 'apps/proyectos'
+
+# requeridos para debuger del rubymine
+gem 'ruby-debug-ide', '0.4.33'
+gem 'debase', '0.2.1'

@@ -30,6 +30,14 @@
     <div class="dato">{{contacto.nombre}} </div>
     <div class="dato">{{contacto.email}}</div>
     <div class="dato">{{contacto.telefono}}</div>
+
+    <div class="header">Cliente NetMultix</div>
+    <div class="dato">{{cliente_netmultix.cl01_nombre}}</div>
+    <div class="dato">{{cliente_netmultix.telefono}}</div>
+    <div class="header">Contacto NetMultix</div>
+    <div class="dato">{{contacto_netmultix.cl06_contacto}}</div>
+    <div class="dato">{{contacto_netmultix.cl06_email}}</div>
+
     {{#unless isTipoI}}
       <div class="header">Prioridad</div>
       <div class="dato">{{#view App.EnumView  items=controllers.application.prioridades index=prioridad}}{{view.item.descripcion}}{{/view}}</div>
