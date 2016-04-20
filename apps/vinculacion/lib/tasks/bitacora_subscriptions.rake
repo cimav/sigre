@@ -36,6 +36,7 @@ class BitacoraSubscriptions
     alertas.each do |a|
       a.fecha_cierre = attributes['fecha_cierre']
       a.empleado_cierre_id = empleado.id
+      a.status = ::Vinculacion::Registro::STATUS_ALERTA_CERRADA
       a.save
     end
     Resque.enqueue(AlertaResueltaMailer, attributes['alerta_id'])
