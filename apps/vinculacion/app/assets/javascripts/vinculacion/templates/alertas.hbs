@@ -1,0 +1,37 @@
+<div id="alertas">
+  <h2>Alertas</h2>
+  {{#each itemController="alerta"}}
+  <div class="alerta-item">
+    <div class="alerta-cabecera">
+      <div class="row">
+        <div class="col-sm-6"><img class="media-object img-circle" {{bind-attr src=empleado.avatar_url}} /> {{empleado.nombre_completo}}</div>
+        <div class="col-sm-6 alerta-status">{{status_text}}</div>
+      </div>
+    </div>
+    <div class="alerta-contenido">
+       <div class="alerta-fecha">Fecha: {{format-date "LLL" created_at}}</div>
+       <div class="alerta-mensaje">{{mensaje}}</div>
+    </div>
+    <div class="alerta-notas">
+      {{#if registro_notas}}
+        <table class="table table-striped table-bordered">
+        <tr><th>Usuario</th><th>Respuesta</th><th>Fecha</th></tr>
+        {{#each registro_notas}}
+          <tr><td>{{usuario.nombre}} {{usuario.apellidos}}</td><td>{{mensaje}}</td><td>{{format-date "LLL" created_at}}</td></tr>
+        {{/each}}
+        </table>
+        <form {{action 'addNota' this on="submit"}}>
+          <div class="nota-mensaje">{{textarea value=newNota.mensaje classNames="form-control" placeholder="Mensaje"}}</div>
+          <div class="nota-guardar">{{save-button item=newNota caption="Responder"}}</div>
+        </form>
+      {{else}}
+        <form {{action 'addNota' this on="submit"}}>
+          <div class="nota-mensaje">{{textarea value=newNota.mensaje classNames="form-control" placeholder="Mensaje"}}</div>
+          <div class="nota-guardar">{{save-button item=newNota caption="Responder"}}</div>
+        </form>
+      {{/if}}
+    </div>
+  </div>
+  {{/each}}
+
+</div>

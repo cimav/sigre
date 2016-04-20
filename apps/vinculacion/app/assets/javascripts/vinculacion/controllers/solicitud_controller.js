@@ -2,8 +2,23 @@ App.SolicitudController = Ember.ObjectController.extend({
   needs: ["muestras", "application"],
   isNotDirty: Ember.computed.not('content.isDirty'),
   muestrasCount: Ember.computed.alias('content.muestras.length'),
+  alertasCount: Ember.computed.alias('content.alertas.length'),
   serviciosCount: Ember.computed.alias('content.servicios.length'),
   prioridad_item: App.computed.list_item('prioridad'),
+  alertasAbiertasCount: function() {
+    var c = 0;
+    alertas = this.get('alertas');
+    alertas.forEach(function(a) {
+      // 1: Abierta
+      // 2: Contestada
+      // 3: Cerrada
+      if (a.get('status') == 1) {
+        c = c + 1;
+      }
+    });
+
+    return c;
+  }.property('model.alertas'),
   canEdit: function(){
     var status = this.get('model.status');
     var inicial = this.get('model.Status.inicial');

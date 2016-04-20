@@ -1,0 +1,54 @@
+#alertas {
+  margin: 20px;
+}
+
+.alerta-cabecera {
+  background-color: $alerta-cabecera;
+  padding: 0.6em;
+  img {
+    height: 28px;
+    width: 28px;
+    float: left;
+    margin-right: 1em;
+  }
+}
+
+.alerta-contenido {
+  background-color: $alerta-contenido;
+  padding: 1em 0.6em;
+}
+
+.alerta-notas {
+  background-color: $alerta-notas;
+  padding: 1em 0.6em;
+  table {
+    background-color: #fff;
+    tr td { background-color: #fff; }
+  }
+
+}
+
+.alerta-reporta {
+}
+.alerta-fecha {
+}
+.alerta-mensaje {
+  white-space: pre-line;
+}
+.alerta-status {
+  text-align: right;
+  white-space: pre;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.nota-guardar {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  text-align: right;
+  button {
+    background-color: $alerta-cabecera !important;
+    border: 1px solid darken($alerta-cabecera,10%) !important;
+
+  }
+}

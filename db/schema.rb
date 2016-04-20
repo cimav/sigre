@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405225502) do
+ActiveRecord::Schema.define(version: 20160419232942) do
 
   create_table "BAK_vinculacion_servicios_bitacora", id: false, force: :cascade do |t|
     t.integer  "id",                      limit: 4,                            default: 0,   null: false
@@ -421,16 +421,29 @@ ActiveRecord::Schema.define(version: 20160405225502) do
   end
 
   create_table "vinculacion_registros", force: :cascade do |t|
-    t.integer  "usuario_id",   limit: 4
-    t.integer  "solicitud_id", limit: 4
-    t.string   "tipo",         limit: 255
-    t.text     "mensaje",      limit: 65535
+    t.integer  "empleado_id",        limit: 4
+    t.integer  "solicitud_id",       limit: 4
+    t.string   "tipo",               limit: 255
+    t.text     "mensaje",            limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "status",             limit: 4,     default: 0
+    t.integer  "bitacora_alerta_id", limit: 4,     default: 0
+    t.integer  "empleado_cierre_id", limit: 4,     default: 0
+    t.date     "fecha_apertura"
+    t.date     "fecha_cierre"
   end
 
+  add_index "vinculacion_registros", ["empleado_id"], name: "index_vinculacion_registros_on_empleado_id", using: :btree
   add_index "vinculacion_registros", ["solicitud_id"], name: "index_vinculacion_registros_on_solicitud_id", using: :btree
-  add_index "vinculacion_registros", ["usuario_id"], name: "index_vinculacion_registros_on_usuario_id", using: :btree
+
+  create_table "vinculacion_registros_nota", force: :cascade do |t|
+    t.integer  "usuario_id",  limit: 4
+    t.integer  "registro_id", limit: 4
+    t.text     "mensaje",     limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   create_table "vinculacion_remanentes", force: :cascade do |t|
     t.integer  "empleado_id",              limit: 4

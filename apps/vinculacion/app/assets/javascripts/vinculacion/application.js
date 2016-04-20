@@ -34,6 +34,7 @@ inflector.irregular('solicitud_busqueda', 'solicitud_busqueda');
 inflector.irregular('pais', 'paises');
 inflector.irregular('estado', 'estados');
 inflector.irregular('costo_variable', 'costos_variables');
+inflector.irregular('registro_nota', 'registro_notas');
 inflector.irregular('servicio_bitacora', 'servicios_bitacora');
 inflector.irregular('servicioBitacora', 'serviciosBitacora'); //requerido para los Promises
 inflector.irregular('laboratorio_bitacora', 'laboratorios_bitacora');

@@ -6,6 +6,40 @@ class BitacoraSubscriptions
   subscribe :recibir_costeo
   subscribe :recibir_reporte
   subscribe :recibir_reporte_tipo_2
+  subscribe :recibir_alerta
+  subscribe :resolver_alerta
+
+
+  def recibir_alerta(attributes)
+    afectados = []
+    empleado = ::Vinculacion::Empleado.where(:email => attributes['email']).first
+    attributes['lista'].each do |i|
+      Vinculacion::Servicio.joins(:servicio_bitacora, :solicitud).where("bitacora_id = #{i} AND vinculacion_solicitudes.status < #{::Vinculacion::Solicitud::STATUS_FINALIZADA}").each do |a|
+        afectados << a
+        registro = Vinculacion::Registro.new
+        registro.empleado_id = empleado.id
+        registro.bitacora_alerta_id = attributes['alerta_id']
+        registro.fecha_apertura = attributes['fecha_apertura']
+        registro.solicitud_id = a.solicitud_id
+        registro.tipo = ::Vinculacion::Registro::TIPO_ALERTA
+        registro.status = ::Vinculacion::Registro::STATUS_ALERTA_ABIERTA
+        registro.mensaje = "[ALERTA #{attributes['alerta_id']}]\nServicio: #{a.codigo} \n#{attributes['mensaje']}"
+        registro.save
+      end
+    end
+    Resque.enqueue(ServiciosAlertadosMailer, attributes['alerta_id'], attributes['mensaje'], afectados)
+  end
+
+  def resolver_alerta(attributes)
+    empleado = ::Vinculacion::Empleado.where(:email => attributes['email']).first
+    alertas = Vinculacion::Registro.where(:bitacora_alerta_id => attributes['alerta_id'])
+    alertas.each do |a|
+      a.fecha_cierre = attributes['fecha_cierre']
+      a.empleado_cierre_id = empleado.id
+      a.save
+    end
+    Resque.enqueue(AlertaResueltaMailer, attributes['alerta_id'])
+  end
 
   def recibir_costeo(attributes)
 

@@ -4,6 +4,7 @@ App.Solicitud = DS.Model.extend({
   prioridad: DS.attr('number'),
   muestras: DS.hasMany('muestra'),
   servicios: DS.hasMany('servicio'),
+  alertas: DS.hasMany('alerta'),
   proyecto: DS.belongsTo('proyecto'),
   sede: DS.belongsTo('sede'),
   cliente: DS.belongsTo('cliente'),

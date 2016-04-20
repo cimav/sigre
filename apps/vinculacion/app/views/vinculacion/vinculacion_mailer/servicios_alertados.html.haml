@@ -1,0 +1,22 @@
+%p{:style => 'font-size: 120%;'}= simple_format(@mensaje)
+
+%strong= "Solicitudes afectadas"
+
+%table{:style => 'border: 1px solid #ddd; border-collapse: collapse;'}
+  - c = 0
+  %tr
+    %th= "#"
+    %th= "Código"
+    %th= "Cliente"
+    %th= "Descripción"
+  - @afectados.each do |i|
+    - s = ::Vinculacion::Servicio.find(i['id'])
+    - c = c + 1
+    %tr
+      %td{:style => 'border: 1px solid #ddd;'}= c
+      %td{:style => 'border: 1px solid #ddd;'}
+        %a{:href => "http://sigre.cimav.edu.mx/vinculacion#/solicitudes/#{s.solicitud.id}"}= s.codigo
+      %td{:style => 'border: 1px solid #ddd;'}= s.nombre
+      %td{:style => 'border: 1px solid #ddd;'}= s.solicitud.cliente.razon_social
+      %td{:style => 'border: 1px solid #ddd;'}= s.solicitud.descripcion
+      

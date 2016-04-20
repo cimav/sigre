@@ -1,6 +1,6 @@
 module Vinculacion
   class SolicitudSerializer < ActiveModel::Serializer
-  	embed :ids, :include => true
+    embed :ids, :include => true
     attributes :id
     attributes :consecutivo, :codigo, :prioridad, :descripcion, :status, :motivo_status, :razon_cancelacion, :orden_compra, :fecha_inicio, :fecha_termino
     attributes :tipo, :duracion, :tiempo_entrega, :created_at, :vinculacion_hash
@@ -20,6 +20,9 @@ module Vinculacion
 
     has_many :cedulas
 
+    has_many :alertas
+    has_many :registros
+
     # calculados
     attributes :costo_interno, :precio_venta
 
@@ -27,6 +30,15 @@ module Vinculacion
     #attributes :responsable_presupuestal_id
 
     has_one :responsable_presupuestal, root: :empleado
+
+    def alertas
+      #object.registros.where(solicitud_id: object.id,tipo: Registro::TIPO_ALERTA)
+      object.registros
+    end
+
+
+
+
 
   end
 end

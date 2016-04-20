@@ -19,6 +19,8 @@ Vinculacion::Engine.routes.draw do
   get '/solicitudes/:id/estado_actual', to: 'solicitudes#estado_actual'
 
 
+  resources :registros
+  resources :registro_notas
   resources :empleados
   resources :sedes
   resources :paises

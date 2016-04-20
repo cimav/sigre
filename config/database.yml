@@ -5,8 +5,8 @@ development:
   database: sigre_development
   pool: 5
   username: root
-  password:
-  socket: /usr/local/var/mysql/mysql.sock
+  password: 
+  #socket: /usr/local/var/mysql/mysql.sock
 
 test:
   adapter: mysql2

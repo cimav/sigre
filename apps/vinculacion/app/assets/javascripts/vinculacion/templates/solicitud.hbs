@@ -22,6 +22,11 @@
           <div class="clearfix"></div>
           <p class="columna-titulo-proyecto">{{proyecto.codigo}} {{proyecto.nombre}}</p>
       </td>
+      {{#if alertasAbiertasCount}}
+      <td class="columna-alerta">
+        <span class="label label-alerta">{{alertasAbiertasCount}} alertas sin contestar</span>
+      </td>
+      {{/if}}
       <td class="columna-status">
         <span class="label label-default">{{status_text}}</span>
       </td>
@@ -33,13 +38,16 @@
 <div id="op-options-panel">
   <ul class="nav nav-pills nav-stacked">
     {{#link-to 'solicitud.index' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-ok"></span> Solicitud</a>{{/link-to}}
+    {{#if alertasCount}}
+      {{#link-to 'alertas' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-remove"></span> Alertas <span class="badge badge-alertas">{{alertasCount}}</span></a>{{/link-to}}
+    {{/if}}
 
-      {{#link-to 'muestras' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-th"></span> Muestras <span class="badge badge-muestras">{{muestrasCount}}</span></a>{{/link-to}}
-      {{#unless isTipoI}}
-        {{#if muestrasCount}}
-          {{#link-to 'servicios' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-list"></span> Servicios <span class="badge badge-servicios">{{serviciosCount}}</span></a>{{/link-to}}
-        {{/if}}
-      {{/unless}}
+    {{#link-to 'muestras' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-th"></span> Muestras <span class="badge badge-muestras">{{muestrasCount}}</span></a>{{/link-to}}
+    {{#unless isTipoI}}
+      {{#if muestrasCount}}
+        {{#link-to 'servicios' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-list"></span> Servicios <span class="badge badge-servicios">{{serviciosCount}}</span></a>{{/link-to}}
+      {{/if}}
+    {{/unless}}
 
     {{#link-to 'cotizaciones' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-usd"></span> Cotizaciones <span class="badge badge-cotizaciones">{{this.lastCotizacion.consecutivo}}</span></a>{{/link-to}}
     {{#link-to 'arrancar' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-flash"></span> Arrancar </a>{{/link-to}}

@@ -8,6 +8,11 @@ $folder-color-tipo-i: #6ecdf7;
 $folder-color-tipo-ii: #6cd9aa;
 $folder-color-tipo-iii: #f9d683;
 
+$alerta-contenido: $folder-color-tipo-iii;
+$alerta-cabecera: darken($alerta-contenido, 10%);
+$alerta-notas: lighten($alerta-contenido, 10%);
+
+
 $line-color: $grey;
 
 $left-panel-bg: #262930;
@@ -30,6 +35,12 @@ $op-option-text-selected: #000;
 
 $muestra-codigo-bg: #71c986;
 $muestra-codigo-border: darken($muestra-codigo-bg, 10%);
+
+$alerta-abierta-codigo-bg: #d00;
+$alerta-abierta-codigo-border: darken($alerta-abierta-codigo-bg, 20%);
+
+$alerta-codigo-bg: #E6693B;
+$alerta-codigo-border: darken($alerta-codigo-bg, 10%);
 
 $servicio-codigo-bg: #fac76f;
 $servicio-codigo-border: darken($servicio-codigo-bg, 10%);

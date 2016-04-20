@@ -45,7 +45,7 @@
 }
 
 #solicitud-header {
-  margin-left: 20px;
+  padding-left: 20px;
 
   .tabla-solicitud-header {
     .columna-logo-tipo-i {
@@ -92,6 +92,7 @@
   }
 
 }
+
 
 #cotizacion-header {
   border-bottom: 1px solid $line-color;
@@ -286,6 +287,10 @@
                   background-color: $muestra-codigo-border;
                   border: 1px solid $muestra-codigo-border;
                 }
+                &.badge-alertas {
+                  background-color: $alerta-codigo-border;
+                  border: 1px solid $alerta-codigo-border;
+                }
                 &.badge-servicios {
                   background-color: $servicio-codigo-border;
                   border: 1px solid $servicio-codigo-border;
@@ -315,6 +320,10 @@
                 &.badge-muestras {
                   background-color: $muestra-codigo-border;
                   border: 1px solid $muestra-codigo-border;
+                }
+                &.badge-alertas {
+                  background-color: $alerta-codigo-border;
+                  border: 1px solid $alerta-codigo-border;
                 }
                 &.badge-servicios {
                   background-color: $servicio-codigo-border;
@@ -429,4 +438,7 @@
 
 }
 
-
+.label-alerta {
+  background-color: $alerta-abierta-codigo-bg !important;
+  font-size: 100%;
+}

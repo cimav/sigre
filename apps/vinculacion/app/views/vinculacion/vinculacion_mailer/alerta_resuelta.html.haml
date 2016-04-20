@@ -1,0 +1,24 @@
+%p{:style => 'font-size: 120%;'}= "Se ha resuelto la alerta ##{@alerta_id}"
+- alertas = ::Vinculacion::Registro.where(:bitacora_alerta_id => @alerta_id)
+- primer_alerta = alertas.first
+%p{:style => 'font-size: 120%;'}= simple_format(primer_alerta.mensaje)
+
+%strong= "Solicitudes que estaban afectadas"
+
+%table{:style => 'border: 1px solid #ddd; border-collapse: collapse;'}
+  - c = 0
+  %tr
+    %th= "#"
+    %th= "Código"
+    %th= "Servicio"
+    %th= "Cliente"
+    %th= "Descripción"
+  - alertas.each do |i|
+    - c = c + 1
+    %tr
+      %td{:style => 'border: 1px solid #ddd;'}= c
+      %td{:style => 'border: 1px solid #ddd;'}
+        %a{:href => "http://sigre.cimav.edu.mx.mx/vinculacion#/solicitudes/#{i.solicitud.id}"}= i.solicitud.codigo
+      %td{:style => 'border: 1px solid #ddd;'}= i.solicitud.cliente.razon_social
+      %td{:style => 'border: 1px solid #ddd;'}= i.solicitud.descripcion
+      

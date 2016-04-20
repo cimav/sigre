@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails', '4.2.6'
 
 gem 'mysql2', '0.3.18'
 
@@ -20,7 +20,7 @@ gem 'coffee-rails', '~> 4.0.0'
  gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-# gem 'jquery-rails'
+gem 'jquery-rails', '3.1.4'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -46,13 +46,14 @@ gem 'unicorn'
 # gem 'debugger', group: [:development, :test]
 
 # gem 'haml'
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '5.0.5'
 
 # Use prawn, pdf generator library
 gem 'prawn'
 gem 'prawn-table'
 
 gem 'omniauth-google-oauth2', '0.2.6'
+gem 'omniauth-oauth2', '1.3.1'
 
 gem 'roman-numerals'
 

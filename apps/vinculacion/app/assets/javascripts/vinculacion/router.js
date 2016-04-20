@@ -7,6 +7,8 @@ App.Router.map(function () {
       this.route('edit', {path: '/editar'});
       this.route('cancelacion', {path: '/cancelacion'});
 
+      this.resource('alertas', {path: '/alertas'});
+     
       this.resource('muestras', function() {
         this.resource('muestra', {path: '/:muestra_id'}, function () {
           this.route('edit', {path: '/editar'});
