@@ -121,16 +121,6 @@ module Vinculacion
         contacto_telefono = ""
         contacto_email = ""
 
-        if !cotizacion.solicitud.cliente_netmultix.nil?
-          cliente_netmultix  = cotizacion.solicitud.cliente_netmultix
-
-          cliente_razon_social = cliente_netmultix.cl01_nombre
-          contacto_nombre   = cotizacion.solicitud.contacto_netmultix_nombre rescue 'Sin contacto'
-          cliente_calle_num = "#{cliente_netmultix.cl01_calle}"
-          cliente_colonia_cp = "#{cliente_netmultix.cl01_colonia} C.P. #{cliente_netmultix.cl01_postal}"
-          contacto_telefono = cliente_netmultix.telefono  rescue 'Sin teléfono'
-          contacto_email    = cotizacion.solicitud.contacto_netmultix_email.downcase rescue 'Sin email'
-        else
           cliente  = cotizacion.solicitud.cliente
           contacto = cotizacion.solicitud.contacto
 
@@ -142,8 +132,7 @@ module Vinculacion
           contacto_email    = contacto.email.downcase rescue 'Sin contacto'
 
           #cliente_rfc       = cliente.rfc.upcase rescue 'N.D'
-        end
-    
+
         data = [ [t[:company],         cliente_razon_social],
                  [t[:attention],       contacto_nombre],
                  [t[:company_address], cliente_calle_num],

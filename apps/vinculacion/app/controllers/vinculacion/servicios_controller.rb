@@ -46,20 +46,6 @@ module Vinculacion
           array_muestras << muestra_item
       end
 
-      if servicio.solicitud.cliente_netmultix.nil?
-        sol = servicio.solicitud;
-        cliente_id = sol.cliente_netmultix.id
-        cliente_razon_social = sol.cliente_netmultix.cl01_nombre
-        cliente_contacto = sol.contacto_netmultix_nombre          rescue '-'
-        cliente_email    = sol.solicitud.contacto_netmultix_email rescue '-'
-        cliente_telefono = sol.cliente_netmultix.telefono         rescue '-'
-        cliente_calle    = sol.cliente_netmultix.cl01_calle       rescue '--'
-        cliente_colonia  = sol.cliente_netmultix.cl01_colonia     rescue '--'
-        cliente_ciudad   = sol.ciudad_netmultix_nombre    rescue '--'
-        cliente_estado   = sol.estado_netmultix_nombre rescue '--'
-        cliente_pais     = sol.pais_netmultix_nombre   rescue '--'
-        cliente_cp       = sol.cliente_netmultix.cl01_postal      rescue '--'
-      else
         cliente_id = servicio.solicitud.cliente_id
         cliente_razon_social = servicio.solicitud.cliente.razon_social
         cliente_contacto = servicio.solicitud.contacto.nombre   rescue '-'
@@ -71,7 +57,6 @@ module Vinculacion
         cliente_estado   = servicio.solicitud.cliente.estado.nombre rescue '--'
         cliente_pais     = servicio.solicitud.cliente.pais.nombre   rescue '--'
         cliente_cp       = servicio.solicitud.cliente.cp            rescue '--'
-      end
 
       QueueBus.publish('solicitar_costeo',  'id'               => servicio.id,
                                             'solicitud_id'     => servicio.solicitud_id,

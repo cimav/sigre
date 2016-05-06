@@ -92,19 +92,6 @@ module Vinculacion
       solicitud = Solicitud.find(params[:id])
       servicio = solicitud.servicios[0]
 
-      if !solicitud.cliente_netmultix.nil?
-        cliente_id = solicitud.cliente_netmultix.id
-        cliente_razon_social = solicitud.cliente_netmultix.cl01_nombre
-        cliente_contacto = solicitud.contacto_netmultix_nombre   rescue '-'
-        cliente_email    = solicitud.contacto_netmultix_email rescue '-'
-        cliente_telefono = solicitud.cliente_netmultix.telefono rescue '-'
-        cliente_calle    = servicio.solicitud.cliente_netmultix.cl01_calle rescue '--'
-        cliente_colonia  = servicio.solicitud.cliente_netmultix.cl01_colonia   rescue '--'
-        cliente_ciudad   = servicio.solicitud.ciudad_netmultix_nombre    rescue '--'
-        cliente_estado   = servicio.solicitud.estado_netmultix_nombre rescue '--'
-        cliente_pais     = servicio.solicitud.pais_netmultix_nombre   rescue '--'
-        cliente_cp       = servicio.solicitud.cliente_netmultix.cl01_postal            rescue '--'
-      else
         cliente_id = solicitud.cliente_id
         cliente_razon_social = solicitud.cliente.razon_social
         cliente_contacto = solicitud.contacto.nombre   rescue '-'
@@ -116,7 +103,6 @@ module Vinculacion
         cliente_estado   = servicio.solicitud.cliente.estado.nombre rescue '--'
         cliente_pais     = servicio.solicitud.cliente.pais.nombre   rescue '--'
         cliente_cp       = servicio.solicitud.cliente.cp            rescue '--'
-      end
 
       bitacoraId = servicio.servicio_bitacora.bitacora_id rescue 0
 
@@ -217,19 +203,6 @@ module Vinculacion
 
       end
 
-      if !solicitud.cliente_netmultix.nil?
-        cliente_id = solicitud.cliente_netmultix.id
-        cliente_razon_social = solicitud.cliente_netmultix.cl01_nombre
-        cliente_contacto = solicitud.contacto_netmultix_nombre   rescue '-'
-        cliente_email    = solicitud.contacto_netmultix_email rescue '-'
-        cliente_telefono = solicitud.cliente_netmultix.telefono rescue '-'
-        cliente_calle    = solicitud.cliente_netmultix.cl01_calle rescue '--'
-        cliente_colonia  = solicitud.cliente_netmultix.cl01_colonia   rescue '--'
-        cliente_ciudad   = solicitud.ciudad_netmultix_nombre    rescue '--'
-        cliente_estado   = solicitud.estado_netmultix_nombre rescue '--'
-        cliente_pais     = solicitud.pais_netmultix_nombre   rescue '--'
-        cliente_cp       = solicitud.cliente_netmultix.cl01_postal            rescue '--'
-      else
         cliente_id = solicitud.cliente_id
         cliente_razon_social = solicitud.cliente.razon_social
         cliente_contacto = solicitud.contacto.nombre   rescue '-'
@@ -241,7 +214,6 @@ module Vinculacion
         cliente_estado   = solicitud.cliente.estado.nombre rescue '--'
         cliente_pais     = solicitud.cliente.pais.nombre   rescue '--'
         cliente_cp       = solicitud.cliente.cp            rescue '--'
-      end
 
       # notificar a Bitacora
       QueueBus.publish('notificar_arranque_tipo_2',
@@ -641,16 +613,6 @@ module Vinculacion
         contacto_telefono = ""
         contacto_email = ""
 
-        if !solicitud.cliente_netmultix.nil?
-          cliente_netmultix = solicitud.cliente_netmultix
-          cliente_razon_social = cliente_netmultix.cl01_nombre  rescue ''
-          contacto_nombre = solicitud.contacto_netmultix_nombre rescue ''
-          cliente_calle_num = cliente_netmultix.cl01_calle rescue ''
-          cliente_colonia = cliente_netmultix.cl01_colonia rescue ''
-          cliente_cp = cliente_netmultix.cl01_postal rescue ''
-          contacto_telefono = cliente_netmultix.telefono rescue ''
-          contacto_email = solicitud.contacto_netmultix_email.downcase rescue ''
-        else
           cliente              = solicitud.cliente
           cliente_razon_social = cliente.razon_social rescue ''
           cliente_calle_num    = cliente.calle_num rescue ''
@@ -663,7 +625,6 @@ module Vinculacion
           contacto_nombre      = contacto.nombre rescue ''
           contacto_telefono    = contacto.telefono rescue ''
           contacto_email       = contacto.email.downcase rescue ''
-        end
 
         data = [ [t[:company],         cliente_razon_social],
                  [t[:attention],       contacto_nombre],
@@ -741,14 +702,7 @@ module Vinculacion
                                 :fecha_termino,
                                 :tipo,
                                 :duracion,
-                                :tiempo_entrega,
-                                :cliente_netmultix_id,
-                                :contacto_netmultix_id,
-                                :contacto_netmultix_email,
-                                :contacto_netmultix_nombre,
-                                :pais_netmultix_nombre,
-                                :estado_netmultix_nombre,
-                                :ciudad_netmultix_nombre
+                                :tiempo_entrega
       )
     end
   end
