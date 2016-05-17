@@ -35,5 +35,7 @@ module Sigre
       :password       => "b1t4c0r4smith6",
       :enable_starttls_auto => true
     }
+
+    config.secret_key_base = 'blipblapblup'
   end
 end
