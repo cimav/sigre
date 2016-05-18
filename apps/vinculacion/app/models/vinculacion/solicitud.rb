@@ -83,6 +83,10 @@ module Vinculacion
       self.save(:validate => false)
   	end
 
+    def razon_social
+      self.cliente.razon_social rescue 'Sin Razón Social'
+    end
+
     def add_cotizacion
       cotizacion = self.cotizaciones.new
       cotizacion.save

@@ -6,11 +6,15 @@ module Vinculacion
 
        # Usuarios de Servicios Vinculación
       @to << 'ion@cimav.edu.mx'
-      #@to << 'karen.valles@cimav.edu.mx'
+      @to << 'karen.valles@cimav.edu.mx'
+      @to << 'ana.rodriguez@cimav.edu.mx'
+      @to << 'salomon.maloof@cimav.edu.mx'
+      @to << 'marisol.nevarez@cimav.edu.mx'
+
       @afectados = afectados
       @mensaje = mensaje
         
-      subject = "[Vinculación] Alerta ##{alerta_id}"
+      subject = "[Vinculación] Alerta ##{alerta_id} #{usuarios_vinculacion}"
       mail(:to => @to, :from => @from, :subject => subject)
     end
 
@@ -20,6 +24,11 @@ module Vinculacion
 
        # Usuarios de Servicios Vinculación
       @to << 'ion@cimav.edu.mx'
+      @to << 'karen.valles@cimav.edu.mx'
+      @to << 'ana.rodriguez@cimav.edu.mx'
+      @to << 'salomon.maloof@cimav.edu.mx'
+      @to << 'marisol.nevarez@cimav.edu.mx'
+      
       @alerta_id = alerta_id
       #@to << 'karen.valles@cimav.edu.mx'
         
