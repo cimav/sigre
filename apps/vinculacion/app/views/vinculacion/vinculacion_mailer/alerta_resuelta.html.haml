@@ -1,7 +1,8 @@
 %p{:style => 'font-size: 120%;'}= "Se ha resuelto la alerta ##{@alerta_id}"
 - alertas = ::Vinculacion::Registro.where(:bitacora_alerta_id => @alerta_id)
 - primer_alerta = alertas.first
-%p{:style => 'font-size: 120%;'}= simple_format(primer_alerta.mensaje)
+- mensaje = primer_alerta.mensaje rescue 'Sin mensaje'
+%p{:style => 'font-size: 120%;'}= simple_format(mensaje)
 
 %strong= "Solicitudes que estaban afectadas"
 
@@ -19,6 +20,6 @@
       %td{:style => 'border: 1px solid #ddd;'}= c
       %td{:style => 'border: 1px solid #ddd;'}
         %a{:href => "http://sigre.cimav.edu.mx.mx/vinculacion#/solicitudes/#{i.solicitud.id}"}= i.solicitud.codigo
-      %td{:style => 'border: 1px solid #ddd;'}= i.solicitud.cliente.razon_social
+      %td{:style => 'border: 1px solid #ddd;'}= i.solicitud.razon_social
       %td{:style => 'border: 1px solid #ddd;'}= i.solicitud.descripcion
       

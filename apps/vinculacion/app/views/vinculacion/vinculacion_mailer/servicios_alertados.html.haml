@@ -1,4 +1,5 @@
-%p{:style => 'font-size: 120%;'}= simple_format(@mensaje)
+- mensaje_mostrar =  @mensaje rescue 'Sin mensaje'
+%p{:style => 'font-size: 120%;'}= simple_format(mensaje_mostrar)
 
 %strong= "Solicitudes afectadas"
 
