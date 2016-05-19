@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160506161539) do
+ActiveRecord::Schema.define(version: 20160518152920) do
 
   create_table "BAK_vinculacion_servicios_bitacora", id: false, force: :cascade do |t|
     t.integer  "id",                      limit: 4,                            default: 0,   null: false
@@ -261,12 +261,15 @@ ActiveRecord::Schema.define(version: 20160506161539) do
   add_index "usuarios", ["usuario"], name: "index_usuarios_on_usuario", using: :btree
 
   create_table "vinculacion_cedulas", force: :cascade do |t|
-    t.integer  "solicitud_id", limit: 4
-    t.integer  "servicio_id",  limit: 4
-    t.text     "codigo",       limit: 16777215
-    t.integer  "status",       limit: 4,        default: 1
+    t.integer  "solicitud_id",         limit: 4
+    t.integer  "servicio_id",          limit: 4
+    t.text     "codigo",               limit: 16777215
+    t.integer  "status",               limit: 4,        default: 1
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cedula_netmultix",     limit: 255
+    t.integer  "cliente_netmultix_id", limit: 4
+    t.string   "concepto_en_extenso",  limit: 255
   end
 
   create_table "vinculacion_clientes", force: :cascade do |t|

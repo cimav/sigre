@@ -28,7 +28,11 @@ module Vinculacion
       params[:servicio].permit(:solicitud_id,
                                :servicio_id,
                                :codigo,
-                               :status)
+                               :status,
+                               :cedula_netmultix,
+                               :cliente_netmultix_id,
+                               :concepto_en_extenso
+                                )
     end
   end
 end

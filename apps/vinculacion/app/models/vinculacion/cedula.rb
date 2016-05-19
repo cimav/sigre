@@ -14,6 +14,18 @@ module Vinculacion
     attr_accessor :precio_venta
     attr_accessor :remanente_distribuible
 
+    INICIAL       = 1
+    TRANSMITIENDO = 2
+    TRANSMITIDA   = 3
+    CANCELADO     = 99
+
+    STATUS = {
+        INICIAL       => 'Inicio',
+        TRANSMITIENDO => 'Transmitiendo...',
+        TRANSMITIDA   => 'Transmitida',
+        CANCELADO     => 'Cancelada'
+    }
+
     def total_costo_variable
       self.costo_variable.sum('costo')
     end

@@ -1,3 +1,23 @@
+<div id='cedula-header'>
+    {{#if isEdicion}}
+        <div class="cedula-actions">
+            {{#link-to 'cedula.edit' this tagName="button" classNames="btn btn-default"}}
+                <span class="glyphicon glyphicon-edit"></span> Editar
+            {{/link-to}}
+            {{#link-to 'cedula.transmitir' this tagName="button" classNames="btn btn-primary" disabled=this.noPuedeTransmitir}}
+                <span class="glyphicon glyphicon-send"></span> Transmitir a NetMultix
+            {{/link-to}}
+
+        </div>
+    {{/if}}
+
+</div>
+
+{{outlet }}
+<div class="clearfix"></div>
+
+
+<div id="cedula-wrapper-x">
 <div id="cedula">
 
   <table id="table-cedula-header">
@@ -137,3 +157,4 @@
 
 
 </div>̵
+    </div>
