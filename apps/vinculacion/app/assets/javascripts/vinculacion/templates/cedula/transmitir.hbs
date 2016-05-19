@@ -1,0 +1,9 @@
+
+<div id="cedula-transmitir" class="accion-cedula">
+    {{#form-for controller}}
+        <strong>Para:</strong> {{model.solicitud.contacto.nombre}} &lt;{{model.solicitud.contacto.email}}&gt;<br/>
+        <strong>Asunto:</strong> Cotización {{codigo}}<br/>
+        <strong>Mensaje:</strong>
+        {{input-field msg_notificacion as="text" label='Mensaje'}}
+    {{/form-for}}
+</div>
