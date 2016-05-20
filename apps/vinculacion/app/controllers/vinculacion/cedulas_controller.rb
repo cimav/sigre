@@ -25,7 +25,7 @@ module Vinculacion
 
     protected
     def cedula_params
-      params[:servicio].permit(:solicitud_id,
+      params[:cedula].permit(:solicitud_id,
                                :servicio_id,
                                :codigo,
                                :status,

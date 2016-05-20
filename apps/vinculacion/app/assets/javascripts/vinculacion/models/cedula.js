@@ -19,5 +19,8 @@ App.Cedula = DS.Model.extend({
   remanente_distribuible: DS.attr('number'),
 
   cedula_netmultix: DS.attr('string'),
+  cliente_netmultix: DS.belongsTo('cliente_netmultix'),
+  concepto_en_extenso: DS.attr('string')
+
 
 });

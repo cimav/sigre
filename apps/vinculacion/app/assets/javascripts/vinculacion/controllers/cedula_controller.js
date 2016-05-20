@@ -1,24 +1,42 @@
 App.CedulaController = Ember.ObjectController.extend({
-
+  needs: ['application'],
   Status: {
     inicial: 1,
     transmitiendo: 2,
-    transmitido: 3,
+    transmitida: 3,
     cancelada: 99
   },
 
   actions: {
-    transmitir: function (cedula) {
+    update: function (cedula) {
+      self = this;
+      var onSuccess = function (cedula) {
+        self.transitionToRoute('cedula');
+        self.get('controllers.application').notify('Se actualizó cédula');
+      };
+      var onFail = function (cedula) {
+        self.get('controllers.application').notify('Error al actualizar cédula', 'alert-danger');
+      };
 
+      cedula.save().then(onSuccess, onFail);
+    },
+
+    transmitir: function (cedula) {
+      self.get('controllers.application').notify('Cédula transmitida');
     }
   },
 
-  isEdicion: function() {
+  isInicial: function() {
     return this.get('model.status') == this.get('Status.inicial');
   }.property('model.status'),
+  isTransmitiendo: function() {
+    return this.get('model.status') == this.get('Status.transmitiendo');
+  }.property('model.status'),
+  isTransmitida: function() {
+    return this.get('model.status') == this.get('Status.transmitida');
+  }.property('model.status'),
 
-  noPuedeTransmitir: function() {
-    // verificar que todos los campos esten validados
+  isNotReadyForSave: function() {
     return false;
   }.property('model.status'),
 
