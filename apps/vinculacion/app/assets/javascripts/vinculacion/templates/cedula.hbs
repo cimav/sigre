@@ -1,19 +1,53 @@
 <div id='cedula-header'>
-    {{#if isEdicion}}
+    {{#if isInicial}}
         <div class="cedula-actions">
-            {{#link-to 'cedula.edit' this tagName="button" classNames="btn btn-default"}}
-                <span class="glyphicon glyphicon-edit"></span> Editar
-            {{/link-to}}
-            {{#link-to 'cedula.transmitir' this tagName="button" classNames="btn btn-primary" disabled=this.noPuedeTransmitir}}
+            <button type="submit" class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "update" this target='controller'}} >
+                {{#if item.isSaving}}
+                    <span class="spin glyphicon glyphicon-refresh"></span>
+                    Guardando...
+                {{else}}
+                    Actualizar cédula
+                {{/if}}
+            </button>
+            {{#link-to 'cedula.transmitir' this tagName="button" classNames="btn btn-danger" disabled=this.noPuedeTransmitir}}
                 <span class="glyphicon glyphicon-send"></span> Transmitir a NetMultix
             {{/link-to}}
-
         </div>
     {{/if}}
-
+    {{#if isTransmitiendo}}
+        Trasnmitiendo...
+    {{/if}}
+    {{#if isTransmitida}}
+        Trasmitida: <strong>{{cedula_netmultix}}</strong>
+    {{/if}}
 </div>
+{{#if isInicial}}
+    <div id="cedula-edicion" class="accion-cedula">
+        {{#form-for controller}}
 
-{{outlet }}
+            <div class="row">
+                <label for="unknown" class=" ol-sm-2 control-label">Cliente NetMultix</label>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    {{view App.Select2View contentBinding="controllers.application.clientes_netmultix"
+                    optionLabelPath="content.cl01_nombre"
+                    optionValuePath="content.id"
+                    selectionBinding="cliente_netmultix"
+                    prompt="seleccione cliente netmultix..."
+                    }}
+                </div>
+            </div>
+            <div class="row">
+                <label for="unknown" class="ol-sm-2 control-label">Concepto en extenso</label>
+                <div class="ol-sm-4 ">
+                    {{input-field concepto_en_extenso as="text"}}
+                </div>
+            </div>
+        {{/form-for}}
+    </div>
+{{/if}}
+
 <div class="clearfix"></div>
 
 
