@@ -38,8 +38,6 @@ App.Router.map(function () {
 
       this.resource('cedulas', {path: '/cedulas'}, function(){
         this.resource('cedula', {path: '/:cedula_id'}, function() {
-          this.route('edit', {path: '/editar'});
-          this.route('transmitir');
           this.resource('costos_variables', {path: '/variables'});
           this.resource('remanentes', {path: '/remanentes'});
         });

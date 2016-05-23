@@ -6,6 +6,8 @@ module Vinculacion
     has_many :costo_variable
     has_many :remanentes
 
+    after_update :check_status_for_transmitir
+
     attr_accessor :total_costo_variable
     attr_accessor :costo_indirecto
     attr_accessor :costo_interno
@@ -58,6 +60,16 @@ module Vinculacion
     def remanente_distribuible
       self.utilidad_topada * 0.35
     end
+
+    def check_status_for_transmitir
+      if self.status_changed?
+        if self.status == TRANSMITIENDO
+          self.status = TRANSMITIDA
+          self.save
+        end
+       end
+    end
+
 
   end
 end

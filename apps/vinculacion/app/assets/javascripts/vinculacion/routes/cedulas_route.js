@@ -8,6 +8,12 @@ App.CedulasRoute = Ember.Route.extend({
       var primerCedula = cedulas.sortBy('codigo').get('firstObject');
       this.transitionTo('cedula', primerCedula);
     }
+  },
+
+  actions: {
+    reloadCedula: function (cedula) {
+      this.refresh();
+    }
   }
 
 });

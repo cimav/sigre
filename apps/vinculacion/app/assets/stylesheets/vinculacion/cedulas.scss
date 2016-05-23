@@ -218,3 +218,11 @@
   border: 1px solid darken($notificar-cotizacion-bg, 10%);
 }
 
+.cedula-transmitida {
+  .glyphicon-ok {
+    color: #f19e60; // #ed8131;
+  }
+  .label {
+    background:  #f19e60; // #ed8131;
+  }
+}
