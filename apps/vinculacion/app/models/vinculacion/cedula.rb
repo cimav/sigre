@@ -62,11 +62,14 @@ module Vinculacion
     end
 
     def check_status_for_transmitir
-      if self.status_changed?
-        if self.status == TRANSMITIENDO
+      if self.status_changed? && self.status == TRANSMITIENDO
           self.status = TRANSMITIDA
+
+          cedulaNetMultix = CedulaNetmultix.where('ft16_sol_servicio LIKE :q', {:q => '%999/17%'}).first
+          puts cedulaNetMultix.ft16_cedula rescue 'no cedula'
+          self.cedula_netmultix = cedulaNetMultix.ft16_cedula
+
           self.save
-        end
        end
     end
 
