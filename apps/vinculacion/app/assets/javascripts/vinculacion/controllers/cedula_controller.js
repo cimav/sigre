@@ -12,8 +12,8 @@ App.CedulaController = Ember.ObjectController.extend({
     update: function (cedula) {
       var self = this;
       var onSuccess = function (cedula) {
-        self.transitionToRoute('cedula');
         self.get('controllers.application').notify('Se actualizó cédula');
+        self.transitionToRoute('cedula');
       };
       var onFail = function (cedula) {
         self.get('controllers.application').notify('Error al actualizar cédula', 'alert-danger');

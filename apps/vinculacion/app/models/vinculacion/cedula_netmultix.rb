@@ -3,7 +3,6 @@ module Vinculacion
     establish_connection "#{Rails.env}_netmultix"
 
     self.table_name = 'ft16'
-    self.primary_key = 'ft16_cedula'
 
     attr_accessor :id
     def id
