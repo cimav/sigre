@@ -31,8 +31,8 @@ module Sigre
       :port      => 587,
       :domain    => "cimav.edu.mx",
       :authentication => :plain,
-      :user_name      => "bitacora.electronica@cimav.edu.mx",
-      :password       => "b1t4c0r4smith6",
+      :user_name      => "servicio.cliente@cimav.edu.mx",
+      :password       => "S3rv1c10C1m4v",
       :enable_starttls_auto => true
     }
   end

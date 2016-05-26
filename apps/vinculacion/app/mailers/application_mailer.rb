@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "bitacora.electronica@cimav.edu.mx"
+  default from: "servicio.cliente@cimav.edu.mx"
   layout 'mailer'
 end

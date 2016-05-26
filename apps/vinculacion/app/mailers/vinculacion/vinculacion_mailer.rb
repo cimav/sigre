@@ -1,7 +1,30 @@
 module Vinculacion
   class VinculacionMailer < ApplicationMailer
+
+    def enviar_cotizacion(solicitud_id, cotizacion_id, current_email, msg_notificacion)
+      
+      @solicitud = Solicitud.find(solicitud_id)
+      @cotizacion = Cotizacion.find(cotizacion_id)
+
+      @from = "Servicio al cliente CIMAV <servicio.cliente@cimav.edu.mx>"
+      @to = []
+      @to << current_email
+      @to << @solicitud.contacto.email
+
+      @msg_notificacion = msg_notificacion
+
+
+      @solicitud = Solicitud.find(solicitud_id)
+
+      subject = "[CIMAV] Cotización #{@cotizacion.codigo}"
+      filename = @cotizacion.solicitud.codigo.gsub('/','_').concat('.pdf')      
+      attachments[filename] = File.read(File.join(Rails.root.to_s, "private/cotizaciones", filename))
+ 
+      mail(:to => @to, :from => @from, :reply_to => current_email,:subject => subject)
+    end
+
     def servicios_alertados(alerta_id, mensaje, afectados)
-      @from = "Bitácora Electrónica <bitacora.electronica@cimav.edu.mx>"
+      @from = "Servicio al cliente CIMAV <servicio.cliente@cimav.edu.mx>"
       @to = []
 
        # Usuarios de Servicios Vinculación
@@ -19,7 +42,7 @@ module Vinculacion
     end
 
     def alerta_resuelta(alerta_id)
-      @from = "Bitácora Electrónica <bitacora.electronica@cimav.edu.mx>"
+      @from = "Servicio al cliente CIMAV <servicio.cliente@cimav.edu.mx>"
       @to = []
 
        # Usuarios de Servicios Vinculación
