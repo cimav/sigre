@@ -64,15 +64,13 @@ module Vinculacion
     def check_status_for_transmitir
       if self.status_changed? && self.status == TRANSMITIENDO
 
-          #self.status = TRANSMITIDA
-          self.status = INICIAL # probando
-
           cve_cliente_netmultix = self.cliente_netmultix_id.to_s.rjust(5,'0') rescue 'no-cve'
           cliente_netmultix = ClienteNetmultix.where("cl01_clave LIKE '%" + cve_cliente_netmultix + "%'").first
 
 
           cia = '1'
           fecha = Time.now
+          fecha = fecha.year.to_s + fecha.month.to_s.rjust(2,'0') + fecha.day.to_s.rjust(2,'0')
           orden_compra = self.solicitud.orden_compra rescue 'sin-orden'
           sol_servicio = self.solicitud.codigo rescue 'sin/codigo'
           sol_servicio = sol_servicio.split('/')
@@ -114,7 +112,7 @@ module Vinculacion
           proyecto_pago = '2033000238'
           observaciones = self.concepto_en_extenso rescue 'sin-observaciones'
           aprobacion = 0
-          fecha_prog = Time.now
+          fecha_prog = fecha
           moneda = cotizacion.divisa = 1 ? 'P' : 'D'
 
           puts cia
@@ -168,7 +166,13 @@ module Vinculacion
           #puts results
 
           the_cedula = CedulaNetmultix.where('ft16_sol_servicio LIKE :q', {:q => '%999/17%'})
-          the_cedula.update_all(ft16_observaciones: observaciones)
+          the_cedula.update_all(
+              ft16_observaciones: observaciones,
+              ft16_orden_compra: orden_compra,
+              ft16_requisitor: requisitor,
+              ft16_desc: descripcion,
+              ft16_fecha: fecha
+          )
 
 
           #cedulaNetMultix = CedulaNetmultix.where('ft16_sol_servicio LIKE :q', {:q => '%999/17%'}).first
@@ -185,6 +189,7 @@ module Vinculacion
           #cedulaNetMultix.ft16_observaciones = observaciones
           #cedulaNetMultix.save
 
+          self.status = TRANSMITIDA
           self.save
        end
     end
