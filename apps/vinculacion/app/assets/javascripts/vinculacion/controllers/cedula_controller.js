@@ -1,5 +1,5 @@
 App.CedulaController = Ember.ObjectController.extend({
-  needs: ["application"],
+  needs: ["application"], //, solicitud"],
 
   Status: {
     inicial: 1,
@@ -13,6 +13,7 @@ App.CedulaController = Ember.ObjectController.extend({
       var self = this;
       var onSuccess = function (cedula) {
         self.get('controllers.application').notify('Se actualizó cédula');
+          //self.get('controllers.solicitud').reloadSolicitud(); // Bizarro. Evita que se tarde demasiado en "volver" del save.
         self.transitionToRoute('cedula');
       };
       var onFail = function (cedula) {

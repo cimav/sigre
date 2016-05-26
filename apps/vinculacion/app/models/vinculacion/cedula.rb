@@ -63,7 +63,9 @@ module Vinculacion
 
     def check_status_for_transmitir
       if self.status_changed? && self.status == TRANSMITIENDO
-          self.status = TRANSMITIDA
+
+          #self.status = TRANSMITIDA
+          self.status = INICIAL # probando
 
           cve_cliente_netmultix = self.cliente_netmultix_id.to_s.rjust(5,'0') rescue 'no-cve'
           cliente_netmultix = ClienteNetmultix.where("cl01_clave LIKE '%" + cve_cliente_netmultix + "%'").first
@@ -72,16 +74,16 @@ module Vinculacion
           cia = '1'
           fecha = Time.now
           orden_compra = self.solicitud.orden_compra rescue 'sin-orden'
-          sol_servicio = self.solicitud.codigo rescue 'sin-codigo|sol_servicio'
+          sol_servicio = self.solicitud.codigo rescue 'sin/codigo'
+          sol_servicio = sol_servicio.split('/')
+          sol_servicio = sol_servicio.last + '/' + sol_servicio.first
           servicio = 201
           tipo = 'S'
-          proyecto = '2033000238'
           descripcion = self.servicio.nombre rescue 'sin-descripcion|nombre-servicio'
           concepto_factura = self.concepto_en_extenso rescue 'sin-concepto-extenso'
           cliente_netmultix_cve = cliente_netmultix.cl01_clave rescue 'sin-clave-cliente-net'
           cliente_netmultix_nombre = cliente_netmultix.cl01_nombre rescue 'sin-nombre-cliente-net'
           cliente_netmultix_rfc = cliente_netmultix.cl01_rfc rescue 'sin-rfc-cliente-net'
-
           cliente_netmultix_calle = cliente_netmultix.cl01_calle rescue 'sin-calle-cliente-net'
           cliente_netmultix_colonia = cliente_netmultix.cl01_colonia rescue 'sin-colonia-cliente-net'
           cliente_netmultix_ciudad = cliente_netmultix.cl01_ciudad rescue 0
@@ -89,8 +91,31 @@ module Vinculacion
           cliente_netmultix_lada = cliente_netmultix.cl01_lada rescue 'sin-lada-cliente-net'
           cliente_netmultix_telefono = cliente_netmultix.cl01_telefono1 rescue 'sin-tel1-cliente-net'
           cliente_netmultix_fax = cliente_netmultix.cl01_fax rescue 'sin-fax-cliente-net'
+          cliente_netmultix_pais = cliente_netmultix.cl01_pais rescue 0
+          cliente_netmultix_estado = cliente_netmultix.cl01_estado rescue 0
+          cliente_netmultix_localidad = cliente_netmultix.cl01_localidad rescue 'sin-localidad'
+          cliente_netmultix_tipo = cliente_netmultix.cl01_tipo_negocio rescue 0
+          requisitor = self.servicio.empleado.nombre_completo rescue 'sin-requisitor'
 
-          requisitor = self.servicio.empleado.nombre_completo
+          cotizacion = self.solicitud.cotizaciones.first
+          cotizacion_detalle = cotizacion.cotizacion_detalle.first
+          cantidad = cotizacion_detalle.cantidad rescue 0
+          precio_uni = cotizacion_detalle.precio_unitario rescue 0
+          precio_vta = self.precio_venta rescue 0 ## cantida x precio_uni
+          porce_costo_fijo = 17.26
+          porce_max_remanente = 70
+          porce_dist_inv = 35
+          tot_costo_var = 0 # self.total_costo_variable rescue 0
+          tot_costo_fijo = 0
+          monto_distribuir = 70 * precio_vta / 100
+          monto_dist_inv = 0
+          saldo_fact = precio_vta
+          status = 1
+          proyecto_pago = '2033000238'
+          observaciones = self.concepto_en_extenso rescue 'sin-observaciones'
+          aprobacion = 0
+          fecha_prog = Time.now
+          moneda = cotizacion.divisa = 1 ? 'P' : 'D'
 
           puts cia
           puts fecha
@@ -98,7 +123,6 @@ module Vinculacion
           puts sol_servicio
           puts servicio
           puts tipo
-          puts proyecto
           puts descripcion
           puts concepto_factura
           puts cliente_netmultix_cve
@@ -112,10 +136,54 @@ module Vinculacion
           puts cliente_netmultix_telefono
           puts cliente_netmultix_fax
           puts requisitor
+          puts cantidad
+          puts precio_uni
+          puts precio_vta
+          puts porce_costo_fijo
+          puts porce_max_remanente
+          puts porce_dist_inv
+          puts tot_costo_var
+          puts tot_costo_fijo
+          puts monto_distribuir
+          puts monto_dist_inv
+          puts saldo_fact
+          puts status
+          puts proyecto_pago
+          puts observaciones
+          puts aprobacion
+          puts fecha_prog
+          puts cliente_netmultix_localidad
+          puts cliente_netmultix_estado
+          puts cliente_netmultix_pais
+          puts moneda
+          puts cliente_netmultix_tipo
 
-          cedulaNetMultix = CedulaNetmultix.where('ft16_sol_servicio LIKE :q', {:q => '%999/17%'}).first
-          puts cedulaNetMultix.ft16_cedula rescue 'no cedula'
-          self.cedula_netmultix = cedulaNetMultix.ft16_cedula
+
+          ## probando con un simple update
+          #cedula1 = '0414/16'
+          #query = "UPDATE ft16 set ft16_observaciones = '#{observaciones}' WHERE ft16_cedula like '%#{cedula1}%'"
+          #query = "SELECT ft16_cedula, ft16_observaciones FROM ft16 WHERE ft16_cedula like '%#{cedula1}%'"
+          #puts query
+          #results = ClienteNetmultix.connection.exec_query(query, 'SQL', [nil,nil])
+          #puts results
+
+          the_cedula = CedulaNetmultix.where('ft16_sol_servicio LIKE :q', {:q => '%999/17%'})
+          the_cedula.update_all(ft16_observaciones: observaciones)
+
+
+          #cedulaNetMultix = CedulaNetmultix.where('ft16_sol_servicio LIKE :q', {:q => '%999/17%'}).first
+          #puts cedulaNetMultix.ft16_cedula rescue 'no cedula'
+          #self.cedula_netmultix = cedulaNetMultix.ft16_cedula
+
+          ####
+          #ClienteNetmultix.connection.exec_query("select ft16_cedula from ft16 where ft16_sol_servicio like '%" + '999/17' + "%'"  ).first
+
+          #puts result
+          #establish_connection "#{Rails.env}_netmultix"
+          #ActiveRecord::Base.connection.execute(sql)
+
+          #cedulaNetMultix.ft16_observaciones = observaciones
+          #cedulaNetMultix.save
 
           self.save
        end
