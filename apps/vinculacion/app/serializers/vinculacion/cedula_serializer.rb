@@ -9,7 +9,7 @@ module Vinculacion
 
     attributes :solicitud_id
     attributes :servicio_id
-    attributes :cliente_netmultix_id, :cedula_netmultix, :concepto_en_extenso
+    attributes :cliente_netmultix_id, :cedula_netmultix, :concepto_en_extenso, :proyecto_id
     #has_one :solicitud
 
     #calculados

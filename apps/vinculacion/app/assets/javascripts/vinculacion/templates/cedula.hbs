@@ -33,10 +33,8 @@
         {{#form-for controller}}
 
             <div class="row">
-                <label for="unknown" class=" ol-sm-2 control-label">Cliente NetMultix</label>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-5">
+                    <label for="unknown" class="control-label">Cliente NetMultix</label>
                     {{view App.Select2View contentBinding="controllers.application.clientes_netmultix"
                     optionLabelPath="content.cl01_nombre"
                     optionValuePath="content.id"
@@ -44,13 +42,23 @@
                     prompt="seleccione cliente netmultix..."
                     }}
                 </div>
+                <div class="col-sm-3">
+                    <label for="unknown" class="control-label">Proyecto</label>
+                    {{view Ember.Select content=controllers.application.proyectos
+                    value=proyecto_id
+                    optionValuePath="content.id"
+                    optionLabelPath="content.descripcion"
+                    classNames="input-sm"}}
+                    <div class="clearfix"></div>
+                </div>
             </div>
             <div class="row">
-                <label for="unknown" class="ol-sm-2 control-label">Concepto en extenso</label>
-                <div class="ol-sm-4 ">
+                <div class="col-sm-4 ">
+                    <label for="unknown" class="control-label">Concepto en extenso</label>
                     {{input-field concepto_en_extenso as="text"}}
                 </div>
             </div>
+
         {{/form-for}}
     </div>
 {{/if}}
