@@ -8,6 +8,9 @@ gem 'mysql2', '0.3.18'
 # Use Oracle as the database
 # https://craig.io/setting-up-a-rails-development-environment-with-oracle/
 # http://www.rubydoc.info/github/kubo/ruby-oci8/master/file/docs/install-on-osx.md
+# https://github.com/kubo/ruby-oci8/issues/89
+gem 'ruby-oci8', '~> 2.1.0'
+gem 'activerecord-oracle_enhanced-adapter', '~> 1.6.0'
 #gem 'ruby-oci8', '~> 2.1.0'
 #gem 'activerecord-oracle_enhanced-adapter', '~> 1.6.0'
 
