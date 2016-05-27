@@ -5,6 +5,7 @@ App.CedulaController = Ember.ObjectController.extend({
     inicial: 1,
     transmitiendo: 2,
     transmitida: 3,
+    falla: 4,
     cancelada: 99
   },
 
@@ -47,9 +48,15 @@ App.CedulaController = Ember.ObjectController.extend({
      return result;
   }.property('content.isDirty', 'content.isValid'),
 
-  isInicial: function() {
-    return this.get('model.status') == this.get('Status.inicial');
-  }.property('model.status'),
+    isInicial: function() {
+        return this.get('model.status') == this.get('Status.inicial');
+    }.property('model.status'),
+    isFalla: function() {
+        return this.get('model.status') == this.get('Status.falla');
+    }.property('model.status'),
+    isInicialOrFalla: function() {
+        return this.get('model.status') == this.get('Status.inicial') || this.get('model.status') == this.get('Status.falla');
+    }.property('model.status'),
   isTransmitiendo: function() {
     return this.get('model.status') == this.get('Status.transmitiendo');
   }.property('model.status'),

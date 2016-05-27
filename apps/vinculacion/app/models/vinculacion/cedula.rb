@@ -19,14 +19,8 @@ module Vinculacion
     INICIAL       = 1
     TRANSMITIENDO = 2
     TRANSMITIDA   = 3
+    FALLA         = 4
     CANCELADO     = 99
-
-    STATUS = {
-        INICIAL       => 'Inicio',
-        TRANSMITIENDO => 'Transmitiendo...',
-        TRANSMITIDA   => 'Transmitida',
-        CANCELADO     => 'Cancelada'
-    }
 
     def total_costo_variable
       self.costo_variable.sum('costo')
@@ -65,7 +59,14 @@ module Vinculacion
       if self.status_changed? && self.status == TRANSMITIENDO
 
           cve_cliente_netmultix = self.cliente_netmultix_id.to_s.rjust(5,'0') rescue 'no-cve'
-          cliente_netmultix = ClienteNetmultix.where("cl01_clave LIKE '%" + cve_cliente_netmultix + "%'").first
+
+          begin
+            cliente_netmultix = ClienteNetmultix.where("cl01_clave LIKE '%" + cve_cliente_netmultix + "%'").first
+          rescue
+            self.status = FALLA
+            self.save
+            return
+          end
 
 
           cia = '1'
@@ -157,37 +158,21 @@ module Vinculacion
           puts cliente_netmultix_tipo
 
 
-          ## probando con un simple update
-          #cedula1 = '0414/16'
-          #query = "UPDATE ft16 set ft16_observaciones = '#{observaciones}' WHERE ft16_cedula like '%#{cedula1}%'"
-          #query = "SELECT ft16_cedula, ft16_observaciones FROM ft16 WHERE ft16_cedula like '%#{cedula1}%'"
-          #puts query
-          #results = ClienteNetmultix.connection.exec_query(query, 'SQL', [nil,nil])
-          #puts results
-
-          the_cedula = CedulaNetmultix.where('ft16_sol_servicio LIKE :q', {:q => '%999/17%'})
-          the_cedula.update_all(
+          begin
+            ## probando con un Update en vez de Insert
+            the_cedula = CedulaNetmultix.where('ft16_sol_servicio LIKE :q', {:q => '%999/17%'})
+            the_cedula.update_all(
               ft16_observaciones: observaciones,
               ft16_orden_compra: orden_compra,
               ft16_requisitor: requisitor,
               ft16_desc: descripcion,
               ft16_fecha: fecha
-          )
-
-
-          #cedulaNetMultix = CedulaNetmultix.where('ft16_sol_servicio LIKE :q', {:q => '%999/17%'}).first
-          #puts cedulaNetMultix.ft16_cedula rescue 'no cedula'
-          #self.cedula_netmultix = cedulaNetMultix.ft16_cedula
-
-          ####
-          #ClienteNetmultix.connection.exec_query("select ft16_cedula from ft16 where ft16_sol_servicio like '%" + '999/17' + "%'"  ).first
-
-          #puts result
-          #establish_connection "#{Rails.env}_netmultix"
-          #ActiveRecord::Base.connection.execute(sql)
-
-          #cedulaNetMultix.ft16_observaciones = observaciones
-          #cedulaNetMultix.save
+            )
+          rescue
+            self.status = FALLA
+            self.save
+            return
+          end
 
           self.status = TRANSMITIDA
           self.save
