@@ -419,12 +419,7 @@ module Vinculacion
               subtotal_consumibles = 0
               subtotal_otros       = 0 
               subtotal_hhombre     = 0
-              cantidad = 0
-              if ssccd.cantidad.to_i.eql? 0
-                cantidad = 1
-              else
-                cantidad = ssccd.cantidad
-              end
+              cantidad = ssccd.cantidad
               
               if ssccd.tipo.to_i.eql? 1 then ## HORAS HOMBRE
                 subtotal_hhombre = ssccd.precio_unitario * cantidad
