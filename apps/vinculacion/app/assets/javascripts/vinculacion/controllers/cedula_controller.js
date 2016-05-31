@@ -1,5 +1,5 @@
 App.CedulaController = Ember.ObjectController.extend({
-  needs: ["application"], //, solicitud"],
+  needs: ["application"], 
 
   Status: {
     inicial: 1,
@@ -14,7 +14,6 @@ App.CedulaController = Ember.ObjectController.extend({
       var self = this;
       var onSuccess = function (cedula) {
         self.get('controllers.application').notify('Se actualizó cédula');
-          //self.get('controllers.solicitud').reloadSolicitud(); // Bizarro. Evita que se tarde demasiado en "volver" del save.
         self.transitionToRoute('cedula');
       };
       var onFail = function (cedula) {
@@ -35,7 +34,27 @@ App.CedulaController = Ember.ObjectController.extend({
         };
         cedula.set('status', this.get('Status.transmitiendo'));
         cedula.save().then(onSuccess, onFail);
-    }
+    },
+
+      buscar_subproyecto: function (cedula) {
+          // buscar subproyecto en netmultix
+          var self = this;
+          var codigo = self.get('solicitud.codigo').replace('/','');
+          var url = "/vinculacion/cedulas/" + self.get('id') + '/subproyecto/' + codigo; // url del controlador en rails
+
+          var onSuccess = function (response) {
+              self.get('controllers.application').notify('Se encontró subproyecto');
+              self.set('sub_proyecto', response);
+              self.transitionToRoute('cedula');
+          };
+          var onFail = function (response) {
+              console.log('ERROR');
+              console.log(response);
+              self.get('controllers.application').notify('Error al buscar subproyecto en NetMultix', 'alert-danger');
+          };
+
+          $.get(url).then(onSuccess, onFail);
+      }
 
   },
 

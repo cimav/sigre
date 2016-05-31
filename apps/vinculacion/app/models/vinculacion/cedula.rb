@@ -76,6 +76,7 @@ module Vinculacion
           sol_servicio = self.solicitud.codigo rescue 'sin/codigo'
           sol_servicio = sol_servicio.split('/')
           sol_servicio = sol_servicio.last + '/' + sol_servicio.first
+          #######
           servicio = 201
           tipo = 'S'
           descripcion = self.servicio.nombre rescue 'sin-descripcion|nombre-servicio'
@@ -95,7 +96,6 @@ module Vinculacion
           cliente_netmultix_localidad = cliente_netmultix.cl01_localidad rescue 'sin-localidad'
           cliente_netmultix_tipo = cliente_netmultix.cl01_tipo_negocio rescue 0
           requisitor = self.servicio.empleado.nombre_completo rescue 'sin-requisitor'
-
           cotizacion = self.solicitud.cotizaciones.first
           cotizacion_detalle = cotizacion.cotizacion_detalle.first
           cantidad = cotizacion_detalle.cantidad rescue 0
@@ -110,6 +110,7 @@ module Vinculacion
           monto_dist_inv = 0
           saldo_fact = precio_vta
           status = 1
+          #######
           proyecto_pago = '2033000238'
           observaciones = self.concepto_en_extenso rescue 'sin-observaciones'
           aprobacion = 0
