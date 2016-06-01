@@ -1,84 +1,90 @@
-<div id='cedula-header'>
-    {{#if isInicialOrFalla}}
+{{#if solicitud.isTipoI}}
+    <div id='cedula-header'>
+        {{#if isInicialOrFalla}}
 
-        {{#if isFalla}}
-            <h4 class="cedula-falla"><span class="glyphicon glyphicon-link "></span> Falló transmisión</h4>
+            {{#if isFalla}}
+                <h4 class="cedula-falla"><span class="glyphicon glyphicon-link "></span> Falló transmisión</h4>
+            {{/if}}
+
+            <div class="cedula-actions">
+                <button type="submit"
+                        class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "update" this target='controller'}} >
+                    {{#if item.isSaving}}
+                        <span class="spin glyphicon glyphicon-refresh"></span>
+                        Guardando...
+                    {{else}}
+                        Actualizar cédula
+                    {{/if}}
+                </button>
+
+                <button type="submit"
+                        class="btn btn-danger" {{bind-attr disabled=this.isNotReadyForTransmitir}} {{action "transmitir" this target='controller'}} >
+                    <span class="glyphicon glyphicon-send"></span> Transmitir a NetMultix
+                </button>
+            </div>
         {{/if}}
+        {{#if isTransmitiendo}}
+            <h4><span class="glyphicon glyphicon-refresh glyphicon-spin"></span> Transmitiendo cédula a NetMultix...
+            </h4>
+        {{/if}}
+        {{#if isTransmitida}}
+            <h4 class="cedula-transmitida"><span class="glyphicon glyphicon-ok"></span> Transmitida <span
+                    class="label">{{cedula_netmultix}}</span></h4>
+        {{/if}}
+    </div>
+    {{#if isInicialOrFalla}}
+        <div id="cedula-edicion" class="accion-cedula">
+            {{#form-for controller}}
 
-        <div class="cedula-actions">
-            <button type="submit"
-                    class="btn btn-primary" {{bind-attr disabled=this.isNotReadyForSave}} {{action "update" this target='controller'}} >
-                {{#if item.isSaving}}
-                    <span class="spin glyphicon glyphicon-refresh"></span>
-                    Guardando...
-                {{else}}
-                    Actualizar cédula
-                {{/if}}
-            </button>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <label for="unknown" class="control-label">Cliente NetMultix</label>
+                        {{view App.Select2View contentBinding="controllers.application.clientes_netmultix"
+                        optionLabelPath="content.cl01_nombre"
+                        optionValuePath="content.id"
+                        selectionBinding="cliente_netmultix"
+                        prompt="seleccione cliente netmultix..."
+                        }}
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="unknown" class="control-label">Proyecto</label>
+                        {{view Ember.Select content=controllers.application.proyectos
+                        value=proyecto_id
+                        optionValuePath="content.id"
+                        optionLabelPath="content.descripcion"
+                        classNames="input-sm"
+                        disabled="false"
+                        }}
 
-            <button type="submit" class="btn btn-danger" {{bind-attr disabled=this.isNotReadyForTransmitir}} {{action "transmitir" this target='controller'}} >
-                <span class="glyphicon glyphicon-send"></span> Transmitir a NetMultix
-            </button>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="unknown" class="control-label">SubProyecto</label>
+                        <div id="md-search-box">
+                            <div class="input-group">
+                                {{input type="text" value=sub_proyecto placeholder="Buscar sub-proyecto" disabled="false" classNames="form-control"}}
+                                <div class="input-group-btn">
+                                    <button type="button"
+                                            class="btn btn-default" {{action "buscar_subproyecto" this target='controller'}} >
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 ">
+                        <label for="unknown" class="control-label">Concepto en extenso</label>
+                        {{input-field concepto_en_extenso as="text"}}
+                    </div>
+                </div>
+
+            {{/form-for}}
         </div>
     {{/if}}
-    {{#if isTransmitiendo}}
-        <h4><span class="glyphicon glyphicon-refresh glyphicon-spin"></span> Transmitiendo cédula a NetMultix...</h4>
-    {{/if}}
-    {{#if isTransmitida}}
-        <h4 class="cedula-transmitida"><span class="glyphicon glyphicon-ok"></span> Transmitida <span class="label">{{cedula_netmultix}}</span></h4>
-    {{/if}}
-</div>
-{{#if isInicialOrFalla}}
-    <div id="cedula-edicion" class="accion-cedula">
-        {{#form-for controller}}
-
-            <div class="row">
-                <div class="col-sm-5">
-                    <label for="unknown" class="control-label">Cliente NetMultix</label>
-                    {{view App.Select2View contentBinding="controllers.application.clientes_netmultix"
-                    optionLabelPath="content.cl01_nombre"
-                    optionValuePath="content.id"
-                    selectionBinding="cliente_netmultix"
-                    prompt="seleccione cliente netmultix..."
-                    }}
-                </div>
-                <div class="col-sm-3">
-                    <label for="unknown" class="control-label">Proyecto</label>
-                    {{view Ember.Select content=controllers.application.proyectos
-                    value=proyecto_id
-                    optionValuePath="content.id"
-                    optionLabelPath="content.descripcion"
-                    classNames="input-sm"
-                    disabled="false"
-                    }}
-
-                    <div class="clearfix"></div>
-                </div>
-                <div class="col-sm-3">
-                    <label for="unknown" class="control-label">SubProyecto</label>
-                    <div id="md-search-box">
-                        <div class="input-group">
-                            {{input type="text" value=sub_proyecto placeholder="Buscar sub-proyecto" disabled="false" classNames="form-control"}}
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-default" {{action "buscar_subproyecto" this target='controller'}} >
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 ">
-                    <label for="unknown" class="control-label">Concepto en extenso</label>
-                    {{input-field concepto_en_extenso as="text"}}
-                </div>
-            </div>
-
-        {{/form-for}}
-    </div>
 {{/if}}
 
 <div class="clearfix"></div>
