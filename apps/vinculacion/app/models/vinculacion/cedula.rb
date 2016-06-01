@@ -7,6 +7,7 @@ module Vinculacion
     has_many :remanentes
 
     after_update :check_status_for_transmitir
+    before_create :init_proyecto
 
     attr_accessor :total_costo_variable
     attr_accessor :costo_indirecto
@@ -55,6 +56,22 @@ module Vinculacion
       self.utilidad_topada * 0.35
     end
 
+    def init_proyecto
+
+      # inicializa la cédula con le proyecto default de la sede de la solicitud
+      sede_id = self.solicitud.sede_id
+      case sede_id
+        when 2 # MTY
+          proy_id = 20350
+        when 3 # DGO
+          proy_id = 20409
+        else # CHI
+          proy_id = 20330
+      end
+      self.proyecto_id = proy_id
+
+    end
+
     def check_status_for_transmitir
       if self.status_changed? && self.status == TRANSMITIENDO
 
@@ -79,6 +96,8 @@ module Vinculacion
           #######
           servicio = 201
           tipo = 'S'
+          ######
+          proyecto = self.sub_proyecto
           descripcion = self.servicio.nombre rescue 'sin-descripcion|nombre-servicio'
           concepto_factura = self.concepto_en_extenso rescue 'sin-concepto-extenso'
           cliente_netmultix_cve = cliente_netmultix.cl01_clave rescue 'sin-clave-cliente-net'
@@ -111,7 +130,7 @@ module Vinculacion
           saldo_fact = precio_vta
           status = 1
           #######
-          proyecto_pago = '2033000238'
+          proyecto_pago =  self.sub_proyecto
           observaciones = self.concepto_en_extenso rescue 'sin-observaciones'
           aprobacion = 0
           fecha_prog = fecha
@@ -148,6 +167,7 @@ module Vinculacion
           puts monto_dist_inv
           puts saldo_fact
           puts status
+          puts proyecto
           puts proyecto_pago
           puts observaciones
           puts aprobacion

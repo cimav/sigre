@@ -28,12 +28,6 @@ module Vinculacion
 
       codigo_solicitud = params[:codigo_solicitud]
 
-      #sub_proy_solicitud = codigo_sol rescue 'sin/codigo'
-      #sub_proy_solicitud = sub_proy_solicitud.split('/')
-      #sub_proy_solicitud = sub_proy_solicitud.last + sub_proy_solicitud.first
-
-      #sub_proyecto = proyecto_id.to_s + sub_proy_solicitud
-
       # busca la solicitud/servicio en la descripción
       proy_netmultix = ProyectoNetmultix.where('trim(pr13_desc) LIKE trim(:q)', {:q => codigo_solicitud}).first rescue nil
 

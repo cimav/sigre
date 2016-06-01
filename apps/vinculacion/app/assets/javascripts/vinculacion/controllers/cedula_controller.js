@@ -43,7 +43,7 @@ App.CedulaController = Ember.ObjectController.extend({
           var url = "/vinculacion/cedulas/" + self.get('id') + '/subproyecto/' + codigo; // url del controlador en rails
 
           var onSuccess = function (response) {
-              self.get('controllers.application').notify('Se encontró subproyecto');
+              self.get('controllers.application').notify('Se asignó subproyecto');
               self.set('sub_proyecto', response);
               self.transitionToRoute('cedula');
           };
