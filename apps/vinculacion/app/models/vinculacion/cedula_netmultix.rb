@@ -4,10 +4,12 @@ module Vinculacion
 
     self.table_name = 'ft16'
 
+=begin
     attr_accessor :id
     def id
       self.ft16_cedula.tr('/','').to_i
     end
+=end
 
   end
 end

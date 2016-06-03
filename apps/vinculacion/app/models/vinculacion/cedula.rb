@@ -75,31 +75,35 @@ module Vinculacion
     def check_status_for_transmitir
       if self.status_changed? && self.status == TRANSMITIENDO
 
+        # buscar al Cliente de NetMultix
           cve_cliente_netmultix = self.cliente_netmultix_id.to_s.rjust(5,'0') rescue 'no-cve'
-
           begin
             cliente_netmultix = ClienteNetmultix.where("cl01_clave LIKE '%" + cve_cliente_netmultix + "%'").first
-          rescue
+            if cliente_netmultix.nil?
+              raise 'Cliente no encontrado!'
+            end
+          rescue => e
+            puts e
             self.status = FALLA
             self.save
             return
           end
 
-
+          # poblar los valores
           cia = '1'
           fecha = Time.now
           fecha = fecha.year.to_s + fecha.month.to_s.rjust(2,'0') + fecha.day.to_s.rjust(2,'0')
           orden_compra = self.solicitud.orden_compra rescue 'sin-orden'
           sol_servicio = self.solicitud.codigo rescue 'sin/codigo'
-          sol_servicio = sol_servicio.split('/')
-          sol_servicio = sol_servicio.last + '/' + sol_servicio.first
+          #sol_servicio = sol_servicio.split('/')
+          #sol_servicio = sol_servicio.last + '/' + sol_servicio.first
           #######
           servicio = 201
           tipo = 'S'
           ######
           proyecto = self.sub_proyecto
-          descripcion = self.servicio.nombre rescue 'sin-descripcion|nombre-servicio'
-          concepto_factura = self.concepto_en_extenso rescue 'sin-concepto-extenso'
+          descripcion = 'desc corta de 40 nombre del servicio' #self.servicio.nombre rescue 'sin-descripcion|nombre-servicio'
+          concepto_factura = self.concepto_en_extenso rescue 'sin-concepto-extenso' ######### descripcion muy larga 2000 (maybe de la solicitud)
           cliente_netmultix_cve = cliente_netmultix.cl01_clave rescue 'sin-clave-cliente-net'
           cliente_netmultix_nombre = cliente_netmultix.cl01_nombre rescue 'sin-nombre-cliente-net'
           cliente_netmultix_rfc = cliente_netmultix.cl01_rfc rescue 'sin-rfc-cliente-net'
@@ -114,91 +118,134 @@ module Vinculacion
           cliente_netmultix_estado = cliente_netmultix.cl01_estado rescue 0
           cliente_netmultix_localidad = cliente_netmultix.cl01_localidad rescue 'sin-localidad'
           cliente_netmultix_tipo = cliente_netmultix.cl01_tipo_negocio rescue 0
-          requisitor = self.servicio.empleado.nombre_completo rescue 'sin-requisitor'
+          requisitor = self.servicio.empleado.nombre_completo rescue 'sin-requisitor' ############ debe ser el contacto
           cotizacion = self.solicitud.cotizaciones.first
           cotizacion_detalle = cotizacion.cotizacion_detalle.first
           cantidad = cotizacion_detalle.cantidad rescue 0
           precio_uni = cotizacion_detalle.precio_unitario rescue 0
-          precio_vta = self.precio_venta rescue 0 ## cantida x precio_uni
+          precio_vta = self.precio_venta.nan? ? 1 : self.precio_venta rescue 1 ## cantida x precio_uni
           porce_costo_fijo = 17.26
           porce_max_remanente = 70
           porce_dist_inv = 35
           tot_costo_var = 0 # self.total_costo_variable rescue 0
           tot_costo_fijo = 0
-          monto_distribuir = 70 * precio_vta / 100
+          monto_distribuir = 70 * precio_vta / 100 rescue 0
           monto_dist_inv = 0
           saldo_fact = precio_vta
           status = 1
           #######
           proyecto_pago =  self.sub_proyecto
-          observaciones = self.concepto_en_extenso rescue 'sin-observaciones'
+          observaciones = self.concepto_en_extenso rescue 'sin-observaciones' ### observaciones larga hasta de 20000
           aprobacion = 0
           fecha_prog = fecha
           moneda = cotizacion.divisa = 1 ? 'P' : 'D'
 
-          puts cia
-          puts fecha
-          puts orden_compra
-          puts sol_servicio
-          puts servicio
-          puts tipo
-          puts descripcion
-          puts concepto_factura
-          puts cliente_netmultix_cve
-          puts cliente_netmultix_nombre
-          puts cliente_netmultix_rfc
-          puts cliente_netmultix_calle
-          puts cliente_netmultix_colonia
-          puts cliente_netmultix_ciudad
-          puts cliente_netmultix_postal
-          puts cliente_netmultix_lada
-          puts cliente_netmultix_telefono
-          puts cliente_netmultix_fax
-          puts requisitor
-          puts cantidad
-          puts precio_uni
-          puts precio_vta
-          puts porce_costo_fijo
-          puts porce_max_remanente
-          puts porce_dist_inv
-          puts tot_costo_var
-          puts tot_costo_fijo
-          puts monto_distribuir
-          puts monto_dist_inv
-          puts saldo_fact
-          puts status
-          puts proyecto
-          puts proyecto_pago
-          puts observaciones
-          puts aprobacion
-          puts fecha_prog
-          puts cliente_netmultix_localidad
-          puts cliente_netmultix_estado
-          puts cliente_netmultix_pais
-          puts moneda
-          puts cliente_netmultix_tipo
-
-
+=begin
           begin
-            ## probando con un Update en vez de Insert
-            the_cedula = CedulaNetmultix.where('ft16_sol_servicio LIKE :q', {:q => '%999/17%'})
-            the_cedula.update_all(
-              ft16_observaciones: observaciones,
-              ft16_orden_compra: orden_compra,
-              ft16_requisitor: requisitor,
-              ft16_desc: descripcion,
-              ft16_fecha: fecha
-            )
-          rescue
+            # consecutivo siguiente
+            conn_netmultix = ActiveRecord::Base.establish_connection(:development_netmultix)
+            consecutivo_cedula = conn_netmultix.connection.execute('SELECT FT61_PROX FROM FT61 WHERE FT61_TABLA = 16  AND ROWNUM <= 1').fetch
+            consecutivo_cedula = consecutivo_cedula[0] + 10
+            ##### Falta el anio
+            consecutivo_cedula = consecutivo_cedula.to_s.rjust(4,'0') + '/17'
+          rescue => e
+            puts e
             self.status = FALLA
             self.save
             return
+          ensure
+            conn_netmultix.disconnect! unless conn_netmultix.nil?
+          end
+=end
+
+       CedulaNetmultix.transaction do
+
+          begin
+
+            # buscar consecutivo siguiente
+            cedula_consecutivo_netmultix = CedulaConsecutivoNetmultix.where("ft61_tabla = 16").first
+            consecutivo_cedula_int = cedula_consecutivo_netmultix.ft61_prox + 10
+            ##### Falta el anio
+            consecutivo_cedula_str = consecutivo_cedula_int.to_s.rjust(4,'0') + '/17'
+
+            # insertar registro directamente; no usa el Save
+            cedula_netmultix = CedulaNetmultix.create(
+                ft16_cia: cia,
+                ft16_cedula: consecutivo_cedula_str,
+                ft16_fecha: fecha,
+                ft16_orden_compra: orden_compra,
+                ft16_sol_servicio: sol_servicio,
+                ft16_servicio: 201,
+                ft16_tipo: 'S',
+                ft16_proyecto: proyecto,
+                ft16_desc: descripcion,
+                ft16_conce_fac: concepto_factura,
+                ft16_cve_cte: cliente_netmultix_cve,
+                ft16_nombre: cliente_netmultix_nombre,
+                ft16_rfc: cliente_netmultix_rfc,
+                ft16_calle: cliente_netmultix_calle,
+                ft16_colonia: cliente_netmultix_colonia,
+                ft16_ciudad: cliente_netmultix_ciudad,
+                ft16_postal: cliente_netmultix_postal,
+                ft16_lada: cliente_netmultix_lada,
+                ft16_telefono: cliente_netmultix_telefono,
+                ft16_fax: cliente_netmultix_fax,
+                ft16_requisitor: requisitor,
+                ft16_cantidad: cantidad,
+                ft16_precio_uni: precio_uni,
+                ft16_precio_vta: precio_vta,
+                ft16_porc_costo_fijo: porce_costo_fijo,
+                ft16_porc_max_remanente: porce_max_remanente,
+                ft16_porc_dist_inv: porce_dist_inv,
+                ft16_total_costo_var: tot_costo_var,
+                ft16_total_costo_fijo: tot_costo_fijo,
+                ft16_monto_distribuir: monto_distribuir,
+                ft16_monto_dist_inv: monto_dist_inv,
+                ft16_saldo_fact: saldo_fact,
+                ft16_status: status,
+                ft16_proy_pago: proyecto_pago,
+                ft16_observaciones: observaciones,
+                ft16_aprobacion: 0,
+                ft16_fecha_prog: fecha_prog,
+                ft16_nombre2: '', # por si el nombre es demasiado extenso
+                ft16_localidad: 'localFalta',
+                ft16_no_int: 'intFalta',
+                ft16_no_ext: 'extFalta',
+                ft16_estado: cliente_netmultix_estado,
+                ft16_pais: cliente_netmultix_pais,
+                ft16_moneda: moneda,
+                ft16_tipo_negocio: 	0
+            )
+
+            puts cedula_netmultix.ft16_cedula
+            self.cedula_netmultix = cedula_netmultix.ft16_cedula
+
+            ## Si la insercion no tuvo fallas, actualizar el consecutivo
+            cedula_consecutivo_netmultix.update(
+                ft61_prox: consecutivo_cedula_int
+            )
+
+=begin
+               Detalle de cedula lleva el costo de cada participante
+               La Distribucion lleva el % y lo que se llevan del remanente
+=end
+
+          rescue => e
+            puts e
+            self.status = FALLA
+            self.save
+            return
+          ensure
+            #
           end
 
           self.status = TRANSMITIDA
           self.save
-       end
-    end
+
+        end #CedulaNetmultix.transaction do
+
+       end # if self.status_changed? && self.status == TRANSMITIENDO
+    end #check_status_for_transmitir
 
 
   end

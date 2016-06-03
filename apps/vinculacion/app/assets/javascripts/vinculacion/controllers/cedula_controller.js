@@ -9,6 +9,11 @@ App.CedulaController = Ember.ObjectController.extend({
     cancelada: 99
   },
 
+    isNotReadyForSave: function () {
+        var result = this.get('content.isDirty') == true;
+        return !result;
+    }.property('content.isDirty'),
+
   actions: {
     update: function (cedula) {
       var self = this;
