@@ -23,7 +23,9 @@ module Vinculacion
         filename = c.solicitud.codigo.gsub('/','_').concat('.pdf')
         pdf.render_file File.join(Rails.root.to_s, "private/cotizaciones", filename)
         puts "PDF Guardado"
-        VinculacionMailer.enviar_cotizacion(c.solicitud_id, c.id, current_user.email, params[:cotizacion][:msg_notificacion]).deliver 
+        if c.solicitud.proyecto_id == 1
+          VinculacionMailer.enviar_cotizacion(c.solicitud_id, c.id, current_user.email, params[:cotizacion][:msg_notificacion]).deliver 
+        end
       end
       render json: Cotizacion.find(params[:id]).tap { |b| b.update_attributes(cotizacion) }
     end
