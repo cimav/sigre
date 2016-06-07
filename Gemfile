@@ -64,6 +64,8 @@ gem 'omniauth-oauth2', '1.3.1'
 
 gem 'roman-numerals'
 
+gem 'carrierwave'
+
 gem 'rh', path: 'apps/rh'
 gem 'vinculacion', path: 'apps/vinculacion'
 gem 'proyectos', path: 'apps/proyectos'

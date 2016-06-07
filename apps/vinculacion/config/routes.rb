@@ -1,7 +1,12 @@
 Vinculacion::Engine.routes.draw do
-  resources :solicitudes 
-  resources :muestras
+  resources :solicitudes do
+    resources :archivos
+  end
+
   resources :servicios
+  resources :muestras
+  resources :archivos
+  get '/archivos/get/:id', to: 'archivos#file'
   resources :servicios_muestras
   resources :clientes
   resources :contactos

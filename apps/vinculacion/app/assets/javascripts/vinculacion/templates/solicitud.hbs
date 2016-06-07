@@ -49,6 +49,8 @@
       {{/if}}
     {{/unless}}
 
+    {{#link-to 'archivos' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-file"></span> Archivos</a>{{/link-to}}
+
     {{#link-to 'cotizaciones' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-usd"></span> Cotizaciones <span class="badge badge-cotizaciones">{{this.lastCotizacion.consecutivo}}</span></a>{{/link-to}}
     {{#link-to 'arrancar' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-flash"></span> Arrancar </a>{{/link-to}}
     {{#if mostrarCedulas}}
