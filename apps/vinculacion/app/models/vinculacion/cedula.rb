@@ -102,7 +102,8 @@ module Vinculacion
           tipo = 'S'
           ######
           proyecto = self.sub_proyecto
-          descripcion = 'desc corta de 40 nombre del servicio' #self.servicio.nombre rescue 'sin-descripcion|nombre-servicio'
+          descripcion = self.servicio.nombre rescue 'sin-descripcion|nombre-servicio' # 'desc corta de 40 nombre del servicio'
+          descripcion = descripcion[0..42].gsub(/\s\w+$/,'...')
           concepto_factura = self.concepto_en_extenso rescue 'sin-concepto-extenso' ######### descripcion muy larga 2000 (maybe de la solicitud)
           cliente_netmultix_cve = cliente_netmultix.cl01_clave rescue 'sin-clave-cliente-net'
           cliente_netmultix_nombre = cliente_netmultix.cl01_nombre rescue 'sin-nombre-cliente-net'
@@ -123,14 +124,14 @@ module Vinculacion
           cotizacion_detalle = cotizacion.cotizacion_detalle.first
           cantidad = cotizacion_detalle.cantidad rescue 0
           precio_uni = cotizacion_detalle.precio_unitario rescue 0
-          precio_vta = self.precio_venta.nan? ? 1 : self.precio_venta rescue 1 ## cantida x precio_uni
+          precio_vta = self.precio_venta.nan? ? 0 : self.precio_venta rescue 0 ## cantida x precio_uni
           porce_costo_fijo = 17.26
           porce_max_remanente = 70
           porce_dist_inv = 35
-          tot_costo_var = 0 # self.total_costo_variable rescue 0
-          tot_costo_fijo = 0
-          monto_distribuir = 70 * precio_vta / 100 rescue 0
-          monto_dist_inv = 0
+          tot_costo_var = self.total_costo_variable.nan? ? 0 : self.total_costo_variable rescue 0
+          tot_costo_fijo = porce_costo_fijo * tot_costo_var / 100 rescue 0
+          monto_distribuir = self.utilidad_topada.nan? ? 0 : self.utilidad_topada rescue 0  # porce_max_remanente * precio_vta / 100 rescue 0
+          monto_dist_inv = porce_dist_inv * monto_distribuir / 100 rescue 0
           saldo_fact = precio_vta
           status = 1
           #######
@@ -168,15 +169,15 @@ module Vinculacion
             ##### Falta el anio
             consecutivo_cedula_str = consecutivo_cedula_int.to_s.rjust(4,'0') + '/17'
 
-            # insertar registro directamente; no usa el Save
+            # insertar registro directamente en la DB; no usa el Save
             cedula_netmultix = CedulaNetmultix.create(
                 ft16_cia: cia,
                 ft16_cedula: consecutivo_cedula_str,
                 ft16_fecha: fecha,
                 ft16_orden_compra: orden_compra,
                 ft16_sol_servicio: sol_servicio,
-                ft16_servicio: 201,
-                ft16_tipo: 'S',
+                ft16_servicio: servicio,
+                ft16_tipo: tipo,
                 ft16_proyecto: proyecto,
                 ft16_desc: descripcion,
                 ft16_conce_fac: concepto_factura,
@@ -207,7 +208,7 @@ module Vinculacion
                 ft16_observaciones: observaciones,
                 ft16_aprobacion: 0,
                 ft16_fecha_prog: fecha_prog,
-                ft16_nombre2: '', # por si el nombre es demasiado extenso
+                ft16_nombre2: '  ', # por si el nombre es demasiado extenso
                 ft16_localidad: 'localFalta',
                 ft16_no_int: 'intFalta',
                 ft16_no_ext: 'extFalta',
@@ -220,10 +221,30 @@ module Vinculacion
             puts cedula_netmultix.ft16_cedula
             self.cedula_netmultix = cedula_netmultix.ft16_cedula
 
-            ## Si la insercion no tuvo fallas, actualizar el consecutivo
-            cedula_consecutivo_netmultix.update(
-                ft61_prox: consecutivo_cedula_int
-            )
+            ## Si la insercion no tuvo fallas, actualizar el consecutivo en DB
+            #cedula_consecutivo_netmultix.update_column("ft61_prox",  "'" + consecutivo_cedula_int.to_s + "'" )
+
+            cad = "ft61_prox = '" +  consecutivo_cedula_int.to_s + "'"
+            CedulaConsecutivoNetmultix.where("ft61_tabla = 16").update_all(cad)
+
+
+
+#            conn_netmultix = ActiveRecord::Base.establish_connection(:development_netmultix)
+           ## conn_netmultix.connection.execute("UPDATE FT61 SET FT61_PROX = '" + consecutivo_cedula_int.to_s + "' WHERE FT61_TABLA = 16").fetch
+           ## conn_netmultix.disconnect! unless conn_netmultix.nil?
+
+#            conn_netmultix.connection.raw_connection.exec("UPDATE FT61 SET FT61_PROX = '" + consecutivo_cedula_int.to_s + "' WHERE FT61_TABLA = 16")
+#            conn_netmultix.connection.close
+
+            #conn_netmultix.raw_connection.prepare("UPDATE FT61 SET FT61_PROX = ? WHERE FT61_TABLA = 16")
+            #conn_netmultix.execute(consecutivo_cedula_int.to_s)
+            #conn_netmultix.close
+
+            # conn_netmultix.connection.raw_connection.exec("UPDATE FT61 SET FT61_PROX = '868' WHERE FT61_TABLA = 16")
+
+            #st = ActiveRecord::Base.connection.raw_connection.prepare("update table set f1=? where f2=? and f3=?")
+            #st.execute(f1, f2, f3)
+            #st.close
 
 =begin
                Detalle de cedula lleva el costo de cada participante
@@ -233,7 +254,7 @@ module Vinculacion
           rescue => e
             puts e
             self.status = FALLA
-            self.save
+            self.save ## al ser de otra DB, el save no va dentro de la transaction ??
             return
           ensure
             #
