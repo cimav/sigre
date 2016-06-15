@@ -63,7 +63,9 @@ module Vinculacion
                                :cliente_netmultix_id,
                                :concepto_en_extenso,
                                :proyecto_id,
-                               :sub_proyecto
+                               :sub_proyecto,
+                               :usuario_id,
+                               :transmitida_at
                                 )
     end
   end

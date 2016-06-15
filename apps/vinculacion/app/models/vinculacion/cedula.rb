@@ -75,6 +75,11 @@ module Vinculacion
     def check_status_for_transmitir
       if self.status_changed? && self.status == TRANSMITIENDO
 
+        # usuario_id que intenta realizar la transmisión
+        self.usuario_id = self.solicitud.usuario_id
+        # momento del intento de transmisión
+        self.transmitida_at = Time.now
+
         # buscar al Cliente de NetMultix
         cve_cliente_netmultix = self.cliente_netmultix_id.to_s.rjust(5, '0') rescue 'no-cve'
         begin
