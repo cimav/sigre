@@ -13,6 +13,9 @@ module Vinculacion
     end
 
     def create
+      params[:cotizacion]['msg_notificacion'] = "Estimado cliente, se adjunta cotización solicitada.
+      
+Saludos."
       render json: Cotizacion.create(cotizacion)
     end
 
