@@ -8,6 +8,37 @@ module Vinculacion
       render json: results
     end
 
+    def descuento_solicitado
+      results = Cotizacion.where(:status => Cotizacion::STATUS_DESCUENTO_SOLICITADO).order("tiempo_entrega desc")
+      render json: results
+    end
+
+    def descuento_aceptar
+      cotizacion = Cotizacion.find(params[:id]) rescue nil
+      if !cotizacion.nil? && cotizacion.status == Cotizacion::STATUS_DESCUENTO_SOLICITADO
+          Cotizacion.update(cotizacion.id,
+                            :status => Cotizacion::STATUS_DESCUENTO_ACEPTADO,
+                            :descuento_porcentaje => params[:descuento_porcentaje],
+                            :motivo_descuento => params[:motivo_descuento])
+          render json:Cotizacion.find(cotizacion.id)
+      else
+        render text:'No se encuentra la solicitud de descuento'
+      end
+    end
+
+    def descuento_rechazar
+      cotizacion = Cotizacion.find(params[:id]) rescue nil
+      if !cotizacion.nil? && cotizacion.status == Cotizacion::STATUS_DESCUENTO_SOLICITADO
+        Cotizacion.update(cotizacion.id,
+                          :status => Cotizacion::STATUS_DESCUENTO_RECHAZADO,
+                          :descuento_porcentaje => 0,
+                          :motivo_descuento => params[:motivo_descuento])
+        render json:Cotizacion.find(cotizacion.id)
+      else
+        render text:'No se encuentra la solicitud de descuento'
+      end
+    end
+
     def show
       render json: Cotizacion.find(params[:id])
     end
@@ -381,6 +412,7 @@ module Vinculacion
           :tiempo_entrega
       )
     end
+
   end
 end
 
