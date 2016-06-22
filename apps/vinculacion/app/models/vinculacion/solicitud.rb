@@ -141,6 +141,16 @@ module Vinculacion
 
         end
 
+        if self.tipo == 1 && self.status == STATUS_ACEPTADA
+          # La Solicitud y Cotización fueron aceptadas; inicializar los valores default para la cédula de NetMultix
+
+          cedula = self.cedulas.first rescue nil # solo tiene una cédula
+          if !cedula.nil?
+            cedula.init_cedula_netmultix
+          end
+
+        end
+
       end
       puts "FIN DE CHECK STATUS AFTER UPDATE SOLICITUD"
     end

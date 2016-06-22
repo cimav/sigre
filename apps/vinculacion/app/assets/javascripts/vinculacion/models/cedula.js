@@ -21,6 +21,7 @@ App.Cedula = DS.Model.extend({
   cedula_netmultix: DS.attr('string'),
   cliente_netmultix: DS.belongsTo('cliente_netmultix'),
   concepto_en_extenso: DS.attr('string'),
+  observaciones: DS.attr('string'),
   proyecto_id: DS.attr('number'),
   sub_proyecto: DS.attr('string')
 

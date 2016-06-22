@@ -5,7 +5,10 @@ App.CedulaController = Ember.ObjectController.extend({
     inicial: 1,
     transmitiendo: 2,
     transmitida: 3,
-    falla: 4,
+    falla_transmision: 4,
+    enviando_costos: 5,
+    costos_enviados: 6,
+    falla_envio: 7,
     cancelada: 99
   },
 
@@ -59,6 +62,19 @@ App.CedulaController = Ember.ObjectController.extend({
           };
 
           $.get(url).then(onSuccess, onFail);
+      },
+
+      enviar_costos: function(cedula) {
+          var self = this;
+          var onSuccess = function (cedula) {
+              self.transitionToRoute('cedula');
+              self.get('controllers.application').notify('Costos enviados');
+          };
+          var onFail = function (cedula) {
+              self.get('controllers.application').notify('Error al enviar costos', 'alert-danger');
+          };
+          cedula.set('status', this.get('Status.enviando_costos'));
+          cedula.save().then(onSuccess, onFail);
       }
 
   },
@@ -67,26 +83,44 @@ App.CedulaController = Ember.ObjectController.extend({
       var result = this.get('content.isDirty') == true && this.get('content.isValid') == true;
       return !result;
   }.property('content.isDirty', 'content.isValid'),
-  isNotReadyForTransmitir: function () {
-     var result = this.get('content.isDirty') == true; // || this.get('content.isValid') == true;
-     return result;
-  }.property('content.isDirty', 'content.isValid'),
+    isNotReadyForTransmitir: function () {
+        var result = this.get('content.isDirty') == true; // || this.get('content.isValid') == true;
+        return result;
+    }.property('content.isDirty', 'content.isValid'),
+    isNotReadyForEnviar: function () {
+        var result = false; // this.get('content.isDirty') == true; // || this.get('content.isValid') == true;
+        return result;
+    }.property('content.isDirty', 'content.isValid'),
 
     isInicial: function() {
         return this.get('model.status') == this.get('Status.inicial');
     }.property('model.status'),
-    isFalla: function() {
-        return this.get('model.status') == this.get('Status.falla');
+    isFallaTransmision: function() {
+        return this.get('model.status') == this.get('Status.falla_transmision');
     }.property('model.status'),
-    isInicialOrFalla: function() {
-        return this.get('model.status') == this.get('Status.inicial') || this.get('model.status') == this.get('Status.falla');
+    isInicialOrFallaTransmision: function() {
+        return this.get('model.status') == this.get('Status.inicial') || this.get('model.status') == this.get('Status.falla_transmision');
     }.property('model.status'),
-  isTransmitiendo: function() {
-    return this.get('model.status') == this.get('Status.transmitiendo');
-  }.property('model.status'),
-  isTransmitida: function() {
-    return this.get('model.status') == this.get('Status.transmitida');
-  }.property('model.status'),
+    isTransmitiendo: function() {
+        return this.get('model.status') == this.get('Status.transmitiendo');
+    }.property('model.status'),
+    isTransmitida: function() {
+        return this.get('model.status') == this.get('Status.transmitida');
+    }.property('model.status'),
+    isFallaEnvio: function() {
+        return this.get('model.status') == this.get('Status.falla_envio');
+    }.property('model.status'),
+    isTransmitidaOrFallaEnvio: function() {
+        return this.get('model.status') == this.get('Status.transmitida')  || this.get('model.status') == this.get('Status.falla_envio');
+    }.property('model.status'),
+    isEnviando: function() {
+        return this.get('model.status') == this.get('Status.enviando_costos');
+    }.property('model.status'),
+    isEnviada: function() {
+        return this.get('model.status') == this.get('Status.costos_enviados');
+    }.property('model.status'),
+
+
 
   total_porcentaje: function() {
     var remanentes = this.get('model.remanentes');

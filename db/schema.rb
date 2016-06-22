@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615204546) do
+ActiveRecord::Schema.define(version: 20160620170215) do
 
   create_table "BAK_vinculacion_servicios_bitacora", id: false, force: :cascade do |t|
     t.integer  "id",                      limit: 4,                            default: 0,   null: false
@@ -280,6 +280,7 @@ ActiveRecord::Schema.define(version: 20160615204546) do
     t.string   "sub_proyecto",         limit: 255
     t.integer  "usuario_id",           limit: 4
     t.datetime "transmitida_at"
+    t.string   "observaciones",        limit: 255
   end
 
   create_table "vinculacion_clientes", force: :cascade do |t|

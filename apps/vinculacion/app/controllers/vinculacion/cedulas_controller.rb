@@ -62,6 +62,7 @@ module Vinculacion
                                :cedula_netmultix,
                                :cliente_netmultix_id,
                                :concepto_en_extenso,
+                               :observaciones,
                                :proyecto_id,
                                :sub_proyecto,
                                :usuario_id,
