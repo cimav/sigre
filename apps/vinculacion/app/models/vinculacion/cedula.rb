@@ -106,6 +106,9 @@ module Vinculacion
       detalle_concepto = self.solicitud.cotizaciones.last.cotizacion_detalle.first.concepto rescue 'sin-concepto'
       self.concepto_en_extenso= detalle_concepto
 
+
+      self.observaciones = ' '
+
       # persistir
       self.save
 
@@ -116,7 +119,7 @@ module Vinculacion
       if self.status_changed?
         if self.status == TRANSMITIENDO
           self.transmitir_netmultix
-        elseif self.status == ENVIANDO_COSTOS
+        elsif self.status == ENVIANDO_COSTOS
           self.enviar_costos_netmultix
         end
       end
@@ -190,12 +193,12 @@ commit;
         cliente_netmultix_estado = cliente_netmultix.cl01_estado rescue 0
         cliente_netmultix_localidad = cliente_netmultix.cl01_localidad rescue 'sin-localidad'
         cliente_netmultix_tipo = cliente_netmultix.cl01_tipo_negocio rescue 0
-        requisitor = self.contacto.empleado.nombre rescue 'sin-requisitor'
+        requisitor = self.solicitud.contacto.nombre rescue 'sin-requisitor'
         cotizacion = self.solicitud.cotizaciones.first
         cotizacion_detalle = cotizacion.cotizacion_detalle.first
         cantidad = cotizacion_detalle.cantidad rescue 0
         precio_uni = cotizacion_detalle.precio_unitario rescue 0
-        precio_vta = self.precio_venta.nan? ? 0 : self.precio_venta rescue 0 ## cantida x precio_uni
+        precio_vta =  cotizacion.precio_venta.nan? ? 0 : cotizacion.precio_venta rescue 0 ## cantida x precio_uni
         porce_costo_fijo = 17.26
         porce_max_remanente = 70
         porce_dist_inv = 35
@@ -206,7 +209,7 @@ commit;
         saldo_fact = precio_vta
         status = 1
         proyecto_pago = self.sub_proyecto
-        observaciones = self.observaciones rescue 'sin-observaciones' ### observaciones larga hasta de 20000
+        observaciones = self.observaciones.nil? ? '  ' : self.observaciones rescue 'sin-observaciones' ### observaciones larga hasta de 2000'
         aprobacion = 0
         fecha_prog = fecha
         moneda = cotizacion.divisa = 1 ? 'P' : 'D'
@@ -297,6 +300,7 @@ commit;
 
           # Detalle de cedula.
           # al ser Tipo 1 no requiere acumularlos
+          # CostoVariableNetmultix.where(ft17_cedula: self.cedula_netmultix).destroy_all
           renglon = 1
           self.costo_variable.each do |variable|
             CostoVariableNetmultix.create(
@@ -310,6 +314,7 @@ commit;
           end
 
           # Remanente distribuible
+          # RemanenteNetmultix.where(ft18_cedula: self.cedula_netmultix).destroy_all
           self.remanentes.each do |remanente|
             empleado = Empleado.find(remanente.empleado_id)
             cve_emp = empleado.codigo rescue nil
