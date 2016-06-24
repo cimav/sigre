@@ -145,7 +145,7 @@ commit;
     def transmitir_netmultix
 
       # usuario_id que intenta realizar la transmisión
-      self.usuario_id = self.solicitud.usuario_id
+      self.usr_transmite_id = self.solicitud.usuario_id
       # momento del intento de transmisión
       self.transmitida_at = Time.now
 
@@ -280,9 +280,9 @@ commit;
     def enviar_costos_netmultix
 
       # usuario_id que intenta realizar el envío
-      self.usuario_id = self.solicitud.usuario_id
+      self.usr_envia_id = self.solicitud.usuario_id
       # momento del intento del envío
-      self.transmitida_at = Time.now
+      self.enviada_at = Time.now
 
       cia = '1'
       fecha = Time.now ### La fecha tiene que llevar la hora

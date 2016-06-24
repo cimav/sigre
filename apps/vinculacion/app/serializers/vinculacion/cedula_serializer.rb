@@ -9,7 +9,8 @@ module Vinculacion
 
     attributes :solicitud_id
     attributes :servicio_id
-    attributes :cliente_netmultix_id, :cedula_netmultix, :concepto_en_extenso, :observaciones, :proyecto_id, :sub_proyecto, :usuario_id, :transmitida_at
+    attributes :cliente_netmultix_id, :cedula_netmultix, :concepto_en_extenso, :observaciones, :proyecto_id, :sub_proyecto
+    attributes :usr_transmite_id, :transmitida_at, :usr_envia_id, :enviada_at
     #has_one :solicitud
 
     #calculados

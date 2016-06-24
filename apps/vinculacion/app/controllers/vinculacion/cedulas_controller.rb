@@ -65,8 +65,7 @@ module Vinculacion
                                :observaciones,
                                :proyecto_id,
                                :sub_proyecto,
-                               :usuario_id,
-                               :transmitida_at
+                               :usr_transmite_id, :transmitida_at, :usr_envia_id, :enviada_at
                                 )
     end
   end
