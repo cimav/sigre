@@ -4,7 +4,7 @@ module Vinculacion
   class RegistroNotasController < ApplicationController
     def index
       results = RegistroNota.order(:registro_id)
-      
+
       render json: results
     end
 

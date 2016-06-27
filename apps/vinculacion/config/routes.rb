@@ -1,5 +1,5 @@
 Vinculacion::Engine.routes.draw do
-  resources :solicitudes 
+  resources :solicitudes
   resources :muestras
   resources :servicios
   resources :servicios_muestras
@@ -47,9 +47,9 @@ Vinculacion::Engine.routes.draw do
   get "assets/index"
   get '/seguimiento/:hash' => 'seguimiento#index'
 
-  get "cotizacion/:id/:type" => 'cotizaciones#document' 
-  get "descargar/cotizacion/:vinculacion_hash" => 'cotizaciones#download_document' 
-  get "estimacion_costos/:id" => 'solicitudes#estimacion_costos' 
+  get "cotizacion/:id/:type" => 'cotizaciones#document'
+  get "descargar/cotizacion/:vinculacion_hash" => 'cotizaciones#download_document'
+  get "estimacion_costos/:id" => 'solicitudes#estimacion_costos'
   get "recepcion_muestras/:id" => 'solicitudes#recepcion_muestras'
   get "descuento_solicitado" => 'cotizaciones#descuento_solicitado'
 end

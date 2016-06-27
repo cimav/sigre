@@ -7,7 +7,7 @@ class CreateVinculacionCosteosDetalle < ActiveRecord::Migration
       t.string     :descripcion
       t.integer    :cantidad
       t.decimal    :precio_unitario, :precision => 10, :scale => 2
-      t.integer    :status, :default => 1 
+      t.integer    :status, :default => 1
       t.timestamps
     end
   end

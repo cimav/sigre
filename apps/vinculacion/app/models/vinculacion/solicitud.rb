@@ -107,7 +107,7 @@ module Vinculacion
     def precio_venta
       if !ultima_cotizacion.nil?
         ultima_cotizacion.precio_venta
-      else 
+      else
         0
       end
     end

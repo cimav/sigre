@@ -14,7 +14,7 @@ module Vinculacion
 
     def estado_actual
       solicitud = Solicitud.find(params[:id])
-      if solicitud 
+      if solicitud
         status = solicitud.status
       else
         status = 0
@@ -26,7 +26,7 @@ module Vinculacion
       render json: Solicitud.find(params[:id])
     end
 
-    def create 
+    def create
       solicitud_params = solicitud
       solicitud_params[:usuario_id] = current_user.id
       render json: Solicitud.create(solicitud_params)
@@ -335,7 +335,7 @@ module Vinculacion
       ## Default Page Size Is Letter
       ## Default Font Is Helvetica
       Prawn::Document.new(:top_margin => 50.0, :bottom_margin=> 100.0, :left_margin=>70.0, :right_margin=>45.0) do |pdf|
-        image = "#{Rails.root}/private/images/logo_cimav_100.png" 
+        image = "#{Rails.root}/private/images/logo_cimav_100.png"
         pdf.image image, :position => :left, :height => 50
         x = 100
         y = 640
@@ -343,7 +343,7 @@ module Vinculacion
         h = 28
         size = 11
         pdf.text_box t[:center], :at=> [x,y], :width => w, :height => h,  :valign=> :top, :align => :left, :size=> 13
-        
+
         ## DIRECCIONES
         y = y - 30
         h = 40
@@ -352,10 +352,10 @@ module Vinculacion
         pdf.text_box t[:address1], :at=> [x,y], :width => w, :height => h,:valign=> :top, :align => :left, :size=> 5
         x = x + 90
         pdf.text_box t[:address2], :at=> [x,y], :width => w, :height => h,:valign=> :top, :align => :left, :size=> 5
-        
+
         ## LINE
         x = 0
-        y = y - 35 
+        y = y - 35
         pdf.stroke_color= "000000"
         pdf.line_width= 3
         pdf.stroke_line [x,y],[350,y]
@@ -398,16 +398,16 @@ module Vinculacion
         pdf.line_width= 0.1
         pdf.stroke_rounded_rectangle([0,y], 500, 80, 10)
         #pdf.stroke_rounded_rectangle([360,y], 145, 80, 10)
-        
+
         #### PRESUPUESTO PROGRAMADO
         pdf.text "\n\n\n\n"
         pdf.text "Presupuesto Programado", :size=> 15,:style=> :bold
         data = []
         subtotal_consumibles = 0
-        subtotal_otros       = 0 
+        subtotal_otros       = 0
         subtotal_hhombre     = 0
         total_consumibles    = 0
-        total_otros          = 0 
+        total_otros          = 0
         total_hhombre        = 0
         data_consumibles     = []
         data_otros           = []
@@ -417,7 +417,7 @@ module Vinculacion
           ss.costeos.each do |ssc|
             ssc.costeo_detalle.order(:tipo,:descripcion).each do |ssccd|
               subtotal_consumibles = 0
-              subtotal_otros       = 0 
+              subtotal_otros       = 0
               subtotal_hhombre     = 0
               cantidad = 0
               if ssccd.cantidad.to_i.eql? 0
@@ -425,7 +425,7 @@ module Vinculacion
               else
                 cantidad = ssccd.cantidad
               end
-              
+
               if ssccd.tipo.to_i.eql? 1 then ## HORAS HOMBRE
                 subtotal_hhombre = ssccd.precio_unitario * cantidad
                 if data_hhombre.empty?
@@ -452,7 +452,7 @@ module Vinculacion
                   counter = 0
                   data_consumibles.each do |dt|
                     if dt[0] == "#{ssccd_spaces}  #{ssccd.descripcion}" then
-                       data_consumibles[counter][1] = dt[1] + subtotal_consumibles   
+                       data_consumibles[counter][1] = dt[1] + subtotal_consumibles
                        break;
                     else
                        data_consumibles += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_consumibles]]
@@ -465,7 +465,7 @@ module Vinculacion
               elsif ssccd.tipo.to_i.eql? 4 then  #OTROS
                 subtotal_otros = ssccd.precio_unitario * cantidad
                 if data_otros.empty? then
-                  data_otros += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_otros]] 
+                  data_otros += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_otros]]
                 else
                   counter = 0
                   data_otros.each do |dot|
@@ -473,7 +473,7 @@ module Vinculacion
                       data_otros[counter][1] = dot[1] + subtotal_otros
                       break;
                     else
-                      data_otros += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_otros]] 
+                      data_otros += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_otros]]
                       break;
                     end
                     counter = counter + 1
@@ -484,7 +484,7 @@ module Vinculacion
             end
           end
         end
-        
+
         ## COLOCANDO SIGNO DE DINERO A CADA UNO
         data_hhombre.each do |dhh|
           dhh[1] = "$#{'%.2f' % dhh[1]}"
@@ -508,7 +508,7 @@ module Vinculacion
         data += [[ {:content=>"#{title_spaces} <b>Otros</b> ",:colspan=>2}  ]]
         data += data_otros
         data += [[{:content=>"Subtotal #{title_spaces}",:align=>:right}, "$#{'%.2f' % total_otros}"]]
-         
+
         tabla = pdf.make_table(data,:width=>497,:cell_style=>{:size=>size - 2,:padding=>3,:border_width=>0.1,:inline_format => true},:column_widths=>[417,80])
         f = data_consumibles.size + 1
         tabla.rows(1..f).column(1).style(:align=> :right)
@@ -516,8 +516,8 @@ module Vinculacion
         i  = data_consumibles.size + 3  #inicial
         f  = data_otros.size       + 3   #final
         tabla.rows(i..f).column(1).style(:align=> :right)
-        tabla.draw        
-                
+        tabla.draw
+
         ##  COSTOS INDIRECTOS
         pdf.text "\n"
         pdf.text "Personal", :size=> 15,:style=> :bold
@@ -528,17 +528,17 @@ module Vinculacion
         tabla = pdf.make_table(data,:width=>497,:cell_style=>{:size=>size - 2,:padding=>3,:border_width=>0.1,:inline_format => true},:column_widths=>[417,80])
         f  = data_hhombre.size + 1
         tabla.rows(1..f).column(1).style(:align=> :right)
-        tabla.draw        
+        tabla.draw
 
         pdf.text "\n"
         ## TOTAL
         data = []
         totale = total_otros+total_consumibles+total_hhombre
         data += [[{:content=>"Total #{title_spaces}",:align=>:left},{:content=>"$#{'%.2f' % totale}",:align=>:right}]]
-        tabla = pdf.make_table(data,:width=>200,:cell_style=>{:size=>size - 2,:padding=>3,:border_width=>0.1,:inline_format => true},:column_widths=>[120,80],:position=>:right) 
+        tabla = pdf.make_table(data,:width=>200,:cell_style=>{:size=>size - 2,:padding=>3,:border_width=>0.1,:inline_format => true},:column_widths=>[120,80],:position=>:right)
         tabla.draw
-          
- 
+
+
         ### ENVIANDO EL PDF
         send_data pdf.render, type: "application/pdf", disposition: "inline"
       end
@@ -549,7 +549,7 @@ module Vinculacion
       solicitud = Solicitud.find(params[:id])
       t = t(:apps)[:vinculacion][:controllers][:cotizaciones][:document]
       Prawn::Document.new(:top_margin => 50.0, :bottom_margin=> 100.0, :left_margin=>70.0, :right_margin=>45.0) do |pdf|
-        image = "#{Rails.root}/private/images/logo_cimav_100.png" 
+        image = "#{Rails.root}/private/images/logo_cimav_100.png"
         pdf.image image, :position => :left, :height => 50
         x = 100
         y = 635
@@ -557,7 +557,7 @@ module Vinculacion
         h = 28
         size = 11
         pdf.text_box t[:center], :at=> [x,y], :width => w, :height => h,  :valign=> :top, :align => :left, :size=> 13
-        
+
         ## DIRECCIONES
         y = y - 15
         h = 40
@@ -566,10 +566,10 @@ module Vinculacion
         pdf.text_box t[:address1], :at=> [x,y], :width => w, :height => h,:valign=> :top, :align => :left, :size=> 5
         x = x + 90
         pdf.text_box t[:address2], :at=> [x,y], :width => w, :height => h,:valign=> :top, :align => :left, :size=> 5
-        
+
         ## LINE
         x = 0
-        y = y - 43 
+        y = y - 43
         pdf.stroke_color= "000000"
         pdf.line_width= 3
         pdf.stroke_line [x,y],[245,y]
@@ -602,7 +602,7 @@ module Vinculacion
         pdf.text "\n\n\n"
         pdf.text_box folio,    :at=> [380,y - 25], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 15, :style=> :bold
         pdf.text_box fecha,    :at=> [380,y - 43], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 9
-        
+
         ## DATOS GENERALES
 
         cliente_razon_social = ""
@@ -648,7 +648,7 @@ module Vinculacion
         pdf.stroke_rounded_rectangle([360,y], 145, 80, 10)
 
         pdf.text "\n\n\n\n\n\n"
-        
+
         data=[
           [{:content=>"Descripción del instrumento de medición y/o muestras",:colspan=>2,:align=>:center,:size=>size + 2}],
           ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
@@ -663,7 +663,7 @@ module Vinculacion
           ["",{:content=>"____Integro  ____Con Anomalía",:size=>size - 4,:align=>:center}],
          ]
         tabla = pdf.make_table(data,:header=>false,:width=>505,:column_widths=>[395,110],:cell_style=>{:padding=>4,:border_width=>0.5})
-        tabla.draw       
+        tabla.draw
         pdf.text "\n\n"
         pdf.text "* La revisión del equipo solo es visual, cualquier anomalia de funcionamiento se detectará por el laboratorio.\n * Resguardo, a las instalaciones del CIMAV, localizadas en Miguel de Cervantes N° 120, Complejo Industrial Chihuahua, Chih.\n * El CIMAV solo mantendrá en resguardo las muestras en un periodo máximo de cinco días contados a partir de finalizado el servicio de laboratorio solicitado por la Empresa; posteriormente dichas muestras serán destruidas.\n * En el caso de que la muestra sea enviada a confinamiento por medidas de seguridad, los gastos en que se incurra serán cubiertos por la empresa o persona que requiera los servicios de laboratorio CIMAV.\n ",:align=>:justify,:size=>7
         pdf.text "\n\n\n"
@@ -671,11 +671,11 @@ module Vinculacion
         pdf.text "Firma del Cliente",:align=>:center
        # pdf.stroke_line [0,-45],[500,-45]
         pdf.text_box "VN01F06-02", :at=> [427,-45], :width => 70, :height => 12,:valign=> :top, :align => :left, :size=> 12
-        
-        h = 90 
+
+        h = 90
         w = 225
         pdf.text_box t[:responsable], :at=>[0,33], :width => w, :height=> h, :size=>12, :align=> :left, :valign=> :bottom
-        
+
         ### ENVIANDO EL PDF
         send_data pdf.render, type: "application/pdf", disposition: "inline"
       end

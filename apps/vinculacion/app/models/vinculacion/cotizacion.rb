@@ -29,7 +29,7 @@ module Vinculacion
     def status_text
       STATUS[status.to_i]
     end
-  
+
     MENSAJE = "En respuesta a su solicitud de SOLICITUD_DESCRIPCION y agradeciendo su preferencia, ponemos a su
 consideración la siguiente propuesta económica:"
 

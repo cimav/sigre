@@ -53,7 +53,7 @@ class BitacoraSubscriptions
       costeo.bitacora_id     = s['bitacora_id']
       costeo.servicio_id     = attributes['system_id']
       costeo.muestra_id      = s['muestra_system_id']
-      costeo.nombre_servicio = s['nombre_servicio'] 
+      costeo.nombre_servicio = s['nombre_servicio']
       costeo.save
 
       # PERSONAL
@@ -129,12 +129,12 @@ class BitacoraSubscriptions
       # PERSONAL
       s['personal'].each do |p|
         item = cedula.costo_variable.new
-        item.tipo = 1 
+        item.tipo = 1
         if p['cantidad'].to_f > 1
           item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
-        else   
-          item.descripcion = p['detalle'] 
-        end        
+        else
+          item.descripcion = p['detalle']
+        end
         item.costo        = p['cantidad'].to_f * p['precio_unitario'].to_f
         if item.save
           puts "GUARDO PERSONAL #{p['detalle']} "
@@ -146,14 +146,14 @@ class BitacoraSubscriptions
       # EQUIPO
       s['equipos'].each do |p|
         item = cedula.costo_variable.new
-        item.tipo = 2 
+        item.tipo = 2
         if p['cantidad'].to_f > 1
           item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
-        else   
-          item.descripcion = p['detalle'] 
-        end        
+        else
+          item.descripcion = p['detalle']
+        end
         item.costo        = p['cantidad'].to_f * p['precio_unitario'].to_f
-        
+
         if item.save
           puts "GUARDO EQUIPO #{p['detalle']}"
         else
@@ -164,14 +164,14 @@ class BitacoraSubscriptions
       # OTROS
       s['otros'].each do |p|
         item = cedula.costo_variable.new
-        item.tipo = 4 
+        item.tipo = 4
         if p['cantidad'].to_f > 1
           item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
-        else   
-          item.descripcion = p['detalle'] 
-        end        
+        else
+          item.descripcion = p['detalle']
+        end
         item.costo = p['cantidad'].to_f * p['precio_unitario'].to_f
-        if item.save 
+        if item.save
           puts "GUARDO OTRO: #{p['detalle']}"
         else
           put "ERROR EN OTRO"
@@ -179,16 +179,16 @@ class BitacoraSubscriptions
       end
     end
 
-    
+
     servicio = ::Vinculacion::Servicio.find(attributes['system_id'])
     servicio.status = ::Vinculacion::Servicio::FINALIZADO
     if servicio.save
       puts "GRABO SERVICIO"
-    else 
+    else
       puts "ERROR AL GRABAR SERVICIO"
     end
 
-     
+
 
   end
 
@@ -215,12 +215,12 @@ class BitacoraSubscriptions
       # PERSONAL
       s['personal'].each do |p|
         item = cedula.costo_variable.new
-        item.tipo = 1 
+        item.tipo = 1
         if p['cantidad'].to_f > 1
           item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
-        else   
-          item.descripcion = p['detalle'] 
-        end        
+        else
+          item.descripcion = p['detalle']
+        end
         item.costo        = p['cantidad'].to_f * p['precio_unitario'].to_f
         item.save
       end
@@ -228,12 +228,12 @@ class BitacoraSubscriptions
       # EQUIPO
       s['equipos'].each do |p|
         item = cedula.costo_variable.new
-        item.tipo = 2 
+        item.tipo = 2
         if p['cantidad'].to_f > 1
           item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
-        else   
-          item.descripcion = p['detalle'] 
-        end        
+        else
+          item.descripcion = p['detalle']
+        end
         item.costo        = p['cantidad'].to_f * p['precio_unitario'].to_f
         item.save
       end
@@ -241,12 +241,12 @@ class BitacoraSubscriptions
       # OTROS
       s['otros'].each do |p|
         item = cedula.costo_variable.new
-        item.tipo = 4 
+        item.tipo = 4
         if p['cantidad'].to_f > 1
           item.descripcion = "#{p['detalle']} (x#{p['cantidad']})"
-        else   
-          item.descripcion = p['detalle'] 
-        end        
+        else
+          item.descripcion = p['detalle']
+        end
         item.costo = p['cantidad'].to_f * p['precio_unitario'].to_f
         item.save
       end

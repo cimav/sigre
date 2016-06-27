@@ -53,7 +53,7 @@ module Vinculacion
       # para Tipo II, hay UNA sola Cedula para todos los Servicios
 
 
-      if self.solicitud.tipo ==1 || self.solicitud.tipo == 3 
+      if self.solicitud.tipo ==1 || self.solicitud.tipo == 3
         cedula = self.solicitud.cedulas.new
         cedula.servicio = self
         cedula.solicitud = self.solicitud
@@ -132,16 +132,16 @@ module Vinculacion
             else
               puts "ERROR AL ACTUALIZAR SOLICITUD"
             end
-            
+
           end
-          
+
 
         end
-        
+
 
       end
     end
-    
+
     def relation_string
       "#{empleado_id},#{solicitud_id}"
     end
