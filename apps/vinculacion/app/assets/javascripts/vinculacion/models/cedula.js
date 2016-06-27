@@ -16,6 +16,14 @@ App.Cedula = DS.Model.extend({
   precio_venta: DS.attr('number'),
   utilidad_neta: DS.attr('number'),
   utilidad_topada: DS.attr('number'),
-  remanente_distribuible: DS.attr('number')
+  remanente_distribuible: DS.attr('number'),
+
+  cedula_netmultix: DS.attr('string'),
+  cliente_netmultix: DS.belongsTo('cliente_netmultix'),
+  concepto_en_extenso: DS.attr('string'),
+  observaciones: DS.attr('string'),
+  proyecto_id: DS.attr('number'),
+  sub_proyecto: DS.attr('string')
+
 
 });

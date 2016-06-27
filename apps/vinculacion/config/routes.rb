@@ -40,6 +40,7 @@ Vinculacion::Engine.routes.draw do
   resources :costos_variables
   resources :remanentes
   resources :cedulas
+  get 'cedulas/:id/subproyecto/:codigo_solicitud', to: 'cedulas#subproyecto'
 
   resources :usuarios
 
@@ -52,5 +53,6 @@ Vinculacion::Engine.routes.draw do
   get "cotizacion/:id/:type" => 'cotizaciones#document' 
   get "descargar/cotizacion/:vinculacion_hash" => 'cotizaciones#download_document' 
   get "estimacion_costos/:id" => 'solicitudes#estimacion_costos' 
-  get "recepcion_muestras/:id" => 'solicitudes#recepcion_muestras' 
+  get "recepcion_muestras/:id" => 'solicitudes#recepcion_muestras'
+
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601234025) do
+ActiveRecord::Schema.define(version: 20160624155448) do
 
   create_table "BAK_vinculacion_servicios_bitacora", id: false, force: :cascade do |t|
     t.integer  "id",                      limit: 4,                            default: 0,   null: false
@@ -26,6 +26,12 @@ ActiveRecord::Schema.define(version: 20160601234025) do
     t.integer  "empleado_id",             limit: 4
     t.integer  "sede_id",                 limit: 4
     t.integer  "laboratorio_bitacora_id", limit: 4
+  end
+
+  create_table "S2016", id: false, force: :cascade do |t|
+    t.string "A", limit: 255
+    t.string "B", limit: 255
+    t.string "C", limit: 255
   end
 
   create_table "bp1", id: false, force: :cascade do |t|
@@ -272,12 +278,22 @@ ActiveRecord::Schema.define(version: 20160601234025) do
   end
 
   create_table "vinculacion_cedulas", force: :cascade do |t|
-    t.integer  "solicitud_id", limit: 4
-    t.integer  "servicio_id",  limit: 4
-    t.text     "codigo",       limit: 16777215
-    t.integer  "status",       limit: 4,        default: 1
+    t.integer  "solicitud_id",         limit: 4
+    t.integer  "servicio_id",          limit: 4
+    t.text     "codigo",               limit: 16777215
+    t.integer  "status",               limit: 4,        default: 1
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cedula_netmultix",     limit: 255
+    t.integer  "cliente_netmultix_id", limit: 4
+    t.integer  "proyecto_id",          limit: 4
+    t.string   "sub_proyecto",         limit: 255
+    t.string   "concepto_en_extenso",  limit: 255
+    t.string   "observaciones",        limit: 255
+    t.integer  "usr_transmite_id",     limit: 4
+    t.datetime "transmitida_at"
+    t.integer  "usr_envia_id",         limit: 4
+    t.datetime "enviada_at"
   end
 
   create_table "vinculacion_clientes", force: :cascade do |t|

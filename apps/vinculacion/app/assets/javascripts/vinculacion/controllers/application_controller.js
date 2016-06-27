@@ -30,6 +30,11 @@ App.ApplicationController = Ember.Controller.extend({
     {id: 2, descripcion: "Servicios"},
     {id: 3, descripcion: "Público e institucional"}
   ],
+  proyectos: [
+    {id: 20330, descripcion:'20330 Chihuahua', subproyecto: '00238'},
+    {id: 20350, descripcion:'20350 Monterrey', subproyecto: '00001'},
+    {id: 20409, descripcion:'20409 Durango',   subproyecto: '00002'}
+  ],
 
   init: function() {
     self = this;

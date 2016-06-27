@@ -25,32 +25,40 @@
     <div id="columna-lista">
       <ul class="nav nav-pills">
         {{#each cedula in cedulas}}
-          {{#link-to 'cedula' cedula tagName="li"}}<a href="#"><span class="cedula-codigo">{{cedula.codigo}}</span> </a>{{/link-to}}
-        {{/each}}
-      </ul>
-    </div>
+        {{!--  {{#link-to 'cedula' cedula tagName="li"}}<a href="#"><span class="cedula-codigo">{{cedula.codigo}}</span> </a>{{/link-to}} --}}
 
-    <div id="columna-costos">
-      <table>
-        <tr>
-          <td><span class="cedula-etiqueta">orden compra</span></td>
-          <td><span class="cedula-costo-valor">{{orden_compra}}</span></td>
-        </tr>
-        <tr>
-          <td><span class="cedula-etiqueta">precio venta</span></td>
-          <td><span class="cedula-costo-valor">{{formatCurrency precio_venta}}</span></td>
-        </tr>
-        <tr>
-          <td><span class="cedula-etiqueta">costo interno acumulado</span></td>
-          <td><span class="cedula-costo-valor">{{formatCurrency costo_interno}}</span></td>
-        </tr>
-      </table>
-    </div>
 
+            <button class="btn cedula-codigo" {{action "reloadCedula" cedula }} >
+                <span class="cedula-codigo">{{cedula.codigo}}</span>
+            </button>
+
+
+
+      {{/each}}
+    </ul>
+  </div>
+
+  <div id="columna-costos">
+    <table>
+      <tr>
+        <td><span class="cedula-etiqueta">orden compra</span></td>
+        <td><span class="cedula-costo-valor">{{orden_compra}}</span></td>
+      </tr>
+      <tr>
+        <td><span class="cedula-etiqueta">precio venta</span></td>
+        <td><span class="cedula-costo-valor">{{formatCurrency precio_venta}}</span></td>
+      </tr>
+      <tr>
+        <td><span class="cedula-etiqueta">costo interno acumulado</span></td>
+        <td><span class="cedula-costo-valor">{{formatCurrency costo_interno}}</span></td>
+      </tr>
+    </table>
   </div>
 
 </div>
 
+</div>
+
 <div id="cedulas-workarea">
-  {{outlet}}
+{{outlet}}
 </div>
