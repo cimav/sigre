@@ -420,7 +420,7 @@ module Vinculacion
               subtotal_otros       = 0 
               subtotal_hhombre     = 0
               cantidad = ssccd.cantidad
-              
+
               if ssccd.tipo.to_i.eql? 1 then ## HORAS HOMBRE
                 subtotal_hhombre = ssccd.precio_unitario * cantidad
                 if data_hhombre.empty?

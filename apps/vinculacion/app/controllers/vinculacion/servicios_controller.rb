@@ -24,7 +24,7 @@ module Vinculacion
                           'solicitud_id'  => servicio.solicitud_id,
                           'agente_id'      => servicio.solicitud.usuario.id,
                           'agente_email'   => servicio.solicitud.usuario.email)
-      end  
+      end
 
       servicio.save
       render json: servicio
@@ -65,7 +65,7 @@ module Vinculacion
                                             'empleado_id'      => servicio.empleado_id,
                                             'empleado_email'   => servicio.empleado.email,
                                             'agente_id'        => servicio.solicitud.usuario.id,
-                                            'agente_email'     => servicio.solicitud.usuario.email,  
+                                            'agente_email'     => servicio.solicitud.usuario.email,
                                             'cliente_id'       => cliente_id,
                                             'cliente_nombre'   => cliente_razon_social,
                                             'cliente_contacto' => cliente_contacto,
@@ -101,7 +101,7 @@ module Vinculacion
     end
 
     def update
-      
+
       # Hack para guardar en servicios_muestras
       if params[:servicio][:muestras_string]
         ServiciosMuestras.delete_all(:servicio_id => params[:id])

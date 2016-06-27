@@ -19,7 +19,7 @@ module Vinculacion
         STATUS_ALERTA_CERRADA     => 'Alerta Cerrada'
     }
 
-    def status_text 
+    def status_text
       STATUS[self.status]
     end
 

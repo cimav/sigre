@@ -9,7 +9,7 @@ module Vinculacion
     def show
       render json: ::Estado.find(params[:id])
     end
-    
+
     protected
     def pais
       params[:estado].permit(:id,:nombre)

@@ -9,7 +9,7 @@ module Vinculacion
     def show
       render json: ::Pais.find(params[:id])
     end
-    
+
     protected
     def pais
       params[:pais].permit(:id,:nombre)

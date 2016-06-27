@@ -8,7 +8,7 @@ class CreateVinculacionMuestras < ActiveRecord::Migration
       t.text       :descripcion
       t.integer    :cantidad
       t.references :usuario
-      t.string :status, :default => 1 
+      t.string :status, :default => 1
       t.timestamps
     end
   end

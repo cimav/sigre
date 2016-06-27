@@ -3,7 +3,7 @@ module Vinculacion
     self.table_name = "vinculacion_solicitudes"
 
     has_many :muestras, :foreign_key => "solicitud_id", :class_name => "Muestra"
-    
+
     belongs_to :proyecto
     belongs_to :cliente
     belongs_to :contacto

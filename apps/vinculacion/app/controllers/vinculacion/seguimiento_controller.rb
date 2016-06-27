@@ -17,7 +17,7 @@ module Vinculacion
         # queries << "SELECT fecha_inicio AS created_at, 'SIGRE' AS message_type, vinculacion_solicitudes.status, 'Solicitud arrancada' AS message, CONCAT(nombre, ' ',apellidos) AS name, email FROM .vinculacion_solicitudes LEFT JOIN .usuarios ON usuario_id = usuarios.id WHERE vinculacion_solicitudes.id = #{@solicitud.id} AND vinculacion_solicitudes.status IN (4,5)"
         queries << "SELECT vinculacion_solicitudes.updated_at AS created_at, 'SIGRE' AS message_type, vinculacion_solicitudes.status, 'Solicitud finalizada' AS message, CONCAT(nombre, ' ',apellidos) AS name, email FROM .vinculacion_solicitudes LEFT JOIN .usuarios ON usuario_id = usuarios.id WHERE vinculacion_solicitudes.id = #{@solicitud.id} AND vinculacion_solicitudes.status = 5"
         queries << "SELECT vinculacion_solicitudes.updated_at AS created_at, 'SIGRE' AS message_type, vinculacion_solicitudes.status, 'Solicitud cancelada' AS message, CONCAT(nombre, ' ',apellidos) AS name, email FROM .vinculacion_solicitudes LEFT JOIN .usuarios ON usuario_id = usuarios.id WHERE vinculacion_solicitudes.id = #{@solicitud.id} AND vinculacion_solicitudes.status = 99"
-        
+
 
         @logs = {}
         queries.each do |q|
@@ -33,7 +33,7 @@ module Vinculacion
             item['name'] = i.name
             item['email'] = i.email
             puts i.message
-            if @logs["#{i['created_at']}"] 
+            if @logs["#{i['created_at']}"]
               @logs["#{i['created_at']}.0"] = item
             else
               @logs["#{i['created_at']}"] = item
@@ -44,7 +44,7 @@ module Vinculacion
         @logs = @logs.sort.to_h
 
       else
-        render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found 
+        render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found
       end
     end
   end

@@ -31,7 +31,7 @@ module Vinculacion
       params[:registro].permit(:solicitud_id,
                               :empleado_id,
                               :tipo,
-                              :mensaje, 
+                              :mensaje,
                               :status)
     end
   end

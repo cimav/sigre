@@ -14,7 +14,7 @@ module Vinculacion
                                  {:q => "%#{params[:q]}%"})
       end
       results = results.references(:proyecto, :cliente, :usuario, :contacto)
-      
+
       render json: results
     end
   end

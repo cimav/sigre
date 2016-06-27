@@ -15,7 +15,7 @@ module Vinculacion
 
     def set_extra
       con = Muestra.where(:solicitud_id => self.solicitud_id).maximum('consecutivo')
-    
+
       if con.nil?
         con = 1
       else
