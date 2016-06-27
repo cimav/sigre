@@ -9,8 +9,32 @@ module Vinculacion
     end
 
     def descuento_solicitado
-      results = Cotizacion.where(:status => Cotizacion::STATUS_DESCUENTO_SOLICITADO).order("tiempo_entrega desc")
-      render json: results
+      cotizas = Cotizacion.where(:status => Cotizacion::STATUS_DESCUENTO_SOLICITADO).order("tiempo_entrega desc")
+      customJson = '{"cotizaciones":['
+      cotizas.each do |cotiza|
+
+        id_cot = cotiza.id.to_s
+        sol = cotiza.solicitud
+        codigo = cotiza.codigo
+        descuento = cotiza.descuento_porcentaje.to_s
+        cli = sol.cliente.razon_social rescue 'No se encontro'
+        tiempo_entr = cotiza.tiempo_entrega.to_s
+        divisa = cotiza.divisa.to_s
+        motivo = cotiza.motivo_descuento
+        subtotal = cotiza.subtotal.to_s
+        descripcion = sol.codigo rescue 'Sin descripcion'
+
+        # Construccion de la cadena
+        cadena = '{"id":' + id_cot + ', "codigo":"' + codigo + '", "cliente":"' + cli +
+            '", "descuento_porcentaje":' + descuento +  ', "tiempo_entrega":' + tiempo_entr +
+            ', "divisa":' + divisa +', "motivo_descuento":"' + motivo + '", "subtotal":' + subtotal +
+            ', "descripcion":"' + descripcion + '"}'
+        # Estructurando el json
+        customJson = customJson + cadena
+      end
+      customJson = customJson + ']}'
+      customJson = customJson.gsub("}{","},{")
+      render json: customJson
     end
 
     def descuento_aceptar
