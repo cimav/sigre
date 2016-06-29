@@ -55,7 +55,6 @@ module Vinculacion
       if !cotizacion.nil? && cotizacion.status == Cotizacion::STATUS_DESCUENTO_SOLICITADO
         Cotizacion.update(cotizacion.id,
                           :status => Cotizacion::STATUS_DESCUENTO_RECHAZADO,
-                          :descuento_porcentaje => 0,
                           :motivo_descuento => params[:motivo_descuento])
         render json:Cotizacion.find(cotizacion.id)
       else
