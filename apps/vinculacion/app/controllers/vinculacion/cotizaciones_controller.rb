@@ -9,7 +9,7 @@ module Vinculacion
     end
 
     def descuento_solicitado
-      cotizas = Cotizacion.where(:status => Cotizacion::STATUS_DESCUENTO_SOLICITADO).order("tiempo_entrega desc")
+      cotizas = Cotizacion.where(:status => Cotizacion::STATUS_DESCUENTO_SOLICITADO).where("descuento_porcentaje > 0").order("tiempo_entrega desc")
       customJson = '{"cotizaciones":['
       cotizas.each do |cotiza|
 
@@ -17,10 +17,10 @@ module Vinculacion
         sol = cotiza.solicitud
         codigo = cotiza.codigo
         descuento = cotiza.descuento_porcentaje.to_s
-        cli = sol.cliente.razon_social rescue 'No se encontro'
+        cli = sol.cliente.razon_social rescue 'Sin razon social'
         tiempo_entr = cotiza.tiempo_entrega.to_s
         divisa = cotiza.divisa.to_s
-        motivo = cotiza.motivo_descuento
+        motivo = cotiza.motivo_descuento.to_s
         subtotal = cotiza.subtotal.to_s
         descripcion = sol.descripcion.nil? ? 'Sin descripcion' :(sol.descripcion)
 
