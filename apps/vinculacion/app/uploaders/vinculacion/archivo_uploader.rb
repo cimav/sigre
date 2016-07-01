@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module vinculacion
+module Vinculacion
   class ArchivoUploader < CarrierWave::Uploader::Base
     storage :file
 
