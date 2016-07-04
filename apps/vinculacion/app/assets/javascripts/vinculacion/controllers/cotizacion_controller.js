@@ -35,7 +35,7 @@ App.CotizacionController = Ember.ObjectController.extend({
   },
 
   isEdicion: function() {
-    return true;// this.get('model.status') == this.get('Status.edicion');
+    return  this.get('model.status') == this.get('Status.edicion');
   }.property('model.status'),
 
   isNotificado: function() {
