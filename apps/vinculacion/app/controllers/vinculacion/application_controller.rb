@@ -1,6 +1,8 @@
 module Vinculacion
   class ApplicationController < ActionController::Base
 
+    before_filter :auth_required
+
     def authenticated?
       if session[:user_auth].blank? 
         user = Usuario.where(:email => session[:user_email], :status => Usuario::STATUS_ACTIVO).first
