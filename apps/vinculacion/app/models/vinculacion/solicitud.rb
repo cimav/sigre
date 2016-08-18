@@ -4,6 +4,7 @@ module Vinculacion
     has_many :muestras
     has_many :servicios
     has_many :cedulas
+
     has_many :cotizaciones
     has_many :registros
 

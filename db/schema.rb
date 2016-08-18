@@ -28,12 +28,6 @@ ActiveRecord::Schema.define(version: 20160704212856) do
     t.integer  "laboratorio_bitacora_id", limit: 4
   end
 
-  create_table "S2016", id: false, force: :cascade do |t|
-    t.string "A", limit: 255
-    t.string "B", limit: 255
-    t.string "C", limit: 255
-  end
-
   create_table "bp1", id: false, force: :cascade do |t|
     t.string  "number",            limit: 20
     t.string  "system_id",         limit: 255

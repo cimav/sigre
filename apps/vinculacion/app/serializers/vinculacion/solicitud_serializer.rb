@@ -19,7 +19,7 @@ module Vinculacion
     attributes :proyecto_id, :sede_id, :cliente_id, :contacto_id, :usuario_id
 
     has_many :cedulas
-
+    
     has_many :alertas
     has_many :registros
 
@@ -30,6 +30,10 @@ module Vinculacion
     #attributes :responsable_presupuestal_id
 
     has_one :responsable_presupuestal, root: :empleado
+
+    def cedulas
+      object.cedulas.joins(:servicio).where("vinculacion_servicios.status <> ?", Servicio::CANCELADO)
+    end
 
     def alertas
       #object.registros.where(solicitud_id: object.id,tipo: Registro::TIPO_ALERTA)
