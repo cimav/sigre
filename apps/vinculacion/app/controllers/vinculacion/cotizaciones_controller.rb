@@ -3,6 +3,9 @@ require_dependency "vinculacion/application_controller"
 
 module Vinculacion
   class CotizacionesController < ApplicationController
+
+    skip_before_filter :auth_required, :only => :download_document
+
     def index
       results = Cotizacion.where(:solicitud_id => params[:solicitud_id])
       render json: results
