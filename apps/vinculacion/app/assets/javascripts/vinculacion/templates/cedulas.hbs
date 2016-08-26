@@ -1,6 +1,13 @@
 <div id="solicitud-cedulas-header">
-  <div id="cedulas-title">
-    <h4>Cédulas de control de costos</h4>
+  <div class="row" id="cedulas-title">
+    <div class="col-md-10">
+      <h4>Cédulas de control de costos</h4>
+    </div>
+    <div class="col-md-2">
+      <div class="pull-right cedula-reload">
+        <span {{action "reloadCedula" cedula }} class="glyphicon glyphicon-refresh"></span>
+      </div>
+    </div>
   </div>
   <div id="cedulas-wrapper">
     <table id="tabla-datos">
@@ -25,37 +32,28 @@
     <div id="columna-lista">
       <ul class="nav nav-pills">
         {{#each cedula in cedulas}}
-        {{!--  {{#link-to 'cedula' cedula tagName="li"}}<a href="#"><span class="cedula-codigo">{{cedula.codigo}}</span> </a>{{/link-to}} --}}
+          {{#link-to 'cedula' cedula tagName="li"}}<a href="#"><span>{{cedula.codigo}}</span> </a>{{/link-to}}
+        {{/each}}
+      </ul>
+    </div>
 
-
-            <button class="btn cedula-codigo" {{action "reloadCedula" cedula }} >
-                <span class="cedula-codigo">{{cedula.codigo}}</span>
-            </button>
-
-
-
-      {{/each}}
-    </ul>
+    <div id="columna-costos">
+      <table>
+        <tr>
+          <td><span class="cedula-etiqueta">orden compra</span></td>
+          <td><span class="cedula-costo-valor">{{orden_compra}}</span></td>
+        </tr>
+        <tr>
+          <td><span class="cedula-etiqueta">precio venta</span></td>
+          <td><span class="cedula-costo-valor">{{formatCurrency precio_venta}}</span></td>
+        </tr>
+        <tr>
+          <td><span class="cedula-etiqueta">costo interno acumulado</span></td>
+          <td><span class="cedula-costo-valor">{{formatCurrency costo_interno}}</span></td>
+        </tr>
+      </table>
+    </div>
   </div>
-
-  <div id="columna-costos">
-    <table>
-      <tr>
-        <td><span class="cedula-etiqueta">orden compra</span></td>
-        <td><span class="cedula-costo-valor">{{orden_compra}}</span></td>
-      </tr>
-      <tr>
-        <td><span class="cedula-etiqueta">precio venta</span></td>
-        <td><span class="cedula-costo-valor">{{formatCurrency precio_venta}}</span></td>
-      </tr>
-      <tr>
-        <td><span class="cedula-etiqueta">costo interno acumulado</span></td>
-        <td><span class="cedula-costo-valor">{{formatCurrency costo_interno}}</span></td>
-      </tr>
-    </table>
-  </div>
-
-</div>
 
 </div>
 
