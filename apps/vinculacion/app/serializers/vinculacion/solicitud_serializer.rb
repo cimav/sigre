@@ -32,7 +32,11 @@ module Vinculacion
     has_one :responsable_presupuestal, root: :empleado
 
     def cedulas
-      object.cedulas.joins(:servicio).where("vinculacion_servicios.status <> ?", Servicio::CANCELADO)
+      if self.tipo == 2
+        object.cedulas
+      else 
+        object.cedulas.joins(:servicio).where("vinculacion_servicios.status <> ?", Servicio::CANCELADO)
+      end
     end
 
     def alertas
