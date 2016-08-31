@@ -44,7 +44,7 @@ module Vinculacion
                             :status => Cotizacion::STATUS_DESCUENTO_ACEPTADO,
                             :descuento_porcentaje => params[:descuento_porcentaje],
                             :motivo_descuento => params[:motivo_descuento])
-          render json:Cotizacion.find(cotizacion.id)
+          render text: 'Solicitud aceptada'
       else
         render text:'No se encuentra la solicitud de descuento'
       end
@@ -55,8 +55,8 @@ module Vinculacion
       if !cotizacion.nil? && cotizacion.status == Cotizacion::STATUS_DESCUENTO_SOLICITADO
         Cotizacion.update(cotizacion.id,
                           :status => Cotizacion::STATUS_DESCUENTO_RECHAZADO,
-                          :motivo_descuento => params[:motivo_descuento])
-        render json:Cotizacion.find(cotizacion.id)
+                          :motivo_descuento =>  params[:motivo_descuento])
+        render text: 'Solicitud rechazada'
       else
         render text:'No se encuentra la solicitud de descuento'
       end

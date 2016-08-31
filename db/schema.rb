@@ -358,7 +358,7 @@ ActiveRecord::Schema.define(version: 20160506161539) do
     t.integer  "solicitud_id",         limit: 4
     t.integer  "consecutivo",          limit: 4
     t.string   "codigo",               limit: 20
-    t.string "nombre", limit: 255
+    t.string   "nombre",               limit: 255
     t.text     "descripcion",          limit: 16777215
     t.integer  "empleado_id",          limit: 4
     t.datetime "created_at"
@@ -371,13 +371,13 @@ ActiveRecord::Schema.define(version: 20160506161539) do
 
   create_table "vinculacion_servicios_bitacora", force: :cascade do |t|
     t.integer  "bitacora_id",             limit: 4
-    t.string "nombre", limit: 255
-    t.string "descripcion", limit: 255
-    t.decimal "precio_venta", precision: 10, scale: 2, default: 0.0
-    t.integer "status", limit: 4, default: 0
+    t.string   "nombre",                  limit: 255
+    t.string   "descripcion",             limit: 255
+    t.decimal  "precio_venta",                        precision: 10, scale: 2, default: 0.0
+    t.integer  "status",                  limit: 4,                            default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal "costo_interno", precision: 10, scale: 2, default: 0.0
+    t.decimal  "costo_interno",                       precision: 10, scale: 2, default: 0.0
     t.integer  "empleado_id",             limit: 4
     t.integer  "sede_id",                 limit: 4
     t.integer  "laboratorio_bitacora_id", limit: 4

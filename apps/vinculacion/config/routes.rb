@@ -21,6 +21,7 @@ Vinculacion::Engine.routes.draw do
   post '/solicitudes/:id/notificar_arranque_tipo_2', to: 'solicitudes#notificar_arranque_tipo_2'
   post '/aceptar_descuento/:id', to: 'cotizaciones#descuento_aceptar'
   post '/rechazar_descuento/:id', to: 'cotizaciones#descuento_rechazar'
+  post '/auth_outside', to: 'usuarios#auth_outside'
   get '/solicitudes/:id/estado_actual', to: 'solicitudes#estado_actual'
 
 
