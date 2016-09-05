@@ -5,14 +5,7 @@ module Vinculacion
 
     def index
 
-#      clientes = ClienteNetmultix.order(:cl01_clave)
-
-      clientes  = ClienteNetmultix
-                      .joins("JOIN cl12 ON cl12.cl12_pais = cl01.cl01_pais")
-                      .joins("JOIN cl19 ON cl19.cl19_estado = cl01.cl01_estado")
-                      .joins("JOIN cl13 ON cl13.cl13_ciudad = cl01.cl01_ciudad")
-                      .select("cl01.*, cl12.cl12_nombre as pais, cl19.cl19_nombre as estado, cl13.cl13_nombre as ciudad")
-                      .order(:cl01_clave)
+      clientes = ClienteNetmultix.order(:cl01_clave)
 
       clientes.each do |cliente|
         inject_id_to_contactos cliente
@@ -23,15 +16,7 @@ module Vinculacion
 
     def show
       clave = "#{params[:id]}".strip.to_i
-#      cliente = ClienteNetmultix.where("(cl01_clave = :q)", {:q => clave}).first
-
-      cliente = ClienteNetmultix
-                    .joins("JOIN cl12 ON cl12.cl12_pais = cl01.cl01_pais")
-                    .joins("JOIN cl19 ON cl19.cl19_estado = cl01.cl01_estado")
-                    .joins("JOIN cl13 ON cl13.cl13_ciudad = cl01.cl01_ciudad")
-                    .where("(cl01_clave = :q)", {:q => clave})
-                    .select("cl01.*, cl12.cl12_nombre as pais, cl19.cl19_nombre as estado, cl13.cl13_nombre as ciudad").first
-
+      cliente = ClienteNetmultix.where("(cl01_clave = :q)", {:q => clave}).first
 
       inject_id_to_contactos cliente
 

@@ -115,6 +115,12 @@ App.Solicitud = DS.Model.extend({
     return  "http://bitacora.cimav.edu.mx/laboratory_services/" + sid + "/status";
   }.property('servicioNoCoordinado'),
 
+  archivosUrl: function() {
+    id = this.get('id');
+    return  "/vinculacion/solicitudes/" + id + "/archivos";
+  }.property('muestras'),
+
+
   isTipoI: function() {
     var result = this.get('tipo') == 1;
 //    if (!result) {

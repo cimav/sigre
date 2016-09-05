@@ -3,6 +3,9 @@ require_dependency "vinculacion/application_controller"
 
 module Vinculacion
   class CotizacionesController < ApplicationController
+
+    skip_before_filter :auth_required, :only => :download_document
+
     def index
       results = Cotizacion.where(:solicitud_id => params[:solicitud_id])
       render json: results
@@ -67,6 +70,9 @@ module Vinculacion
     end
 
     def create
+      params[:cotizacion]['msg_notificacion'] = "Estimado cliente, se adjunta cotización solicitada.
+
+Saludos."
       render json: Cotizacion.create(cotizacion)
     end
 
@@ -77,7 +83,9 @@ module Vinculacion
         filename = c.solicitud.codigo.gsub('/','_').concat('.pdf')
         pdf.render_file File.join(Rails.root.to_s, "private/cotizaciones", filename)
         puts "PDF Guardado"
-        VinculacionMailer.enviar_cotizacion(c.solicitud_id, c.id, current_user.email, params[:cotizacion][:msg_notificacion]).deliver
+        if c.solicitud.proyecto_id == 1
+          VinculacionMailer.enviar_cotizacion(c.solicitud_id, c.id, current_user.email, params[:cotizacion][:msg_notificacion]).deliver
+        end
       end
       render json: Cotizacion.find(params[:id]).tap { |b| b.update_attributes(cotizacion) }
     end
@@ -96,9 +104,9 @@ module Vinculacion
       ## Default Page Size Is Letter
       ## Default Font Is Helvetica
       Prawn::Document.new(:top_margin => 50.0, :bottom_margin=> 100.0, :left_margin=>70.0, :right_margin=>45.0) do |pdf|
-        image = "#{Rails.root}/private/images/logo_cimav_100.png"
+        image = "#{Rails.root}/private/images/logo_cimav_100.png" 
         pdf.image image, :position => :left, :height => 50
-
+       
         pdf.font_families.update("Arial" => {
           :bold        => "#{r_root}/private/fonts/arial/arialbd.ttf",
           :italic      => "#{r_root}/private/fonts/arial/ariali.ttf",
@@ -114,7 +122,7 @@ module Vinculacion
         size = 11
         pdf.text_box t[:center], :at=> [x,y], :width => w, :height => h,  :valign=> :top, :align => :left, :size=> 13
 
-
+        
         ## DIRECCIONES
         y = y -  15 #30
         h = 40
@@ -137,7 +145,7 @@ module Vinculacion
         pdf.stroke_line [485,y],[505,y]
         pdf.line_width= 1
         pdf.stroke_line [485,y - 3],[505,y - 3]
-
+     
         ## FECHA 
         dia   = cotizacion.fecha_notificacion.day
         mes   = t(:date)[:month_names][cotizacion.fecha_notificacion.month]
@@ -149,11 +157,11 @@ module Vinculacion
         t_cambio     = "Tipo de cambio: #{coin.codigo} (#{coin.nombre})"
         t_entrega    = ""
         if cotizacion.tiempo_entrega.eql? 2
-          t_entrega    = "Urgente"
+          t_entrega    = "Urgente" 
         elsif cotizacion.tiempo_entrega.eql? 3
-          t_entrega    = "Express"
+          t_entrega    = "Express" 
         end
-
+        
         pdf.text "\n\n\n"
         if blank_sheet
           pdf.text_box "00/0000",    :at=> [380,y - 25], :width => 100, :height => 30,:valign=> :top, :align => :center, :size=> 15, :style=> :bold
@@ -211,7 +219,7 @@ module Vinculacion
           if d[1]
             pdf.text_box d[1], :at=> [x + 50,y], :width => 280, :height => h,:valign=> :top, :align => :left, :size=> 10
           end
-
+         
           if i.eql? 3
             y = y - 24
           else
@@ -352,7 +360,7 @@ module Vinculacion
           if !blank_sheet
             pdf.text_box full_name, :at=>[x,y1], :width => w, :height=> h, :size=>9, :align=> :left, :valign=> :bottom
           end
-
+        
           ## LINE 2
           x = 0
           y2 = y - 8
@@ -366,7 +374,7 @@ module Vinculacion
           w= 300
           h= 17
           x= (pdf.bounds.width / 2)- (w/2)
-          y3= y - 15
+          y3= y - 15          
           pdf.fill_color "e6e6e6"
           pdf.fill_rectangle [x,y3], w, h
           pdf.fill_color "000000"
@@ -376,14 +384,14 @@ module Vinculacion
           w = 90
           h = 12
           pdf.text_box t[:version], :at=>[415,y+5], :width => w, :height=> h, :size=>11, :align=> :right, :valign=> :bottom
-
+          
           ## RESPONSABLE
           w = 200
           pdf.text_box t[:responsable], :at=>[0,y+5], :width => w, :height=> h, :size=>10, :align=> :left, :valign=> :bottom
-
+        
        # pdf.repeat :all do
        # end
-
+        
         #NUM. PAGINA
         x = pdf.bounds.left
         y4 = y - 40
@@ -404,10 +412,10 @@ module Vinculacion
         pdf = create_document(cotizacion_id)
         filename = solicitud.codigo.gsub('/','_').concat('.pdf')
         send_data pdf.render, type: "application/pdf", disposition: "attachment", :filename => "cotizacion-#{filename}"
-      else
+      else 
         render :inline => 'INVALID HASH'
       end
-    end
+    end    
 
     protected
     def cotizacion
@@ -435,7 +443,6 @@ module Vinculacion
           :tiempo_entrega
       )
     end
-
   end
 end
 

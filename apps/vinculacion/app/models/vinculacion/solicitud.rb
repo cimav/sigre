@@ -4,6 +4,7 @@ module Vinculacion
     has_many :muestras
     has_many :servicios
     has_many :cedulas
+
     has_many :cotizaciones
     has_many :registros
 
@@ -141,6 +142,16 @@ module Vinculacion
           self.servicios.each do |servicio|
             servicio.status = Servicio::CANCELADO
             servicio.save
+          end
+
+        end
+
+        if self.tipo == 1 && self.status == STATUS_ACEPTADA
+          # La Solicitud y Cotización fueron aceptadas; inicializar los valores default para la cédula de NetMultix
+
+          cedula = self.cedulas.first rescue nil # solo tiene una cédula
+          if !cedula.nil?
+            cedula.init_cedula_netmultix
           end
 
         end

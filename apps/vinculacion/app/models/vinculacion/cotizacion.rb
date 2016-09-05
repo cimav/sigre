@@ -33,6 +33,10 @@ module Vinculacion
     MENSAJE = "En respuesta a su solicitud de SOLICITUD_DESCRIPCION y agradeciendo su preferencia, ponemos a su
 consideración la siguiente propuesta económica:"
 
+    MENSAJE_CORREO = "Estimado cliente, se adjunta cotización solicitada.
+      
+Saludos."
+
     MENSAJE_DE_SERVICIO = "servicio"
 
     OBSERVACIONES = ""
@@ -72,7 +76,7 @@ consideración la siguiente propuesta económica:"
         self.subtotal = 0.00
         self.precio_venta = 0.00
         self.descuento_porcentaje = 0.00
-        self.msg_notificacion = ''
+        self.msg_notificacion = MENSAJE_CORREO
         self.motivo_status = ''
         self.motivo_descuento = ''
         self.duracion = 0
@@ -93,6 +97,7 @@ consideración la siguiente propuesta económica:"
         self.precio_venta = ultima_cotizacion.precio_venta
         self.precio_unitario = ultima_cotizacion.precio_unitario
         self.descuento_porcentaje = ultima_cotizacion.descuento_porcentaje
+        self.msg_notificacion = ultima_cotizacion.msg_notificacion
         self.fecha_notificacion = Time.now # la fecha actual, no la clonada
         # self.tiempo_entrega = ultima_cotizacion.tiempo_entrega
         self.tiempo_entrega = solicitud.tiempo_entrega

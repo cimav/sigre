@@ -1,0 +1,37 @@
+= form_for(@nuevo_archivo, :html => {:id => 'item-upload-file-form', :multipart => true}) do |f|
+  = f.hidden_field :solicitud_id, {:value => @nuevo_archivo.solicitud_id }
+  = f.hidden_field :usuario_id, {:value => @usuario_id }
+
+
+  - tipo_opciones = ''
+  - tipo_opciones += "<option value=\"1\">Archivo del cliente</option>"
+  - tipo_opciones += "<option value=\"2\">Orden de compra</option>"
+
+  %table.table.table-striped
+    %tr
+      %th= "Archivo"
+      %th= "Tipo"
+    - if @archivos.count > 0
+      - @archivos.each do |archivo|
+        %tr
+          %td 
+            %a{:href => "/vinculacion/archivos/get/#{archivo.id}" }= File.basename(archivo.archivo.to_s)
+          %td= archivo.tipo_text
+    - else
+      %tr
+        %td{:colspan => 2, :style => 'text-align: center;'}
+          %br
+          %br
+          = "No existen archivos"
+          %br
+          %br
+
+
+  %table.table
+    %tr 
+      %td
+        = f.select :tipo_archivo, tipo_opciones.html_safe, {}, { class: 'form-control' }
+      %td
+        = f.file_field :archivo
+      %td= submit_tag "Subir archivo", :class => 'form-control btn btn-primary'
+   
