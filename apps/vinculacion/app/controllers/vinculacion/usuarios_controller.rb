@@ -9,5 +9,8 @@ module Vinculacion
     def show
       render json: ::Usuario.find(params[:id])
     end
+    def auth_outside
+      render text: !::Usuario.where(:email => params[:user_email]).first.nil?
+    end
   end
 end

@@ -11,6 +11,60 @@ module Vinculacion
       render json: results
     end
 
+    def descuento_solicitado
+      cotizas = Cotizacion.where(:status => Cotizacion::STATUS_DESCUENTO_SOLICITADO).where("descuento_porcentaje > 0").order("tiempo_entrega desc")
+      customJson = '{"cotizaciones":['
+      cotizas.each do |cotiza|
+
+        id_cot = cotiza.id.to_s
+        sol = cotiza.solicitud
+        codigo = cotiza.codigo
+        descuento = cotiza.descuento_porcentaje.to_s
+        cli = sol.cliente.razon_social rescue 'Sin razon social'
+        tiempo_entr = cotiza.tiempo_entrega.to_s
+        divisa = cotiza.divisa.to_s
+        motivo = cotiza.motivo_descuento.to_s
+        subtotal = cotiza.subtotal.to_s
+        descripcion = sol.descripcion.nil? ? 'Sin descripcion' :(sol.descripcion)
+
+        # Construccion de la cadena
+        cadena = '{"id":' + id_cot + ', "codigo":"' + codigo + '", "cliente":"' + cli +
+            '", "descuento_porcentaje":' + descuento +  ', "tiempo_entrega":' + tiempo_entr +
+            ', "divisa":' + divisa +', "motivo_descuento":"' + motivo + '", "subtotal":' + subtotal +
+            ', "descripcion":"' + descripcion + '"}'
+        # Estructurando el json
+        customJson = customJson + cadena
+      end
+      customJson = customJson + ']}'
+      customJson = customJson.gsub("}{","},{")
+      render json: customJson
+    end
+
+    def descuento_aceptar
+      cotizacion = Cotizacion.find(params[:id]) rescue nil
+      if !cotizacion.nil? && cotizacion.status == Cotizacion::STATUS_DESCUENTO_SOLICITADO
+        Cotizacion.update(cotizacion.id,
+                          :status => Cotizacion::STATUS_DESCUENTO_ACEPTADO,
+                          :descuento_porcentaje => params[:descuento_porcentaje],
+                          :motivo_descuento => params[:motivo_descuento])
+        render text: 'Solicitud aceptada'
+      else
+        render text:'No se encuentra la solicitud de descuento'
+      end
+    end
+
+    def descuento_rechazar
+      cotizacion = Cotizacion.find(params[:id]) rescue nil
+      if !cotizacion.nil? && cotizacion.status == Cotizacion::STATUS_DESCUENTO_SOLICITADO
+        Cotizacion.update(cotizacion.id,
+                          :status => Cotizacion::STATUS_DESCUENTO_RECHAZADO,
+                          :motivo_descuento =>  params[:motivo_descuento])
+        render text: 'Solicitud rechazada'
+      else
+        render text:'No se encuentra la solicitud de descuento'
+      end
+    end
+
     def show
       render json: Cotizacion.find(params[:id])
     end

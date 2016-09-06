@@ -23,6 +23,9 @@ Vinculacion::Engine.routes.draw do
   post '/solicitudes/:id/notificar_arranque', to: 'solicitudes#notificar_arranque'
   post '/solicitudes/:id/notificar_arranque_no_coordinado', to: 'solicitudes#notificar_arranque_no_coordinado'
   post '/solicitudes/:id/notificar_arranque_tipo_2', to: 'solicitudes#notificar_arranque_tipo_2'
+  post '/aceptar_descuento/:id', to: 'cotizaciones#descuento_aceptar'
+  post '/rechazar_descuento/:id', to: 'cotizaciones#descuento_rechazar'
+  post '/auth_outside', to: 'usuarios#auth_outside'
   get '/solicitudes/:id/estado_actual', to: 'solicitudes#estado_actual'
 
 
@@ -54,5 +57,5 @@ Vinculacion::Engine.routes.draw do
   get "descargar/cotizacion/:vinculacion_hash" => 'cotizaciones#download_document' 
   get "estimacion_costos/:id" => 'solicitudes#estimacion_costos' 
   get "recepcion_muestras/:id" => 'solicitudes#recepcion_muestras'
-
+  get "descuento_solicitado" => 'cotizaciones#descuento_solicitado'
 end
