@@ -17,7 +17,7 @@ module Vinculacion
     helper_method :authenticated?
 
     def auth_required
-      if !(request.env['PATH_INFO'].include? "descuento" or "auth_outside")
+      if !(request.env['PATH_INFO'].include? "descuento" or request.env['PATH_INFO'].include? "auth_outside")
         redirect_to '/login' unless authenticated?
       end
     end

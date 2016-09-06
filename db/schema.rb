@@ -13,53 +13,10 @@
 
 ActiveRecord::Schema.define(version: 20160704212856) do
 
-  create_table "BAK_vinculacion_servicios_bitacora", id: false, force: :cascade do |t|
-    t.integer  "id",                      limit: 4,                            default: 0,   null: false
-    t.integer  "bitacora_id",             limit: 4
-    t.string   "nombre",                  limit: 255
-    t.string   "descripcion",             limit: 255
-    t.decimal  "precio_venta",                        precision: 10, scale: 2, default: 0.0
-    t.integer  "status",                  limit: 4,                            default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.decimal  "costo_interno",                       precision: 10, scale: 2, default: 0.0
-    t.integer  "empleado_id",             limit: 4
-    t.integer  "sede_id",                 limit: 4
-    t.integer  "laboratorio_bitacora_id", limit: 4
-  end
-
-  create_table "bp1", id: false, force: :cascade do |t|
-    t.string  "number",            limit: 20
-    t.string  "system_id",         limit: 255
-    t.integer "system_status",     limit: 4,   default: 1
-    t.integer "system_request_id", limit: 4
-  end
-
-  create_table "corregir", id: false, force: :cascade do |t|
-    t.integer "cid",         limit: 4,   default: 0, null: false
-    t.string  "codigo",      limit: 20
-    t.string  "consecutivo", limit: 255
-    t.integer "cstatus",     limit: 4,   default: 1
-    t.integer "sstatus",     limit: 4,   default: 1
-  end
-
   create_table "costo_hora", id: false, force: :cascade do |t|
     t.integer "uh",     limit: 4
     t.text    "nombre", limit: 65535
     t.decimal "costo",                precision: 10, scale: 2
-  end
-
-  create_table "cotizacion1600", id: false, force: :cascade do |t|
-    t.integer  "id",              limit: 4,                              default: 0,     null: false
-    t.integer  "cantidad",        limit: 4,                              default: 1
-    t.text     "concepto",        limit: 65535
-    t.decimal  "precio_unitario",               precision: 10, scale: 2, default: 0.0
-    t.integer  "status",          limit: 4,                              default: 0
-    t.integer  "cotizacion_id",   limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "inmutable",                                              default: false
-    t.integer  "servicio_id",     limit: 4
   end
 
   create_table "estados", force: :cascade do |t|
@@ -69,11 +26,6 @@ ActiveRecord::Schema.define(version: 20160704212856) do
     t.string   "long",       limit: 20
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "fixs", id: false, force: :cascade do |t|
-    t.integer "cid",     limit: 4, default: 0, null: false
-    t.integer "cstatus", limit: 4, default: 1
   end
 
   create_table "monedas", force: :cascade do |t|
@@ -143,12 +95,6 @@ ActiveRecord::Schema.define(version: 20160704212856) do
     t.datetime "updated_at"
   end
 
-  create_table "rescoti", id: false, force: :cascade do |t|
-    t.integer "solicitud_id",  limit: 4
-    t.integer "cotizacion_id", limit: 4
-    t.decimal "pv",                      precision: 45, scale: 4
-  end
-
   create_table "rh_departamentos", force: :cascade do |t|
     t.string   "nombre",          limit: 255, null: false
     t.string   "descripcion",     limit: 255, null: false
@@ -187,59 +133,6 @@ ActiveRecord::Schema.define(version: 20160704212856) do
     t.integer  "empleado_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "sb1", id: false, force: :cascade do |t|
-    t.integer  "id",                          limit: 4,                                 default: 0,   null: false
-    t.integer  "consecutivo",                 limit: 4
-    t.string   "codigo",                      limit: 20
-    t.integer  "proyecto_id",                 limit: 4
-    t.integer  "sede_id",                     limit: 4
-    t.integer  "prioridad",                   limit: 4
-    t.integer  "cliente_id",                  limit: 4
-    t.integer  "contacto_id",                 limit: 4
-    t.integer  "usuario_id",                  limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "descripcion",                 limit: 16777215
-    t.text     "motivo_status",               limit: 16777215
-    t.string   "razon_cancelacion",           limit: 255,                               default: "1"
-    t.integer  "status",                      limit: 4,                                 default: 1
-    t.string   "orden_compra",                limit: 255
-    t.date     "fecha_inicio"
-    t.date     "fecha_termino"
-    t.integer  "responsable_presupuestal_id", limit: 4
-    t.integer  "duracion",                    limit: 4,                                 default: 1
-    t.integer  "tipo",                        limit: 4,                                 default: 1
-    t.integer  "tiempo_entrega",              limit: 4,                                 default: 1
-    t.decimal  "precio_sugerido",                              precision: 10, scale: 2, default: 0.0
-    t.string   "vinculacion_hash",            limit: 255
-  end
-
-  create_table "sp2", id: false, force: :cascade do |t|
-    t.datetime "updated_at"
-    t.integer  "id",         limit: 4,  default: 0, null: false
-    t.integer  "status",     limit: 4,  default: 1
-    t.string   "number",     limit: 20
-    t.integer  "rel",        limit: 4
-  end
-
-  create_table "sp3", id: false, force: :cascade do |t|
-    t.datetime "updated_at"
-    t.integer  "id",         limit: 4,  default: 0, null: false
-    t.integer  "status",     limit: 4,  default: 1
-    t.string   "number",     limit: 20
-    t.integer  "rel",        limit: 4
-  end
-
-  create_table "tmp_clientes", id: false, force: :cascade do |t|
-    t.integer "id",        limit: 4,   default: 0, null: false
-    t.string  "calle_num", limit: 255
-    t.string  "colonia",   limit: 255
-    t.string  "ciudad",    limit: 255
-    t.string  "estado",    limit: 255
-    t.string  "pais",      limit: 255
-    t.string  "cp",        limit: 255
   end
 
   create_table "usuarios", force: :cascade do |t|
@@ -486,7 +379,7 @@ ActiveRecord::Schema.define(version: 20160704212856) do
     t.integer  "solicitud_id",         limit: 4
     t.integer  "consecutivo",          limit: 4
     t.string   "codigo",               limit: 20
-    t.text     "nombre",               limit: 65535
+    t.string   "nombre",               limit: 255
     t.text     "descripcion",          limit: 16777215
     t.integer  "empleado_id",          limit: 4
     t.datetime "created_at"
@@ -499,13 +392,13 @@ ActiveRecord::Schema.define(version: 20160704212856) do
 
   create_table "vinculacion_servicios_bitacora", force: :cascade do |t|
     t.integer  "bitacora_id",             limit: 4
-    t.text     "nombre",                  limit: 65535
-    t.text     "descripcion",             limit: 65535
-    t.decimal  "precio_venta",                          precision: 10, scale: 2, default: 0.0
-    t.integer  "status",                  limit: 4,                              default: 0
+    t.string   "nombre",                  limit: 255
+    t.string   "descripcion",             limit: 255
+    t.decimal  "precio_venta",                        precision: 10, scale: 2, default: 0.0
+    t.integer  "status",                  limit: 4,                            default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "costo_interno",                         precision: 10, scale: 2, default: 0.0
+    t.decimal  "costo_interno",                       precision: 10, scale: 2, default: 0.0
     t.integer  "empleado_id",             limit: 4
     t.integer  "sede_id",                 limit: 4
     t.integer  "laboratorio_bitacora_id", limit: 4
@@ -547,44 +440,6 @@ ActiveRecord::Schema.define(version: 20160704212856) do
   create_table "vinculacion_tamanos_empresa", force: :cascade do |t|
     t.string   "codigo",      limit: 20
     t.text     "descripcion", limit: 16777215
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "vs1", id: false, force: :cascade do |t|
-    t.integer  "id",                   limit: 4,                                 default: 0,   null: false
-    t.integer  "solicitud_id",         limit: 4
-    t.integer  "consecutivo",          limit: 4
-    t.string   "codigo",               limit: 20
-    t.string   "nombre",               limit: 255
-    t.text     "descripcion",          limit: 16777215
-    t.integer  "empleado_id",          limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "status",               limit: 4,                                 default: 1
-    t.integer  "servicio_bitacora_id", limit: 4
-    t.decimal  "precio_sugerido",                       precision: 10, scale: 2, default: 0.0
-    t.integer  "tiempo_estimado",      limit: 4,                                 default: 0
-  end
-
-  create_table "xempleados", id: false, force: :cascade do |t|
-    t.integer  "id",               limit: 4,   default: 0, null: false
-    t.string   "nombre",           limit: 255,             null: false
-    t.string   "apellido_paterno", limit: 255,             null: false
-    t.string   "apellido_materno", limit: 255,             null: false
-    t.string   "email",            limit: 255,             null: false
-    t.string   "codigo",           limit: 255
-    t.string   "puesto",           limit: 255
-    t.integer  "sede_id",          limit: 4
-    t.date     "fecha_nacimiento"
-    t.integer  "pais_id",          limit: 4
-    t.date     "fecha_inicio"
-    t.date     "fecha_fin"
-    t.string   "curp",             limit: 255
-    t.string   "rfc",              limit: 255
-    t.integer  "departamento_id",  limit: 4
-    t.integer  "empleado_id",      limit: 4
-    t.string   "image",            limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
