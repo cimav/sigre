@@ -1,4 +1,4 @@
-{{#if solicitud.isTipoI}}
+{{#unless solicitud.isTipoIII}}
     <div id='cedula-header'>
 
         {{#if isInicialOrFallaTransmision}}
@@ -118,7 +118,7 @@
             {{/form-for}}
         </div>
     {{/if}}
-{{/if}}
+{{/unless}}
 
 <div class="clearfix"></div>
 
