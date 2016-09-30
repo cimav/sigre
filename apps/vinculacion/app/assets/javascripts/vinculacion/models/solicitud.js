@@ -156,6 +156,6 @@ App.Solicitud = DS.Model.extend({
       case 3: return 'Express';
     }
     return 'Sin tiempo de entrega';
-  }.property('tiempo_entrega')
+  }.property('tiempo_entrega'),
 
 });

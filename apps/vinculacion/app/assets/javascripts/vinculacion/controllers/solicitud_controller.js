@@ -40,5 +40,6 @@ App.SolicitudController = Ember.ObjectController.extend({
     return '/vinculacion/recepcion_muestras/' + this.get('id')
   }.property('model.id')
 
+
 });
 

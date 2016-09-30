@@ -1,4 +1,4 @@
-export GOOGLE_KEY='498678739668-ef52ipri7aka3s8dnmb5jdopfanjo6t6.apps.googleusercontent.com'
-export GOOGLE_SECRET='sC_LACbTLyxm5J9EFM_uCiC0'
+export GOOGLE_KEY='584394356099-rp2e4405ftr59qigi7l50a4c4vstm76i.apps.googleusercontent.com'
+export GOOGLE_SECRET='SKe99urQ7fuQYJue2lyuz1ir'
 
-rails s -p 3001
+rails s -p 3001 -b 0.0.0.0

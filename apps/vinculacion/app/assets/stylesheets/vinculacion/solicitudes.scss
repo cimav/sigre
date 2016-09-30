@@ -225,6 +225,8 @@
               font-size: 48px;
               .glyphicon-folder-close {
                 color: $folder-color-tipo-ii;
+
+
               }
             }
             .columna-logo-tipo-iii {
@@ -447,4 +449,31 @@
   border: none;
   width: 100%;
   height: 100%;
+}
+
+.tipo-romano-1{
+  position: absolute;
+  left: 21px;
+  top: 19px;
+  font-size: 18px;
+  color: #579DBA;
+  background-color: transparent !important;
+}
+
+.tipo-romano-2{
+  position: absolute;
+  left: 18px;
+  top: 19px;
+  font-size: 18px;
+  color: #4F9677;
+  background-color: transparent !important;
+}
+
+.tipo-romano-3{
+  position: absolute;
+  left: 15px;
+  top: 19px;
+  font-size: 18px;
+  color: #B09351;
+  background-color: transparent !important;
 }
