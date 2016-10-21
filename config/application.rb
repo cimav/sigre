@@ -32,7 +32,7 @@ module Sigre
       :domain    => "cimav.edu.mx",
       :authentication => :plain,
       :user_name      => "servicio.cliente@cimav.edu.mx",
-      :password       => "S3rv1c10C1m4v",
+      :password       => "S1gr3@2016",
       :enable_starttls_auto => true
     }
 
