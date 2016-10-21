@@ -121,7 +121,6 @@ App.CedulaController = Ember.ObjectController.extend({
     }.property('model.status'),
 
 
-
   total_porcentaje: function() {
     var remanentes = this.get('model.remanentes');
     var result = 0.00;

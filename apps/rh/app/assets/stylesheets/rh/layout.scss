@@ -1,4 +1,4 @@
-html, body, .application-view { 
+html, body, .application-view {
   height:100%;
   margin: 0;
   padding: 0;
@@ -7,8 +7,8 @@ html, body, .application-view {
 .spinner {
   display: inline-block;
   opacity: 0;
-  max-width: 0; 
-  -webkit-transition: opacity 0.25s, max-width 0.45s; 
+  max-width: 0;
+  -webkit-transition: opacity 0.25s, max-width 0.45s;
   -moz-transition: opacity 0.25s, max-width 0.45s;
   -o-transition: opacity 0.25s, max-width 0.45s;
   transition: opacity 0.25s, max-width 0.45s; /* Duration fixed since we animate additional hidden width */
@@ -123,10 +123,10 @@ html, body, .application-view {
         width: 100%;
       }
 
-      .nav-pills > li > a { 
+      .nav-pills > li > a {
         border-radius: 0px;
       }
-      
+
       .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
         background-color: $left-panel-selected;
         color: $white;
@@ -137,12 +137,12 @@ html, body, .application-view {
         color: $left-panel-nav-text;
       }
 
-      .nav a { 
+      .nav a {
         color: $left-panel-nav-text;
       }
 
     }
-    
+
     #main-panel {
       position: absolute;
       left: 200px;
@@ -213,7 +213,7 @@ html, body, .application-view {
           padding-top: 10px;
           .media-heading { font-weight: bold; white-space: pre;}
           .media-object {
-            width: 48px; 
+            width: 48px;
             margin-right: 10px;
             span {
               color: $grey;
@@ -242,7 +242,7 @@ html, body, .application-view {
         background-color: $bg-item-hover;
       }
     }
-    .active .md-item-inner { 
+    .active .md-item-inner {
       border-left: 5px solid $brand-primary;
       background-color: $item-bg;
       padding-left: 10px;
@@ -274,7 +274,7 @@ html, body, .application-view {
   width: calc(100% - 500px);
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 0 20px 20px 20px; 
+  padding: 0 20px 20px 20px;
   margin: 0;
 
   h3 {

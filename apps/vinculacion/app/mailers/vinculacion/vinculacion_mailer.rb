@@ -2,7 +2,7 @@ module Vinculacion
   class VinculacionMailer < ApplicationMailer
 
     def enviar_cotizacion(solicitud_id, cotizacion_id, current_email, msg_notificacion)
-      
+
       @solicitud = Solicitud.find(solicitud_id)
       @cotizacion = Cotizacion.find(cotizacion_id)
 
@@ -17,9 +17,9 @@ module Vinculacion
       @solicitud = Solicitud.find(solicitud_id)
 
       subject = "[CIMAV] Cotización #{@cotizacion.codigo}"
-      filename = @cotizacion.solicitud.codigo.gsub('/','_').concat('.pdf')      
+      filename = @cotizacion.solicitud.codigo.gsub('/','_').concat('.pdf')
       attachments[filename] = File.read(File.join(Rails.root.to_s, "private/cotizaciones", filename))
- 
+
       mail(:to => @to, :from => @from, :reply_to => current_email,:subject => subject)
     end
 
@@ -36,7 +36,7 @@ module Vinculacion
 
       @afectados = afectados
       @mensaje = mensaje
-        
+
       subject = "[Vinculación] Alerta ##{alerta_id} #{usuarios_vinculacion}"
       mail(:to => @to, :from => @from, :subject => subject)
     end
@@ -51,10 +51,10 @@ module Vinculacion
       @to << 'ana.rodriguez@cimav.edu.mx'
       @to << 'salomon.maloof@cimav.edu.mx'
       @to << 'marisol.nevarez@cimav.edu.mx'
-      
+
       @alerta_id = alerta_id
       #@to << 'karen.valles@cimav.edu.mx'
-        
+
       subject = "[Vinculación] Alerta ##{alerta_id} Resuelta"
       mail(:to => @to, :from => @from, :subject => subject)
     end

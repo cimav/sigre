@@ -4,7 +4,7 @@ module Vinculacion
     before_filter :auth_required
 
     def authenticated?
-      if session[:user_auth].blank? 
+      if session[:user_auth].blank?
         user = Usuario.where(:email => session[:user_email], :status => Usuario::STATUS_ACTIVO).first
         session[:user_auth] = user && user.email == session[:user_email]
         if session[:user_auth]

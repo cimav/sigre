@@ -24,9 +24,9 @@ module Rh
 
     protected
     def sede
-      params[:sede].permit(:id, 
-      	                   :nombre, 
-      	                   :descripcion, 
+      params[:sede].permit(:id,
+      	                   :nombre,
+      	                   :descripcion,
       	                   :empleado_id)
     end
   end

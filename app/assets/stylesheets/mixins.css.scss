@@ -23,7 +23,7 @@
 }
 
 @mixin text-shadow($blur: 4px, $top: 1px, $left: 0px, $color: #999) {
-  text-shadow: $left $top $blur $color;  
+  text-shadow: $left $top $blur $color;
 }
 
 

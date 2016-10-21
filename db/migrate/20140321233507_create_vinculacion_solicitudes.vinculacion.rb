@@ -14,7 +14,7 @@ class CreateVinculacionSolicitudes < ActiveRecord::Migration
       t.text       :notas
       t.text       :acuerdos
       t.references :usuario
-      t.string :status, :default => 1 
+      t.string :status, :default => 1
       t.timestamps
     end
   end

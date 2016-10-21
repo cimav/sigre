@@ -103,9 +103,7 @@ module Vinculacion
       self.sub_proyecto = sub_proyecto
 
       # pone el detalle de la cotización como concepto en extenso
-      detalle_concepto = self.solicitud.cotizaciones.last.cotizacion_detalle.first.concepto rescue 'sin-concepto'
-      self.concepto_en_extenso= detalle_concepto
-
+      self.concepto_en_extenso = self.solicitud.cotizaciones.last.cotizacion_detalle[servicio.consecutivo - 1].concepto rescue 'sin-concepto'
 
       self.observaciones = ' '
 

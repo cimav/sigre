@@ -108,7 +108,7 @@ module Vinculacion
     def precio_venta
       if !ultima_cotizacion.nil?
         ultima_cotizacion.precio_venta
-      else 
+      else
         0
       end
     end
@@ -146,14 +146,12 @@ module Vinculacion
 
         end
 
-        if self.tipo == 1 && self.status == STATUS_ACEPTADA
-          # La Solicitud y Cotización fueron aceptadas; inicializar los valores default para la cédula de NetMultix
-
-          cedula = self.cedulas.first rescue nil # solo tiene una cédula
-          if !cedula.nil?
+        if self.tipo < 3 && self.status == STATUS_ACEPTADA
+          # para Tipos I y II
+          # La Solicitud y Cotización fueron aceptadas; inicializar los valores default para la(s) cédula(s) de NetMultix
+          self.cedulas.each do |cedula|
             cedula.init_cedula_netmultix
           end
-
         end
 
       end

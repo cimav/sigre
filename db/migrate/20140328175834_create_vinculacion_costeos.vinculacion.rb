@@ -6,7 +6,7 @@ class CreateVinculacionCosteos < ActiveRecord::Migration
       t.string     :codigo, :limit => 20
       t.references :servicio
       t.references :usuario
-      t.integer    :status, :default => 1 
+      t.integer :status, :default => 1
       t.timestamps
     end
   end
