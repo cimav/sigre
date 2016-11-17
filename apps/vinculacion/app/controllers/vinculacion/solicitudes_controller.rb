@@ -413,7 +413,7 @@ module Vinculacion
         data_otros           = []
         data_hhombre         = []
         ssccd_spaces         = "#{Prawn::Text::NBSP * 6}"
-        solicitud.servicios.each do |ss|
+        solicitud.servicios.where.not(:status => Servicio::CANCELADO).each do |ss|
           ss.costeos.each do |ssc|
             ssc.costeo_detalle.order(:tipo,:descripcion).each do |ssccd|
               subtotal_consumibles = 0
