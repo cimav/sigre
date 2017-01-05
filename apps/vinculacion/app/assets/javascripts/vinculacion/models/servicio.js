@@ -17,6 +17,10 @@ App.Servicio = DS.Model.extend({
 
   servicio_bitacora: DS.belongsTo('servicio_bitacora'),
 
+  alert_url: function() {
+    return "http://bitacora.cimav.edu.mx/laboratory_services/" + this.get('servicio_bitacora.bitacora_id') + "/status";
+  }.property('servicio_bitacora_id'),
+
   selectsChanges: function () {
     if (!this.get('isDeleted')) {
       // Hack: belongsTo no cambian a Dirty

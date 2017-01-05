@@ -64,6 +64,10 @@ App.ServicioController = Ember.ObjectController.extend({
     return this.get('model.status') == this.get('controllers.servicios.Status.cancelado');
   }.property('model.status'),
 
+  showAlertas: function() {
+    return this.get('model.servicio_bitacora.bitacora_id') > 0;
+  }.property('servicio_bitacora'),
+
   isNotReadyForSave: function () {
     var result = this.get('content.isDirty') == true && this.get('content.isValid') == true;
     return !result;

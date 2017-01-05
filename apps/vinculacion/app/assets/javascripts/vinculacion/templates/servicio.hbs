@@ -30,7 +30,11 @@
       <p>{{descripcion}}</p>
       <h4>Precio de Venta Sugerido: {{formatCurrency precio_sugerido}}</h4>
       <h4>Tiempo Estimado: {{tiempo_estimado}} días hábiles</h4>
-
+      {{#if showAlertas}}
+        <div class="alertas">
+          <iframe width="640" height="80" {{bind-attr src="alert_url"}} allowtransparency="true" frameborder="0"></iframe>
+        </div>
+      {{/if}}
       
       {{#each servicio_datos.muestras}}
 
@@ -60,7 +64,7 @@
                       </a>
                     </h4>
                     <div class="alertas">
-                      <iframe width="640" height="48" {{bind-attr src="alert_url"}} allowtransparency="true" frameborder="0"></iframe>
+                      <iframe width="640" height="80" {{bind-attr src="alert_url"}} allowtransparency="true" frameborder="0"></iframe>
                     </div>
                   </div>
                   <div  {{bind-attr id="collapse_id"}} class="panel-collapse collapse" role="tabpanel" {{bind-attr aria-labelledby="head_id"}}>
