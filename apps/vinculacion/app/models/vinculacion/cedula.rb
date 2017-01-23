@@ -166,6 +166,7 @@ commit;
       begin
         cia = '1'
         fecha = Time.now ### La fecha tiene que llevar la hora
+        anio = fecha.year.to_s.last(2) rescue '00' # el anio depende del anio real (fecha actual) y no de la solicitud o cedula del sigre
         fecha = fecha.year.to_s + fecha.month.to_s.rjust(2, '0') + fecha.day.to_s.rjust(2, '0')
         orden_compra = self.solicitud.orden_compra rescue 'sin-orden'
         sol_servicio = self.solicitud.codigo rescue 'sin/codigo'
@@ -228,7 +229,7 @@ commit;
           if consecutivo_cedula_int <= 0
             raise StandardError, 'No hay consecutivo'
           end
-          anio = self.codigo.split('/')[0] rescue '00'
+          ##anio = self.codigo.split('/')[0] rescue '00'
           consecutivo_cedula_str = consecutivo_cedula_int.to_s.rjust(4, '0') + '/' + anio
 
           # insertar registro directamente en la DB; no usa el Save
