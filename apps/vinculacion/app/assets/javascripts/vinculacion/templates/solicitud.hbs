@@ -42,22 +42,24 @@
       {{#link-to 'alertas' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-remove"></span> Alertas <span class="badge badge-alertas">{{alertasCount}}</span></a>{{/link-to}}
     {{/if}}
 
-    {{#link-to 'muestras' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-th"></span> Muestras <span class="badge badge-muestras">{{muestrasCount}}</span></a>{{/link-to}}
-    {{#unless isTipoI}}
-      {{#if muestrasCount}}
-        {{#link-to 'servicios' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-list"></span> Servicios <span class="badge badge-servicios">{{serviciosCount}}</span></a>{{/link-to}}
-      {{/if}}
+    {{#unless isOnlyRead}}
+        {{#link-to 'muestras' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-th"></span> Muestras <span class="badge badge-muestras">{{muestrasCount}}</span></a>{{/link-to}}
+        {{#unless isTipoI}}
+            {{#if muestrasCount}}
+                {{#link-to 'servicios' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-list"></span> Servicios <span class="badge badge-servicios">{{serviciosCount}}</span></a>{{/link-to}}
+            {{/if}}
+        {{/unless}}
+
+        {{#link-to 'archivos' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-file"></span> Archivos</a>{{/link-to}}
+
+        {{#link-to 'cotizaciones' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-usd"></span> Cotizaciones <span class="badge badge-cotizaciones">{{this.lastCotizacion.consecutivo}}</span></a>{{/link-to}}
+        {{#link-to 'arrancar' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-flash"></span> Arrancar </a>{{/link-to}}
+        {{#if mostrarCedulas}}
+            {{#link-to 'cedulas' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-list-alt"></span> Cédulas <span class="badge badge-cedulas">{{this.cedulas.length}}</span></a>{{/link-to}}
+        {{/if}}
+
+        {{#link-to 'solicitud.seguimiento' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-calendar"></span> Seguimiento</a>{{/link-to}}
     {{/unless}}
-
-    {{#link-to 'archivos' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-file"></span> Archivos</a>{{/link-to}}
-
-    {{#link-to 'cotizaciones' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-usd"></span> Cotizaciones <span class="badge badge-cotizaciones">{{this.lastCotizacion.consecutivo}}</span></a>{{/link-to}}
-    {{#link-to 'arrancar' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-flash"></span> Arrancar </a>{{/link-to}}
-    {{#if mostrarCedulas}}
-      {{#link-to 'cedulas' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-list-alt"></span> Cédulas <span class="badge badge-cedulas">{{this.cedulas.length}}</span></a>{{/link-to}}
-    {{/if}}
-
-    {{#link-to 'solicitud.seguimiento' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-calendar"></span> Seguimiento</a>{{/link-to}}
 
   </ul>
   <div id="bottom-options">

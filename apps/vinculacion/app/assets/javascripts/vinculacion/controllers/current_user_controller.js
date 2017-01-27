@@ -6,6 +6,10 @@ App.CurrentUserController = Ember.ObjectController.extend({
 
   isNotAdmin: function() {
     return this.get('model.role') !== "admin"
+  }.property(),
+
+  isOnlyRead: function() {
+      return this.get('model.role') === "read";
   }.property()
 
 });

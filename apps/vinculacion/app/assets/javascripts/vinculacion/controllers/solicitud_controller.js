@@ -24,6 +24,8 @@ App.SolicitudController = Ember.ObjectController.extend({
     var inicial = this.get('model.Status.inicial');
     var en_cotizacion = this.get('model.Status.en_cotizacion');
     var result = status == inicial || status == en_cotizacion;
+    var isOnlyRead = this.get('isOnlyRead');
+    result = result && !isOnlyRead;
     return result;
   }.property('model.status'),
   allowAddServicios: function() {
@@ -38,8 +40,11 @@ App.SolicitudController = Ember.ObjectController.extend({
   
   pdf_url: function() {
     return '/vinculacion/recepcion_muestras/' + this.get('id')
-  }.property('model.id')
+  }.property('model.id'),
 
+  isOnlyRead: function () {
+    return this.get('currentUser.isOnlyRead');
+  }.property('model.status')
 
 });
 
