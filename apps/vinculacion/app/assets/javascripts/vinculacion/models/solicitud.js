@@ -140,11 +140,17 @@ App.Solicitud = DS.Model.extend({
     return result;
   }.property('tipo'),
 
+  isTipoProyecto: function() {
+    var result = this.get('tipo') == 4;
+    return result;
+  }.property('tipo'),
+
   tipoText: function() {
     switch (this.get('tipo')) {
       case 1: return 'Tipo I';
       case 2: return 'Tipo II';
       case 3: return 'Tipo III';
+      case 4: return 'Proyecto';
     }
     return 'Sin tipo';
   }.property('tipo'),

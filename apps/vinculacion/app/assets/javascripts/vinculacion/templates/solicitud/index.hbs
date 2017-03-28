@@ -1,11 +1,21 @@
 <div id="solicitud-index">
-  <h3>Solicitud {{codigo}}
-    {{#if canEdit}}
-      {{#link-to 'solicitud.edit' this tagName="span" classNames="glyphicon glyphicon-edit enabled"}}{{/link-to}}
-    {{else}}
-      <span class="glyphicon glyphicon-edit disabled"></span>
-    {{/if}}
-  </h3>
+  {{#unless isTipoProyecto}}
+    <h3>Solicitud {{codigo}}
+      {{#if canEdit}}
+        {{#link-to 'solicitud.edit' this tagName="span" classNames="glyphicon glyphicon-edit enabled"}}{{/link-to}}
+      {{else}}
+        <span class="glyphicon glyphicon-edit disabled"></span>
+      {{/if}}
+    </h3>
+  {{else}}
+    <h3>Proyecto {{codigo}}
+      {{#if canEdit}}
+        {{#link-to 'solicitud.edit' this tagName="span" classNames="glyphicon glyphicon-edit enabled"}}{{/link-to}}
+      {{else}}
+        <span class="glyphicon glyphicon-edit disabled"></span>
+      {{/if}}
+    </h3>
+  {{/unless}}
 
   <div id="solicitud-index-datos">
 

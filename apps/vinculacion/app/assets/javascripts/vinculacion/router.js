@@ -25,6 +25,10 @@ App.Router.map(function () {
         });
       });
 
+      this.resource('costeo_proyecto', function () {
+        this.route('solicitar_costeo');
+      });
+
       this.resource('cotizaciones', function() {
         this.resource('cotizacion', {path: '/:cotizacion_id'}, function(){
           this.route('edit', {path: '/editar'});

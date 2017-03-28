@@ -69,6 +69,13 @@
         color: $folder-color-tipo-iii;
       }
     }
+    .columna-logo-tipo-proyecto {
+      width: 48px;
+      font-size: 48px;
+      .glyphicon-folder-close {
+        color: $folder-color-tipo-proyecto;
+      }
+    }
     .columna-titulo {
       width: 100%;
       h3 {
@@ -234,6 +241,13 @@
               font-size: 48px;
               .glyphicon-folder-close {
                 color: $folder-color-tipo-iii;
+              }
+            }
+            .columna-logo-tipo-proyecto {
+              width: 48px;
+              font-size: 48px;
+              .glyphicon-folder-close {
+                color: $folder-color-tipo-proyecto;
               }
             }
 
@@ -475,5 +489,14 @@
   top: 19px;
   font-size: 18px;
   color: #B09351;
+  background-color: transparent !important;
+}
+
+.tipo-romano-proyecto{
+  position: absolute;
+  left: 5px;
+  top: 19px;
+  font-size: 14px;
+  color: lighten($folder-color-tipo-proyecto, 20%);
   background-color: transparent !important;
 }

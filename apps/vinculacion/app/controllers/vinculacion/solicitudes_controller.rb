@@ -29,7 +29,17 @@ module Vinculacion
     def create 
       solicitud_params = solicitud
       solicitud_params[:usuario_id] = current_user.id
-      render json: Solicitud.create(solicitud_params)
+      s = Solicitud.create(solicitud_params)
+
+      if (s.tipo == 4)
+        # Si es proyecto entonces crear servicio dummy para agregar costeos.
+        serv = s.servicios.new
+        serv.nombre = "Proyecto #{s.codigo}"
+        serv.descripcion = s.descripcion
+        serv.empleado_id = s.responsable_presupuestal_id
+        serv.save
+      end
+      render json: s
     end
 
     def update

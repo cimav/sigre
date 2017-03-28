@@ -79,6 +79,7 @@ module Vinculacion
                                             'cliente_cp'       => cliente_cp,
                                             'descripcion'      => servicio.descripcion,
                                             'vinculacion_hash' => servicio.solicitud.vinculacion_hash,
+                                            'tipo'             => servicio.solicitud.tipo,
                                             'muestras'         => array_muestras
       )
 

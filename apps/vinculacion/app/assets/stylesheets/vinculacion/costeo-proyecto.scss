@@ -2,7 +2,7 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
-#cotizaciones-list {
+#costeo-proyecto-list {
   padding: 5px;
   border-bottom: 1px solid $grey;
   height: 48px;
@@ -21,14 +21,37 @@
     border: 1px solid $grey;
     text-decoration: none;
   }
+
+  .no-hay-costeos {
+    float: left;
+    color: $grey;
+    padding-top: 10px;
+    padding-left: 10px;
+  }
+
+  button {
+    float: right;
+  }
+
+  .proyecto-esperando-costeo {
+    float: right;
+    color: $grey;
+    padding-top: 10px;
+    padding-left: 10px;
+  }
 }
 
 
+#msg-proyectos {
+  font-size: 300%;
+  text-align: center;
+  padding-top: 100px; 
+  color: $grey;
+}
 
-#cotizaciones-workarea {
-  #datos-fijos {
-    padding: 10px;
-  }
+
+#costeo-proyecto-workarea {
+
 }
 
 #cotizacion-header {

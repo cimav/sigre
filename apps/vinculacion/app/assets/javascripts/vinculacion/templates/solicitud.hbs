@@ -17,8 +17,17 @@
           <span class="glyphicon glyphicon-folder-close"></span>
         </td>
       {{/if}}
+      {{#if isTipoProyecto}}
+        <td class="columna-logo-tipo-proyecto">
+          <span class="glyphicon glyphicon-folder-close"></span>
+        </td>
+      {{/if}}
       <td class="columna-titulo">
-          <h3>Solicitud <strong>{{codigo}}</strong></h3>
+          {{#if isTipoProyecto}}
+            <h3>Proyecto <strong>{{codigo}}</strong></h3>
+          {{else}}
+            <h3>Solicitud <strong>{{codigo}}</strong></h3>
+          {{/if}}
           <div class="clearfix"></div>
           <p class="columna-titulo-proyecto">{{proyecto.codigo}} {{proyecto.nombre}}</p>
       </td>
@@ -37,17 +46,25 @@
 
 <div id="op-options-panel">
   <ul class="nav nav-pills nav-stacked">
-    {{#link-to 'solicitud.index' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-ok"></span> Solicitud</a>{{/link-to}}
+    {{#if isTipoProyecto}}
+      {{#link-to 'solicitud.index' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-ok"></span> Proyecto</a>{{/link-to}}
+    {{else}}
+      {{#link-to 'solicitud.index' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-ok"></span> Solicitud</a>{{/link-to}}
+    {{/if}}
     {{#if alertasCount}}
       {{#link-to 'alertas' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-remove"></span> Alertas <span class="badge badge-alertas">{{alertasCount}}</span></a>{{/link-to}}
     {{/if}}
 
     {{#unless isOnlyRead}}
-        {{#link-to 'muestras' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-th"></span> Muestras <span class="badge badge-muestras">{{muestrasCount}}</span></a>{{/link-to}}
-        {{#unless isTipoI}}
-            {{#if muestrasCount}}
-                {{#link-to 'servicios' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-list"></span> Servicios <span class="badge badge-servicios">{{serviciosCount}}</span></a>{{/link-to}}
-            {{/if}}
+        {{#unless isTipoProyecto}}
+          {{#link-to 'muestras' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-th"></span> Muestras <span class="badge badge-muestras">{{muestrasCount}}</span></a>{{/link-to}}
+          {{#unless isTipoI}}
+              {{#if muestrasCount}}
+                  {{#link-to 'servicios' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-list"></span> Servicios <span class="badge badge-servicios">{{serviciosCount}}</span></a>{{/link-to}}
+              {{/if}}
+          {{/unless}}
+        {{else}}
+          {{#link-to 'costeo_proyecto' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-usd"></span> Costeo</a>{{/link-to}}
         {{/unless}}
 
         {{#link-to 'archivos' this tagName="li"}}<a href="#"><span class="glyphicon glyphicon-file"></span> Archivos</a>{{/link-to}}

@@ -1,0 +1,29 @@
+<div id="costeo-proyecto-list">
+  {{#if costeos}}
+    <ul class="nav nav-pills">
+    {{#each costeos}}
+      <li><a href="#"><span class="consecutivo">{{consecutivo}} {{codigo}}</span> </a></li>
+    {{/each}}
+    </ul>
+  {{else}}
+    <span class="no-hay-costeos">No existen costeos</span>
+    {{#if isInicial}}
+      <button {{action 'solicitaCosteo'}} class="btn btn-primary">Solicitar costeo</button>
+    {{/if}}
+    {{#if isEsperandoCosteo}}
+      <span class="proyecto-esperando-costeo">Esperando costeo</span>
+    {{/if}}
+  {{/if}}
+</div>
+<div id="cotizaciones-workarea">
+  {{#unless costeos}}
+    <div id="msg-proyectos">
+      {{#if isEsperandoCosteo}}
+        <span class="proyecto-esperando-costeo">Esperando costeo</span>
+      {{else}}
+        <span class="no-hay-costeos">No existen costeos</span>
+      {{/if}}
+    </div>
+  {{/unless}}
+  {{outlet}}
+</div>
