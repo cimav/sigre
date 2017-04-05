@@ -43,7 +43,11 @@ module Vinculacion
       end
       consecutivo = "%03d" % con
       self.consecutivo = con
-      self.codigo = "#{self.solicitud.codigo}-S#{consecutivo}"
+      if self.solicitud.tipo == 4
+        self.codigo = "#{self.solicitud.codigo}-P#{consecutivo}"
+      else
+        self.codigo = "#{self.solicitud.codigo}-S#{consecutivo}"
+      end
       self.save(:validate => false)
     end
 
@@ -55,7 +59,11 @@ module Vinculacion
       cedula.servicio = self
       cedula.solicitud = self.solicitud
       cod = self.codigo
-      cod["S"] = "C"
+      if self.solicitud.tipo == 4
+        cod["P"] = "C"
+      else
+        cod["S"] = "C"
+      end
       cedula.codigo = cod
       cedula.status = 1
       cedula.save
@@ -68,12 +76,13 @@ module Vinculacion
       # El Status de servicios depende de la agrupación de todos los servicios de la solicitud
 
       if self.status_changed?
-
+        puts "SI CAMBIO EL STATUS"
         if self.status == EN_PROCESO
 
           # TODO en depuracion
 
           last_cotiza = self.solicitud.cotizaciones.last
+          puts "ULTIMA COTIZACION"
           puts last_cotiza
           cotiza_is_aceptada = !last_cotiza.nil? and last_cotiza.status == Cotizacion::STATUS_ACEPTADO
           puts cotiza_is_aceptada
