@@ -48,7 +48,7 @@ App.ApplicationController = Ember.Controller.extend({
       this.store.find('estado'),
       this.store.find('servicio_bitacora'),
       this.store.find('laboratorio_bitacora'),
-      //this.store.find('cliente_netmultix')
+      this.store.find('cliente_netmultix')
     ]).then(function(values){
       self.set('empleadosCache', values[0]);
       self.set('proyectosCache', values[1]);
@@ -59,7 +59,7 @@ App.ApplicationController = Ember.Controller.extend({
       self.set('estados', values[5]);
       self.set('servicios_bitacora', values[6]);
       self.set('laboratorios_bitacora', values[7]);
-      //self.set('clientes_netmultix', values[8]);
+      self.set('clientes_netmultix', values[8]);
 
       /* armar data para options de Servicios_Bitacora */
       var serviciosBitacoraOptions = Ember.A();
