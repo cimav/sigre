@@ -39,27 +39,25 @@ App.ApplicationController = Ember.Controller.extend({
   init: function() {
     self = this;
     Promise.all([
-      this.store.find('empleado'),
-      this.store.find('proyecto'),
-      this.store.find('sede'),
-      this.store.find('cliente'),
-      //this.store.find('contacto'),
       this.store.find('pais'),
       this.store.find('estado'),
+      this.store.find('sede'),
+      this.store.find('proyecto'),
+      this.store.find('empleado'),
+      this.store.find('cliente'),      
       this.store.find('servicio_bitacora'),
       this.store.find('laboratorio_bitacora'),
-      //this.store.find('cliente_netmultix')
+      this.store.find('cliente_netmultix')
     ]).then(function(values){
-      self.set('empleadosCache', values[0]);
-      self.set('proyectosCache', values[1]);
+      self.set('paises', values[0]);
+      self.set('estados', values[1]);
       self.set('sedesCache', values[2]);
-      self.set('clientes', values[3]);
-      //self.set('contactos', values[4]);
-      self.set('paises', values[4]);
-      self.set('estados', values[5]);
+      self.set('proyectosCache', values[3]);
+      self.set('empleadosCache', values[4]);
+      self.set('clientes', values[5]);
       self.set('servicios_bitacora', values[6]);
       self.set('laboratorios_bitacora', values[7]);
-      //self.set('clientes_netmultix', values[8]);
+      self.set('clientes_netmultix', values[8]);
 
       /* armar data para options de Servicios_Bitacora */
       var serviciosBitacoraOptions = Ember.A();
@@ -89,6 +87,42 @@ App.ApplicationController = Ember.Controller.extend({
     });
     console.log('App Init');
   },
+
+
+  // clientes: function() {
+  //   return this.store.find('cliente');
+  // }.property(),
+
+  // empleadosCache: function() { 
+  //   this.store.find('empleado');
+  // }.property(),  
+    
+
+  // proyectosCache: function() {
+  //   this.store.find('proyecto');
+  // }.property(),
+  // sedesCache: function() {  
+  //   this.store.find('sede');
+  // }.property(),
+  // paises: function() {  
+  //   this.store.find('pais');
+  // }.property(),
+  // estados: function() {  
+  //   this.store.find('estado');
+  // }.property(),
+  // servicios_bitacora: function() {  
+  //   this.store.find('servicio_bitacora');
+  // }.property(),
+  // laboratorios_bitacora: function() {  
+  //   this.store.find('laboratorio_bitacora');
+  // }.property(),
+  // clientes_netmultix: function() {  
+  //   this.store.find('cliente_netmultix');
+  // }.property(),
+
+
+
+
   closeNotification: function() {
     this.set('notification', null);
     this.set('notification_type', null);

@@ -1,9 +1,8 @@
 App.SolicitudEditController = Ember.ObjectController.extend({
-  needs: ['application', 'solicitudes', 'servicios'],
+  needs: ['application', 'solicitudes', 'servicios', 'solicitud'],
   isNotDirty: Ember.computed.not('content.isDirty'),
   newMuestra: null,
   servicioBitacoraSeleccion: null,
-
   actions: {
 
     submit: function () {

@@ -5,6 +5,11 @@ App.SolicitudController = Ember.ObjectController.extend({
   alertasCount: Ember.computed.alias('content.alertas.length'),
   serviciosCount: Ember.computed.alias('content.servicios.length'),
   prioridad_item: App.computed.list_item('prioridad'),
+  selectedCliente: function() {
+    if (this.get('cliente')) {
+      this.set('clienteContactos', this.store.find('contacto', { cliente_id: this.get('cliente.id') }));
+    }
+  }.observes('cliente'),
   alertasAbiertasCount: function() {
     var c = 0;
     alertas = this.get('alertas');

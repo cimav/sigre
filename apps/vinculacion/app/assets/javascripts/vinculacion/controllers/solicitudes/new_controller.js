@@ -1,6 +1,11 @@
 App.SolicitudesNewController = Ember.ObjectController.extend({
   needs: ["application", 'cotizaciones', 'solicitudes'],
   isNotDirty: Ember.computed.not('content.isDirty'),
+  selectedCliente: function() {
+    if (this.get('cliente')) {
+      this.set('clienteContactos', this.store.find('contacto', { cliente_id: this.get('cliente.id') }));
+    }
+  }.observes('cliente'),
   actions: {
 
     submit: function() {
