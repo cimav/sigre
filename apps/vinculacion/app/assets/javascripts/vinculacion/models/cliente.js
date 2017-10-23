@@ -14,7 +14,7 @@ App.Cliente = DS.Model.extend(Ember.Validations.Mixin, {
   estado: DS.belongsTo('estado'),
   ciudad: DS.attr('string'),
 
-  contactos: DS.hasMany('contacto', { dependent: 'destroy', async: 'true' }),
+  contactos: DS.hasMany('contacto', { dependent: 'destroy' }),
   solicitudes: DS.hasMany('solicitud')
 
 
