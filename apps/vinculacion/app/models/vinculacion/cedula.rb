@@ -95,7 +95,8 @@ module Vinculacion
           when 3 # DGO
             sub_proyecto = '2040900001'
           else # CHI
-            sub_proyecto = '2033000238'
+            # sub_proyecto = '2033000238'
+            sub_proyecto = '2033000467' # oct 2017
         end
         #sub_proyecto = proyecto_id.to_s + sub_proyecto
         #proy_netmultix = ProyectoNetmultix.where('pr13_subproyecto LIKE :q', {:q => sub_proyecto}).first rescue nil
@@ -172,7 +173,8 @@ commit;
         sol_servicio = self.solicitud.codigo rescue 'sin/codigo'
         #sol_servicio = sol_servicio.split('/')
         #sol_servicio = sol_servicio.last + '/' + sol_servicio.first
-        servicio = 201 #######
+#        servicio = 201
+        servicio = 2001 # oct 2017
         tipo = 'S'
         proyecto = self.sub_proyecto
         descripcion = self.servicio.nombre rescue 'sin-descripcion|nombre-servicio' # 'desc corta de 40 nombre del servicio'
@@ -212,6 +214,14 @@ commit;
         aprobacion = 0
         fecha_prog = fecha
         moneda = cotizacion.divisa = 1 ? 'P' : 'D'
+
+        #oct 2017
+        cve_prov_serv = '          '
+        tipo_factor_iva = 0.00
+        tasa_iva = 16.00
+        band_detalle = 0.00
+        unidad = '          '
+        unidad_sat = '   '
       rescue => e
         # falla al poblar variables
         puts e
@@ -246,7 +256,13 @@ commit;
               ft16_monto_dist_inv: monto_dist_inv, ft16_saldo_fact: saldo_fact, ft16_status: status, ft16_proy_pago: proyecto_pago,
               ft16_observaciones: observaciones, ft16_aprobacion: 0, ft16_fecha_prog: fecha_prog, ft16_nombre2: '  ',
               ft16_localidad: 'localFalta', ft16_no_int: 'intFalta',  ft16_no_ext: 'extFalta', ft16_estado: cliente_netmultix_estado,
-              ft16_pais: cliente_netmultix_pais, ft16_moneda: moneda, ft16_tipo_negocio: 0
+              ft16_pais: cliente_netmultix_pais, ft16_moneda: moneda, ft16_tipo_negocio: 0,
+              ft16_cve_prod_serv: cve_prov_serv,
+              ft16_tipo_factor_iva: tipo_factor_iva,
+              ft16_tasa_iva: tasa_iva,
+              ft16_band_detalle: band_detalle,
+              ft16_unidad: unidad,
+              ft16_unidad_sat: unidad_sat
           )
 
           self.cedula_netmultix = cedula_netmultix.ft16_cedula
