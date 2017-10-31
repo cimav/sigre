@@ -207,7 +207,7 @@
         font-size: 90%;
         padding-left: 15px;
         cursor: pointer;
-        height: 96px;
+        /* height: 96px; */
 
         .media {
           padding-top: 10px;
@@ -260,6 +260,10 @@
               }
               .contacto-nombre {
                 font-weight: normal;
+              }
+              .orden-compra {
+                font-weight: normal;
+                font-style: italic;
               }
               .descripcion {
                 font-weight: normal;

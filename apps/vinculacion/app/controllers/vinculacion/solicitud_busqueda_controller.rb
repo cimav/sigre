@@ -10,7 +10,8 @@ module Vinculacion
                                   usuarios.usuario LIKE :q OR
                                   proyectos_proyectos.nombre LIKE :q OR
                                   vinculacion_clientes.razon_social LIKE :q OR
-                                  vinculacion_contactos.nombre LIKE :q)",
+                                  vinculacion_contactos.nombre LIKE :q OR
+                                  vinculacion_solicitudes.orden_compra LIKE :q)",
                                  {:q => "%#{params[:q]}%"})
       end
       results = results.references(:proyecto, :cliente, :usuario, :contacto)

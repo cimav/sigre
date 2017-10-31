@@ -14,6 +14,7 @@ App.SolicitudBusqueda = DS.Model.extend({
   tipo:  DS.attr('number'),
   datos_usuario: DS.attr('string'),
   created_at: DS.attr('date'),
+  orden_compra: DS.attr('string'),
 
   getDescripcion: function() {
     size =  this.get('descripcion.length');
