@@ -152,7 +152,7 @@ Saludos.
         ## FECHA 
         dia = cotizacion.fecha_notificacion.day
         mes = t(:date)[:month_names][cotizacion.fecha_notificacion.month]
-        anyo = cotizacion.solicitud.fecha_inicio.year
+        anyo = cotizacion.fecha_notificacion.year
         c_cotizacion = cotizacion.consecutivo
         folio = "#{cotizacion.solicitud.codigo}-#{c_cotizacion}"
         fecha = "#{dia} de #{mes} del #{anyo}"
