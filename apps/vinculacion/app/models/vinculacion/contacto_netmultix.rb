@@ -1,8 +1,8 @@
 module Vinculacion
-  class ContactoNetmultix < ActiveRecord::Base
-    establish_connection "#{Rails.env}_netmultix"
+  class ContactoNetmultix < CimavNetmultixRecord
+    # establish_connection "#{Rails.env}_netmultix"
 
-    self.table_name = "cl06"
+    self.table_name = "netmultix.cl06"
     self.primary_key = 'cl06_clave'
 
     attr_accessor :id

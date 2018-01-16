@@ -96,7 +96,8 @@ module Vinculacion
             sub_proyecto = '2040900001'
           else # CHI
             # sub_proyecto = '2033000238'
-            sub_proyecto = '2033000467' # oct 2017
+            # sub_proyecto = '2033000467' # oct 2017
+            sub_proyecto = '2033000765' # ene 2018
         end
         #sub_proyecto = proyecto_id.to_s + sub_proyecto
         #proy_netmultix = ProyectoNetmultix.where('pr13_subproyecto LIKE :q', {:q => sub_proyecto}).first rescue nil
@@ -233,7 +234,7 @@ commit;
       CedulaNetmultix.transaction do
 
         begin
-          # buscar consecutivo siguiente
+          # buscar consecutivo siguiente NOTA: Al inicio de anio, re-iniciar a 1 el consecutivo (ft61_prox)
           cedula_consecutivo_netmultix = CedulaConsecutivoNetmultix.where("ft61_tabla = 16").first
           consecutivo_cedula_int = cedula_consecutivo_netmultix.ft61_prox rescue -1
           if consecutivo_cedula_int <= 0

@@ -33,9 +33,24 @@ production:
   username: root
   password: 
 
+# Usado para transmisiones de las cédulas directamente al Unix/Help
 production_netmultix:
   adapter: oracle_enhanced
   database: //10.1.0.44:1521/cimavXDB.netmultix.cimav.edu.mx
   username: almacen
   password: afrika
   pool: 10
+
+development_cimavnetmultix: &development_cimavnetmultix
+  adapter: mysql2
+  host: 10.0.0.13
+  encoding: utf8
+  pool: 5
+  username: netmultix
+  password: N3tMult1x@CIMAV
+  socket: /tmp/mysql.sock
+  database: cimavnetmultix
+
+# usado para cargar clientes del UnixHelp a través de la db sincronizada
+production_cimavnetmultix:
+  <<: *development_cimavnetmultix
