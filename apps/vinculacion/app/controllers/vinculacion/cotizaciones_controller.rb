@@ -80,12 +80,18 @@ Saludos.
     end
 
     def update
+      puts "UPDATE"
       if params[:cotizacion][:status] == Cotizacion::STATUS_NOTIFICADO
         c = Cotizacion.find(params[:id])
         pdf = create_document(params[:id])
+
         filename = c.solicitud.codigo.gsub('/', '_').concat('.pdf')
+        puts "ARCHIVO"
+        puts filename
         pdf.render_file File.join(Rails.root.to_s, "private/cotizaciones", filename)
+        puts "************************************"
         puts "PDF Guardado"
+        puts "************************************"
         if c.solicitud.proyecto_id == 1
           VinculacionMailer.enviar_cotizacion(c.solicitud_id, c.id, current_user.email, params[:cotizacion][:msg_notificacion]).deliver 
         end

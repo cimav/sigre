@@ -84,6 +84,7 @@ module Vinculacion
       end
 
       # notificar a Bitacora
+      puts "NOTIFICAR ARRANQUE..."
       QueueBus.publish('notificar_arranque',
                         'solicitud_id' => solicitud.id,
                         'agente_id'      => solicitud.usuario.id,
@@ -94,6 +95,7 @@ module Vinculacion
                         'agente_email'   => solicitud.usuario.email,
                         'muestras'       => muestras
                         )  #  del usuario que da de alta el servicio.
+      puts "NOTIFICADO"
 
       render json: solicitud
     end
@@ -175,6 +177,7 @@ module Vinculacion
 
     def notificar_arranque_tipo_2
       solicitud = Solicitud.find(params[:id])
+      puts "ARRANQUE TIPO 2"
 
       muestras = []
       servicios = []
@@ -205,7 +208,8 @@ module Vinculacion
            'servicio_bitacora_id'  => bitacoraId,
            'nombre'                => servicio.nombre,
            'muestra_codigo'        => muestra.codigo,
-           'muestra_id'            => muestraId
+           'muestra_id'            => muestraId,
+           'cedula_id'             => servicio.cedula.id
         }
         servicios << servicio_item
 
@@ -226,6 +230,7 @@ module Vinculacion
         cliente_cp       = solicitud.cliente.cp            rescue '--'
 
       # notificar a Bitacora
+      puts "PUBLICAR EN QUEUE"
       QueueBus.publish('notificar_arranque_tipo_2',
                        'solicitud_id'          => solicitud.id,
                        'agente_id'             => solicitud.usuario.id,
@@ -252,6 +257,7 @@ module Vinculacion
                        'muestras'              => muestras,
                        'servicios'             => servicios
         )
+      puts "PUBLICADO"
 
       render json: solicitud
     end

@@ -1,3 +1,4 @@
+# coding: utf-8
 require_dependency "vinculacion/application_controller"
 require 'resque-bus'
 

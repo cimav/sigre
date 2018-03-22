@@ -13,12 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160704212856) do
 
-  create_table "costo_hora", id: false, force: :cascade do |t|
-    t.integer "uh",     limit: 4
-    t.text    "nombre", limit: 65535
-    t.decimal "costo",                precision: 10, scale: 2
-  end
-
   create_table "estados", force: :cascade do |t|
     t.string   "nombre",     limit: 255
     t.string   "codigo",     limit: 255
@@ -46,7 +40,7 @@ ActiveRecord::Schema.define(version: 20160704212856) do
 
   create_table "proyectos_fondos", force: :cascade do |t|
     t.string   "nombre",      limit: 255
-    t.text     "descripcion", limit: 16777215
+    t.text     "descripcion", limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "recurso_id",  limit: 4
@@ -55,18 +49,18 @@ ActiveRecord::Schema.define(version: 20160704212856) do
   create_table "proyectos_proyectos", force: :cascade do |t|
     t.string   "cuenta",                 limit: 255
     t.string   "nombre",                 limit: 255
-    t.text     "descripcion",            limit: 16777215
-    t.text     "impacto",                limit: 16777215
-    t.text     "resultado_esperado",     limit: 16777215
-    t.text     "objetivo_estrategico",   limit: 16777215
-    t.text     "alcance",                limit: 16777215
+    t.text     "descripcion",            limit: 65535
+    t.text     "impacto",                limit: 65535
+    t.text     "resultado_esperado",     limit: 65535
+    t.text     "objetivo_estrategico",   limit: 65535
+    t.text     "alcance",                limit: 65535
     t.string   "referencia_externa",     limit: 255
     t.string   "convenio",               limit: 255
     t.string   "banco_cuenta",           limit: 255
     t.date     "fecha_inicio"
     t.date     "fecha_fin"
-    t.integer  "anio",                   limit: 4,                                 default: 0
-    t.decimal  "presupuesto_autorizado",                  precision: 10, scale: 2, default: 0.0
+    t.integer  "anio",                   limit: 4,                              default: 0
+    t.decimal  "presupuesto_autorizado",               precision: 10, scale: 2, default: 0.0
     t.integer  "fondo_id",               limit: 4
     t.integer  "recurso_id",             limit: 4
     t.integer  "tipo_id",                limit: 4
@@ -81,7 +75,7 @@ ActiveRecord::Schema.define(version: 20160704212856) do
 
   create_table "proyectos_recursos", force: :cascade do |t|
     t.string   "nombre",      limit: 255
-    t.text     "descripcion", limit: 16777215
+    t.text     "descripcion", limit: 65535
     t.integer  "tipo_id",     limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -167,8 +161,8 @@ ActiveRecord::Schema.define(version: 20160704212856) do
   create_table "vinculacion_cedulas", force: :cascade do |t|
     t.integer  "solicitud_id",         limit: 4
     t.integer  "servicio_id",          limit: 4
-    t.text     "codigo",               limit: 16777215
-    t.integer  "status",               limit: 4,        default: 1
+    t.text     "codigo",               limit: 65535
+    t.integer  "status",               limit: 4,     default: 1
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "cedula_netmultix",     limit: 255
@@ -184,28 +178,6 @@ ActiveRecord::Schema.define(version: 20160704212856) do
   end
 
   create_table "vinculacion_clientes", force: :cascade do |t|
-    t.string   "rfc",            limit: 255
-    t.string   "razon_social",   limit: 255
-    t.integer  "num_empleados",  limit: 4
-    t.string   "calle_num",      limit: 255
-    t.string   "colonia",        limit: 255
-    t.string   "cp",             limit: 255
-    t.string   "telefono",       limit: 255
-    t.string   "fax",            limit: 255
-    t.string   "email",          limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "tamano_empresa", limit: 4
-    t.integer  "sector",         limit: 4
-    t.integer  "pais_id",        limit: 4
-    t.integer  "estado_id",      limit: 4
-    t.string   "ciudad",         limit: 255
-    t.string   "clave",          limit: 255
-    t.string   "nombre",         limit: 255
-  end
-
-  create_table "vinculacion_clientes_old", id: false, force: :cascade do |t|
-    t.integer  "id",             limit: 4,   default: 0, null: false
     t.string   "rfc",            limit: 255
     t.string   "razon_social",   limit: 255
     t.integer  "num_empleados",  limit: 4
@@ -264,8 +236,8 @@ ActiveRecord::Schema.define(version: 20160704212856) do
 
   create_table "vinculacion_costos_variables", force: :cascade do |t|
     t.integer  "tipo",        limit: 4
-    t.text     "descripcion", limit: 16777215
-    t.decimal  "costo",                        precision: 10, scale: 2, default: 0.0
+    t.text     "descripcion", limit: 65535
+    t.decimal  "costo",                     precision: 10, scale: 2, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "cedula_id",   limit: 4
@@ -277,23 +249,23 @@ ActiveRecord::Schema.define(version: 20160704212856) do
     t.integer  "condicion",            limit: 4
     t.integer  "idioma",               limit: 4
     t.integer  "divisa",               limit: 4
-    t.text     "comentarios",          limit: 16777215
-    t.text     "observaciones",        limit: 16777215
-    t.text     "notas",                limit: 16777215
-    t.decimal  "subtotal",                              precision: 10, scale: 2, default: 0.0
-    t.decimal  "precio_venta",                          precision: 10, scale: 2, default: 0.0
-    t.decimal  "precio_unitario",                       precision: 10, scale: 2, default: 0.0
-    t.decimal  "descuento_porcentaje",                  precision: 5,  scale: 2, default: 0.0
+    t.text     "comentarios",          limit: 65535
+    t.text     "observaciones",        limit: 65535
+    t.text     "notas",                limit: 65535
+    t.decimal  "subtotal",                           precision: 10, scale: 2, default: 0.0
+    t.decimal  "precio_venta",                       precision: 10, scale: 2, default: 0.0
+    t.decimal  "precio_unitario",                    precision: 10, scale: 2, default: 0.0
+    t.decimal  "descuento_porcentaje",               precision: 5,  scale: 2, default: 0.0
     t.integer  "solicitud_id",         limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "msg_notificacion",     limit: 16777215
-    t.text     "motivo_status",        limit: 16777215
+    t.text     "msg_notificacion",     limit: 65535
+    t.text     "motivo_status",        limit: 65535
     t.integer  "duracion",             limit: 4
-    t.decimal  "iva",                                   precision: 10, scale: 2, default: 15.0
-    t.text     "motivo_descuento",     limit: 16777215
-    t.integer  "status",               limit: 4,                                 default: 1
-    t.integer  "tiempo_entrega",       limit: 4,                                 default: 1
+    t.decimal  "iva",                                precision: 10, scale: 2, default: 15.0
+    t.text     "motivo_descuento",     limit: 65535
+    t.integer  "status",               limit: 4,                              default: 1
+    t.integer  "tiempo_entrega",       limit: 4,                              default: 1
   end
 
   create_table "vinculacion_cotizaciones_detalle", force: :cascade do |t|
@@ -318,12 +290,12 @@ ActiveRecord::Schema.define(version: 20160704212856) do
     t.integer  "consecutivo",    limit: 4
     t.string   "codigo",         limit: 20
     t.string   "identificacion", limit: 255
-    t.text     "descripcion",    limit: 16777215
+    t.text     "descripcion",    limit: 65535
     t.integer  "cantidad",       limit: 4
     t.integer  "usuario_id",     limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "status",         limit: 4,        default: 1
+    t.integer  "status",         limit: 4,     default: 1
   end
 
   create_table "vinculacion_muestras_detalle", force: :cascade do |t|
@@ -370,7 +342,7 @@ ActiveRecord::Schema.define(version: 20160704212856) do
 
   create_table "vinculacion_sectores_industrial", force: :cascade do |t|
     t.string   "codigo",      limit: 20
-    t.text     "descripcion", limit: 16777215
+    t.text     "descripcion", limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -380,14 +352,14 @@ ActiveRecord::Schema.define(version: 20160704212856) do
     t.integer  "consecutivo",          limit: 4
     t.string   "codigo",               limit: 20
     t.string   "nombre",               limit: 255
-    t.text     "descripcion",          limit: 16777215
+    t.text     "descripcion",          limit: 65535
     t.integer  "empleado_id",          limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "status",               limit: 4,                                 default: 1
+    t.integer  "status",               limit: 4,                              default: 1
     t.integer  "servicio_bitacora_id", limit: 4
-    t.decimal  "precio_sugerido",                       precision: 10, scale: 2, default: 0.0
-    t.integer  "tiempo_estimado",      limit: 4,                                 default: 0
+    t.decimal  "precio_sugerido",                    precision: 10, scale: 2, default: 0.0
+    t.integer  "tiempo_estimado",      limit: 4,                              default: 0
   end
 
   create_table "vinculacion_servicios_bitacora", force: :cascade do |t|
@@ -422,24 +394,24 @@ ActiveRecord::Schema.define(version: 20160704212856) do
     t.integer  "usuario_id",                  limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "descripcion",                 limit: 16777215
-    t.text     "motivo_status",               limit: 16777215
-    t.string   "razon_cancelacion",           limit: 255,                               default: "1"
-    t.integer  "status",                      limit: 4,                                 default: 1
+    t.text     "descripcion",                 limit: 65535
+    t.text     "motivo_status",               limit: 65535
+    t.string   "razon_cancelacion",           limit: 255,                            default: "1"
+    t.integer  "status",                      limit: 4,                              default: 1
     t.string   "orden_compra",                limit: 255
     t.date     "fecha_inicio"
     t.date     "fecha_termino"
     t.integer  "responsable_presupuestal_id", limit: 4
-    t.integer  "duracion",                    limit: 4,                                 default: 1
-    t.integer  "tipo",                        limit: 4,                                 default: 1
-    t.integer  "tiempo_entrega",              limit: 4,                                 default: 1
-    t.decimal  "precio_sugerido",                              precision: 10, scale: 2, default: 0.0
+    t.integer  "duracion",                    limit: 4,                              default: 1
+    t.integer  "tipo",                        limit: 4,                              default: 1
+    t.integer  "tiempo_entrega",              limit: 4,                              default: 1
+    t.decimal  "precio_sugerido",                           precision: 10, scale: 2, default: 0.0
     t.string   "vinculacion_hash",            limit: 255
   end
 
   create_table "vinculacion_tamanos_empresa", force: :cascade do |t|
     t.string   "codigo",      limit: 20
-    t.text     "descripcion", limit: 16777215
+    t.text     "descripcion", limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end

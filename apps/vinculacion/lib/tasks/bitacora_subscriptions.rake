@@ -197,23 +197,16 @@ class BitacoraSubscriptions
 
     Rails.logger.debug "SIGRE: RECIBIR REPORTE TIPO 2 v2"
 
-    cedula = ::Vinculacion::Cedula.where(:solicitud_id => attributes['system_request_id']).first
-    attributes['participaciones'].each do |p|
-      if empleado = ::Vinculacion::Empleado.where(:email => p['email']).first
-        remanente = cedula.remanentes.new
-        remanente.porcentaje_participacion = p['porcentaje']
-        remanente.empleado_id = empleado.id
-        remanente.save
-      else
-        Rails.logger.debug "Error: Empleado no existe"
-      end
-    end
+    cedula_first = ::Vinculacion::Cedula.where(:solicitud_id => attributes['system_request_id']).first
 
     attributes['servicios'].each do |s|
 
 
       # PERSONAL
       s['personal'].each do |p|
+        cedula = ::Vinculacion::Cedula.where(:id =>  p['cedula']).first
+        cedula = cedula_first if !cedula
+
         item = cedula.costo_variable.new
         item.tipo = 1
         if p['cantidad'].to_f > 1
@@ -222,11 +215,25 @@ class BitacoraSubscriptions
           item.descripcion = p['detalle']
         end
         item.costo        = p['cantidad'].to_f * p['precio_unitario'].to_f
+
+        # Remanente
+        if empleado = ::Vinculacion::Empleado.where(:email => p['email']).first
+          remanente = cedula.remanentes.new
+          remanente.porcentaje_participacion = p['porcentaje']
+          remanente.empleado_id = empleado.id
+          remanente.save
+        end
+
+        puts "ITEM #{item}"
         item.save
       end
 
       # EQUIPO
       s['equipos'].each do |p|
+        
+        cedula = ::Vinculacion::Cedula.where(:id =>  p['cedula']).first
+        cedula = cedula_first if !cedula
+
         item = cedula.costo_variable.new
         item.tipo = 2
         if p['cantidad'].to_f > 1
@@ -240,6 +247,10 @@ class BitacoraSubscriptions
 
       # OTROS
       s['otros'].each do |p|
+
+        cedula = ::Vinculacion::Cedula.where(:id =>  p['cedula']).first
+        cedula = cedula_first if !cedula
+
         item = cedula.costo_variable.new
         item.tipo = 4
         if p['cantidad'].to_f > 1
@@ -252,11 +263,13 @@ class BitacoraSubscriptions
       end
     end
 
+
     servicios = ::Vinculacion::Servicio.where(:solicitud_id => attributes['system_request_id'])
     servicios.each do |servicio|
       servicio.status = ::Vinculacion::Servicio::FINALIZADO
       servicio.save
     end
+
 
   end
 
