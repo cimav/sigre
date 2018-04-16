@@ -196,7 +196,7 @@ commit;
         cliente_netmultix_localidad = cliente_netmultix.cl01_localidad rescue 'sin-localidad'
         cliente_netmultix_tipo = cliente_netmultix.cl01_tipo_negocio rescue 0
         requisitor = self.solicitud.contacto.nombre rescue 'sin-requisitor'
-        cotizacion = self.solicitud.cotizaciones.first
+        cotizacion = self.solicitud.cotizaciones.last
         cotizacion_detalle = cotizacion.cotizacion_detalle.first
         cantidad = cotizacion_detalle.cantidad rescue 0
         precio_uni = cotizacion_detalle.precio_unitario rescue 0
