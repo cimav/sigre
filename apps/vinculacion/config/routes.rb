@@ -27,6 +27,7 @@ Vinculacion::Engine.routes.draw do
   post '/rechazar_descuento/:id', to: 'cotizaciones#descuento_rechazar'
   post '/auth_outside', to: 'usuarios#auth_outside'
   get '/solicitudes/:id/estado_actual', to: 'solicitudes#estado_actual'
+  get '/listado-clientes', to: 'clientes#listado'
 
 
   resources :registros

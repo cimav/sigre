@@ -5,8 +5,11 @@
 
 <div id="screen-name">
     <h3>Clientes</h3>
-    {{#link-to 'clientes.new' tagName="button" classNames="btn btn-success"}}<span title="Agregar nuevo cliente"
+    <div class="actions">
+      <a class="btn btn-success" href="/vinculacion/clientes/lista.xls"><span title="Descargar Excel" class="glyphicon glyphicon-file"></span></a>
+      {{#link-to 'clientes.new' tagName="button" classNames="btn btn-success"}}<span title="Nuevo cliente"
                                                                                    class="glyphicon glyphicon-plus"></span>{{/link-to}}
+    </div>
 </div>
 
 <div id="md-search-panel" class="col-sm-3">
