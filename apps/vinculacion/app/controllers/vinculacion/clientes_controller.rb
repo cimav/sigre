@@ -86,12 +86,12 @@ module Vinculacion
         if c.contactos.count > 0
           
           c.contactos.order(:nombre).each do |contacto|
-            contacto = contacto.nombre rescue ''
+            nombre = contacto.nombre rescue ''
             telefono = contacto.telefono rescue ''
-            email = contacto.email rescue ''
+            email    = contacto.email rescue ''
 
             rowc = row.dup
-            rowc << contacto.to_s
+            rowc << nombre.to_s
             rowc << telefono.to_s
             rowc << email.to_s
 
