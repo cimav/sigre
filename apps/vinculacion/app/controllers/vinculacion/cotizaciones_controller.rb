@@ -266,7 +266,8 @@ Saludos.
           1.times do |cd|
             cantidad = 0
             subtotal = 1 * cantidad
-            r = [["", "", {:content => "$#{'%.2f' % cantidad}", :align => :right}, {:content => "$#{'%.2f' % subtotal}", :align => :right}]]
+            r = [["", "", {:content => "$#{monto_to_currency(cantidad)}", :align => :right}, {:content => "#{monto_to_currency(subtotal)}", :align => :right}]]
+
             #r = [["1","",{:content=>"$#{'%.2f' % cantidad}",:align=>:right},{:content=>"$#{'%.2f' % subtotal}",:align=>:right}]]
             data += r
             counter = counter + 1
@@ -280,7 +281,7 @@ Saludos.
             else
               cd_cantidad = cd.cantidad
             end
-            r = [[cd_cantidad, cd.concepto, {:content => "$#{'%.2f' % cd.precio_unitario.to_s}", :align => :right}, {:content => "$#{'%.2f' % subtotal.to_s}", :align => :right}]]
+            r = [[cd_cantidad, cd.concepto, {:content => "#{monto_to_currency(cd.precio_unitario.to_s)}", :align => :right}, {:content => "#{monto_to_currency(subtotal.to_s)}", :align => :right}]]
             data += r
             counter = counter + 1
             subtotalf += subtotal
@@ -302,18 +303,18 @@ Saludos.
           data +=[
               [{:content => "<font size='6'>#{t[:legal]}</font>", :colspan => 2, :rowspan => 3, :align => :justify, :inline_format => true},
                {:content => t[:subtotal], :align => :right},
-               {:content => "$#{'%.2f' % subtotalf}", :align => :right}],
-              [{:content => "IVA", :align => :right}, {:content => "$#{'%.2f' % iva}", :align => :right}],
-              [{:content => "Total", :align => :right}, {:content => "$#{'%.2f' % (subtotalf + iva)}", :align => :right}]]
+               {:content => "#{monto_to_currency(subtotalf)}", :align => :right}],
+              [{:content => "IVA", :align => :right}, {:content => "#{monto_to_currency(iva)}", :align => :right}],
+              [{:content => "Total", :align => :right}, {:content => "#{monto_to_currency(subtotalf + iva)}", :align => :right}]]
         else
           data +=[
               [{:content => "<font size='6'>#{t[:legal]}</font>", :colspan => 2, :rowspan => 5, :align => :justify, :inline_format => true},
                {:content => t[:subtotal], :align => :right},
-               {:content => "$#{'%.2f' % subtotalf}", :align => :right}],
-              [{:content => "Descuento #{cotizacion.descuento_porcentaje}", :align => :right}, {:content => "$#{'%.2f' % descuento}", :align => :right}],
-              [{:content => "Precio Venta", :align => :right}, {:content => "$#{'%.2f' % subtotaldescuento}", :align => :right}],
-              [{:content => "IVA", :align => :right}, {:content => "$#{'%.2f' % iva}", :align => :right}],
-              [{:content => "Total", :align => :right}, {:content => "$#{'%.2f' % (subtotaldescuento + iva)}", :align => :right}]]
+               {:content => "#{monto_to_currency(subtotalf)}", :align => :right}],
+              [{:content => "Descuento #{cotizacion.descuento_porcentaje}", :align => :right}, {:content => "#{monto_to_currency(descuento)}", :align => :right}],
+              [{:content => "Precio Venta", :align => :right}, {:content => "#{monto_to_currency(subtotaldescuento)}", :align => :right}],
+              [{:content => "IVA", :align => :right}, {:content => "#{monto_to_currency(iva)}", :align => :right}],
+              [{:content => "Total", :align => :right}, {:content => "#{monto_to_currency(subtotaldescuento + iva)}", :align => :right}]]
         end
 
 
@@ -408,6 +409,10 @@ Saludos.
                                             :align => :center,
                                             :size => 11}
       end
+    end
+
+    def monto_to_currency(monto)
+      ActionController::Base.helpers.number_to_currency(monto, :unit => '$')
     end
 
     def document
