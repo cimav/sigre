@@ -197,10 +197,15 @@ commit;
         cliente_netmultix_tipo = cliente_netmultix.cl01_tipo_negocio rescue 0
         requisitor = self.solicitud.contacto.nombre rescue 'sin-requisitor'
         cotizacion = self.solicitud.cotizaciones.last
-        cotizacion_detalle = cotizacion.cotizacion_detalle.first
+
+        # de los detalles de la cotizacion, buscar el detalle que tenga el mismo servicio que la cedula
+        cotizacion_detalle = cotizacion.cotizacion_detalle.where(servicio_id: self.servicio.id).first
+        #cotizacion_detalle = cotizacion.cotizacion_detalle.first
+
         cantidad = cotizacion_detalle.cantidad rescue 0
         precio_uni = cotizacion_detalle.precio_unitario rescue 0
-        precio_vta =  cotizacion.precio_venta.nan? ? 0 : cotizacion.precio_venta rescue 0 ## cantida x precio_uni
+        importe = cantidad * precio_uni
+        precio_vta =  cotizacion.precio_venta.nan? ? 0 : cotizacion.precio_venta rescue 0 ## cantidad x precio_uni
         porce_costo_fijo = 17.26
         porce_max_remanente = 70
         porce_dist_inv = 35
@@ -251,7 +256,7 @@ commit;
               ft16_nombre: cliente_netmultix_nombre, ft16_rfc: cliente_netmultix_rfc, ft16_calle: cliente_netmultix_calle,
               ft16_colonia: cliente_netmultix_colonia, ft16_ciudad: cliente_netmultix_ciudad, ft16_postal: cliente_netmultix_postal,
               ft16_lada: cliente_netmultix_lada, ft16_telefono: cliente_netmultix_telefono, ft16_fax: cliente_netmultix_fax,
-              ft16_requisitor: requisitor, ft16_cantidad: cantidad, ft16_precio_uni: precio_uni, ft16_precio_vta: precio_vta,
+              ft16_requisitor: requisitor, ft16_cantidad: cantidad, ft16_precio_uni: precio_uni, ft16_precio_vta: importe, #precio_vta,
               ft16_porc_costo_fijo: porce_costo_fijo, ft16_porc_max_remanente: porce_max_remanente, ft16_porc_dist_inv: porce_dist_inv,
               ft16_total_costo_var: tot_costo_var, ft16_total_costo_fijo: tot_costo_fijo, ft16_monto_distribuir: monto_distribuir,
               ft16_monto_dist_inv: monto_dist_inv, ft16_saldo_fact: saldo_fact, ft16_status: status, ft16_proy_pago: proyecto_pago,
