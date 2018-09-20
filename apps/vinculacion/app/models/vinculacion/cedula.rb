@@ -201,15 +201,19 @@ commit;
         precio_vta =  cotizacion.precio_venta.nan? ? 0 : cotizacion.precio_venta rescue 0 ## cantidad x precio_uni
 
         if solicitud.tipo == 1
+          # es solo un detalle
           cotizacion_detalle = cotizacion.cotizacion_detalle.first
           cantidad = cotizacion_detalle.cantidad rescue 0
           precio_uni = cotizacion_detalle.precio_unitario rescue 0
         elsif solicitud.tipo == 2
+          # cada detalle le corresponde un servicio. Se conectan por el servicio_id.
           cotizacion_detalle = cotizacion.cotizacion_detalle.where(servicio_id: self.servicio.id).first
           cantidad = cotizacion_detalle.cantidad rescue 0
           precio_uni = cotizacion_detalle.precio_unitario rescue 0
         elsif solicitud.tipo == 3
-          cotizacion_detalle = cotizacion.cotizacion_detalle.where(servicio_id: self.servicio.id).first
+          # pueden ser 1 o mas detalle y pueden no estar ligados al servicio
+          # se toma el 1er detalle; de echo, el detalle no se requiere
+          cotizacion_detalle = cotizacion.cotizacion_detalle.first
           cantidad = 1
           precio_uni = precio_vta
         end
