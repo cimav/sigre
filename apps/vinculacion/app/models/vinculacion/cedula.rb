@@ -198,14 +198,24 @@ commit;
         requisitor = self.solicitud.contacto.nombre rescue 'sin-requisitor'
         cotizacion = self.solicitud.cotizaciones.last
 
-        # de los detalles de la cotizacion, buscar el detalle que tenga el mismo servicio que la cedula
-        cotizacion_detalle = cotizacion.cotizacion_detalle.where(servicio_id: self.servicio.id).first
-        #cotizacion_detalle = cotizacion.cotizacion_detalle.first
-
-        cantidad = cotizacion_detalle.cantidad rescue 0
-        precio_uni = cotizacion_detalle.precio_unitario rescue 0
-        importe = cantidad * precio_uni
         precio_vta =  cotizacion.precio_venta.nan? ? 0 : cotizacion.precio_venta rescue 0 ## cantidad x precio_uni
+
+        if solicitud.tipo == 1
+          cotizacion_detalle = cotizacion.cotizacion_detalle.first
+          cantidad = cotizacion_detalle.cantidad rescue 0
+          precio_uni = cotizacion_detalle.precio_unitario rescue 0
+        elsif solicitud.tipo == 2
+          cotizacion_detalle = cotizacion.cotizacion_detalle.where(servicio_id: self.servicio.id).first
+          cantidad = cotizacion_detalle.cantidad rescue 0
+          precio_uni = cotizacion_detalle.precio_unitario rescue 0
+        elsif solicitud.tipo == 3
+          cotizacion_detalle = cotizacion.cotizacion_detalle.where(servicio_id: self.servicio.id).first
+          cantidad = 1
+          precio_uni = precio_vta
+        end
+
+        importe = cantidad * precio_uni
+
         porce_costo_fijo = 17.26
         porce_max_remanente = 70
         porce_dist_inv = 35
