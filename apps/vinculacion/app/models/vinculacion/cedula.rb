@@ -97,7 +97,8 @@ module Vinculacion
           else # CHI
             # sub_proyecto = '2033000238'
             # sub_proyecto = '2033000467' # oct 2017
-            sub_proyecto = '2033000765' # ene 2018
+            # sub_proyecto = '2033000765' # ene 2018
+            sub_proyecto = '2033001106' # ene 2019
         end
         #sub_proyecto = proyecto_id.to_s + sub_proyecto
         #proy_netmultix = ProyectoNetmultix.where('pr13_subproyecto LIKE :q', {:q => sub_proyecto}).first rescue nil
