@@ -518,8 +518,17 @@ module Vinculacion
         # OTROS
         data += [[ {:content=>"#{title_spaces} <b>Otros</b> ",:colspan=>2}  ]]
         data += data_otros
-        data += [[{:content=>"Subtotal #{title_spaces}",:align=>:right}, "$#{'%.2f' % total_otros}"]]
-         
+
+        suma = total_otros
+        if solicitud.tipo != 3
+          data += [[{:content=>"Suma #{title_spaces}",:align=>:right}, "$#{'%.2f' % suma}"]]
+          # TODO que pasa si hay más de 1 muestra ?
+          num_muestras = solicitud.muestras.first.muestra_detalle.size
+          data += [[{:content=>"Cantidad muestras #{title_spaces}",:align=>:right}, {:content=>"#{num_muestras}",:align=>:right}]]
+          total_otros = suma * num_muestras
+        end
+        data += [[{:content=>"Subtotal #{title_spaces}",:align=>:right}, {:content=>"$#{'%.2f' % total_otros}",:align=>:right}]]
+
         tabla = pdf.make_table(data,:width=>497,:cell_style=>{:size=>size - 2,:padding=>3,:border_width=>0.1,:inline_format => true},:column_widths=>[417,80])
         f = data_consumibles.size + 1
         tabla.rows(1..f).column(1).style(:align=> :right)
