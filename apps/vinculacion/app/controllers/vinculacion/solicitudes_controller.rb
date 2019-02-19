@@ -389,34 +389,38 @@ module Vinculacion
         solicitud_title = "#{solicitud.codigo}"
         inicio_title = "#{solicitud.fecha_inicio}"
         termino_title = "#{solicitud.fecha_termino}"
+        conclusion_title = "#{solicitud.fecha_termino + 7.days}"
 
         x = x + 10
-        pdf.text_box "Proyecto:", :at=> [x,y -20], :width => 55, :height => 13,:valign=> :top, :align => :left, :size=> 12
-        pdf.text_box proyecto_title, :at=> [x + 90,y -20], :width => 400, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        pdf.text_box "Proyecto:", :at=> [x,y -20], :width => 155, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        pdf.text_box proyecto_title, :at=> [x + 160,y -20], :width => 400, :height => 13,:valign=> :top, :align => :left, :size=> 12
         y = y - 15
-        pdf.text_box "Solicitud:", :at=> [x,y -20], :width => 55, :height => 13,:valign=> :top, :align => :left, :size=> 12
-        pdf.text_box solicitud_title, :at=> [x + 90,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        pdf.text_box "Solicitud:", :at=> [x,y -20], :width => 155, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        pdf.text_box solicitud_title, :at=> [x + 160,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12
         y = y - 15
 
-        pdf.text_box "Inicio:", :at=> [x,y -20], :width => 55, :height => 13,:valign=> :top, :align => :left, :size=> 12
-        pdf.text_box inicio_title, :at=> [x + 90,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        pdf.text_box "Inicio servicio:", :at=> [x,y -20], :width => 155, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        pdf.text_box inicio_title, :at=> [x + 160,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12
         y = y - 15
-        pdf.text_box "Termino:", :at=> [x,y -20], :width => 55, :height => 13,:valign=> :top, :align => :left, :size=> 12
-        pdf.text_box termino_title, :at=> [x + 90,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        pdf.text_box "Termino servicio:", :at=> [x,y -20], :width => 155, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        pdf.text_box termino_title, :at=> [x + 160,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        y = y - 15
+        pdf.text_box "Conclusión administrativa:", :at=> [x,y -20], :width => 155, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        pdf.text_box conclusion_title, :at=> [x + 160,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12
         y = y - 15
 
         rp = "#{solicitud.responsable_presupuestal.nombre rescue "Sin"} #{solicitud.responsable_presupuestal.apellido_paterno rescue "Asignar"} #{solicitud.responsable_presupuestal.apellido_materno rescue ""}"
         pdf.text_box "Responsable:", :at=> [x,y -20], :width => 95, :height => 13,:valign=> :top, :align => :left, :size=> 12
-        pdf.text_box rp, :at=> [x + 90,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12
+        pdf.text_box rp, :at=> [x + 160,y -20], :width => 200, :height => 13,:valign=> :top, :align => :left, :size=> 12
 
         ## RODEAMOS
         y = 560
         pdf.line_width= 0.1
-        pdf.stroke_rounded_rectangle([0,y], 500, 80, 10)
+        pdf.stroke_rounded_rectangle([0,y], 500, 96, 10)
         #pdf.stroke_rounded_rectangle([360,y], 145, 80, 10)
         
         #### PRESUPUESTO PROGRAMADO
-        pdf.text "\n\n\n\n"
+        pdf.text "\n\n\n\n\n"
         pdf.text "Presupuesto Programado", :size=> 15,:style=> :bold
         data = []
         subtotal_consumibles = 0
