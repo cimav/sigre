@@ -290,6 +290,9 @@ Saludos.
 
         ## DESCUENTO
         descuento = 0
+        if cotizacion.descuento_porcentaje.nil?
+          cotizacion.descuento_porcentaje = 0.00
+        end
         if cotizacion.descuento_porcentaje > 0
           descuento = (subtotalf * cotizacion.descuento_porcentaje)/100
           subtotaldescuento = subtotalf - descuento
