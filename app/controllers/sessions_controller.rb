@@ -1,11 +1,7 @@
 class SessionsController < ApplicationController
 
   def create
-    if auth_hash['info']['email']
-      session[:user_email] = auth_hash[:info][:email]
-    else
-      session[:user_email] = auth_hash[:extra][:info][:email]
-    end
+    session[:user_email] = auth_hash[:info][:email]
     if authenticated?
       redirect_to '/'
     else
