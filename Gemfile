@@ -62,8 +62,7 @@ gem 'jquery-ui-rails', '5.0.5'
 gem 'prawn'
 gem 'prawn-table'
 
-gem 'omniauth-google-oauth2' # , '0.2.6'
-gem 'omniauth-oauth2' #, '1.3.1'
+gem 'omniauth-google-oauth2', '~> 0.6.1'
 
 gem 'roman-numerals'
 
