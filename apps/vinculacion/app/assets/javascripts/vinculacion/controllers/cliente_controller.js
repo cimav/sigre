@@ -8,7 +8,27 @@ App.ClienteController = Ember.ObjectController.extend({
     return !result;
   }.property('content.isDirty', 'content.isValid'),
 
-  actions: {
+    /*
+  selectedCliente: function() {
+      if (this.get('model')) {
+          this.set('content.contactos', this.store.find('contacto', { cliente_id: this.get('id') }));
+          self = this;
+          // self.set('contactosCount', 13);
+          Promise.all([
+              self.store.find('contacto', { cliente_id: self.get('id') })
+          ]).then(function(values){
+              console.log(values[0].get('length'));
+              self.set('contactos', values[0]);
+              self.set('model.contactos', values[0]);
+              self.set('content.contactos', values[0]);
+          }, function(reason){
+              console.log('Promise Contacto fail: ' + reason);
+          });
+      }
+  }.observes('model'),
+  */
+
+    actions: {
 
     update: function () {
       self = this
