@@ -58,5 +58,21 @@ module Vinculacion
       subject = "[Vinculación] Alerta ##{alerta_id} Resuelta"
       mail(:to => @to, :from => @from, :subject => subject)
     end
+
+    def seguimiento_solicitud(solicitud)
+
+      # VinculacionMailer.seguimiento_solicitud('xxxx', 'juan.calderon@gmail.com').deliver
+
+      @solicitud = solicitud
+
+      @from = "Servicio al cliente CIMAV <servicio.cliente@cimav.edu.mx>"
+      @to = []
+      @to << @solicitud.contacto.email
+
+      # https://docs.google.com/forms/d/e/1FAIpQLSe9kEYO9LgVdpboyRY4GOlUW-XhhTIORR4tdxvYvmrXjTI_5w/viewform?usp=pp_url&entry.1346649580=19/7777
+
+      subject = "Seguimiento de solicitud de servicio ##{@solicitud.codigo}"
+      mail(:to => @to, :from => @from, :subject => subject)
+    end
   end
 end

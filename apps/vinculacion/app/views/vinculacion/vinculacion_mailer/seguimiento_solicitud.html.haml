@@ -1,0 +1,31 @@
+%img(src="https://cimav.edu.mx/wp-content/themes/cimav2017/img/logo-top.png" )
+
+%h2 Seguimiento de Solicitud de Servicio
+
+-#
+  %div
+    %h3{:style=>"display:inline;"} Solicitud:
+    %h2
+      =@solicitud.codigo
+  %br
+
+%div
+  %span Estimado
+  %strong #{@solicitud.contacto.nombre},
+  %span según nuestros registros el servicio con número de cotización
+  %strong
+    =@solicitud.codigo
+  %span no ha sido autorizado. Como oportunidad de mejora le pedimos su apoyo en contestar la siguiente encuesta:
+
+%br
+
+%a{ :href => "https://docs.google.com/forms/d/e/1FAIpQLSe9kEYO9LgVdpboyRY4GOlUW-XhhTIORR4tdxvYvmrXjTI_5w/viewform?usp=pp_url&entry.1346649580=#{@solicitud.codigo}",
+  :title => "Ir a la encuesta de seguimiento" }
+  %strong Contestar encuesta
+
+%br
+%br
+= "Servicio al Cliente"
+%br
+= "Centro de Investigación en Materiales Avanzados, S.C"
+%br
