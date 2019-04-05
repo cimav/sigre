@@ -69,6 +69,9 @@ module Vinculacion
       @to = []
       @to << @solicitud.contacto.email
 
+      filename = solicitud.codigo.gsub('/','_').concat('.pdf')
+      attachments[filename] = File.read(File.join(Rails.root.to_s, "private/cotizaciones", filename))
+
       # https://docs.google.com/forms/d/e/1FAIpQLSe9kEYO9LgVdpboyRY4GOlUW-XhhTIORR4tdxvYvmrXjTI_5w/viewform?usp=pp_url&entry.1346649580=19/7777
 
       subject = "Seguimiento de solicitud de servicio ##{@solicitud.codigo}"
