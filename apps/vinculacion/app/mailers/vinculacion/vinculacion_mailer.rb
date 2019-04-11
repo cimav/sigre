@@ -68,6 +68,8 @@ module Vinculacion
       @from = "Servicio al cliente CIMAV <servicio.cliente@cimav.edu.mx>"
       @to = []
       @to << @solicitud.contacto.email
+      @to << 'karen.valles@cimav.edu.mx'
+      @to << 'juan.calderon@cimav.edu.mx'
 
       filename = solicitud.codigo.gsub('/','_').concat('.pdf')
       attachments[filename] = File.read(File.join(Rails.root.to_s, "private/cotizaciones", filename))
