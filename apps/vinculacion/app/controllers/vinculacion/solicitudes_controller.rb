@@ -389,7 +389,7 @@ module Vinculacion
         solicitud_title = "#{solicitud.codigo}"
         inicio_title = "#{solicitud.fecha_inicio}"
         termino_title = "#{solicitud.fecha_termino}"
-        conclusion_title = "#{solicitud.fecha_termino + 7.days}"
+        conclusion_title = "#{solicitud.fecha_termino + 10.days}"
 
         x = x + 10
         pdf.text_box "Proyecto:", :at=> [x,y -20], :width => 155, :height => 13,:valign=> :top, :align => :left, :size=> 12

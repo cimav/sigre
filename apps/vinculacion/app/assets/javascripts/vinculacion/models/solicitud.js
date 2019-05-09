@@ -164,4 +164,15 @@ App.Solicitud = DS.Model.extend({
     return 'Sin tiempo de entrega';
   }.property('tiempo_entrega'),
 
+    fecha_presupuestal: function() {
+      /*
+      console.log('Fecha>',moment().add(4, 'days').toDate());
+      var result = new Date();
+      result.setDate(this.get('fecha_termino').getDate() + 10);
+      return result;
+      */
+      // return moment(this.get('fecha_termino').getDate(), 'DD-MM-YYYY').businessAdd(10)._d;
+        return moment(this.get('fecha_termino')).add(10, 'days').toDate();
+    }.property('fecha_termino'),
+
 });
