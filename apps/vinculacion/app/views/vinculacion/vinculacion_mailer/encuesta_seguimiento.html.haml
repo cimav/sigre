@@ -1,6 +1,6 @@
 %img(src="https://cimav.edu.mx/wp-content/themes/cimav2017/img/logo-top.png" )
 
-%h2 Seguimiento de Solicitud de Servicio
+%h2 Encuesta de Seguimiento de Solicitud de Servicio
 
 -#
   %div
@@ -12,10 +12,15 @@
 %div
   %span Estimado
   %strong #{@solicitud.contacto.nombre},
-  %span según nuestros registros el servicio con número de cotización
+  %br
+  %br
+  %span Según nuestros registros el servicio con número de cotización
   %strong
     =@solicitud.codigo
-  %span  (se adjunta para referencia) no ha sido autorizado. Como oportunidad de mejora le pedimos su apoyo en contestar la siguiente encuesta:
+  %span  (se adjunta para referencia) no ha sido autorizado.
+  %br
+  %br
+  %span Como oportunidad de mejora le pedimos su apoyo en contestar la siguiente encuesta:
 
 %br
 

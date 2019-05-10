@@ -59,9 +59,11 @@ module Vinculacion
       mail(:to => @to, :from => @from, :subject => subject)
     end
 
-    def seguimiento_solicitud(solicitud)
+    def encuesta_seguimiento(solicitud)
 
-      # VinculacionMailer.seguimiento_solicitud('xxxx', 'juan.calderon@gmail.com').deliver
+      # ::Vinculacion::VinculacionMailer.encuesta_seguimiento(cotizacion.solicitud).deliver
+
+      # vista en encuesta_seguimiento.html.haml
 
       @solicitud = solicitud
 
@@ -76,7 +78,7 @@ module Vinculacion
 
       # https://docs.google.com/forms/d/e/1FAIpQLSe9kEYO9LgVdpboyRY4GOlUW-XhhTIORR4tdxvYvmrXjTI_5w/viewform?usp=pp_url&entry.1346649580=19/7777
 
-      subject = "Seguimiento de solicitud de servicio ##{@solicitud.codigo}"
+      subject = "Encuesta de seguimiento de solicitud de servicio ##{@solicitud.codigo}"
       mail(:to => @to, :from => @from, :subject => subject)
     end
   end
