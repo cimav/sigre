@@ -8,6 +8,7 @@ namespace :vinculacion_tasks do
   # para automatizar su ejecución todo los días a las 10:00
   # crontab -e
   # 00 10 * * * cd /Users/calderon/gdrive/smilodon/projects/rubymine/sigre; /bin/bash -l -c "RAILS_ENV=development rake vinculacion_tasks:encuesta_seguimiento"
+  # 00 10 * * * cd /home/rails/sigre/; /bin/bash -l -c "RAILS_ENV=production rake vinculacion_tasks:encuesta_seguimiento"
 
   task :encuesta_seguimiento => :environment do
     cotizaciones = ::Vinculacion::Cotizacion.where(fecha_notificacion: Date.today - 45.days)

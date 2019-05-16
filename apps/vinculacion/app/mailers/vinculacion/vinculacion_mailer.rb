@@ -74,7 +74,9 @@ module Vinculacion
       @to << 'juan.calderon@cimav.edu.mx'
 
       filename = solicitud.codigo.gsub('/','_').concat('.pdf')
-      attachments[filename] = File.read(File.join(Rails.root.to_s, "private/cotizaciones", filename))
+      if File.exists?(filename)
+        attachments[filename] = File.read(File.join(Rails.root.to_s, "private/cotizaciones", filename))
+      end
 
       # https://docs.google.com/forms/d/e/1FAIpQLSe9kEYO9LgVdpboyRY4GOlUW-XhhTIORR4tdxvYvmrXjTI_5w/viewform?usp=pp_url&entry.1346649580=19/7777
 
