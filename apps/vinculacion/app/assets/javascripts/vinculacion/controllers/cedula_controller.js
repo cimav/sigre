@@ -131,8 +131,9 @@ App.CedulaController = Ember.ObjectController.extend({
   }.property('model.porcentaje_participacion'),
 
   chk_total_porcentaje: function() {
-    var result = this.get('total_porcentaje') == 100;
-    return result;
+      // var result = Math.round(this.get('total_porcentaje')) == 100;
+      var result =this.get('total_porcentaje') >= 99.999 && this.get('total_porcentaje') <= 100.0001;
+      return result;
   }.property('total_porcentaje'),
 
   has_costos_class: function() {
