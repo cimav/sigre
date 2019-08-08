@@ -11,7 +11,8 @@ namespace :vinculacion_tasks do
   # 00 10 * * * cd /home/rails/sigre/; /bin/bash -l -c "RAILS_ENV=production rake vinculacion_tasks:encuesta_seguimiento"
 
   task :encuesta_seguimiento => :environment do
-    cotizaciones = ::Vinculacion::Cotizacion.where(fecha_notificacion: Date.today - 45.days)
+    # cotizaciones de hace 45 días y que están en espera de respuesta del cliente
+    cotizaciones = ::Vinculacion::Cotizacion.where(fecha_notificacion: Date.today - 45.days, status: 2)
     cotizaciones.each do |cotizacion|
       # 2: COTIZACION NOTIFICADA (la tiene el cliente)          2: SOLICITUD INICIAL O COTIZANDO
       if cotizacion.status = 2 && cotizacion.solicitud.status <= 2
