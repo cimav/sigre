@@ -197,6 +197,7 @@ commit;
         cliente_netmultix_localidad = cliente_netmultix.cl01_localidad rescue 'sin-localidad'
         cliente_netmultix_tipo = cliente_netmultix.cl01_tipo_negocio rescue 0
         requisitor = self.solicitud.contacto.nombre rescue 'sin-requisitor'
+        tel_requisitor = self.solicitud.contacto.telefono rescue 'sin-tel-requisitor'
         cotizacion = self.solicitud.cotizaciones.last
 
         precio_vta =  cotizacion.precio_venta.nan? ? 0 : cotizacion.precio_venta rescue 0 ## cantidad x precio_uni
@@ -283,7 +284,8 @@ commit;
               ft16_tasa_iva: tasa_iva,
               ft16_band_detalle: band_detalle,
               ft16_unidad: unidad,
-              ft16_unidad_sat: unidad_sat
+              ft16_unidad_sat: unidad_sat,
+              ft16_tel_requisitor: tel_requisitor
           )
 
           self.cedula_netmultix = cedula_netmultix.ft16_cedula
