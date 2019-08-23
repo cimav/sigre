@@ -196,8 +196,8 @@ commit;
         cliente_netmultix_estado = cliente_netmultix.cl01_estado rescue 0
         cliente_netmultix_localidad = cliente_netmultix.cl01_localidad rescue 'sin-localidad'
         cliente_netmultix_tipo = cliente_netmultix.cl01_tipo_negocio rescue 0
-        requisitor = self.solicitud.contacto.nombre rescue 'sin-requisitor'
-        tel_requisitor = self.solicitud.contacto.telefono rescue 'sin-tel-requisitor'
+        requisitor = self.solicitud.contacto.nombre.blank? " " rescue 'sin-requisitor'
+        tel_requisitor = self.solicitud.contacto.telefono.blank? " " rescue 'sin-tel-requisitor'
         cotizacion = self.solicitud.cotizaciones.last
 
         precio_vta =  cotizacion.precio_venta.nan? ? 0 : cotizacion.precio_venta rescue 0 ## cantidad x precio_uni
