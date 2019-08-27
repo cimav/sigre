@@ -172,6 +172,7 @@ commit;
         anio = fecha.year.to_s.last(2) rescue '00' # el anio depende del anio real (fecha actual) y no de la solicitud o cedula del sigre
         fecha = fecha.year.to_s + fecha.month.to_s.rjust(2, '0') + fecha.day.to_s.rjust(2, '0')
         orden_compra = self.solicitud.orden_compra rescue 'sin-orden'
+        orden_compra = orden_compra.truncate(20)
         sol_servicio = self.solicitud.codigo rescue 'sin/codigo'
         #sol_servicio = sol_servicio.split('/')
         #sol_servicio = sol_servicio.last + '/' + sol_servicio.first
@@ -198,6 +199,7 @@ commit;
         cliente_netmultix_tipo = cliente_netmultix.cl01_tipo_negocio rescue 0
         requisitor = self.solicitud.contacto.nombre.blank? ? '...' : self.solicitud.contacto.nombre rescue 'sin-requisitor'
         tel_requisitor = self.solicitud.contacto.telefono.blank? ? '...' : self.solicitud.contacto.telefono rescue 'sin-tel-requisitor'
+        tel_requisitor = tel_requisitor.truncate(20)
         cotizacion = self.solicitud.cotizaciones.last
 
         precio_vta =  cotizacion.precio_venta.nan? ? 0 : cotizacion.precio_venta rescue 0 ## cantidad x precio_uni
