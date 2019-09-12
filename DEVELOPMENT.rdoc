@@ -20,3 +20,8 @@ rails generate ember:install --channel=beta --ember-data
 
 rails g ember:bootstrap
 
+para ruby-oci8
+https://stackoverflow.com/questions/11894194/how-to-install-ruby-oci8
+https://github.com/kubo/ruby-oci8/blob/master/docs/install-on-osx.md
+
+

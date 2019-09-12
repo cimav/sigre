@@ -70,7 +70,15 @@ App.Cotizacion = DS.Model.extend({
 
   total_calculado: function() {
     return this.get('precio_venta') + this.get('iva_calculado');
-  }.property('precio_venta', 'iva_calculado')
+  }.property('precio_venta', 'iva_calculado'),
+
+  hasLeyendas: function () {
+      return this.get('solicitud.servicios').some(function(servicio) {
+          return servicio.get('costeos').some(function (costeo) {
+              return costeo.get('leyenda') && costeo.get('leyenda.length') > 3;
+          })
+      });
+  }.property('status')
 
 });
 

@@ -186,6 +186,32 @@
         </div>
       </div>
 
+        <div class="row">
+            <div class="col-sm-12 cotizacion-notas">
+                {{#if hasLeyendas}}
+                    <strong>Leyendas:</strong><br/>
+                {{#each model.solicitud.servicios}}
+                    {{#each costeos}}
+                        {{#if hasLeyenda}}
+                            <p>
+                                {{#if mostrar_leyenda}}
+                                    <span class="item-number glyphicon glyphicon-ok" style="color: #47a447" }}></span>
+                                {{else}}
+                                    <span class="item-number glyphicon glyphicon-ok" style="color: lightgray"}}></span>
+                                {{/if}}
+                                <span>{{leyenda}}</span>
+                            </p>
+                        {{/if}}
+                    {{/each}}
+                {{/each}}
+                {{else}}
+                    <p style="color: lightgray;" >No tiene leyendas</p><br/>
+                {{/if}}
+            </div>
+        </div>
+
+
+
     {{/if}}
 
     {{outlet}}

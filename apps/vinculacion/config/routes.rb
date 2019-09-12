@@ -50,6 +50,8 @@ Vinculacion::Engine.routes.draw do
 
   resources :muestras_detalle #, path: 'muestra_detalle'
 
+  resources :costeos
+
   root :to => 'assets#index'
   get "assets/index"
   get '/seguimiento/:hash' => 'seguimiento#index'

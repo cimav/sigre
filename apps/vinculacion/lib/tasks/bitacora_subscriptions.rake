@@ -48,12 +48,12 @@ class BitacoraSubscriptions
 
     attributes['servicios'].each do |s|
 
-
       costeo = ::Vinculacion::Costeo.new
       costeo.bitacora_id     = s['bitacora_id']
       costeo.servicio_id     = attributes['system_id']
       costeo.muestra_id      = s['muestra_system_id']
       costeo.nombre_servicio = s['nombre_servicio']
+      costeo.leyenda         = s['legend']
       costeo.save
 
       # PERSONAL
