@@ -155,14 +155,18 @@
 
     <div class="row">
         <div class="col-sm-12 cotizacion-notas">
-            <strong>Leyendas:</strong><br/>
-            {{#each model.solicitud.servicios}}
-                {{#each costeos itemController="costeo"}}
-                    {{#if hasLeyenda}}
-                        <p>{{input type="checkbox" checked=mostrar_leyenda}} {{leyenda}}</p>
-                    {{/if}}
+            {{#if hasLeyendas}}
+                <strong>Leyendas:</strong><br/>
+                {{#each model.solicitud.servicios}}
+                    {{#each costeos itemController="costeo"}}
+                        {{#if hasLeyenda}}
+                            <p>{{input type="checkbox" checked=mostrar_leyenda}} {{leyenda}}</p>
+                        {{/if}}
+                    {{/each}}
                 {{/each}}
-            {{/each}}
+            {{else}}
+                <p style="color: lightgray;" >No tiene leyendas</p><br/>
+            {{/if}}
         </div>
     </div>
 

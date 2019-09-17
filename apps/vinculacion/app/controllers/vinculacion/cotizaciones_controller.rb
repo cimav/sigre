@@ -344,7 +344,7 @@ Saludos.
           leyendas << "- " + srv.costeos.select(:leyenda) { |costeo| !costeo.leyenda.blank? }[0].leyenda + "\n" rescue "-NADA-"
         end
         if !leyendas.strip.blank?
-          pdf.text "Leyendas:
+          pdf.text "Información adicional del servicio:
           #{leyendas}", :align => :justify, :size => 7
           pdf.text "\n"
         end
