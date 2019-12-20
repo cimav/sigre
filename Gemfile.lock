@@ -193,7 +193,7 @@ GEM
       multi_json
       redis
     raabro (1.1.6)
-    rack (1.6.11)
+    rack (1.6.12)
     rack-protection (1.5.5)
       rack
     rack-test (0.6.3)
