@@ -98,7 +98,8 @@ module Vinculacion
             # sub_proyecto = '2033000238'
             # sub_proyecto = '2033000467' # oct 2017
             # sub_proyecto = '2033000765' # ene 2018
-            sub_proyecto = '2033001106' # ene 2019
+            # sub_proyecto = '2033001106' # ene 2019
+            sub_proyecto =   '2033001641' # ene 2020
         end
         #sub_proyecto = proyecto_id.to_s + sub_proyecto
         #proy_netmultix = ProyectoNetmultix.where('pr13_subproyecto LIKE :q', {:q => sub_proyecto}).first rescue nil
@@ -338,16 +339,24 @@ commit;
             raise StandardError, 'No hay cedula_netmultix: ' + self.cedula_netmultix
           end
 
+
+          orden_compra = self.solicitud.orden_compra rescue 'sin-orden'
+          orden_compra = orden_compra.truncate(20)
+
           # Detalle de cedula.
           # al ser Tipo 1 no requiere acumularlos
           # CostoVariableNetmultix.where(ft17_cedula: self.cedula_netmultix).destroy_all
           renglon = 1
           self.costo_variable.each do |variable|
+
+            ft17_descripcion = variable.descripcion rescue 'sin-descripción'
+            ft17_descripcion = ft17_descripcion.truncate(68)
+
             CostoVariableNetmultix.create(
                 ft17_cia: cia,
                 ft17_cedula: self.cedula_netmultix,
                 ft17_renglon: renglon,
-                ft17_descripcion: variable.descripcion,
+                ft17_descripcion: ft17_descripcion,
                 ft17_costo: variable.costo
             )
             renglon = renglon + 1
