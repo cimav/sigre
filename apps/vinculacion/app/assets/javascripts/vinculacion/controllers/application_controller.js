@@ -64,7 +64,13 @@ App.ApplicationController = Ember.Controller.extend({
       values[2].forEach(function(sede) {
         var servicios = Ember.A();
         sede.get('servicios_bitacora').forEach(function(srv) {
-          var abr = srv.get('sede').get('id') == 1 ? 'CHI' : 'MTY';
+          // var abr = srv.get('sede').get('id') == 1 ? 'CHI' : 'MTY';
+          var abr = 'CHI';
+          switch (srv.get('sede').get('id')) {
+            case 2: abr = 'DGO'; break;
+            case 3: abr = 'MTY'; break;
+            default: abr = 'CHI';
+          }
           var child = {
             id: srv,
             text: srv.get('nombre'),
