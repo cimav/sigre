@@ -67,8 +67,9 @@ App.ApplicationController = Ember.Controller.extend({
           // var abr = srv.get('sede').get('id') == 1 ? 'CHI' : 'MTY';
           var abr = 'CHI';
           switch (srv.get('sede').get('id')) {
-            case 2: abr = 'DGO'; break;
-            case 3: abr = 'MTY'; break;
+            case 2: abr = 'MTY'; break;
+            case 3: abr = 'CJZ'; break;
+            case 4: abr = 'DGO'; break;
             default: abr = 'CHI';
           }
           var child = {
