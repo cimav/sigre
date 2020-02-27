@@ -58,7 +58,8 @@ Vinculacion::Engine.routes.draw do
 
   get "cotizacion/:id/:type" => 'cotizaciones#document' 
   get "descargar/cotizacion/:vinculacion_hash" => 'cotizaciones#download_document' 
-  get "estimacion_costos/:id" => 'solicitudes#estimacion_costos' 
+  get "estimacion_costos/:id" => 'solicitudes#estimacion_costos'
+  get "estimacion_costos_hash/:vinculacion_hash" => 'solicitudes#estimacion_costos_hash'
   get "recepcion_muestras/:id" => 'solicitudes#recepcion_muestras'
   get "descuento_solicitado" => 'cotizaciones#descuento_solicitado'
 end

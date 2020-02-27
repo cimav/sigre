@@ -4,6 +4,11 @@ require 'resque-bus'
 
 module Vinculacion
   class SolicitudesController < ApplicationController
+
+    skip_before_filter :auth_required, :only => :estimacion_costos_hash
+
+    @bitacora_env = "bitacora_#{Rails.env}"
+
   	def index
       results = Solicitud.includes(:proyecto).order(:id)
       if !params[:q].blank?
@@ -270,7 +275,7 @@ module Vinculacion
 
       servicio_bitacora_id = servicio_item['servicio_bitacora_id']
 
-      sql = "SELECT id FROM bitacora_production.requested_services WHERE laboratory_service_id = #{servicio_bitacora_id} AND number = 'TEMPLATE';"
+      sql = "SELECT id FROM #{@bitacora_env}.requested_services WHERE laboratory_service_id = #{servicio_bitacora_id} AND number = 'TEMPLATE';"
       @servicios = ActiveRecord::Base.connection.execute(sql);
       @servicios.each(:as => :hash) do |row|
         puts row
@@ -285,13 +290,13 @@ module Vinculacion
 
 
         # personal
-        sql = "SELECT * FROM bitacora_production.requested_service_technicians WHERE requested_service_id = #{servicio_id};"
+        sql = "SELECT * FROM #{@bitacora_env}.requested_service_technicians WHERE requested_service_id = #{servicio_id};"
         @technicians = ActiveRecord::Base.connection.execute(sql);
         @technicians.each(:as => :hash) do |row|
           puts row
 
             userId = row['user_id']
-            sql = "SELECT first_name, last_name FROM bitacora_production.users WHERE id = #{userId};"
+            sql = "SELECT first_name, last_name FROM #{@bitacora_env}.users WHERE id = #{userId};"
             empleado = ActiveRecord::Base.connection.exec_query(sql).first
             nombre = empleado['first_name'] + ' ' + empleado['last_name'] rescue "SIN NOMBRE"
 
@@ -305,13 +310,13 @@ module Vinculacion
         end
 
         # equipos
-        sql = "SELECT * FROM bitacora_production.requested_service_equipments WHERE requested_service_id = #{servicio_id};"
+        sql = "SELECT * FROM #{@bitacora_env}.requested_service_equipments WHERE requested_service_id = #{servicio_id};"
         @equipments = ActiveRecord::Base.connection.execute(sql);
         @equipments.each(:as => :hash) do |row|
           puts row
 
           equipmentId = row['equipment_id']
-          sql = "SELECT name FROM bitacora_production.equipment WHERE id = #{equipmentId};"
+          sql = "SELECT name FROM #{@bitacora_env}.equipment WHERE id = #{equipmentId};"
           equipment = ActiveRecord::Base.connection.exec_query(sql).first
           nombre = equipment['name']
 
@@ -325,7 +330,7 @@ module Vinculacion
         end
 
         # otros
-        sql = "SELECT * FROM bitacora_production.requested_service_others WHERE requested_service_id = #{servicio_id};"
+        sql = "SELECT * FROM #{@bitacora_env}.requested_service_others WHERE requested_service_id = #{servicio_id};"
         @others = ActiveRecord::Base.connection.execute(sql);
         @others.each(:as => :hash) do |row|
           puts row
@@ -343,6 +348,15 @@ module Vinculacion
 
     end
 
+    def estimacion_costos_hash
+      type      = params[:type]
+      solicitud = Solicitud.where(vinculacion_hash: params[:vinculacion_hash]).first
+      ## Load locale config
+      t = t(:apps)[:vinculacion][:controllers][:cotizaciones][:document]
+
+      pdf_estimacion(solicitud, t)
+    end
+
     def estimacion_costos
       type      = params[:type]
       solicitud = Solicitud.find(params[:id])
@@ -350,8 +364,14 @@ module Vinculacion
       t = t(:apps)[:vinculacion][:controllers][:cotizaciones][:document]
       ## Default Page Size Is Letter
       ## Default Font Is Helvetica
+
+      pdf_estimacion(solicitud, t)
+    end
+
+    def pdf_estimacion(solicitud, t)
+      ## Default Font Is Helvetica
       Prawn::Document.new(:top_margin => 50.0, :bottom_margin=> 100.0, :left_margin=>70.0, :right_margin=>45.0) do |pdf|
-        image = "#{Rails.root}/private/images/logo_cimav_100.png" 
+        image = "#{Rails.root}/private/images/logo_cimav_100.png"
         pdf.image image, :position => :left, :height => 50
         x = 100
         y = 640
@@ -359,7 +379,7 @@ module Vinculacion
         h = 28
         size = 11
         pdf.text_box t[:center], :at=> [x,y], :width => w, :height => h,  :valign=> :top, :align => :left, :size=> 13
-        
+
         ## DIRECCIONES
         y = y - 30
         h = 40
@@ -368,10 +388,10 @@ module Vinculacion
         pdf.text_box t[:address1], :at=> [x,y], :width => w, :height => h,:valign=> :top, :align => :left, :size=> 5
         x = x + 90
         pdf.text_box t[:address2], :at=> [x,y], :width => w, :height => h,:valign=> :top, :align => :left, :size=> 5
-        
+
         ## LINE
         x = 0
-        y = y - 35 
+        y = y - 35
         pdf.stroke_color= "000000"
         pdf.line_width= 3
         pdf.stroke_line [x,y],[350,y]
@@ -418,16 +438,16 @@ module Vinculacion
         pdf.line_width= 0.1
         pdf.stroke_rounded_rectangle([0,y], 500, 96, 10)
         #pdf.stroke_rounded_rectangle([360,y], 145, 80, 10)
-        
+
         #### PRESUPUESTO PROGRAMADO
         pdf.text "\n\n\n\n\n"
         pdf.text "Presupuesto Programado", :size=> 15,:style=> :bold
         data = []
         subtotal_consumibles = 0
-        subtotal_otros       = 0 
+        subtotal_otros       = 0
         subtotal_hhombre     = 0
         total_consumibles    = 0
-        total_otros          = 0 
+        total_otros          = 0
         total_hhombre        = 0
         data_consumibles     = []
         data_otros           = []
@@ -437,7 +457,7 @@ module Vinculacion
           ss.costeos.each do |ssc|
             ssc.costeo_detalle.order(:tipo,:descripcion).each do |ssccd|
               subtotal_consumibles = 0
-              subtotal_otros       = 0 
+              subtotal_otros       = 0
               subtotal_hhombre     = 0
               cantidad = ssccd.cantidad
 
@@ -449,8 +469,8 @@ module Vinculacion
                   counter = 0
                   data_hhombre.each do |dhh|
                     if dhh[0] == "#{ssccd_spaces} #{ssccd.descripcion}" then
-                       data_hhombre[counter][1] = dhh[1] + subtotal_hhombre
-                       break;
+                      data_hhombre[counter][1] = dhh[1] + subtotal_hhombre
+                      break;
                     else
                       data_hhombre += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_hhombre]]
                       break;
@@ -467,11 +487,11 @@ module Vinculacion
                   counter = 0
                   data_consumibles.each do |dt|
                     if dt[0] == "#{ssccd_spaces}  #{ssccd.descripcion}" then
-                       data_consumibles[counter][1] = dt[1] + subtotal_consumibles   
-                       break;
+                      data_consumibles[counter][1] = dt[1] + subtotal_consumibles
+                      break;
                     else
-                       data_consumibles += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_consumibles]]
-                       break;
+                      data_consumibles += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_consumibles]]
+                      break;
                     end
                     counter= counter + 1
                   end
@@ -480,7 +500,7 @@ module Vinculacion
               elsif ssccd.tipo.to_i.eql? 4 then  #OTROS
                 subtotal_otros = ssccd.precio_unitario * cantidad
                 if data_otros.empty? then
-                  data_otros += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_otros]] 
+                  data_otros += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_otros]]
                 else
                   counter = 0
                   data_otros.each do |dot|
@@ -488,7 +508,7 @@ module Vinculacion
                       data_otros[counter][1] = dot[1] + subtotal_otros
                       break;
                     else
-                      data_otros += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_otros]] 
+                      data_otros += [["#{ssccd_spaces} #{ssccd.descripcion}",subtotal_otros]]
                       break;
                     end
                     counter = counter + 1
@@ -499,7 +519,7 @@ module Vinculacion
             end
           end
         end
-        
+
         ## COLOCANDO SIGNO DE DINERO A CADA UNO
         data_hhombre.each do |dhh|
           dhh[1] = "$#{'%.2f' % dhh[1]}"
@@ -540,8 +560,8 @@ module Vinculacion
         i  = data_consumibles.size + 3  #inicial
         f  = data_otros.size       + 3   #final
         tabla.rows(i..f).column(1).style(:align=> :right)
-        tabla.draw        
-                
+        tabla.draw
+
         ##  COSTOS INDIRECTOS
         pdf.text "\n"
         pdf.text "Personal", :size=> 15,:style=> :bold
@@ -552,17 +572,17 @@ module Vinculacion
         tabla = pdf.make_table(data,:width=>497,:cell_style=>{:size=>size - 2,:padding=>3,:border_width=>0.1,:inline_format => true},:column_widths=>[417,80])
         f  = data_hhombre.size + 1
         tabla.rows(1..f).column(1).style(:align=> :right)
-        tabla.draw        
+        tabla.draw
 
         pdf.text "\n"
         ## TOTAL
         data = []
         totale = total_otros+total_consumibles+total_hhombre
         data += [[{:content=>"Total #{title_spaces}",:align=>:left},{:content=>"$#{'%.2f' % totale}",:align=>:right}]]
-        tabla = pdf.make_table(data,:width=>200,:cell_style=>{:size=>size - 2,:padding=>3,:border_width=>0.1,:inline_format => true},:column_widths=>[120,80],:position=>:right) 
+        tabla = pdf.make_table(data,:width=>200,:cell_style=>{:size=>size - 2,:padding=>3,:border_width=>0.1,:inline_format => true},:column_widths=>[120,80],:position=>:right)
         tabla.draw
-          
- 
+
+
         ### ENVIANDO EL PDF
         send_data pdf.render, type: "application/pdf", disposition: "inline"
       end
