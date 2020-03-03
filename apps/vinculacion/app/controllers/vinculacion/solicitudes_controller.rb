@@ -7,7 +7,7 @@ module Vinculacion
 
     skip_before_filter :auth_required, :only => :estimacion_costos_hash
 
-    @bitacora_env = "bitacora_#{Rails.env}"
+    @bitacora_env = "bitacora_production" # "bitacora_#{Rails.env}"
 
   	def index
       results = Solicitud.includes(:proyecto).order(:id)
