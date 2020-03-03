@@ -275,7 +275,7 @@ module Vinculacion
 
       servicio_bitacora_id = servicio_item['servicio_bitacora_id']
 
-      sql = "SELECT id FROM #{@bitacora_env}.requested_services WHERE laboratory_service_id = #{servicio_bitacora_id} AND number = 'TEMPLATE';"
+      sql = "SELECT id FROM bitacora_production.requested_services WHERE laboratory_service_id = #{servicio_bitacora_id} AND number = 'TEMPLATE';"
       @servicios = ActiveRecord::Base.connection.execute(sql);
       @servicios.each(:as => :hash) do |row|
         puts row
@@ -290,13 +290,13 @@ module Vinculacion
 
 
         # personal
-        sql = "SELECT * FROM #{@bitacora_env}.requested_service_technicians WHERE requested_service_id = #{servicio_id};"
+        sql = "SELECT * FROM bitacora_production.requested_service_technicians WHERE requested_service_id = #{servicio_id};"
         @technicians = ActiveRecord::Base.connection.execute(sql);
         @technicians.each(:as => :hash) do |row|
           puts row
 
             userId = row['user_id']
-            sql = "SELECT first_name, last_name FROM #{@bitacora_env}.users WHERE id = #{userId};"
+            sql = "SELECT first_name, last_name FROM bitacora_production.users WHERE id = #{userId};"
             empleado = ActiveRecord::Base.connection.exec_query(sql).first
             nombre = empleado['first_name'] + ' ' + empleado['last_name'] rescue "SIN NOMBRE"
 
@@ -310,13 +310,13 @@ module Vinculacion
         end
 
         # equipos
-        sql = "SELECT * FROM #{@bitacora_env}.requested_service_equipments WHERE requested_service_id = #{servicio_id};"
+        sql = "SELECT * FROM bitacora_production.requested_service_equipments WHERE requested_service_id = #{servicio_id};"
         @equipments = ActiveRecord::Base.connection.execute(sql);
         @equipments.each(:as => :hash) do |row|
           puts row
 
           equipmentId = row['equipment_id']
-          sql = "SELECT name FROM #{@bitacora_env}.equipment WHERE id = #{equipmentId};"
+          sql = "SELECT name FROM bitacora_production.equipment WHERE id = #{equipmentId};"
           equipment = ActiveRecord::Base.connection.exec_query(sql).first
           nombre = equipment['name']
 
@@ -330,7 +330,7 @@ module Vinculacion
         end
 
         # otros
-        sql = "SELECT * FROM #{@bitacora_env}.requested_service_others WHERE requested_service_id = #{servicio_id};"
+        sql = "SELECT * FROM bitacora_production.requested_service_others WHERE requested_service_id = #{servicio_id};"
         @others = ActiveRecord::Base.connection.execute(sql);
         @others.each(:as => :hash) do |row|
           puts row
