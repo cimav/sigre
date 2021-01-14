@@ -55,7 +55,7 @@ module Vinculacion
     end
 
     def remanente_distribuible
-      self.utilidad_topada * 0.35
+      self.utilidad_topada * 0.30 # pasa de 35 a 30 en Enero 2021
     end
 
     def init_cedula_netmultix
