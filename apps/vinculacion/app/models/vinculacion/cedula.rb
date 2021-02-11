@@ -166,6 +166,7 @@ commit;
         return
       end
 
+
       # poblar los valores de la Cédula
       begin
         cia = '1'
@@ -175,6 +176,7 @@ commit;
         orden_compra = self.solicitud.orden_compra rescue 'sin-orden'
         orden_compra = orden_compra.truncate(20)
         sol_servicio = self.solicitud.codigo rescue 'sin/codigo'
+
         #sol_servicio = sol_servicio.split('/')
         #sol_servicio = sol_servicio.last + '/' + sol_servicio.first
 #        servicio = 201
@@ -227,7 +229,7 @@ commit;
 
         porce_costo_fijo = 17.26
         porce_max_remanente = 70
-        porce_dist_inv = 35
+        porce_dist_inv = 30 #35 Ene 2021 
         tot_costo_var = self.total_costo_variable.nan? ? 0 : self.total_costo_variable rescue 0
         tot_costo_fijo = porce_costo_fijo * tot_costo_var / 100 rescue 0
         monto_distribuir = self.utilidad_topada.nan? ? 0 : self.utilidad_topada rescue 0 # porce_max_remanente * precio_vta / 100 rescue 0
@@ -291,11 +293,13 @@ commit;
               ft16_tel_requisitor: tel_requisitor
           )
 
+
           self.cedula_netmultix = cedula_netmultix.ft16_cedula
 
           # Si las inserciones no fallaron, incrementa y actualiza el consecutivo en DB
           consecutivo_cedula_int = consecutivo_cedula_int + 1
           str_consecutivo = "ft61_prox = '" + consecutivo_cedula_int.to_s + "'"
+
           CedulaConsecutivoNetmultix.where("ft61_tabla = 16").update_all(str_consecutivo)
           # update_all no valida si tiene ID pero escribe directo a la DB salteandose la transaccion. Por eso lo dejamos al último
 
@@ -308,7 +312,7 @@ commit;
           puts e
           self.status = FALLA_TRANSMISION
         ensure
-          #
+
         end # begin
 
       end #CedulaNetmultix.transaction do
