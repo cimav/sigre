@@ -84,9 +84,12 @@ module Vinculacion
       # busca la solicitud/servicio en la descripción
       proy_netmultix = ProyectoNetmultix.where('trim(pr13_desc) LIKE trim(:q)', {:q => codigo_solicitud}).first rescue nil
 
+      # sub_proyecto default
+      sub_proyecto = '2033002141' # chih 2021
+
       if !proy_netmultix.nil?
         # si el subproyecto existe en NetMultix
-        sub_proyecto = proy_netmultix.pr13_subproyecto rescue '00000'
+        sub_proyecto = proy_netmultix.pr13_subproyecto rescue sub_proyecto
       else
         # si no existe, toma el subproyecto default por sede
         case self.solicitud.sede_id
@@ -94,12 +97,13 @@ module Vinculacion
             sub_proyecto = '2035000001'
           when 3 # DGO
             sub_proyecto = '2040900001'
-          else # CHI
+          #else # CHI
             # sub_proyecto = '2033000238'
             # sub_proyecto = '2033000467' # oct 2017
             # sub_proyecto = '2033000765' # ene 2018
             # sub_proyecto = '2033001106' # ene 2019
-            sub_proyecto =   '2033001641' # ene 2020
+            # sub_proyecto =   '2033001641' # ene 2020
+            # sub_proyecto =     '2033002141' # mzo 2020
         end
         #sub_proyecto = proyecto_id.to_s + sub_proyecto
         #proy_netmultix = ProyectoNetmultix.where('pr13_subproyecto LIKE :q', {:q => sub_proyecto}).first rescue nil
