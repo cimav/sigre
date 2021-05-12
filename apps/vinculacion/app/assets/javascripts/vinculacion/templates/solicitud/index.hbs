@@ -23,9 +23,9 @@
     <div class="dato">{{descripcion}}</div>
     <div class="header">Tipo</div>
     <div class="dato">{{tipoText}}</div>
+    <div class="header">Responsable presupuestal</div>
+    <div class="dato">{{responsable_presupuestal.apellido_paterno}} {{responsable_presupuestal.apellido_materno}}, {{responsable_presupuestal.nombre}}</div>
     {{#unless isTipoI}}
-      <div class="header">Responsable presupuestal</div>
-      <div class="dato">{{responsable_presupuestal.apellido_paterno}} {{responsable_presupuestal.apellido_materno}}, {{responsable_presupuestal.nombre}}</div>
       <div class="header">Proyecto</div>
       <div class="dato">{{proyecto.codigo}}</div>
       <div class="dato">{{proyecto.nombre}}</div>

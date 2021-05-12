@@ -31,8 +31,6 @@
 
     {{input descripcion as="text" label="Descripción"}}
 
-    {{#unless isTipoI}}
-
       <div class="form-group">
         <label for="unknown" class="col-sm-2 control-label">Responsable</label>
 
@@ -43,6 +41,8 @@
           selectionBinding="responsable_presupuestal"}}
         </div>
       </div>
+
+    {{#unless isTipoI}}
 
       <div class="form-group">
         <label for="unknown" class="col-sm-2 control-label">Proyecto</label>
