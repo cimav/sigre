@@ -331,8 +331,8 @@ Saludos.
         #OBSERVACIONES
         c_notas = nil
         cotizacion.notas.split("\n").each do |n|
-          if !n.empty?
-            c_notas = "#{c_notas} - #{n}\n"
+          if !n.strip.empty?
+            c_notas = "#{c_notas} - #{n.strip}\n"
           end
         end
 

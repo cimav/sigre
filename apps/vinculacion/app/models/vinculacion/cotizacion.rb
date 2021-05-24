@@ -41,7 +41,7 @@ Saludos."
 
     OBSERVACIONES = ""
 
-    NOTAS = "La duración del servicio es de 30 días hábiles posteriores a la recepción de la orden de compra."
+    # NOTAS = "La duración del servicio es de 30 días hábiles posteriores a la recepción de la orden de compra."
 
     after_create :set_extra
     before_update :update_fecha_notificacion
@@ -72,7 +72,7 @@ Saludos."
           self.comentarios = MENSAJE.gsub("SOLICITUD_DESCRIPCION", self.solicitud.descripcion)
         end
         self.observaciones = OBSERVACIONES
-        self.notas = NOTAS
+        self.notas = '' #NOTAS
         self.subtotal = 0.00
         self.precio_venta = 0.00
         self.descuento_porcentaje = 0.00
