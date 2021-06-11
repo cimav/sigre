@@ -23,7 +23,21 @@ App.Cedula = DS.Model.extend({
   concepto_en_extenso: DS.attr('string'),
   observaciones: DS.attr('string'),
   proyecto_id: DS.attr('number'),
-  sub_proyecto: DS.attr('string')
+  sub_proyecto: DS.attr('string'),
 
+  contacto_netmultix: DS.belongsTo('contacto_netmultix'),
+
+  clienteNetMultixChanges: function() {
+    const s = [this.get('cliente_netmultix.id'), this.get('contacto_netmultix.id')].join(',');
+    this.set('relation_string', s);
+  }.observes('cliente_netmultix'),
+
+  contactoNetMultixChanges: function() {
+    const s = [this.get('cliente_netmultix.id'), this.get('contacto_netmultix.id')].join(',');
+    this.set('relation_string', s);
+
+    this.set('observaciones', this.get('contacto_netmultix.cl06_email'));
+
+  }.observes('contacto_netmultix'),
 
 });
