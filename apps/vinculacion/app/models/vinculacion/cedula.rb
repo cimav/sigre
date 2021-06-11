@@ -159,7 +159,7 @@ commit;
       cve_cliente_netmultix = self.cliente_netmultix_id.to_s.rjust(5, '0') rescue 'no-cve'
       begin
         cliente_netmultix = ClienteNetmultix.where("cl01_clave LIKE '%" + cve_cliente_netmultix + "%'").first
-        if cliente_netmultix.nil? || self.observaciones.blank?
+        if cliente_netmultix.nil?
           raise 'Cliente o Contacto no encontrado(s)!'
         end
       rescue => e
