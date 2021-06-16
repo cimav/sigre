@@ -100,8 +100,8 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.4)
     crass (1.0.4)
-    debase (0.2.4.1)
-      debase-ruby_core_source (>= 0.10.2)
+    debase (0.2.1)
+      debase-ruby_core_source
     debase-ruby_core_source (0.10.12)
     ember-data-source (1.0.0.beta.5)
       ember-source
@@ -158,15 +158,16 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2018.0812)
     mini_mime (1.0.1)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.5.3)
     minitest (5.11.3)
     mono_logger (1.1.0)
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    mysql2 (0.4.10)
-    nokogiri (1.10.1)
-      mini_portile2 (~> 2.4.0)
+    mysql2 (0.3.18)
+    nokogiri (1.11.7)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
     oauth2 (1.4.1)
       faraday (>= 0.8, < 0.16.0)
       jwt (>= 1.0, < 3.0)
@@ -193,6 +194,7 @@ GEM
       multi_json
       redis
     raabro (1.1.6)
+    racc (1.5.2)
     rack (1.6.11)
     rack-protection (1.5.5)
       rack
@@ -251,7 +253,7 @@ GEM
     roman-numerals (0.3.0)
     ruby-debug-ide (0.4.33)
       rake (>= 0.8.1)
-    ruby-oci8 (2.2.9)
+    ruby-oci8 (2.1.8)
     ruby-ole (1.2.12.1)
     rufus-scheduler (3.5.2)
       fugit (~> 1.1, >= 1.1.5)
@@ -307,14 +309,13 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (= 0.9.3)
   activerecord-oracle_enhanced-adapter (~> 1.6.0)
-  bundler (= 1.16.1)
   carrierwave
   coffee-rails (~> 4.0.0)
-  debase (= 0.2.4.1)
+  debase (= 0.2.1)
   jbuilder (~> 1.2)
   jquery-rails (= 3.1.4)
   jquery-ui-rails (= 5.0.5)
-  mysql2 (= 0.4.10)
+  mysql2 (= 0.3.18)
   omniauth-google-oauth2 (~> 0.6.1)
   prawn
   prawn-table
@@ -323,7 +324,7 @@ DEPENDENCIES
   rh!
   roman-numerals
   ruby-debug-ide (= 0.4.33)
-  ruby-oci8 (= 2.2.9)
+  ruby-oci8 (~> 2.1.0)
   sass-rails (~> 4.0.0)
   sdoc
   therubyracer
