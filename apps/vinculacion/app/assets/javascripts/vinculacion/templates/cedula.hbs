@@ -104,17 +104,6 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-5">
-                        {{view App.Select2View contentBinding="cliente_netmultix.contactos_netmultix"
-                            optionLabelPath="content.cl06_email"
-                            optionValuePath="content.id"
-                            selectionBinding="contacto_netmultix"
-                            prompt="seleccione contacto netmultix..."
-                        }}
-                    </div>
-                </div>
-
-                <div class="row">
                     <div class="col-sm-12 ">
                         <label for="unknown" class="control-label">Concepto en extenso (detalle)</label>
                         {{input-field concepto_en_extenso as="text"}}

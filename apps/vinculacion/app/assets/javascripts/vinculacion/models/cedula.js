@@ -25,19 +25,40 @@ App.Cedula = DS.Model.extend({
   proyecto_id: DS.attr('number'),
   sub_proyecto: DS.attr('string'),
 
+  /*
+  relation_string: DS.attr('string'),
   contacto_netmultix: DS.belongsTo('contacto_netmultix'),
 
-  clienteNetMultixChanges: function() {
-    s = [this.get('cliente_netmultix.id'), this.get('contacto_netmultix.id')].join(',');
-    this.set('relation_string', s);
-  }.observes('cliente_netmultix'),
 
+  selectsChanges: function() {
+    console.log('here > ')
+    if (this.get('isDirty')) {
+      s = [this.get('cliente_netmultix.id'), this.get('contacto_netmultix.id')].join(',');
+      this.set('relation_string', s);
+    }
+  }.observes('cliente_netmultix'),
+*/
+  /*
   contactoNetMultixChanges: function() {
     s = [this.get('cliente_netmultix.id'), this.get('contacto_netmultix.id')].join(',');
-    this.set('relation_string', s);
+    // this.set('relation_string', s);
 
-    this.set('observaciones', this.get('contacto_netmultix.cl06_email'));
+    // this.set('observaciones', this.get('contacto_netmultix.cl06_email'));
 
   }.observes('contacto_netmultix'),
+   */
+
+  /*
+                <div class="row">
+                    <div class="col-sm-5">
+                        {{view App.Select2View contentBinding="cliente_netmultix.contactos_netmultix"
+                            optionLabelPath="content.cl06_email"
+                            optionValuePath="content.id"
+                            selectionBinding="contacto_netmultix"
+                            prompt="seleccione contacto netmultix..."
+                        }}
+                    </div>
+                </div>
+   */
 
 });
