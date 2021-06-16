@@ -32,8 +32,9 @@ production:
   reconnect: false
   database: sigre_production
   pool: 5
-  username: root
-  password: 
+  username: admin
+  password: azul0735
+  host: fermi.cimav.edu.mx
 
 # Usado para transmisiones de las cédulas directamente al Unix/Help
 production_netmultix:
