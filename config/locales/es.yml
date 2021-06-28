@@ -21,7 +21,18 @@ es:
             description:     "Descripción"
             unit_cost:       "Costo Unitario"
             subtotal:        "Subtotal"
-            legal:           "La información contenida en el informe será manejada con la debida confidencialidad, de conformidad con:
+            legal:           "La información contenida en el presente documento será manejada con la debida
+                              confidencialidad, de conformidad con:
+                              I. Artículo 16 de la <b>Ley Federal de Transparencia y Acceso a la Información
+                              Pública</b>.
+                              II. Disposición 40 de los <b>Lineamientos Generales en Materia de Clasificación y
+                              Desclasificación de la Información</b>, así como para la elaboración de
+                              versiones públicas, publicados en el DOF el 15 de abril de 2016.
+                              III. Los artículos 163, 164 y 165 de la <b>Ley Federal de Protección a la Propiedad
+                              Industrial</b> siempre que dicha información tenga o pudiera llegar a tener el
+                              carácter de secreto industrial; así como,
+                              IV. El <b>convenio de solicitud de servicios</b> que dará origen al informe."
+            legal_old:           "La información contenida en el informe será manejada con la debida confidencialidad, de conformidad con:
                              i) los artículos 16,17,18 y 19 de la <b>Ley Federal de Transparencia y Acceso a la información
                              Pública</b> ii) 26 del reglamento de dicho ordenamiento, iii) 36 de los <b>Lineamientos Generales
                              para la clasificación y desclasificación de la información de las dependencias y entidades
@@ -31,7 +42,7 @@ es:
                              <b>convenio de solicitud de servicios</b> que dará origen al informe."
             observacion:     "Observaciones: Esta cotizacion tiene vigencia de 30 días hábiles"
             gratitude:       "Gracias por considerarnos..."
-            version:         "VN01F03-11"
+            version:         "VN01F03-12"
             responsable:     "Responsable: Coordinación de servicios" 
         solicitudes:
           cedula:
